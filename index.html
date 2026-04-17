@@ -1,9 +1,555 @@
-<html>
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dream Chalet Trikala — Πολυτελές εξοχικό σπίτι ενοικίασης με 3 υπνοδωμάτια, 2 μπάνια και εκπληκτική θέα στα Τρίκαλα">
+  <meta name="keywords" content="εξοχικό σπίτι, ενοικίαση, Τρίκαλα, Dream Chalet, διαμονή, vacation rental">
+  <meta name="author" content="Dream Chalet Trikala">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0e0b08">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dreamchalet-trikala.gr/">
+  <meta property="og:title" content="Dream Chalet Trikala — Πολυτελές Εξοχικό">
+  <meta property="og:description" content="3 υπνοδωμάτια, 2 μπάνια, πολυτέλεια στη φύση. Ιδανικό για οικογένειες και ομάδες.">
+  <meta property="og:image" content="images/exterior1.avif">
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="el" href="https://dreamchalet-trikala.gr/">
+  <link rel="alternate" hreflang="en" href="https://dreamchalet-trikala.gr/?lang=en">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://tiles.openfreemap.org">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- MapLibre CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.css">
+
+  <!-- Cookie Consent CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.css">
+
+  <!-- Project CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Dream Chalet Trikala",
+    "description": "Πολυτελές εξοχικό σπίτι ενοικίασης",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Raxa, Trikala",
+      "addressLocality": "Trikala",
+      "addressCountry": "GR"
+    },
+    "telephone": "+306976908838",
+    "url": "https://dreamchalet-trikala.gr/",
+    "image": "images/exterior1.avif",
+    "priceRange": "€€€",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 9.8,
+      "ratingCount": 50
+    },
+    "amenityFeature": [
+      {"name": "WiFi"},
+      {"name": "Kitchen"},
+      {"name": "Fireplace"},
+      {"name": "Parking"},
+      {"name": "Garden"}
+    ]
+  }
+  </script>
+
+  <link rel="manifest" href="manifest.json">
+  <title>Dream Chalet Trikala — Πολυτελές Εξοχικό στα Τρίκαλα</title>
+</head>
 <body>
-  <h1>YOUR NAME</h1>
-  <p>Welcome to my website!</p>
-  <img src="https://content.codecademy.com/articles/github-pages-via-web-app/happy-ice-cream.gif" />
-</body>
+  <!-- Skip Link -->
+  <a href="#main" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>
 
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-inner">
+      <svg class="preloader-logo" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Cormorant Garamond" font-size="32" fill="#c9a96e" font-weight="600">Dream Chalet</text>
+      </svg>
+      <div class="preloader-bar">
+        <div class="preloader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot" class="cursor-dot"></div>
+  <div id="cursor-ring" class="cursor-ring"></div>
+  <div id="cursor-label" class="cursor-label"></div>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <div class="nav-links">
+        <a href="#about" class="nav-link" data-i18n="nav.about">Πληροφορίες</a>
+        <a href="#gallery" class="nav-link" data-i18n="nav.gallery">Γκαλερί</a>
+        <a href="#amenities" class="nav-link" data-i18n="nav.amenities">Παροχές</a>
+        <a href="#contact" class="nav-link" data-i18n="nav.contact">Επικοινωνία</a>
+      </div>
+
+      <div class="nav-logo">
+        <a href="#" class="logo-link">
+          <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="logo-img">
+        </a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-airbnb nav-btn" aria-label="Book on Airbnb">Airbnb</a>
+        <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-booking nav-btn" aria-label="Book on Booking.com">Booking</a>
+        <button id="lang-toggle" class="lang-toggle" aria-label="Language toggle" data-lang="el">EN</button>
+        <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu" role="navigation" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <a href="#about" class="mobile-nav-link" data-i18n="nav.about">Πληροφορίες</a>
+        <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">Γκαλερί</a>
+        <a href="#amenities" class="mobile-nav-link" data-i18n="nav.amenities">Παροχές</a>
+        <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">Επικοινωνία</a>
+        <hr>
+        <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" class="mobile-nav-cta btn-airbnb">Airbnb</a>
+        <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" class="mobile-nav-cta btn-booking">Booking.com</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section id="hero" class="section-hero" role="region" aria-label="Hero section">
+      <div class="hero-video-wrap">
+        <video id="hero-video" autoplay muted loop playsinline poster="images/exterior1.avif" aria-hidden="true">
+          <source src="videos/chalet-video.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title" data-i18n="hero.title">Dream Chalet</h1>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">Πολυτελές Εξοχικό στα Τρίκαλα</p>
+        <div class="hero-ctas">
+          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta btn-airbnb" data-i18n="hero.bookAirbnb" data-track="booking">Κράτηση Airbnb</a>
+          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-cta btn-booking" data-i18n="hero.bookBooking" data-track="booking">Κράτηση Booking</a>
+        </div>
+      </div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <svg width="24" height="40" viewBox="0 0 24 40">
+          <path d="M12 4v20M6 24l6 8 6-8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- About + Stats -->
+    <section id="about" class="section-about" role="region" aria-label="About section">
+      <canvas id="three-canvas" aria-hidden="true"></canvas>
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text">
+            <span class="section-label" data-i18n="about.label">Η Κατοικία</span>
+            <h2 class="section-heading" data-i18n="about.heading">Ζήστε την Πολυτέλεια της Φύσης</h2>
+            <p data-i18n="about.text">Το Dream Chalet είναι ένα εξαιρετικό εξοχικό σπίτι που συνδυάζει τη φυσική ομορφιά με την πολυτέλεια. Με 3 άνετα υπνοδωμάτια, 2 σύγχρονα μπάνια και όλες τις παροχές που χρειάζεστε, είναι το ιδανικό καταφύγιο για οικογένειες και ομάδες.</p>
+            <ul class="room-list">
+              <li class="room-list-item" data-image="images/living-room1.avif" data-i18n="about.rooms.living">Σαλόνι</li>
+              <li class="room-list-item" data-image="images/kitchen1.avif" data-i18n="about.rooms.kitchen">Κουζίνα</li>
+              <li class="room-list-item" data-image="images/bedroom1.avif" data-i18n="about.rooms.bedroom">Κρεβατοκάμαρα</li>
+              <li class="room-list-item" data-image="images/dining-room1.avif" data-i18n="about.rooms.dining">Τραπεζαρία</li>
+              <li class="room-list-item" data-image="images/bathroom1.avif" data-i18n="about.rooms.bathroom">Μπάνιο</li>
+            </ul>
+          </div>
+          <div class="about-image-wrap">
+            <img src="images/living-room1.avif" alt="Interior Dream Chalet" loading="lazy" decoding="async">
+          </div>
+        </div>
+
+        <!-- Cursor Gallery Image -->
+        <img id="cursor-gallery-img" src="" alt="" aria-hidden="true">
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number" data-target="3">0</span>
+            <span class="stat-label" data-i18n="about.stats.bedrooms">Υπνοδωμάτια</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="2">0</span>
+            <span class="stat-label" data-i18n="about.stats.bathrooms">Μπάνια</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="6">0</span>
+            <span class="stat-label" data-i18n="about.stats.guests">Μέγ. Επισκέπτες</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">9.8</span>
+            <span class="stat-label" data-i18n="about.stats.rating">★ Βαθμολογία</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery (Cover Flow) -->
+    <section id="gallery" class="section-gallery" role="region" aria-label="Photo gallery">
+      <div class="container gallery-header">
+        <span class="section-label" data-i18n="gallery.label">Γκαλερί</span>
+        <h2 class="section-heading" data-i18n="gallery.heading">Κάθε Γωνία, Μια Ιστορία</h2>
+      </div>
+
+      <div class="coverflow-container" data-cursor="drag">
+        <div class="coverflow-track" id="coverflow-track">
+          <div class="gallery-slide" data-index="0"><img src="images/exterior1.avif" alt="Dream Chalet exterior" loading="lazy"></div>
+          <div class="gallery-slide" data-index="1"><img src="images/exterior2.avif" alt="Dream Chalet exterior 2" loading="lazy"></div>
+          <div class="gallery-slide" data-index="2"><img src="images/living-room1.avif" alt="Living room" loading="lazy"></div>
+          <div class="gallery-slide" data-index="3"><img src="images/dining-room3.avif" alt="Dining room" loading="lazy"></div>
+          <div class="gallery-slide" data-index="4"><img src="images/bedroom1.avif" alt="Master bedroom" loading="lazy"></div>
+          <div class="gallery-slide" data-index="5"><img src="images/kitchen1.avif" alt="Kitchen" loading="lazy"></div>
+          <div class="gallery-slide" data-index="6"><img src="images/second-bedroom1.avif" alt="Second bedroom" loading="lazy"></div>
+          <div class="gallery-slide" data-index="7"><img src="images/third-bedroom1.avif" alt="Third bedroom" loading="lazy"></div>
+          <div class="gallery-slide" data-index="8"><img src="images/exterior4.avif" alt="Exterior view 4" loading="lazy"></div>
+          <div class="gallery-slide" data-index="9"><img src="images/living-room3.avif" alt="Living room 3" loading="lazy"></div>
+        </div>
+
+        <button class="coverflow-btn coverflow-prev" id="coverflow-prev" aria-label="Previous image">←</button>
+        <button class="coverflow-btn coverflow-next" id="coverflow-next" aria-label="Next image">→</button>
+
+        <div class="coverflow-dots" id="coverflow-dots" role="tablist" aria-label="Gallery pagination"></div>
+      </div>
+
+      <!-- Gallery Overlay for Flip Expansion -->
+      <div class="gallery-overlay" id="gallery-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="gallery-close" id="gallery-close" aria-label="Close gallery">×</button>
+        <img id="gallery-overlay-img" src="" alt="" decoding="async">
+        <button class="gallery-arrow gallery-prev" id="gallery-prev" aria-label="Previous">←</button>
+        <button class="gallery-arrow gallery-next" id="gallery-next" aria-label="Next">→</button>
+      </div>
+    </section>
+
+    <!-- Scroll-Scrubbed Video -->
+    <section id="scroll-video" class="section-scroll-video" role="region" aria-label="Video section">
+      <div class="scroll-video-inner">
+        <video id="scroll-vid" muted playsinline preload="metadata" poster="images/exterior3.avif" aria-hidden="true">
+          <source src="videos/chalet-video.mp4" type="video/mp4">
+        </video>
+        <div class="scroll-overlay scroll-overlay-1">
+          <h3 data-i18n="scrollVideo.text1">Ο Παράδεισος σε Αναμένει</h3>
+        </div>
+        <div class="scroll-overlay scroll-overlay-2">
+          <h3 data-i18n="scrollVideo.text2">Απόδραση που Αξίζει</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Amenities -->
+    <section id="amenities" class="section-amenities" role="region" aria-label="Amenities">
+      <div class="container">
+        <span class="section-label" data-i18n="amenities.label">Παροχές</span>
+        <h2 class="section-heading" data-i18n="amenities.heading">Όλα Όσα Χρειάζεστε</h2>
+        <div class="amenities-grid">
+          <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span data-i18n="amenities.wifi">WiFi</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-kitchen-set"></i><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-water-ladder"></i><span data-i18n="amenities.washer">Πλυντήριο</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-fire"></i><span data-i18n="amenities.fireplace">Τζάκι</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-tv"></i><span data-i18n="amenities.tv">Τηλεόραση</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-square-parking"></i><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-sun"></i><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-leaf"></i><span data-i18n="amenities.garden">Κήπος</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-snowflake"></i><span data-i18n="amenities.ac">Κλιματισμός</span></div>
+          <div class="amenity-item"><i class="fa-solid fa-ban-smoking"></i><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Attractions (Horizontal 3D Scroll) -->
+    <section id="attractions" class="section-attractions" role="region" aria-label="Attractions">
+      <div class="container attractions-header">
+        <span class="section-label" data-i18n="attractions.label">Γύρω Σας</span>
+        <h2 class="section-heading" data-i18n="attractions.heading">Ανακαλύψτε την Περιοχή</h2>
+      </div>
+
+      <div class="attractions-wrapper">
+        <div class="attractions-track" id="attractions-track">
+          <!-- Card 1: Meteora -->
+          <div class="attraction-card" data-coords="21.6315,39.7228" style="--bg-url: url('https://images.unsplash.com/photo-1555993539-1732b0258235?w=1200&auto=format&fit=crop')">
+            <div class="attraction-bg"></div>
+            <div class="attraction-content">
+              <span class="attraction-distance" data-i18n="attractions.meteora.distance">~22 km</span>
+              <h3 class="attraction-title" data-i18n="attractions.meteora.title">Μετέωρα</h3>
+              <p class="attraction-desc" data-i18n="attractions.meteora.desc">Μοναστήρια του 14ου αιώνα πάνω σε πετρώδη σχηματισμάτια. UNESCO World Heritage Site με εκπληκτη θέα.</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Elati -->
+          <div class="attraction-card" data-coords="21.4833,39.5333" style="--bg-url: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&auto=format&fit=crop')">
+            <div class="attraction-bg"></div>
+            <div class="attraction-content">
+              <span class="attraction-distance" data-i18n="attractions.elati.distance">~30 km</span>
+              <h3 class="attraction-title" data-i18n="attractions.elati.title">Ελάτι</h3>
+              <p class="attraction-desc" data-i18n="attractions.elati.desc">Το μεγαλύτερο ορεινό χωριό της Ελλάδας. Πεζοπορία, δάση, χιονιά και παραδοσιακή αρχιτεκτονική.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Pertouli -->
+          <div class="attraction-card" data-coords="21.4,39.45" style="--bg-url: url('https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=1200&auto=format&fit=crop')">
+            <div class="attraction-bg"></div>
+            <div class="attraction-content">
+              <span class="attraction-distance" data-i18n="attractions.pertouli.distance">~54 km</span>
+              <h3 class="attraction-title" data-i18n="attractions.pertouli.title">Περτούλι</h3>
+              <p class="attraction-desc" data-i18n="attractions.pertouli.desc">Χωριό στα σύννεφα με πέτρινες κατοικίες και σταθμό χιονοδρομιών. Καταγάλανο τοπίο και αθλητικές δραστηριότητες.</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Palaiokarya Waterfalls -->
+          <div class="attraction-card" data-coords="21.8333,39.6333" style="--bg-url: url('https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1200&auto=format&fit=crop')">
+            <div class="attraction-bg"></div>
+            <div class="attraction-content">
+              <span class="attraction-distance" data-i18n="attractions.palaiokarya.distance">~35 km</span>
+              <h3 class="attraction-title" data-i18n="attractions.palaiokarya.title">Δ/Κ Παλιοκαρυά</h3>
+              <p class="attraction-desc" data-i18n="attractions.palaiokarya.desc">Εντυπωσιακές καταρράκτες, γέφυρα 1517 και παραδοσιακό μύλο 200 ετών. Κρύα νερά και φυσικό περιβάλλον.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="attractions-progress" role="tablist" aria-label="Attractions pagination">
+          <button class="attraction-dot active" data-index="0" role="tab" aria-selected="true"></button>
+          <button class="attraction-dot" data-index="1" role="tab" aria-selected="false"></button>
+          <button class="attraction-dot" data-index="2" role="tab" aria-selected="false"></button>
+          <button class="attraction-dot" data-index="3" role="tab" aria-selected="false"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section id="map-section" class="section-map" role="region" aria-label="Map section">
+      <div class="container map-header">
+        <span class="section-label" data-i18n="map.label">Τοποθεσία</span>
+        <h2 class="section-heading" data-i18n="map.heading">Βρείτε Μας</h2>
+      </div>
+      <div id="map" role="application" aria-label="Dream Chalet location map"></div>
+    </section>
+
+    <!-- Reviews (Stacking Cards) -->
+    <section id="reviews" class="section-reviews" role="region" aria-label="Reviews">
+      <div class="container reviews-header">
+        <span class="section-label" data-i18n="reviews.label">Κριτικές</span>
+        <h2 class="section-heading" data-i18n="reviews.heading">Τι Λένε οι Επισκέπτες</h2>
+      </div>
+
+      <div class="reviews-stack-container">
+        <div class="reviews-stack" id="reviews-stack">
+          <div class="review-card">
+            <h3 class="review-quote">"Ακριβώς ό,τι ονειρευόμασταν"</h3>
+            <p class="review-body">The clue is in the name, the property is really a dream place. It has everything you need and is super pretty, great quality. Super clean. Amazing owners.</p>
+            <div class="review-footer">
+              <img src="https://i.pravatar.cc/80?img=1" alt="Sarah M." class="review-avatar" decoding="async">
+              <div><span class="review-name">Sarah M.</span><span class="review-role">Airbnb ⭐⭐⭐⭐⭐</span></div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h3 class="review-quote">"Πολύ όμορφο και καλά διατηρημένο"</h3>
+            <p class="review-body">Εξαιρετικό εξοχικό σπίτι με απίστευτη θέα. Ο ιδιοκτήτης ήταν πολύ φιλικός και χρήσιμος. Θα επιστρέψουμε σίγουρα.</p>
+            <div class="review-footer">
+              <img src="https://i.pravatar.cc/80?img=2" alt="Γιώργος Π." class="review-avatar" decoding="async">
+              <div><span class="review-name">Γιώργος Π.</span><span class="review-role">Booking.com ⭐⭐⭐⭐⭐</span></div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h3 class="review-quote">"Τέλειο για οικογενειακές διακοπές"</h3>
+            <p class="review-body">Χωνί και άνετο σπίτι, ιδανικό για την οικογένεια. Πολύ καθαρό, πολύ ήσυχα και οι υπέροχοι ιδιοκτήτες.</p>
+            <div class="review-footer">
+              <img src="https://i.pravatar.cc/80?img=3" alt="Maria L." class="review-avatar" decoding="async">
+              <div><span class="review-name">Maria L.</span><span class="review-role">Airbnb ⭐⭐⭐⭐⭐</span></div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h3 class="review-quote">"Φανταστική τοποθεσία"</h3>
+            <p class="review-body">Το σπίτι είναι μέσα σε ένα όμορφο φυσικό περιβάλλον. Κοντά σε όλα όσα χρειάζεστε αλλά αισθάνεστε μακριά από τον κόσμο.</p>
+            <div class="review-footer">
+              <img src="https://i.pravatar.cc/80?img=4" alt="John K." class="review-avatar" decoding="async">
+              <div><span class="review-name">John K.</span><span class="review-role">Booking.com ⭐⭐⭐⭐⭐</span></div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h3 class="review-quote">"Ένας πραγματικός παράδεισος"</h3>
+            <p class="review-body">Δεν έχουμε λέξεις για να περιγράψουμε πόσο υπέροχα ήταν. Ευχαριστούμε τους ιδιοκτήτες για την φιλοξενία.</p>
+            <div class="review-footer">
+              <img src="https://i.pravatar.cc/80?img=5" alt="Elena V." class="review-avatar" decoding="async">
+              <div><span class="review-name">Elena V.</span><span class="review-role">Airbnb ⭐⭐⭐⭐⭐</span></div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h3 class="review-quote">"Πεντάστερη εμπειρία"</h3>
+            <p class="review-body">Το κάθε λεπτομέρειο είναι προσεγμένο. Από την καθαριότητα μέχρι τις παροχές, όλα είναι τέλεια. Άριστη επιλογή.</p>
+            <div class="review-footer">
+              <img src="https://i.pravatar.cc/80?img=6" alt="Nikos A." class="review-avatar" decoding="async">
+              <div><span class="review-name">Nikos A.</span><span class="review-role">Booking.com ⭐⭐⭐⭐⭐</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing + Calendar -->
+    <section id="pricing" class="section-pricing" role="region" aria-label="Pricing and availability">
+      <div class="container">
+        <span class="section-label" data-i18n="pricing.label">Τιμές</span>
+        <h2 class="section-heading" data-i18n="pricing.heading">Διαθεσιμότητα & Τιμές</h2>
+
+        <div class="pricing-grid">
+          <div class="price-card">
+            <div class="price-amount">
+              <span class="price-currency">€</span>
+              <span class="price-number" data-i18n="pricing.price">150</span>
+              <span class="price-unit" data-i18n="pricing.perNight">/νύχτα</span>
+            </div>
+            <ul class="price-details">
+              <li><i class="fa-solid fa-users"></i> <span data-i18n="pricing.guests">Έως 6 επισκέπτες</span></li>
+              <li><i class="fa-solid fa-moon"></i> <span data-i18n="pricing.minStay">Ελάχ. παραμονή: 2 νύχτες</span></li>
+              <li><i class="fa-solid fa-clock"></i> <span data-i18n="pricing.checkin">Check-in: 15:00</span></li>
+              <li><i class="fa-solid fa-door-open"></i> <span data-i18n="pricing.checkout">Check-out: 11:00</span></li>
+            </ul>
+            <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta btn-airbnb" data-i18n="pricing.cta" data-track="booking">Κράτηση Τώρα</a>
+          </div>
+
+          <div class="calendar-wrap">
+            <h3 data-i18n="pricing.calendar">Ημερολόγιο Διαθεσιμότητας</h3>
+            <div id="calendar-container" role="presentation"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section-contact" role="region" aria-label="Contact">
+      <div class="container">
+        <span class="section-label" data-i18n="contact.label">Επικοινωνία</span>
+        <h2 class="section-heading" data-i18n="contact.heading">Επικοινωνήστε Μαζί μας</h2>
+        <p class="contact-phone">
+          <i class="fa-solid fa-phone"></i>
+          <a href="tel:+306976908838" data-i18n="contact.phone">+30 697 690 8838</a>
+        </p>
+
+        <div class="contact-btns">
+          <a href="https://wa.me/306976908838" target="_blank" rel="noopener" class="btn-contact btn-whatsapp" data-track="whatsapp" aria-label="Contact via WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span data-i18n="contact.whatsapp">WhatsApp</span>
+          </a>
+          <a href="viber://chat?number=306976908838" class="btn-contact btn-viber" data-track="viber" aria-label="Contact via Viber">
+            <i class="fa-brands fa-viber"></i>
+            <span data-i18n="contact.viber">Viber</span>
+          </a>
+          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-contact btn-airbnb" data-track="airbnb">
+            <i class="fa-brands fa-airbnb"></i>
+            <span data-i18n="contact.airbnb">Airbnb</span>
+          </a>
+          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-contact btn-booking" data-track="booking">
+            <i class="fa-solid fa-bed"></i>
+            <span data-i18n="contact.booking">Booking.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="site-footer" role="contentinfo">
+      <div class="container footer-inner">
+        <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="footer-logo">
+        <div class="footer-links">
+          <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
+            <i class="fa-brands fa-airbnb"></i>
+          </a>
+          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
+            <i class="fa-solid fa-bed"></i>
+          </a>
+        </div>
+        <p class="footer-copy" data-i18n="footer.copyright">© 2026 Dream Chalet Trikala. Με επιφύλαξη παντός δικαιώματος.</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Sticky Book Button -->
+  <div id="sticky-book" class="sticky-book">
+    <button class="sticky-book-btn" id="sticky-book-btn" aria-label="Booking options" aria-expanded="false" data-i18n="sticky.book">
+      <i class="fa-solid fa-calendar-check"></i>
+      <span>Κράτηση</span>
+    </button>
+    <div class="sticky-book-panel" id="sticky-book-panel" aria-hidden="true">
+      <a href="https://wa.me/306976908838" target="_blank" rel="noopener" data-track="whatsapp">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+      <a href="viber://chat?number=306976908838" data-track="viber">
+        <i class="fa-brands fa-viber"></i> Viber
+      </a>
+      <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" data-track="airbnb">
+        <i class="fa-brands fa-airbnb"></i> Airbnb
+      </a>
+      <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" data-track="booking">
+        <i class="fa-solid fa-bed"></i> Booking
+      </a>
+    </div>
+  </div>
+
+  <!-- CDN Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/InertiaPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ical.js@5.0.0/build/ical.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/i18next@23.7.0/dist/umd/i18next.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/i18next-http-backend@2.4.0/dist/i18nextHttpBackend.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
+
+  <!-- Project JS (defer for performance) -->
+  <script src="js/main.js" defer></script>
+  <script src="js/animations.js" defer></script>
+  <script src="js/cursor.js" defer></script>
+  <script src="js/scroll-video.js" defer></script>
+  <script src="js/gallery.js" defer></script>
+  <script src="js/reviews.js" defer></script>
+  <script src="js/three-bg.js" defer></script>
+  <script src="js/map.js" defer></script>
+  <script src="js/calendar.js" defer></script>
+  <script src="js/i18n.js" defer></script>
+  <script src="js/cookie-consent.js" defer></script>
+  <script src="js/analytics.js" defer></script>
+</body>
 </html>
