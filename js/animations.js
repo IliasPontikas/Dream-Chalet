@@ -1,0 +1,331 @@
+/* animations.js — nav, hero, section entrances, stats, sticky btn, attractions tilt */
+
+function initAnimations() {
+  'use strict';
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) { initStickyBookBtn(); return; }
+
+  initNav();
+  initHero();
+  initSectionEntrances();
+  initStats();
+  initScrollProgress();
+  initCursorGallery();
+  initStickyBookBtn();
+  initAttractionsTilt();
+}
+
+/* ── Navigation ──────────────────────────────────────────── */
+function initNav() {
+  const navbar = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = mobileMenu?.querySelectorAll('.mobile-nav-link, .mobile-nav-cta');
+  if (!navbar) return;
+
+  /* Transparent → solid on scroll */
+  ScrollTrigger.create({
+    start: 'top -60',
+    onUpdate(self) {
+      navbar.classList.toggle('scrolled', self.progress > 0);
+    },
+  });
+
+  /* Hamburger open/close */
+  if (!hamburger || !mobileMenu) return;
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('active', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    mobileMenu.setAttribute('aria-hidden', !isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if (isOpen) {
+      gsap.to(mobileLinks, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.07,
+        duration: 0.5,
+        ease: 'power3.out',
+        delay: 0.2,
+      });
+    } else {
+      gsap.set(mobileLinks, { opacity: 0, y: 20 });
+    }
+  });
+
+  mobileLinks?.forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', false);
+      mobileMenu.setAttribute('aria-hidden', true);
+      document.body.style.overflow = '';
+      gsap.set(mobileLinks, { opacity: 0, y: 20 });
+    });
+  });
+}
+
+/* ── Hero Title (manual char split) ─────────────────────── */
+function initHero() {
+  const titleEl = document.querySelector('.hero-title');
+  const subtitle = document.querySelector('.hero-subtitle');
+  const ctas = document.querySelector('.hero-ctas');
+  if (!titleEl) return;
+
+  /* Split characters manually */
+  const text = titleEl.textContent;
+  titleEl.innerHTML = text
+    .split('')
+    .map((c) => `<span class="char">${c === ' ' ? '&nbsp;' : c}</span>`)
+    .join('');
+
+  const chars = titleEl.querySelectorAll('.char');
+
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.to(chars, {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    duration: 0.7,
+    stagger: 0.04,
+  })
+    .to(subtitle, { opacity: 1, y: 0, duration: 0.7 }, '-=0.3')
+    .to(ctas, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
+}
+
+/* ── Generic section entrances ───────────────────────────── */
+function initSectionEntrances() {
+  /* Headings */
+  gsap.utils.toArray('.section-heading').forEach((el) => {
+    gsap.from(el, {
+      y: 50,
+      opacity: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+    });
+  });
+
+  /* Section labels */
+  gsap.utils.toArray('.section-label').forEach((el) => {
+    gsap.from(el, {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      scrollTrigger: { trigger: el, start: 'top 88%' },
+    });
+  });
+
+  /* About text and image */
+  const aboutText = document.querySelector('.about-text');
+  if (aboutText) {
+    gsap.from(aboutText, {
+      x: -60,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: aboutText, start: 'top 80%' },
+    });
+  }
+
+  const imgWrap = document.querySelector('.about-image-wrap');
+  if (imgWrap) {
+    gsap.to(imgWrap, {
+      clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+      duration: 1.2,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: imgWrap, start: 'top 75%' },
+    });
+  }
+
+  /* Amenities stagger */
+  const amenities = gsap.utils.toArray('.amenity-item');
+  if (amenities.length) {
+    gsap.to(amenities, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.05,
+      duration: 0.6,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.amenities-grid', start: 'top 80%' },
+    });
+  }  
+
+  /* Contact buttons */
+  gsap.utils.toArray('.btn-contact').forEach((btn, i) => {
+    gsap.from(btn, {
+      scale: 0.9,
+      opacity: 0,
+      duration: 0.5,
+      delay: i * 0.08,
+      ease: 'back.out(1.7)',
+      scrollTrigger: { trigger: '.contact-btns', start: 'top 85%' },
+    });
+  });
+
+  /* Price card border draw */
+  const priceCard = document.querySelector('.price-card');
+  if (priceCard) {
+    gsap.from(priceCard, {
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: priceCard, start: 'top 80%' },
+    });
+  }
+}
+
+/* ── Stats counters ───────────────────────────────────────── */
+function initStats() {
+  document.querySelectorAll('.stat-number[data-target]').forEach((el) => {
+    const target = parseFloat(el.dataset.target);
+    const obj = { val: 0 };
+
+    gsap.to(obj, {
+      val: target,
+      duration: 1.8,
+      ease: 'power2.out',
+      onUpdate() {
+        el.textContent = Number.isInteger(target)
+          ? Math.round(obj.val)
+          : obj.val.toFixed(1);
+      },
+      scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+    });
+  });
+}
+
+/* ── Scroll progress bar ─────────────────────────────────── */
+function initScrollProgress() {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+
+  ScrollTrigger.create({
+    start: 'top top',
+    end: 'bottom bottom',
+    onUpdate(self) {
+      bar.style.width = (self.progress * 100).toFixed(2) + '%';
+    },
+  });
+}
+
+/* ── Cursor gallery (room list hover) ────────────────────── */
+function initCursorGallery() {
+  const img = document.getElementById('cursor-gallery-img');
+  if (!img) return;
+
+  const xTo = gsap.quickTo(img, 'x', { duration: 0.35, ease: 'power3.out' });
+  const yTo = gsap.quickTo(img, 'y', { duration: 0.35, ease: 'power3.out' });
+
+  document.querySelectorAll('.room-list-item').forEach((item) => {
+    item.addEventListener('mouseenter', () => {
+      img.src = item.dataset.image || '';
+      gsap.to(img, { opacity: 1, duration: 0.2 });
+    });
+    item.addEventListener('mouseleave', () => {
+      gsap.to(img, { opacity: 0, duration: 0.2 });
+    });
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    xTo(e.clientX);
+    yTo(e.clientY);
+  });
+}
+
+/* ── Sticky Book Button ───────────────────────────────────── */
+function initStickyBookBtn() {
+  const stickyBook = document.getElementById('sticky-book');
+  const btn = document.getElementById('sticky-book-btn');
+  const panel = document.getElementById('sticky-book-panel');
+  if (!stickyBook || !btn) return;
+
+  /* Show after hero */
+  ScrollTrigger.create({
+    trigger: '#hero',
+    start: 'bottom 80%',
+    onEnter: () => stickyBook.classList.add('visible'),
+    onLeaveBack: () => stickyBook.classList.remove('visible'),
+  });
+
+  /* Toggle panel */
+  btn.addEventListener('click', () => {
+    const open = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    panel.setAttribute('aria-hidden', !open);
+  });
+
+  /* Close panel on outside click */
+  document.addEventListener('click', (e) => {
+    if (!stickyBook.contains(e.target)) {
+      panel.classList.remove('open');
+      btn.setAttribute('aria-expanded', false);
+    }
+  });
+}
+
+/* ── Attractions 3D mouse tilt ────────────────────────────── */
+function initAttractionsTilt() {
+  document.querySelectorAll('.attraction-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const { left, top, width, height } = card.getBoundingClientRect();
+      const mx = ((e.clientX - left) / width - 0.5) * 2;
+      const my = ((e.clientY - top) / height - 0.5) * 2;
+      gsap.to(card, {
+        rotateY: mx * 8,
+        rotateX: -my * 5,
+        duration: 0.3,
+        ease: 'power2.out',
+        transformPerspective: 1000,
+      });
+    });
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5 });
+    });
+  });
+}
+
+/* ── Attractions Horizontal Scroll ───────────────────────── */
+(function initAttractionsScroll() {
+  const wrapper = document.querySelector('.attractions-wrapper');
+  const track = document.getElementById('attractions-track');
+  const dots = document.querySelectorAll('.attraction-dot');
+  if (!track || !wrapper) return;
+
+  const cards = gsap.utils.toArray('.attraction-card');
+
+  gsap.to(track, {
+    x: () => -(cards.length - 1) * window.innerWidth,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: wrapper,
+      pin: true,
+      scrub: 1,
+      start: 'top top',
+      end: () => `+=${cards.length * window.innerWidth}`,
+      snap: 1 / (cards.length - 1),
+      onUpdate(self) {
+        const idx = Math.round(self.progress * (cards.length - 1));
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      },
+    },
+  });
+
+  /* Dot click navigation */
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const trigger = ScrollTrigger.getById('attractions-trigger');
+      if (window.__lenis && trigger) {
+        const progress = i / (cards.length - 1);
+        const start = trigger.start;
+        const end = trigger.end;
+        window.__lenis.scrollTo(start + (end - start) * progress);
+      }
+    });
+  });
+})(); 

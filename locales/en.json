@@ -1,0 +1,113 @@
+{
+  "nav": {
+    "about": "About",
+    "gallery": "Gallery",
+    "amenities": "Amenities",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Dream Chalet",
+    "subtitle": "Luxury Retreat in Trikala",
+    "bookAirbnb": "Book on Airbnb",
+    "bookBooking": "Book on Booking"
+  },
+  "about": {
+    "label": "The Property",
+    "heading": "Experience the Luxury of Nature",
+    "text": "Dream Chalet is an exceptional vacation home that blends natural beauty with luxury. With 3 comfortable bedrooms, 2 modern bathrooms, and everything you need, it's the perfect retreat for families and groups.",
+    "rooms": {
+      "living": "Living Room",
+      "kitchen": "Kitchen",
+      "bedroom": "Bedroom",
+      "dining": "Dining Room",
+      "bathroom": "Bathroom"
+    },
+    "stats": {
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "guests": "Max Guests",
+      "rating": "★ Rating"
+    }
+  },
+  "gallery": {
+    "label": "Gallery",
+    "heading": "Every Corner, a Story"
+  },
+  "scrollVideo": {
+    "text1": "Paradise Awaits You",
+    "text2": "An Escape Worth It"
+  },
+  "amenities": {
+    "label": "Amenities",
+    "heading": "Everything You Need",
+    "wifi": "WiFi",
+    "kitchen": "Full Kitchen",
+    "washer": "Washing Machine",
+    "fireplace": "Fireplace",
+    "tv": "Television",
+    "parking": "Free Parking",
+    "terrace": "Sunny Terrace",
+    "garden": "Garden",
+    "ac": "Air Conditioning",
+    "nonsmoking": "Non-Smoking"
+  },
+  "attractions": {
+    "label": "Around You",
+    "heading": "Discover the Region",
+    "meteora": {
+      "distance": "~22 km",
+      "title": "Meteora",
+      "desc": "14th-century monasteries atop 400m rock pillars. UNESCO World Heritage Site with breathtaking views."
+    },
+    "elati": {
+      "distance": "~30 km",
+      "title": "Elati",
+      "desc": "The largest mountain village. Hiking, forests, snow, and traditional architecture await."
+    },
+    "pertouli": {
+      "distance": "~54 km",
+      "title": "Pertouli",
+      "desc": "A village in the clouds with a ski resort. Azure forests and outdoor activities for all."
+    },
+    "palaiokarya": {
+      "distance": "~35 km",
+      "title": "Palaiokarya Waterfalls",
+      "desc": "Spectacular waterfalls, a 1517 stone bridge, and a 200-year-old traditional watermill."
+    }
+  },
+  "map": {
+    "label": "Location",
+    "heading": "Find Us"
+  },
+  "reviews": {
+    "label": "Reviews",
+    "heading": "What Guests Are Saying"
+  },
+  "pricing": {
+    "label": "Pricing",
+    "heading": "Availability & Pricing",
+    "price": "150",
+    "perNight": "/night",
+    "guests": "Up to 6 guests",
+    "minStay": "Min. stay: 2 nights",
+    "checkin": "Check-in: 3:00 PM",
+    "checkout": "Check-out: 11:00 AM",
+    "cta": "Book Now",
+    "calendar": "Availability Calendar"
+  },
+  "contact": {
+    "label": "Contact",
+    "heading": "Get in Touch",
+    "phone": "+30 697 690 8838",
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "airbnb": "Airbnb",
+    "booking": "Booking.com"
+  },
+  "footer": {
+    "copyright": "© 2026 Dream Chalet Trikala. All rights reserved."
+  },
+  "sticky": {
+    "book": "Book"
+  }
+}
