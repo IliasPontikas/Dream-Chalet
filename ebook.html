@@ -1,0 +1,3626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream Chalet — Developer Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root {
+    --bg: #0e0b08; --bg2: #1a1410; --bg3: #231e18;
+    --cream: #f5efe6; --muted: #9d8f7e; --gold: #c9a96e;
+    --gold2: #e8c97e; --border: #2e271f;
+    --sidebar-w: 280px; --content-max: 860px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { background: var(--bg); color: var(--cream); font-family: 'Inter', sans-serif;
+    display: flex; min-height: 100vh; }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: var(--sidebar-w); min-height: 100vh; background: var(--bg2);
+    border-right: 1px solid var(--border); position: fixed; top: 0; left: 0;
+    overflow-y: auto; padding: 2rem 0; z-index: 100;
+  }
+  #sidebar .logo { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+  #sidebar .logo h2 { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 1.3rem; line-height: 1.3; }
+  #sidebar .logo p { color: var(--muted); font-size: 0.72rem; margin-top: 0.3rem; }
+  #sidebar nav a {
+    display: block; padding: 0.45rem 1.5rem; color: var(--muted);
+    text-decoration: none; font-size: 0.8rem; border-left: 2px solid transparent;
+    transition: all 0.2s; line-height: 1.4;
+  }
+  #sidebar nav a:hover, #sidebar nav a.active {
+    color: var(--gold); border-left-color: var(--gold); background: rgba(201,169,110,0.07);
+  }
+  #sidebar nav .chapter-group { margin-top: 0.5rem; }
+  #sidebar nav .group-label { padding: 0.6rem 1.5rem 0.2rem; color: var(--gold); font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+
+  /* MAIN */
+  #main { margin-left: var(--sidebar-w); flex: 1; padding: 3rem 4rem 6rem; max-width: calc(var(--sidebar-w) + var(--content-max)); }
+  .content { max-width: var(--content-max); }
+
+  /* CHAPTERS */
+  .chapter { padding: 4rem 0 3rem; border-bottom: 1px solid var(--border); }
+  .chapter:last-child { border-bottom: none; }
+  .chapter-num { font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.5rem; }
+  .chapter h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem;
+    font-weight: 700; line-height: 1.15; color: var(--cream); margin-bottom: 1rem; }
+  .chapter h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem;
+    color: var(--gold2); margin: 2.5rem 0 0.8rem; }
+  .chapter h3 { font-size: 1rem; font-weight: 600; color: var(--cream);
+    margin: 1.8rem 0 0.5rem; }
+  .chapter p { color: #c8bfb2; line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+  .chapter ul, .chapter ol { color: #c8bfb2; line-height: 1.8; margin: 0.5rem 0 1rem 1.5rem; font-size: 0.95rem; }
+  .chapter li { margin-bottom: 0.3rem; }
+  strong { color: var(--cream); }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 0.85em;
+    background: var(--bg3); color: var(--gold); padding: 0.15em 0.4em; border-radius: 3px; }
+
+  /* CODE BLOCKS */
+  pre[class*="language-"] {
+    background: #161210 !important; border: 1px solid var(--border);
+    border-radius: 8px; margin: 1.2rem 0 1.5rem; font-size: 0.82rem !important;
+    line-height: 1.65 !important; overflow-x: auto;
+  }
+  pre[class*="language-"] code { background: none !important; padding: 0 !important; color: inherit !important; font-size: inherit !important; }
+
+  /* BOXES */
+  .box { border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.5rem 0; font-size: 0.9rem; line-height: 1.7; }
+  .box-why { background: rgba(201,169,110,0.1); border-left: 3px solid var(--gold); }
+  .box-why strong { color: var(--gold); }
+  .box-tip { background: rgba(80,160,120,0.1); border-left: 3px solid #50a878; color: #b8d8c8; }
+  .box-tip strong { color: #50a878; }
+  .box-warn { background: rgba(200,100,80,0.1); border-left: 3px solid #c86450; color: #d8b8b0; }
+  .box-warn strong { color: #c86450; }
+
+  /* HERO */
+  #hero { padding: 5rem 0 4rem; border-bottom: 1px solid var(--border); }
+  #hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 700; color: var(--gold); line-height: 1.1; }
+  #hero .subtitle { font-size: 1.15rem; color: var(--muted); margin-top: 1rem; line-height: 1.6; max-width: 600px; }
+  #hero .meta { margin-top: 2rem; display: flex; gap: 2rem; }
+  #hero .meta span { font-size: 0.8rem; color: var(--muted); }
+  #hero .meta strong { color: var(--gold); }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--gold); padding: 0.6rem 1rem; text-align: left; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); color: #c8bfb2; }
+  tr:last-child td { border-bottom: none; }
+
+  /* HAMBURGER (mobile) */
+  #menu-toggle { display: none; position: fixed; top: 1rem; left: 1rem;
+    z-index: 200; background: var(--gold); border: none; border-radius: 6px;
+    width: 42px; height: 42px; cursor: pointer; flex-direction: column;
+    align-items: center; justify-content: center; gap: 5px; }
+  #menu-toggle span { display: block; width: 20px; height: 2px; background: var(--bg); border-radius: 2px; }
+
+  @media (max-width: 900px) {
+    #sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+    #sidebar.open { transform: translateX(0); }
+    #main { margin-left: 0; padding: 2rem 1.5rem 4rem; }
+    #menu-toggle { display: flex; }
+    .chapter h1 { font-size: 2rem; }
+    #hero h1 { font-size: 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<button id="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Toggle menu">
+  <span></span><span></span><span></span>
+</button>
+
+<aside id="sidebar">
+  <div class="logo">
+    <h2>Dream Chalet<br>Developer Manual</h2>
+    <p>A complete guide to the tech stack</p>
+  </div>
+  <nav>
+    <a href="#hero">Introduction</a>
+    <div class="chapter-group">
+      <div class="group-label">JS Foundations</div>
+      <a href="#intro1">F1 — What is JavaScript?</a>
+      <a href="#intro2">F2 — Variables &amp; Data Types</a>
+      <a href="#intro3">F3 — Functions &amp; Scope</a>
+      <a href="#intro4">F4 — Arrays, Objects &amp; Loops</a>
+      <a href="#intro5">F5 — The DOM</a>
+      <a href="#intro6">F6 — Events</a>
+      <a href="#intro7">F7 — Modern JS (ES6+)</a>
+      <a href="#intro8">F8 — Async &amp; Debugging</a>
+      <div class="group-label">Foundations</div>
+      <a href="#ch0">Ch 0 — Loading from CDN</a>
+      <a href="#ch1">Ch 1 — JavaScript Essentials</a>
+    </div>
+    <div class="chapter-group">
+      <div class="group-label">GSAP</div>
+      <a href="#ch2">Ch 2 — GSAP Core</a>
+      <a href="#ch3">Ch 3 — Timelines</a>
+      <a href="#ch4">Ch 4 — ScrollTrigger</a>
+      <a href="#ch5">Ch 5 — Flip Plugin</a>
+      <a href="#ch6">Ch 6 — Draggable</a>
+      <a href="#ch7">Ch 7 — SplitText</a>
+    </div>
+    <div class="chapter-group">
+      <div class="group-label">Libraries</div>
+      <a href="#ch8">Ch 8 — Lenis Smooth Scroll</a>
+      <a href="#ch9">Ch 9 — Three.js</a>
+      <a href="#ch10">Ch 10 — MapLibre GL JS</a>
+      <a href="#ch11">Ch 11 — i18next</a>
+      <a href="#ch12">Ch 12 — ical.js</a>
+    </div>
+    <div class="chapter-group">
+      <div class="group-label">Project</div>
+      <a href="#ch13">Ch 13 — Dream Chalet Patterns</a>
+      <a href="#ch14">Ch 14 — SEO Mastery</a>
+      <a href="#ch15">Ch 15 — Advanced Features</a>
+    </div>
+  </nav>
+</aside>
+
+<main id="main">
+<div class="content">
+
+<!-- HERO -->
+<section id="hero">
+  <h1>Dream Chalet<br>Developer Manual</h1>
+  <p class="subtitle">A complete, beginner-friendly guide to every library and technique used to build a premium rental property website — from GSAP animations to Three.js 3D, smooth scroll, interactive maps, multilingual support, and more.</p>
+  <div class="meta">
+    <span><strong>13</strong> Chapters</span>
+    <span><strong>Stack:</strong> GSAP · Three.js · Lenis · MapLibre · i18next · ical.js</span>
+    <span><strong>Level:</strong> Beginner → Intermediate</span>
+  </div>
+</section>
+
+<!-- CH 0 -->
+
+<!-- INTRO 1 -->
+<section class="chapter" id="intro1">
+  <p class="chapter-num">Foundation 1</p>
+  <h1>What is JavaScript?</h1>
+  <p>You already know HTML and CSS. HTML is the <em>skeleton</em> of a page — the structure. CSS is the <em>skin</em> — colors, fonts, layout. JavaScript is the <em>brain</em> — it makes things happen. It responds to clicks, fetches data from the internet, animates elements, validates forms, and controls every interactive thing on a modern website.</p>
+  <p>JavaScript runs directly in the browser. You do not need to install anything. You do not need a server. You write it, the browser executes it.</p>
+
+  <h2>Where Does JavaScript Live?</h2>
+  <pre><code class="language-html">&lt;!-- Option 1: Inline (avoid for anything longer than 1 line) --&gt;
+&lt;button onclick="alert('Hello!')"&gt;Click me&lt;/button&gt;
+
+&lt;!-- Option 2: Internal &lt;script&gt; tag (fine for learning, avoid in production) --&gt;
+&lt;script&gt;
+  console.log("Hello from internal script");
+&lt;/script&gt;
+
+&lt;!-- Option 3: External file (always do this in real projects) --&gt;
+&lt;script src="js/main.js"&gt;&lt;/script&gt;</code></pre>
+
+  <div class="box box-tip">
+    <strong>Rule:</strong> Always put your <code>&lt;script&gt;</code> tag just before the closing <code>&lt;/body&gt;</code> tag. This ensures your HTML is fully loaded before JavaScript tries to interact with it.
+  </div>
+
+  <h2>The Browser Console — Your Best Friend</h2>
+  <p>The console is a built-in tool in every browser where you can run JavaScript live, see errors, and print messages. Open it with <strong>F12</strong> (or <strong>Cmd+Option+I</strong> on Mac) → click the <strong>Console</strong> tab.</p>
+  <pre><code class="language-javascript">// Print a message to the console
+console.log("Hello, world!");
+
+// Print a number
+console.log(42);
+
+// Print multiple things at once
+console.log("My name is", "Ilias", "and I am", 28, "years old");
+
+// Print an error (shows in red)
+console.error("Something went wrong!");
+
+// Print a warning (shows in yellow)
+console.warn("This might be a problem");
+
+// Print a table (great for arrays of objects)
+console.table([{ name: "Meteora", km: 22 }, { name: "Elati", km: 30 }]);</code></pre>
+  <p>From now on, while learning: <code>console.log()</code> everything. It is how you see what your code is doing.</p>
+
+  <h2>Comments</h2>
+  <pre><code class="language-javascript">// Single line comment — ignored by the browser
+
+/*
+  Multi-line comment
+  Great for explaining complex sections
+  or temporarily disabling a block of code
+*/
+
+let price = 150; // you can put a comment after code too</code></pre>
+
+  <h2>Your First Real Script</h2>
+  <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1 id="greeting"&gt;Hello&lt;/h1&gt;
+  &lt;button id="btn"&gt;Change Greeting&lt;/button&gt;
+
+  &lt;script&gt;
+    // Find the elements
+    const heading = document.getElementById("greeting");
+    const button  = document.getElementById("btn");
+
+    // When button is clicked, change the heading text
+    button.addEventListener("click", function() {
+      heading.textContent = "Welcome to Dream Chalet!";
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  <p>In three lines of JavaScript you just made an interactive web page. That is the essence of everything we will build.</p>
+</section>
+
+<!-- INTRO 2 -->
+<section class="chapter" id="intro2">
+  <p class="chapter-num">Foundation 2</p>
+  <h1>Variables &amp; Data Types</h1>
+  <p>A variable is a named container for storing a value. Think of it like a labelled box — you put something in it, give it a name, and refer to it by that name later.</p>
+
+  <h2>Declaring Variables</h2>
+  <pre><code class="language-javascript">// const — value cannot be reassigned (use this by default)
+const siteName = "Dream Chalet";
+const nightlyRate = 130;
+
+// let — value CAN be reassigned (use when value will change)
+let currentGuests = 2;
+currentGuests = 4; // OK — let allows reassignment
+
+// var — old way, avoid it in modern JavaScript
+var oldStyle = "don't use this";</code></pre>
+
+  <div class="box box-tip">
+    <strong>Rule of thumb:</strong> Always use <code>const</code> first. If you later need to reassign it, change it to <code>let</code>. Never use <code>var</code>.
+  </div>
+
+  <h2>Data Types</h2>
+  <pre><code class="language-javascript">// String — text, always in quotes (single, double, or backtick)
+const name     = "Dream Chalet";
+const greeting = 'Καλωσήρθατε';
+const message  = `Your stay is ${name}`; // backtick = template literal
+
+// Number — integers and decimals
+const rooms    = 3;
+const price    = 129.99;
+const discount = -0.15;
+
+// Boolean — true or false (no quotes)
+const isAvailable = true;
+const isPetFriendly = true;
+const hasSmoking  = false;
+
+// null — intentionally empty (you set it to nothing)
+const promoCode = null;
+
+// undefined — not set yet (variable declared but no value assigned)
+let checkoutDate;
+console.log(checkoutDate); // undefined
+
+// Array — ordered list of values (covered in F4)
+const amenities = ["WiFi", "Fireplace", "Parking", "Garden"];
+
+// Object — key-value pairs (covered in F4)
+const property = {
+  name: "Dream Chalet",
+  bedrooms: 3,
+  rating: 9.8
+};</code></pre>
+
+  <h2>Checking the Type</h2>
+  <pre><code class="language-javascript">console.log(typeof "hello");    // "string"
+console.log(typeof 42);         // "number"
+console.log(typeof true);       // "boolean"
+console.log(typeof undefined);  // "undefined"
+console.log(typeof null);       // "object" ← famous JavaScript quirk!
+console.log(typeof []);         // "object"
+console.log(typeof {});         // "object"</code></pre>
+
+  <h2>String Operations</h2>
+  <pre><code class="language-javascript">const first = "Dream";
+const last  = "Chalet";
+
+// Concatenation (joining strings)
+const full = first + " " + last;     // "Dream Chalet"
+
+// Template literal (better way)
+const full2 = `${first} ${last}`;    // "Dream Chalet"
+
+// String methods
+const name = "dream chalet trikala";
+console.log(name.toUpperCase());      // "DREAM CHALET TRIKALA"
+console.log(name.length);             // 20
+console.log(name.includes("trikala")); // true
+console.log(name.replace("dream", "beautiful dream")); // "beautiful dream chalet trikala"
+console.log(name.split(" "));          // ["dream", "chalet", "trikala"]
+
+// Multi-line string
+const description = `
+  Welcome to Dream Chalet.
+  Located near Meteora, Greece.
+  3 bedrooms, 2 bathrooms.
+`;</code></pre>
+
+  <h2>Number Operations</h2>
+  <pre><code class="language-javascript">const price    = 130;
+const nights   = 5;
+const discount = 0.1; // 10%
+
+const total    = price * nights;               // 650
+const after    = total - (total * discount);   // 585
+const rounded  = Math.round(after);            // 585
+const floored  = Math.floor(3.9);              // 3
+const ceiling  = Math.ceil(3.1);               // 4
+const maxVal   = Math.max(100, 200, 50);       // 200
+const random   = Math.random();                // 0.0 to 1.0
+
+// Convert string to number
+const input    = "150";         // came from a form field — it's a string
+const asNum    = Number(input); // 150 (number)
+const asNum2   = parseInt("150px"); // 150 (ignores non-numeric suffix)
+
+// Convert number to string
+const display  = String(150);   // "150"
+const display2 = (9.8).toFixed(1); // "9.8" (1 decimal place)</code></pre>
+
+  <h2>Comparison &amp; Logic Operators</h2>
+  <pre><code class="language-javascript">// Comparison (always returns true or false)
+console.log(5 === 5);   // true  — strict equal (checks value AND type)
+console.log(5 == "5");  // true  — loose equal (avoids this, use ===)
+console.log(5 !== 3);   // true  — strict not equal
+console.log(10 > 5);    // true
+console.log(10 >= 10);  // true
+console.log(3 < 1);     // false
+
+// Logical operators
+console.log(true && true);   // true  — AND (both must be true)
+console.log(true || false);  // true  — OR (at least one must be true)
+console.log(!true);          // false — NOT (inverts the boolean)
+
+// Practical example
+const isWeekend  = true;
+const hasPromo   = false;
+const getDiscount = isWeekend && !hasPromo; // true</code></pre>
+</section>
+
+<!-- INTRO 3 -->
+<section class="chapter" id="intro3">
+  <p class="chapter-num">Foundation 3</p>
+  <h1>Functions &amp; Scope</h1>
+  <p>A function is a reusable block of code with a name. Instead of writing the same logic 10 times, you write it once inside a function and call it 10 times. Functions are the building blocks of every JavaScript program.</p>
+
+  <h2>Function Declaration</h2>
+  <pre><code class="language-javascript">// Declare (define) the function
+function greetGuest(name) {
+  console.log("Welcome, " + name + "!");
+}
+
+// Call (execute) the function
+greetGuest("Maria");  // Welcome, Maria!
+greetGuest("Nikos");  // Welcome, Nikos!</code></pre>
+
+  <h2>Parameters and Return Values</h2>
+  <pre><code class="language-javascript">// Parameters are inputs. Return sends a value back.
+function calculateTotal(pricePerNight, nights, discountPercent) {
+  const subtotal = pricePerNight * nights;
+  const discount = subtotal * (discountPercent / 100);
+  const total    = subtotal - discount;
+  return total; // send the result back to whoever called us
+}
+
+// Use the returned value
+const cost = calculateTotal(130, 5, 10);
+console.log(cost); // 585
+
+// Default parameters — value used when argument is not provided
+function greet(name, lang = "el") {
+  if (lang === "el") return "Καλωσήρθατε, " + name;
+  return "Welcome, " + name;
+}
+console.log(greet("Maria"));        // Καλωσήρθατε, Maria
+console.log(greet("John", "en"));   // Welcome, John</code></pre>
+
+  <h2>Function Expressions</h2>
+  <pre><code class="language-javascript">// Store a function in a variable
+const calculateTotal = function(price, nights) {
+  return price * nights;
+};
+
+console.log(calculateTotal(130, 3)); // 390</code></pre>
+
+  <h2>Arrow Functions — Modern Syntax</h2>
+  <p>Arrow functions are a shorter way to write functions. You will see them everywhere in modern JavaScript — in GSAP callbacks, event listeners, array methods.</p>
+  <pre><code class="language-javascript">// Regular function
+function double(n) { return n * 2; }
+
+// Arrow function — equivalent
+const double = (n) => { return n * 2; };
+
+// Even shorter: if body is just a return, skip the braces and "return"
+const double = n => n * 2;
+
+console.log(double(5)); // 10
+
+// Multiple parameters
+const add = (a, b) => a + b;
+console.log(add(3, 4)); // 7
+
+// No parameters
+const sayHello = () => console.log("Hello!");
+sayHello();
+
+// Arrow function in a callback (very common)
+setTimeout(() => {
+  console.log("1 second passed!");
+}, 1000);</code></pre>
+
+  <h2>Scope — Where Variables Live</h2>
+  <pre><code class="language-javascript">// Global scope — declared outside any function, accessible everywhere
+const siteName = "Dream Chalet"; // global
+
+function showSite() {
+  console.log(siteName); // ✓ can access global variable
+}
+
+// Local (function) scope — declared inside a function, only exists there
+function calculatePrice() {
+  const discount = 0.1; // local — only exists inside this function
+  return 130 * (1 - discount);
+}
+
+console.log(discount); // ✗ ReferenceError: discount is not defined
+
+// Block scope — let and const declared inside {} only exist in that block
+if (true) {
+  let blockVar = "I only exist here";
+  const alsoBlock = "me too";
+}
+console.log(blockVar); // ✗ ReferenceError
+
+// Closures — a function that remembers variables from its outer scope
+function makeCounter() {
+  let count = 0;           // this variable is "closed over"
+  return function() {
+    count++;
+    return count;
+  };
+}
+const counter = makeCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+console.log(counter()); // 3</code></pre>
+
+  <div class="box box-warn">
+    <strong>Common mistake:</strong> Declaring the same variable twice with <code>const</code> or using a variable before declaring it. Always declare variables at the top of their scope.
+  </div>
+
+  <h2>Immediately Invoked Function Expression (IIFE)</h2>
+  <p>A pattern you will see in library code — a function that runs immediately as soon as it is defined. Keeps variables private and avoids polluting the global scope.</p>
+  <pre><code class="language-javascript">// Regular function — must be called separately
+function init() { console.log("init!"); }
+init();
+
+// IIFE — declares AND calls in one go
+(function() {
+  console.log("I run immediately!");
+  const privateVar = "no one outside can see me";
+})();
+
+// Arrow function IIFE
+(() => {
+  console.log("Also immediate!");
+})();</code></pre>
+</section>
+
+
+<!-- INTRO 4 -->
+<section class="chapter" id="intro4">
+  <p class="chapter-num">Foundation 4</p>
+  <h1>Arrays, Objects &amp; Loops</h1>
+  <p>Arrays and objects are the two most important data structures in JavaScript. Everything you do with GSAP, MapLibre, i18next, and Three.js involves working with arrays and objects. Master these and the rest follows naturally.</p>
+
+  <h2>Arrays</h2>
+  <p>An array is an ordered list. Items are accessed by their position (index), starting from 0.</p>
+  <pre><code class="language-javascript">// Create an array
+const amenities = ["WiFi", "Fireplace", "Parking", "Garden", "Kitchen"];
+
+// Access items by index (starts at 0)
+console.log(amenities[0]); // "WiFi"
+console.log(amenities[2]); // "Parking"
+console.log(amenities[amenities.length - 1]); // "Kitchen" (last item)
+
+// Modify an item
+amenities[1] = "Wood Fireplace";
+
+// Array length
+console.log(amenities.length); // 5</code></pre>
+
+  <h2>Essential Array Methods</h2>
+  <pre><code class="language-javascript">const prices = [130, 150, 120, 180, 140];
+
+// push — add to end
+prices.push(160);
+console.log(prices); // [..., 160]
+
+// pop — remove from end
+const last = prices.pop();
+console.log(last); // 160
+
+// includes — check if value exists
+console.log(prices.includes(150)); // true
+
+// indexOf — find the position of a value
+console.log(prices.indexOf(120)); // 2
+
+// slice — get a portion (does not modify original)
+const firstThree = prices.slice(0, 3); // [130, 150, 120]
+
+// splice — remove/insert items (DOES modify original)
+prices.splice(1, 1); // remove 1 item at index 1
+
+// join — turn array into a string
+const list = ["Meteora", "Elati", "Pertouli"];
+console.log(list.join(", ")); // "Meteora, Elati, Pertouli"
+
+// reverse
+console.log([1,2,3].reverse()); // [3, 2, 1]
+
+// sort
+console.log([30, 5, 100].sort((a, b) => a - b)); // [5, 30, 100]</code></pre>
+
+  <h2>Array Iteration Methods (used constantly)</h2>
+  <pre><code class="language-javascript">const locations = [
+  { name: "Meteora",    km: 22 },
+  { name: "Elati",      km: 30 },
+  { name: "Pertouli",   km: 54 },
+  { name: "Palaiokarya",km: 35 }
+];
+
+// forEach — loop over every item (no return value)
+locations.forEach(loc => {
+  console.log(loc.name + " is " + loc.km + " km away");
+});
+
+// map — create a NEW array by transforming each item
+const names = locations.map(loc => loc.name);
+console.log(names); // ["Meteora", "Elati", "Pertouli", "Palaiokarya"]
+
+// filter — create a NEW array with only items that pass a test
+const nearby = locations.filter(loc => loc.km < 40);
+console.log(nearby); // Meteora, Elati, Palaiokarya
+
+// find — return the FIRST item that passes a test
+const meteora = locations.find(loc => loc.name === "Meteora");
+console.log(meteora); // { name: "Meteora", km: 22 }
+
+// some — true if AT LEAST ONE item passes
+console.log(locations.some(loc => loc.km > 50)); // true (Pertouli = 54)
+
+// every — true if ALL items pass
+console.log(locations.every(loc => loc.km > 10)); // true
+
+// reduce — condense array to a single value
+const totalKm = locations.reduce((sum, loc) => sum + loc.km, 0);
+console.log(totalKm); // 141</code></pre>
+
+  <h2>Objects</h2>
+  <p>An object stores related data as key-value pairs. While an array is like a numbered list, an object is like a named record.</p>
+  <pre><code class="language-javascript">// Create an object
+const property = {
+  name: "Dream Chalet",
+  bedrooms: 3,
+  bathrooms: 2,
+  rating: 9.8,
+  petsAllowed: true,
+  address: {                    // nested object
+    city: "Trikala",
+    country: "Greece"
+  },
+  amenities: ["WiFi", "Fireplace"], // array inside object
+  getDescription: function() {     // function inside object = method
+    return this.name + " — " + this.bedrooms + " bedrooms";
+  }
+};
+
+// Access values
+console.log(property.name);          // "Dream Chalet"   (dot notation)
+console.log(property["bedrooms"]);   // 3                (bracket notation)
+console.log(property.address.city);  // "Trikala"        (nested access)
+console.log(property.amenities[0]);  // "WiFi"
+console.log(property.getDescription()); // "Dream Chalet — 3 bedrooms"
+
+// Add a new property
+property.phone = "+30 6976908838";
+
+// Delete a property
+delete property.petsAllowed;
+
+// Check if property exists
+console.log("rating" in property); // true</code></pre>
+
+  <h2>Destructuring</h2>
+  <p>A cleaner way to extract values from arrays and objects.</p>
+  <pre><code class="language-javascript">// Object destructuring
+const { name, bedrooms, rating } = property;
+console.log(name);     // "Dream Chalet"
+console.log(bedrooms); // 3
+
+// With rename
+const { name: propertyName, rating: score } = property;
+console.log(propertyName); // "Dream Chalet"
+
+// With default value
+const { minStay = 2 } = property; // 2 (property.minStay doesn't exist)
+
+// Array destructuring
+const [first, second, ...rest] = ["Meteora", "Elati", "Pertouli", "Palaiokarya"];
+console.log(first);  // "Meteora"
+console.log(second); // "Elati"
+console.log(rest);   // ["Pertouli", "Palaiokarya"]</code></pre>
+
+  <h2>Loops</h2>
+  <pre><code class="language-javascript">// for loop — classic, when you need the index
+for (let i = 0; i < 5; i++) {
+  console.log("Night " + (i + 1));
+}
+
+// for...of — loop over array values (cleanest for arrays)
+const amenities = ["WiFi", "Fireplace", "Parking"];
+for (const item of amenities) {
+  console.log(item);
+}
+
+// for...in — loop over object keys
+const property = { name: "Dream Chalet", rooms: 3, rating: 9.8 };
+for (const key in property) {
+  console.log(key + ": " + property[key]);
+}
+// name: Dream Chalet
+// rooms: 3
+// rating: 9.8
+
+// while — loop while condition is true
+let count = 0;
+while (count < 3) {
+  console.log("Count: " + count);
+  count++; // ALWAYS increment or you get an infinite loop!
+}
+
+// Spread operator — expand array/object
+const moreAmenities = [...amenities, "Pool", "Garden"];
+const updatedProperty = { ...property, rating: 9.9 }; // copy + override</code></pre>
+
+  <div class="box box-warn">
+    <strong>Common mistake:</strong> Using <code>forEach</code> when you need a return value. <code>forEach</code> always returns <code>undefined</code>. Use <code>map</code> when you need a new array, <code>filter</code> when you need a subset, <code>find</code> when you need one item.
+  </div>
+</section>
+
+<!-- INTRO 5 -->
+<section class="chapter" id="intro5">
+  <p class="chapter-num">Foundation 5</p>
+  <h1>The DOM — Controlling the Page</h1>
+  <p>The <strong>DOM (Document Object Model)</strong> is the browser's internal representation of your HTML page as a tree of objects. JavaScript uses the DOM to read and change anything on the page — text, styles, attributes, entire elements.</p>
+  <p>Think of it this way: HTML is the blueprint, the DOM is the actual built building, and JavaScript is the renovator who can change anything in the building at any time.</p>
+
+  <h2>Selecting Elements</h2>
+  <pre><code class="language-javascript">// querySelector — returns the FIRST matching element (or null)
+const title   = document.querySelector("h1");            // by tag
+const nav     = document.querySelector(".nav");           // by class
+const btn     = document.querySelector("#book-btn");      // by id
+const heroBtn = document.querySelector(".hero .btn");     // nested selector
+
+// querySelectorAll — returns ALL matching elements (NodeList)
+const cards   = document.querySelectorAll(".card");
+const links   = document.querySelectorAll("nav a");
+
+// Loop over NodeList
+cards.forEach(card => {
+  card.style.opacity = "0";
+});
+
+// Convert to Array (for array methods like .map, .filter)
+const cardsArray = Array.from(document.querySelectorAll(".card"));
+
+// Older methods (still work, less flexible)
+const el   = document.getElementById("hero");       // by id
+const els  = document.getElementsByClassName("card"); // by class</code></pre>
+
+  <h2>Reading and Changing Content</h2>
+  <pre><code class="language-javascript">const title = document.querySelector("h1");
+
+// Read text content (plain text, no HTML)
+console.log(title.textContent); // "Dream Chalet"
+
+// Set text content (safe — escapes HTML)
+title.textContent = "Dream Chalet Trikala";
+
+// Read/set HTML content (can include tags)
+const box = document.querySelector(".info");
+console.log(box.innerHTML); // "<strong>3</strong> bedrooms"
+box.innerHTML = "<strong>NEW</strong> content"; // ⚠ only use with trusted content
+
+// Reading/setting attributes
+const img = document.querySelector("img");
+console.log(img.getAttribute("src"));        // "hero.jpg"
+img.setAttribute("src", "new-hero.webp");
+img.setAttribute("alt", "Dream Chalet exterior");
+
+// data- attributes (used a lot with GSAP and JS)
+const card = document.querySelector(".attraction-card");
+console.log(card.dataset.location);          // value of data-location attr
+card.dataset.active = "true";               // sets data-active="true"</code></pre>
+
+  <h2>Changing CSS Styles</h2>
+  <pre><code class="language-javascript">const nav = document.querySelector(".nav");
+
+// Inline styles (camelCase for hyphenated properties)
+nav.style.backgroundColor = "#0e0b08";
+nav.style.padding = "12px 2rem";
+nav.style.transition = "all 0.3s ease";
+
+// Read a computed style (what the browser actually renders)
+const color = getComputedStyle(nav).backgroundColor;
+
+// CSS Custom Properties (variables)
+document.documentElement.style.setProperty("--gold", "#e8c97e");
+const gold = getComputedStyle(document.documentElement).getPropertyValue("--gold");</code></pre>
+
+  <h2>classList — The Right Way to Toggle Styles</h2>
+  <pre><code class="language-javascript">const nav = document.querySelector(".nav");
+
+// Add a class
+nav.classList.add("scrolled");
+
+// Remove a class
+nav.classList.remove("scrolled");
+
+// Toggle — add if absent, remove if present
+nav.classList.toggle("open");
+
+// Check if class exists
+if (nav.classList.contains("scrolled")) {
+  console.log("Nav is scrolled");
+}
+
+// Add multiple classes
+nav.classList.add("visible", "animated", "gold-border");
+
+// This is better than nav.style.X because:
+// 1. Styles live in CSS where they belong
+// 2. Transitions work automatically
+// 3. Easy to see what state an element is in</code></pre>
+
+  <h2>Creating and Inserting Elements</h2>
+  <pre><code class="language-javascript">// Create a new element
+const card = document.createElement("div");
+card.classList.add("attraction-card");
+card.textContent = "Meteora";
+
+// Insert into the DOM
+const container = document.querySelector(".attractions");
+container.appendChild(card);           // add as LAST child
+container.prepend(card);               // add as FIRST child
+container.insertBefore(card, refEl);   // insert before a reference element
+
+// Cleaner insertAdjacentHTML
+container.insertAdjacentHTML("beforeend", `
+  <div class="card">
+    <h3>Meteora</h3>
+    <p>22 km away</p>
+  </div>
+`);</code></pre>
+
+  <h2>Removing Elements</h2>
+  <pre><code class="language-javascript">const el = document.querySelector(".old-banner");
+
+// Modern way
+el.remove();
+
+// Old way (still works)
+el.parentNode.removeChild(el);</code></pre>
+
+  <h2>DOM Traversal</h2>
+  <pre><code class="language-javascript">const card = document.querySelector(".card");
+
+// Navigate the DOM tree
+card.parentElement           // the parent element
+card.children                // all direct children (HTMLCollection)
+card.firstElementChild       // first child element
+card.lastElementChild        // last child element
+card.nextElementSibling      // next sibling element
+card.previousElementSibling  // previous sibling element
+
+// Practical: close the card when its own close button is clicked
+document.querySelectorAll(".close-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.parentElement.remove(); // remove the card that contains this button
+  });
+});</code></pre>
+</section>
+
+
+<!-- INTRO 6 -->
+<section class="chapter" id="intro6">
+  <p class="chapter-num">Foundation 6</p>
+  <h1>Events — Making Things Interactive</h1>
+  <p>Events are things that happen in the browser — a click, a key press, a scroll, a form submission, a mouse movement. JavaScript listens for these events and runs your code in response. This is the mechanism behind every interactive element on a website.</p>
+
+  <h2>addEventListener — The Core Pattern</h2>
+  <pre><code class="language-javascript">// Syntax: element.addEventListener("eventType", callbackFunction)
+const btn = document.querySelector(".book-btn");
+
+btn.addEventListener("click", function() {
+  console.log("Button was clicked!");
+});
+
+// Arrow function (same thing, cleaner)
+btn.addEventListener("click", () => {
+  console.log("Button clicked!");
+});
+
+// Named function (best when you need to remove the listener later)
+function handleClick() {
+  console.log("Clicked!");
+}
+btn.addEventListener("click", handleClick);
+btn.removeEventListener("click", handleClick); // remove it later</code></pre>
+
+  <h2>The Event Object</h2>
+  <p>When an event fires, the browser automatically passes an <strong>event object</strong> to your callback. It contains information about what happened.</p>
+  <pre><code class="language-javascript">document.addEventListener("click", (e) => {
+  console.log(e.type);       // "click"
+  console.log(e.target);     // the exact element that was clicked
+  console.log(e.clientX);    // X position of mouse
+  console.log(e.clientY);    // Y position of mouse
+});
+
+// Prevent default browser behavior (e.g., stop form from submitting)
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // stops the page from refreshing
+  console.log("Form submitted via JS!");
+});
+
+// Stop event from bubbling up to parent elements
+const card = document.querySelector(".card");
+card.addEventListener("click", (e) => {
+  e.stopPropagation(); // click won't reach parent listeners
+});</code></pre>
+
+  <h2>Common Event Types</h2>
+  <table>
+    <tr><th>Event</th><th>When it fires</th><th>Used for</th></tr>
+    <tr><td><code>click</code></td><td>Mouse click</td><td>Buttons, links, cards</td></tr>
+    <tr><td><code>mousemove</code></td><td>Mouse moves over element</td><td>Custom cursor, 3D tilt, cursor gallery</td></tr>
+    <tr><td><code>mouseenter</code></td><td>Mouse enters element</td><td>Hover effects start</td></tr>
+    <tr><td><code>mouseleave</code></td><td>Mouse leaves element</td><td>Hover effects end</td></tr>
+    <tr><td><code>scroll</code></td><td>Page or element scrolls</td><td>Progress bar, nav transparency</td></tr>
+    <tr><td><code>keydown</code></td><td>Key pressed</td><td>ESC to close gallery, arrow nav</td></tr>
+    <tr><td><code>keyup</code></td><td>Key released</td><td>Search input filtering</td></tr>
+    <tr><td><code>submit</code></td><td>Form submitted</td><td>Booking forms</td></tr>
+    <tr><td><code>input</code></td><td>Input value changes</td><td>Live search, form validation</td></tr>
+    <tr><td><code>change</code></td><td>Select/checkbox changes</td><td>Date pickers, dropdowns</td></tr>
+    <tr><td><code>load</code></td><td>Page or resource loaded</td><td>Init after everything is ready</td></tr>
+    <tr><td><code>DOMContentLoaded</code></td><td>HTML parsed (before images)</td><td>Early JS init</td></tr>
+    <tr><td><code>resize</code></td><td>Window resized</td><td>Responsive JS, Three.js resize</td></tr>
+    <tr><td><code>touchstart</code></td><td>Touch begins</td><td>Mobile swipe detection</td></tr>
+  </table>
+
+  <h2>Practical Examples</h2>
+  <pre><code class="language-javascript">// Mouse position (used for custom cursor and 3D tilt)
+document.addEventListener("mousemove", (e) => {
+  const x = e.clientX;                          // pixels from left
+  const y = e.clientY;                          // pixels from top
+  const nx = (x / window.innerWidth)  * 2 - 1; // -1 to +1
+  const ny = (y / window.innerHeight) * 2 - 1; // -1 to +1
+  console.log(nx, ny);
+});
+
+// Keyboard (close gallery on Escape)
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape")      closeGallery();
+  if (e.key === "ArrowRight")  nextImage();
+  if (e.key === "ArrowLeft")   prevImage();
+});
+
+// Scroll (progress bar)
+window.addEventListener("scroll", () => {
+  const scrolled = window.scrollY;
+  const total    = document.body.scrollHeight - window.innerHeight;
+  const pct      = (scrolled / total) * 100;
+  document.getElementById("progress").style.width = pct + "%";
+}, { passive: true }); // passive: true = better scroll performance
+
+// Window resize
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight; // Three.js
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});</code></pre>
+
+  <h2>Event Delegation — One Listener for Many Elements</h2>
+  <p>Instead of adding a listener to 50 cards, add one listener to their parent. This is more efficient and also works for elements added dynamically.</p>
+  <pre><code class="language-javascript">// ✗ Bad — 50 separate listeners
+document.querySelectorAll(".gallery-img").forEach(img => {
+  img.addEventListener("click", openGallery);
+});
+
+// ✓ Good — one listener on the parent
+document.querySelector(".gallery-strip").addEventListener("click", (e) => {
+  const img = e.target.closest(".gallery-img"); // find clicked image
+  if (img) openGallery(img);
+});</code></pre>
+
+  <div class="box box-tip">
+    <strong>Performance tip:</strong> Add <code>{ passive: true }</code> to scroll and touch event listeners. It tells the browser you won't call <code>e.preventDefault()</code>, allowing it to scroll without waiting for your JS to finish — much smoother on mobile.
+  </div>
+</section>
+
+<!-- INTRO 7 -->
+<section class="chapter" id="intro7">
+  <p class="chapter-num">Foundation 7</p>
+  <h1>Modern JavaScript (ES6+)</h1>
+  <p>ES6 (also called ES2015) was a major update to JavaScript in 2015. Since then, new features are added every year. These modern features make code shorter, cleaner, and more readable. All libraries in this project use them extensively.</p>
+
+  <h2>Template Literals</h2>
+  <pre><code class="language-javascript">const name    = "Dream Chalet";
+const price   = 130;
+const nights  = 5;
+
+// Old way
+const msg = "Welcome to " + name + ". Total: €" + (price * nights);
+
+// Template literal — much cleaner
+const msg = `Welcome to ${name}. Total: €${price * nights}`;
+
+// Multi-line strings
+const html = `
+  &lt;div class="card"&gt;
+    &lt;h3&gt;${name}&lt;/h3&gt;
+    &lt;p&gt;€${price}/night&lt;/p&gt;
+  &lt;/div&gt;
+`;</code></pre>
+
+  <h2>Optional Chaining (?.) and Nullish Coalescing (??)</h2>
+  <pre><code class="language-javascript">const property = {
+  name: "Dream Chalet",
+  address: { city: "Trikala" }
+};
+
+// Without optional chaining — crashes if address is undefined
+const country = property.address.country; // undefined (fine here)
+const zip     = property.contact.phone;   // ✗ TypeError: Cannot read property of undefined
+
+// With optional chaining — returns undefined instead of crashing
+const phone = property?.contact?.phone;  // undefined (safe)
+const city  = property?.address?.city;   // "Trikala"
+
+// Nullish coalescing — default value when null/undefined
+const lang    = localStorage.getItem("lang") ?? "el"; // "el" if null
+const minStay = property.minStay ?? 2;               // 2 if undefined</code></pre>
+
+  <h2>Short-Circuit Evaluation</h2>
+  <pre><code class="language-javascript">// && — if left is falsy, return left; otherwise return right
+const user = { name: "Maria", isAdmin: false };
+user.isAdmin && showAdminPanel(); // showAdminPanel() only runs if isAdmin is true
+
+// || — if left is truthy, return left; otherwise return right
+const lang = savedLang || "el";   // use savedLang if truthy, else "el"
+
+// Practical: conditionally add a class
+const scrolled = window.scrollY > 80;
+nav.classList.toggle("solid", scrolled); // second arg = force add/remove</code></pre>
+
+  <h2>Spread and Rest</h2>
+  <pre><code class="language-javascript">// Spread — expand iterable into individual items
+const base  = ["WiFi", "Kitchen"];
+const extra = ["Pool", "Fireplace"];
+const all   = [...base, ...extra]; // ["WiFi", "Kitchen", "Pool", "Fireplace"]
+
+// Spread to copy (avoids mutating original)
+const original = { name: "Dream Chalet", rating: 9.8 };
+const updated  = { ...original, rating: 9.9 }; // copy + override
+
+// Rest — collect remaining arguments into an array
+function logAll(first, ...others) {
+  console.log("First:", first);
+  console.log("Others:", others);
+}
+logAll("Meteora", "Elati", "Pertouli"); // Others: ["Elati", "Pertouli"]</code></pre>
+
+  <h2>Modules — import / export</h2>
+  <p>Modules let you split your code across multiple files and share code between them. Each file is a module.</p>
+  <pre><code class="language-javascript">// js/utils.js — export functions
+export function calculateTotal(price, nights) {
+  return price * nights;
+}
+
+export const PHONE = "+30 6976908838";
+
+export default function greet(name) { // default export (one per file)
+  return `Welcome, ${name}!`;
+}
+
+// js/main.js — import them
+import greet, { calculateTotal, PHONE } from "./utils.js";
+
+console.log(greet("Maria"));            // "Welcome, Maria!"
+console.log(calculateTotal(130, 5));    // 650
+console.log(PHONE);                     // "+30 6976908838"</code></pre>
+  <pre><code class="language-html">&lt;!-- In HTML, modules need type="module" --&gt;
+&lt;script type="module" src="js/main.js"&gt;&lt;/script&gt;</code></pre>
+
+  <div class="box box-warn">
+    <strong>Note:</strong> Modules only work over HTTP(S), not <code>file://</code>. Use a local server (<code>npx serve .</code>) when developing with modules.
+  </div>
+</section>
+
+<!-- INTRO 8 -->
+<section class="chapter" id="intro8">
+  <p class="chapter-num">Foundation 8</p>
+  <h1>Async JavaScript &amp; Debugging</h1>
+  <p>JavaScript runs one line at a time. But some operations — like fetching data from a server, reading a file, or waiting for an image to load — take an unknown amount of time. If JavaScript waited for these, the page would freeze. <strong>Asynchronous JavaScript</strong> solves this by saying: "start this task, and when it finishes, run this function."</p>
+
+  <h2>The Problem — Synchronous Blocking</h2>
+  <pre><code class="language-javascript">// If fetch() were synchronous (it's not), this would freeze the page
+const data = fetch("https://api.example.com/data"); // ← page freezes here
+console.log(data); // only runs after fetch completes</code></pre>
+
+  <h2>Callbacks — The Old Way</h2>
+  <pre><code class="language-javascript">// setTimeout — run code after a delay (non-blocking)
+console.log("1. Start");
+
+setTimeout(() => {
+  console.log("3. After 2 seconds");
+}, 2000);
+
+console.log("2. This runs immediately");
+// Output: "1. Start" → "2. This runs immediately" → "3. After 2 seconds"
+
+// The callback (arrow function) runs LATER, when the timer fires</code></pre>
+
+  <h2>Promises — A Better Way</h2>
+  <pre><code class="language-javascript">// A Promise represents a value that will be available in the future
+// It has 3 states: pending → fulfilled or rejected
+
+const myPromise = new Promise((resolve, reject) => {
+  // Simulate async work
+  setTimeout(() => {
+    const success = true;
+    if (success) resolve("Data loaded!");  // success
+    else reject("Something went wrong");   // failure
+  }, 1000);
+});
+
+// Handle the result with .then() and .catch()
+myPromise
+  .then(result => console.log(result))  // "Data loaded!"
+  .catch(error => console.error(error));
+
+// fetch() returns a Promise
+fetch("https://api.example.com/data")
+  .then(response => response.json())    // parse JSON
+  .then(data => console.log(data))      // use the data
+  .catch(err => console.error(err));</code></pre>
+
+  <h2>async / await — The Modern Way</h2>
+  <p>async/await is syntactic sugar over Promises — same thing underneath, but written to look synchronous. Much easier to read and write.</p>
+  <pre><code class="language-javascript">// Any function marked "async" returns a Promise
+async function loadTranslations(lang) {
+  // "await" pauses execution INSIDE this function until Promise resolves
+  // The rest of the page keeps running normally
+  const response = await fetch(`/locales/${lang}.json`);
+  const data     = await response.json();
+  return data; // resolves the Promise with this value
+}
+
+// Calling an async function
+async function init() {
+  const translations = await loadTranslations("el");
+  console.log(translations.hero.title); // "Dream Chalet"
+}
+init();
+
+// Real example — fetch iCal feed
+async function fetchAvailability() {
+  const response = await fetch("/api/ical");
+  if (!response.ok) throw new Error("Failed to load calendar");
+  const text = await response.text(); // iCal is plain text
+  return parseICal(text);
+}</code></pre>
+
+  <h2>Error Handling with try/catch</h2>
+  <pre><code class="language-javascript">async function loadData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+
+  } catch (error) {
+    // Runs if fetch fails, JSON parse fails, or we threw manually
+    console.error("Failed to load:", error.message);
+    return null; // return a safe fallback
+
+  } finally {
+    // Always runs, whether success or failure
+    hideLoadingSpinner();
+  }
+}
+
+// Non-async: synchronous errors
+try {
+  const result = JSON.parse("invalid json {{{");
+} catch (e) {
+  console.error("Parse failed:", e.message);
+}</code></pre>
+
+  <h2>Promise.all — Run Multiple Async Tasks in Parallel</h2>
+  <pre><code class="language-javascript">// ✗ Sequential — waits for each before starting the next (slow)
+const airbnb  = await fetchCalendar(AIRBNB_URL);   // 1 second
+const booking = await fetchCalendar(BOOKING_URL);  // + 1 second = 2 total
+
+// ✓ Parallel — both start at the same time (fast)
+const [airbnb, booking] = await Promise.all([
+  fetchCalendar(AIRBNB_URL),
+  fetchCalendar(BOOKING_URL)
+]);
+// Both complete in ~1 second total</code></pre>
+
+  <h2>Debugging — Reading Errors and Using DevTools</h2>
+  <p>Errors are normal. Every developer reads errors every day. Learning to read them quickly is a superpower.</p>
+  <pre><code class="language-javascript">// Most common errors and what they mean:
+
+// ReferenceError: gsap is not defined
+// → You forgot to load the GSAP script, or it loaded after your code
+
+// TypeError: Cannot read properties of null (reading 'classList')
+// → document.querySelector() returned null — element not found
+// → Fix: check your CSS selector, make sure element exists in HTML
+
+// SyntaxError: Unexpected token '}'
+// → Typo in your code — a missing comma, bracket, or quote
+// → Fix: look at the line number in the error message
+
+// CORS error when fetching
+// → You are fetching from a different domain without permission
+// → Fix: use a proxy, or fetch server-side</code></pre>
+
+  <pre><code class="language-javascript">// Debugging tools
+console.log(variable);              // print a value
+console.log({ variable });          // print with name: { variable: "value" }
+console.table(arrayOfObjects);      // print as a table
+console.group("Section name");      // group related logs
+  console.log("inside group");
+console.groupEnd();
+
+// Debugger statement — pauses execution in DevTools
+function calculatePrice(p, n) {
+  debugger; // browser pauses here, you can inspect variables
+  return p * n;
+}
+
+// Conditional debugging
+if (price < 0) {
+  console.error("Invalid price:", price);
+  console.trace(); // print the call stack
+}</code></pre>
+
+  <h2>The 5-Step Debugging Process</h2>
+  <ol>
+    <li><strong>Read the error message</strong> — it tells you the error type, message, and line number</li>
+    <li><strong>Go to that line</strong> — open DevTools → Sources → find the file and line</li>
+    <li><strong>console.log everything</strong> around that line — what values do your variables actually have?</li>
+    <li><strong>Check assumptions</strong> — is the element actually in the DOM? Does the variable have the value you think?</li>
+    <li><strong>Google the exact error message</strong> — someone has had this exact problem before. Stack Overflow is your friend.</li>
+  </ol>
+
+  <div class="box box-tip">
+    <strong>You are now ready for the libraries.</strong> Everything from Chapter 0 onwards builds on what you just learned — variables, functions, array methods, DOM selection, events, async/await. You will see all of it again in context, which is when it really clicks.
+  </div>
+</section>
+
+<section class="chapter" id="ch0">
+  <p class="chapter-num">Chapter 0</p>
+  <h1>Loading Libraries from CDN</h1>
+  <p>Before writing a single line of animation code, you need to understand how to load external libraries. A <strong>CDN (Content Delivery Network)</strong> is a server that hosts library files for you — no installation, no npm, no build tools. You just add a <code>&lt;script&gt;</code> tag to your HTML and the library is ready to use.</p>
+
+  <h2>The Basic Pattern</h2>
+  <p>Libraries are loaded in the <code>&lt;head&gt;</code> (for CSS) or just before the closing <code>&lt;/body&gt;</code> tag (for JavaScript). Order matters — load dependencies before the code that uses them.</p>
+
+  <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="el"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Dream Chalet&lt;/title&gt;
+
+  &lt;!-- CSS libraries go in &lt;head&gt; --&gt;
+  &lt;link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- Your HTML content here --&gt;
+
+  &lt;!-- JS libraries: load order matters! --&gt;
+  &lt;!-- 1. GSAP core first --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"&gt;&lt;/script&gt;
+  &lt;!-- 2. GSAP plugins after core --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Draggable.min.js"&gt;&lt;/script&gt;
+  &lt;!-- 3. Other libraries --&gt;
+  &lt;script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/i18next@23.7.6/dist/umd/i18next.min.js"&gt;&lt;/script&gt;
+  &lt;!-- 4. Your own scripts LAST --&gt;
+  &lt;script src="js/main.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+  <div class="box box-why">
+    <strong>Why load JS before &lt;/body&gt;?</strong><br>
+    If you put scripts in <code>&lt;head&gt;</code>, the browser loads and executes them before the HTML is rendered. That means your JavaScript can't find elements like <code>document.querySelector('.hero')</code> because they don't exist yet. Placing scripts at the bottom ensures all HTML is parsed first.
+  </div>
+
+  <h2>Registering GSAP Plugins</h2>
+  <p>GSAP plugins must be explicitly registered before use. This is a common beginner mistake — the plugin loads fine but animations don't work because registration was skipped.</p>
+
+  <pre><code class="language-javascript">// At the top of your main.js — always register plugins first
+gsap.registerPlugin(ScrollTrigger, Flip, Draggable, SplitText);
+
+// Now you can use them anywhere in your code
+gsap.to(".hero", { opacity: 1, scrollTrigger: { trigger: ".hero" } });</code></pre>
+
+  <div class="box box-warn">
+    <strong>Common mistake:</strong> Forgetting <code>gsap.registerPlugin(ScrollTrigger)</code> and wondering why scroll animations do nothing. Always register all plugins you plan to use, right at the top of your main JS file.
+  </div>
+</section>
+
+<!-- CH 1 -->
+<section class="chapter" id="ch1">
+  <p class="chapter-num">Chapter 1</p>
+  <h1>JavaScript Essentials</h1>
+  <p>Before diving into animation libraries, you need to be comfortable with the JavaScript patterns that appear everywhere in premium web projects. These are the building blocks everything else sits on.</p>
+
+  <h2>Selecting Elements</h2>
+  <pre><code class="language-javascript">// Select ONE element (returns the first match)
+const hero = document.querySelector('.hero');
+const title = document.querySelector('#main-title');
+
+// Select MULTIPLE elements (returns a NodeList)
+const cards = document.querySelectorAll('.card');
+
+// Loop over multiple elements
+cards.forEach(card => {
+  card.style.opacity = '0'; // hide all cards
+});
+
+// Convert NodeList to Array (for array methods like .map, .filter)
+const cardsArray = Array.from(document.querySelectorAll('.card'));</code></pre>
+
+  <h2>Event Listeners</h2>
+  <pre><code class="language-javascript">// Basic click event
+const btn = document.querySelector('.book-btn');
+btn.addEventListener('click', () => {
+  console.log('Button clicked!');
+});
+
+// Mouse position tracking (used for cursor gallery + 3D tilt)
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX; // pixels from left edge
+  const y = e.clientY; // pixels from top edge
+
+  // Normalize to -1 → +1 range (useful for 3D rotation)
+  const nx = (x / window.innerWidth)  * 2 - 1;
+  const ny = (y / window.innerHeight) * 2 - 1;
+});
+
+// Scroll event (but prefer ScrollTrigger for animations)
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY; // how far page has scrolled
+});
+
+// Keyboard events
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeGallery();
+  if (e.key === 'ArrowRight') nextImage();
+});</code></pre>
+
+  <h2>Async / Await and Fetch</h2>
+  <p>Used to load data from external sources — like fetching an iCal feed or JSON translation file.</p>
+  <pre><code class="language-javascript">// Fetch is how you load data from a URL
+async function loadTranslations(lang) {
+  try {
+    const response = await fetch(`/locales/${lang}.json`);
+    if (!response.ok) throw new Error('Failed to load translations');
+    const data = await response.json(); // parse JSON
+    return data;
+  } catch (error) {
+    console.error('Translation load error:', error);
+    return {}; // return empty object as fallback
+  }
+}
+
+// Using it:
+const translations = await loadTranslations('el');
+console.log(translations.hero.title); // "Dream Chalet"</code></pre>
+
+  <h2>IntersectionObserver</h2>
+  <p>Tells you when an element enters or leaves the viewport. Used to pause Three.js animations when off-screen (saves battery and performance).</p>
+  <pre><code class="language-javascript">// Create an observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Element is now visible — start animation
+      startThreeJsAnimation();
+    } else {
+      // Element left the viewport — stop animation
+      stopThreeJsAnimation();
+    }
+  });
+}, {
+  threshold: 0.1 // trigger when 10% of element is visible
+});
+
+// Tell it which element to watch
+const canvas = document.querySelector('#three-canvas');
+observer.observe(canvas);</code></pre>
+
+  <h2>requestAnimationFrame</h2>
+  <p>The browser's built-in animation loop. It runs your function ~60 times per second, perfectly synced with screen refresh. This is how Three.js and smooth animations work.</p>
+  <pre><code class="language-javascript">let animating = true;
+
+function animate() {
+  if (!animating) return; // stop the loop
+
+  // Update your animation here
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+
+  requestAnimationFrame(animate); // schedule next frame
+}
+
+animate(); // kick off the loop</code></pre>
+
+  <h2>localStorage</h2>
+  <p>Saves small pieces of data in the browser that persist between page visits. Used to remember the user's language preference.</p>
+  <pre><code class="language-javascript">// Save a value (always saved as a string)
+localStorage.setItem('lang', 'el');
+localStorage.setItem('theme', 'dark');
+
+// Read it back
+const lang = localStorage.getItem('lang'); // 'el'
+
+// Remove it
+localStorage.removeItem('lang');
+
+// Practical pattern: load with fallback
+const savedLang = localStorage.getItem('lang') || 'el'; // default Greek</code></pre>
+
+  <div class="box box-tip">
+    <strong>Tip:</strong> Use the browser DevTools (F12) → Application → Local Storage to see and clear what's stored.
+  </div>
+
+  <h2>CSS Custom Properties (Variables) via JS</h2>
+  <pre><code class="language-javascript">// Read a CSS variable
+const gold = getComputedStyle(document.documentElement)
+  .getPropertyValue('--gold'); // '#c9a96e'
+
+// Set a CSS variable dynamically (affects all elements using it)
+document.documentElement.style.setProperty('--gold', '#e8c97e');
+
+// Useful for theming — change one variable, entire site updates</code></pre>
+</section>
+
+
+<!-- CH 2 -->
+<section class="chapter" id="ch2">
+  <p class="chapter-num">Chapter 2</p>
+  <h1>GSAP Core</h1>
+  <p><strong>GSAP (GreenSock Animation Platform)</strong> is the industry-standard JavaScript animation library. It animates anything — CSS properties, SVG, canvas, DOM attributes — with buttery-smooth performance across all browsers. Think of it as a remote control for every visual property on your page.</p>
+
+  <div class="box box-why">
+    <strong>Why GSAP for Dream Chalet?</strong><br>
+    CSS animations are limited. GSAP lets us animate letter-by-letter text reveals, synchronize a dozen elements in a precise sequence, create magnetic button effects, and connect animations directly to scroll position — all without performance issues.
+  </div>
+
+  <h2>gsap.to() — Animate TO a value</h2>
+  <p>The most common method. The element starts at its current state and animates <em>to</em> the values you specify.</p>
+  <pre><code class="language-javascript">// Move an element 100px to the right over 1 second
+gsap.to(".box", { x: 100, duration: 1 });
+
+// Fade in the hero title
+gsap.to(".hero-title", { opacity: 1, duration: 1.2, ease: "power3.out" });
+
+// Animate multiple properties at once
+gsap.to(".nav", {
+  backgroundColor: "#0e0b08",
+  padding: "12px 2rem",
+  duration: 0.4,
+  ease: "power2.out"
+});</code></pre>
+
+  <h2>gsap.from() — Animate FROM a value</h2>
+  <p>The element starts at the values you specify and animates back to its natural CSS state. Perfect for entrance animations.</p>
+  <pre><code class="language-javascript">// Element slides up from 60px below and fades in
+gsap.from(".section-title", {
+  y: 60,
+  opacity: 0,
+  duration: 1,
+  ease: "power3.out"
+});
+
+// Multiple elements, staggered (each 0.1s apart)
+gsap.from(".amenity-card", {
+  y: 40,
+  opacity: 0,
+  duration: 0.8,
+  stagger: 0.1,  // 0.1s delay between each card
+  ease: "power2.out"
+});</code></pre>
+
+  <h2>gsap.fromTo() — Full control</h2>
+  <p>You define both the start AND end state explicitly. Use when you need precise control.</p>
+  <pre><code class="language-javascript">gsap.fromTo(".hero-title",
+  // FROM (starting state)
+  { opacity: 0, y: 80, letterSpacing: "0.5em" },
+  // TO (ending state)
+  { opacity: 1, y: 0, letterSpacing: "0.08em", duration: 1.4, ease: "power4.out" }
+);</code></pre>
+
+  <h2>Easing Reference</h2>
+  <p>Easing controls the <em>feel</em> of the animation — how it accelerates and decelerates. This is what separates professional animations from robotic ones.</p>
+  <table>
+    <tr><th>Ease</th><th>Feel</th><th>Best for</th></tr>
+    <tr><td><code>power1.out</code></td><td>Subtle deceleration</td><td>Small UI elements</td></tr>
+    <tr><td><code>power2.out</code></td><td>Smooth deceleration</td><td>Buttons, cards</td></tr>
+    <tr><td><code>power3.out</code></td><td>Strong deceleration</td><td>Headings, panels</td></tr>
+    <tr><td><code>power4.out</code></td><td>Very strong snap</td><td>Hero text reveals</td></tr>
+    <tr><td><code>expo.out</code></td><td>Explosive then stop</td><td>Menu opens</td></tr>
+    <tr><td><code>elastic.out(1, 0.3)</code></td><td>Bouncy spring</td><td>Playful UI</td></tr>
+    <tr><td><code>back.out(1.7)</code></td><td>Slight overshoot</td><td>Scale-in buttons</td></tr>
+    <tr><td><code>none</code> / <code>linear</code></td><td>Constant speed</td><td>Scroll scrubbing</td></tr>
+  </table>
+
+  <h2>Targeting Elements</h2>
+  <pre><code class="language-javascript">// CSS selector string — targets ALL matching elements
+gsap.to(".card", { opacity: 0 });
+
+// DOM element reference
+const hero = document.querySelector(".hero");
+gsap.to(hero, { scale: 1.05 });
+
+// Array of elements
+const elements = document.querySelectorAll(".card");
+gsap.to(elements, { y: -20, stagger: 0.05 });
+
+// GSAP selector shorthand (scoped to a container)
+const ctx = gsap.context(() => {
+  gsap.from("h1", { opacity: 0 }); // only h1 inside .section
+}, ".section");</code></pre>
+
+  <h2>Common CSS Properties in GSAP</h2>
+  <table>
+    <tr><th>GSAP property</th><th>CSS equivalent</th><th>Example</th></tr>
+    <tr><td><code>x</code></td><td>translateX</td><td><code>x: 100</code> → moves right 100px</td></tr>
+    <tr><td><code>y</code></td><td>translateY</td><td><code>y: -50</code> → moves up 50px</td></tr>
+    <tr><td><code>scale</code></td><td>scale()</td><td><code>scale: 1.2</code> → 20% bigger</td></tr>
+    <tr><td><code>rotation</code></td><td>rotate()</td><td><code>rotation: 45</code> → 45 degrees</td></tr>
+    <tr><td><code>opacity</code></td><td>opacity</td><td><code>opacity: 0</code> → invisible</td></tr>
+    <tr><td><code>width</code></td><td>width</td><td><code>width: "100%"</code></td></tr>
+    <tr><td><code>backgroundColor</code></td><td>background-color</td><td><code>backgroundColor: "#fff"</code></td></tr>
+    <tr><td><code>clipPath</code></td><td>clip-path</td><td><code>clipPath: "inset(0 0 0 100%)"</code></td></tr>
+  </table>
+
+  <h2>Callbacks</h2>
+  <pre><code class="language-javascript">gsap.to(".box", {
+  x: 200,
+  duration: 1,
+  onStart: () => console.log("Animation started!"),
+  onComplete: () => console.log("Animation done!"),
+  onUpdate: () => console.log("Animating..."), // called every frame
+});</code></pre>
+</section>
+
+<!-- CH 3 -->
+<section class="chapter" id="ch3">
+  <p class="chapter-num">Chapter 3</p>
+  <h1>GSAP Timelines</h1>
+  <p>A <strong>Timeline</strong> is a sequence of animations played in order. Instead of using <code>delay</code> to chain animations (fragile and hard to maintain), a Timeline lets you build complex multi-step sequences that are easy to read, adjust, and control.</p>
+
+  <h2>Creating a Timeline</h2>
+  <pre><code class="language-javascript">// Create a timeline
+const tl = gsap.timeline();
+
+// Add animations in sequence — each starts after the previous finishes
+tl.from(".nav", { y: -80, opacity: 0, duration: 0.8 })
+  .from(".hero-title", { y: 60, opacity: 0, duration: 1, ease: "power3.out" })
+  .from(".hero-subtitle", { y: 40, opacity: 0, duration: 0.8 }, "-=0.4")
+  // "-=0.4" means start 0.4 seconds BEFORE the previous ends (overlap)
+  .from(".hero-btns", { y: 30, opacity: 0, duration: 0.6, stagger: 0.15 }, "-=0.3");</code></pre>
+
+  <h2>Position Parameter</h2>
+  <pre><code class="language-javascript">const tl = gsap.timeline();
+
+tl.from(".a", { opacity: 0, duration: 1 })        // at time 0
+  .from(".b", { opacity: 0, duration: 1 })        // at time 1 (after .a)
+  .from(".c", { opacity: 0, duration: 1 }, "+=0.5") // 0.5s AFTER .b ends
+  .from(".d", { opacity: 0, duration: 1 }, "-=0.3") // 0.3s BEFORE .c ends
+  .from(".e", { opacity: 0, duration: 1 }, "<")     // SAME TIME as .d
+  .from(".f", { opacity: 0, duration: 1 }, 2);      // exactly at 2 seconds</code></pre>
+
+  <h2>Timeline Defaults</h2>
+  <pre><code class="language-javascript">// Set defaults for all animations in this timeline
+const tl = gsap.timeline({
+  defaults: {
+    duration: 0.8,
+    ease: "power2.out"
+  }
+});
+
+// No need to repeat duration/ease on each animation
+tl.from(".title", { y: 50, opacity: 0 })
+  .from(".subtitle", { y: 30, opacity: 0 })
+  .from(".btn", { scale: 0.9, opacity: 0 });</code></pre>
+
+  <h2>Controlling Timelines</h2>
+  <pre><code class="language-javascript">const tl = gsap.timeline({ paused: true }); // start paused
+tl.from(".menu-item", { x: -40, opacity: 0, stagger: 0.08 });
+
+// Control it programmatically
+document.querySelector(".menu-open").addEventListener("click", () => tl.play());
+document.querySelector(".menu-close").addEventListener("click", () => tl.reverse());
+
+// Other controls
+tl.pause();          // freeze
+tl.resume();         // continue
+tl.restart();        // go back to start and play
+tl.seek(0.5);        // jump to 0.5 seconds
+tl.timeScale(2);     // play at 2x speed
+tl.timeScale(0.5);   // play in slow motion</code></pre>
+
+  <div class="box box-tip">
+    <strong>Pro tip:</strong> Use <code>paused: true</code> and trigger <code>tl.play()</code> on user interaction (click, scroll entry). This makes your animations intentional rather than playing on load automatically.
+  </div>
+</section>
+
+<!-- CH 4 -->
+<section class="chapter" id="ch4">
+  <p class="chapter-num">Chapter 4</p>
+  <h1>GSAP ScrollTrigger</h1>
+  <p>ScrollTrigger connects animations to scroll position. It can trigger animations when elements enter the viewport, pin sections in place while scrolling, and even scrub (directly tie) animation progress to scroll position.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> Transparent nav → solid on scroll, all section entrance animations, pinned scroll-scrubbed video, pinned horizontal attractions section, gallery Draggable strip.
+  </div>
+
+  <h2>Basic Trigger — Animate on Scroll Enter</h2>
+  <pre><code class="language-javascript">// Always register ScrollTrigger first!
+gsap.registerPlugin(ScrollTrigger);
+
+// Animate when element enters the viewport
+gsap.from(".section-title", {
+  y: 60,
+  opacity: 0,
+  duration: 1,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".section-title", // which element triggers it
+    start: "top 80%",          // when top of element hits 80% from top of viewport
+    // toggleActions: "onEnter onLeave onEnterBack onLeaveBack"
+    toggleActions: "play none none none"  // play once, never reverse
+  }
+});</code></pre>
+
+  <h2>start / end Values</h2>
+  <pre><code class="language-javascript">// Format: "triggerPosition viewportPosition"
+// Positions: "top", "center", "bottom", or a pixel/percentage value
+
+scrollTrigger: {
+  start: "top 80%",     // trigger's top hits 80% down the viewport
+  start: "center center", // trigger's center hits viewport center
+  start: "top top",     // trigger's top hits the very top of viewport
+  start: "top+=100 80%", // 100px below trigger's top hits 80% viewport
+  end: "bottom top",    // trigger's bottom hits viewport top
+  end: "+=500",         // 500px after the start point
+}</code></pre>
+
+  <h2>Pinning — Keep Element Fixed While Scrolling</h2>
+  <pre><code class="language-javascript">// Pin the scroll-video section while the video plays
+ScrollTrigger.create({
+  trigger: ".scroll-video-section",
+  start: "top top",
+  end: "+=2000",   // pin for 2000px of scroll
+  pin: true,       // pin the trigger element
+  anticipatePin: 1 // prevents jump on mobile
+});</code></pre>
+
+  <h2>Scrubbing — Tie Animation to Scroll</h2>
+  <pre><code class="language-javascript">// Video currentTime follows scroll position exactly
+const video = document.querySelector(".scroll-video");
+
+gsap.to(video, {
+  currentTime: video.duration, // animate from 0 to full duration
+  ease: "none",                // linear — no easing on scrub
+  scrollTrigger: {
+    trigger: ".scroll-video-section",
+    start: "top top",
+    end: "bottom bottom",
+    scrub: true,   // true = direct tie to scroll
+    // scrub: 1    // 1 = 1 second lag (smoother feel)
+    pin: true
+  }
+});</code></pre>
+
+  <h2>Horizontal Scroll (Attractions Section)</h2>
+  <pre><code class="language-javascript">const cards = gsap.utils.toArray(".attraction-card");
+
+gsap.to(cards, {
+  xPercent: -100 * (cards.length - 1), // slide all cards left
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".attractions-wrapper",
+    pin: true,
+    scrub: 1,
+    start: "top top",
+    end: () => `+=${cards.length * window.innerWidth}`,
+    snap: {
+      snapTo: 1 / (cards.length - 1), // snap to each card
+      duration: { min: 0.2, max: 0.5 },
+      ease: "power2.inOut"
+    }
+  }
+});</code></pre>
+
+  <h2>Navbar Transparency Toggle</h2>
+  <pre><code class="language-javascript">// Add/remove class based on scroll position
+ScrollTrigger.create({
+  start: "top -80",  // 80px after page top
+  end: 99999,
+  toggleClass: { targets: ".nav", className: "scrolled" }
+});
+
+// In CSS:
+// .nav { background: transparent; transition: background 0.3s; }
+// .nav.scrolled { background: rgba(14, 11, 8, 0.95); backdrop-filter: blur(10px); }</code></pre>
+
+  <h2>Stagger Entrance for Multiple Elements</h2>
+  <pre><code class="language-javascript">// Animate all amenity cards with stagger on scroll
+gsap.from(".amenity-item", {
+  y: 50,
+  opacity: 0,
+  duration: 0.7,
+  stagger: 0.1,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: ".amenities-grid",
+    start: "top 75%"
+  }
+});</code></pre>
+
+  <div class="box box-tip">
+    <strong>Debugging tip:</strong> Add <code>markers: true</code> to any ScrollTrigger to see start/end markers in the browser. Remove before going live.
+    <pre style="margin-top:0.5rem"><code class="language-javascript">scrollTrigger: { trigger: ".hero", start: "top 80%", markers: true }</code></pre>
+  </div>
+</section>
+
+<!-- CH 5 -->
+<section class="chapter" id="ch5">
+  <p class="chapter-num">Chapter 5</p>
+  <h1>GSAP Flip Plugin</h1>
+  <p>Flip solves one of the hardest animation problems: animating an element that <em>moves in the DOM</em>. When a photo moves from a thumbnail in a grid to a fullscreen display, it changes parent, position, and size all at once. Without Flip, this looks like a teleport. With Flip, it appears to <em>physically travel</em> across the screen.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> The gallery expansion — click a photo in the draggable strip, it morphs from its strip position to fill the screen. Click close, it morphs back. No jarring jumps.
+  </div>
+
+  <h2>How Flip Works (the concept)</h2>
+  <p>Flip uses a technique called FLIP (First, Last, Invert, Play):</p>
+  <ol>
+    <li><strong>First</strong> — record the element's current position/size</li>
+    <li><strong>Last</strong> — move it to its new position in the DOM</li>
+    <li><strong>Invert</strong> — instantly offset it back to the First position</li>
+    <li><strong>Play</strong> — animate it forward to the Last position</li>
+  </ol>
+  <p>The result: the element appears to glide smoothly from A to B.</p>
+
+  <h2>Gallery Expansion with Flip</h2>
+  <pre><code class="language-javascript">gsap.registerPlugin(Flip);
+
+const strip = document.querySelector(".gallery-strip");
+const fullscreen = document.querySelector(".gallery-fullscreen");
+
+function openImage(img) {
+  // Step 1: Record the CURRENT state (position in the strip)
+  const state = Flip.getState(img);
+
+  // Step 2: Move the image to the fullscreen container
+  fullscreen.appendChild(img);
+  fullscreen.classList.add("active"); // show the fullscreen overlay
+
+  // Step 3: Animate FROM the recorded old position TO the new position
+  Flip.from(state, {
+    duration: 0.7,
+    ease: "power2.inOut",
+    absolute: true,    // use absolute positioning during animation
+    onComplete: () => img.classList.add("fullscreen-active")
+  });
+}
+
+function closeImage(img) {
+  const state = Flip.getState(img);
+
+  // Move back to the strip
+  strip.appendChild(img);
+  fullscreen.classList.remove("active");
+
+  Flip.from(state, {
+    duration: 0.6,
+    ease: "power2.inOut",
+    absolute: true
+  });
+}
+
+// Attach events
+document.querySelectorAll(".gallery-img").forEach(img => {
+  img.addEventListener("click", () => openImage(img));
+});
+document.querySelector(".close-btn").addEventListener("click", () => {
+  const activeImg = fullscreen.querySelector("img");
+  if (activeImg) closeImage(activeImg);
+});</code></pre>
+
+  <h2>Flip with Layout Changes</h2>
+  <pre><code class="language-javascript">// Animating a grid reorder (e.g., filtering items)
+const items = document.querySelectorAll(".grid-item");
+
+filterBtn.addEventListener("click", () => {
+  // Record positions BEFORE the change
+  const state = Flip.getState(items);
+
+  // Make the DOM change (filter, reorder, etc.)
+  items.forEach(item => {
+    item.style.display = item.dataset.category === "bedroom" ? "block" : "none";
+  });
+
+  // Animate FROM old positions TO new positions
+  Flip.from(state, {
+    duration: 0.5,
+    ease: "power2.inOut",
+    stagger: 0.05
+  });
+});</code></pre>
+</section>
+
+
+<!-- CH 6 -->
+<section class="chapter" id="ch6">
+  <p class="chapter-num">Chapter 6</p>
+  <h1>GSAP Draggable + InertiaPlugin</h1>
+  <p><strong>Draggable</strong> makes any element draggable with a few lines of code. When combined with <strong>InertiaPlugin</strong>, dragged elements continue moving after release — like flicking a card on a table — giving the interaction a natural, physical feel.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> The gallery horizontal strip. Users drag through photos with momentum, making browsing feel tactile and premium instead of clicking arrows.
+  </div>
+
+  <h2>Basic Draggable</h2>
+  <pre><code class="language-javascript">gsap.registerPlugin(Draggable);
+
+// Make an element draggable horizontally only
+Draggable.create(".gallery-strip", {
+  type: "x",          // "x" = horizontal only, "y" = vertical, "xy" = both
+  bounds: ".gallery-wrapper",  // constrain to parent bounds
+  onDrag: function() {
+    console.log("Current x:", this.x);
+  },
+  onDragEnd: function() {
+    console.log("Final x:", this.x);
+  }
+});</code></pre>
+
+  <h2>Adding Momentum with InertiaPlugin</h2>
+  <pre><code class="language-javascript">// InertiaPlugin is included with GSAP Club (free with account)
+// Load it from CDN:
+// &lt;script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/InertiaPlugin.min.js"&gt;&lt;/script&gt;
+
+gsap.registerPlugin(Draggable, InertiaPlugin);
+
+Draggable.create(".gallery-strip", {
+  type: "x",
+  bounds: ".gallery-wrapper",
+  inertia: true,         // enable momentum on release
+  // edgeResistance: 0.85, // resistance when dragging past bounds (0-1)
+  onThrowComplete: function() {
+    // called when momentum animation finishes
+    console.log("Settled at:", this.x);
+  }
+});</code></pre>
+
+  <h2>Full Gallery Strip Implementation</h2>
+  <pre><code class="language-javascript">const wrapper = document.querySelector(".gallery-wrapper");
+const strip = document.querySelector(".gallery-strip");
+
+// Calculate the maximum drag distance
+function getMaxDrag() {
+  return -(strip.scrollWidth - wrapper.offsetWidth);
+}
+
+Draggable.create(strip, {
+  type: "x",
+  inertia: true,
+  bounds: { minX: getMaxDrag(), maxX: 0 },
+  edgeResistance: 0.85,
+
+  // Visual feedback while dragging
+  onDragStart: function() {
+    strip.style.cursor = "grabbing";
+  },
+  onDragEnd: function() {
+    strip.style.cursor = "grab";
+  }
+});
+
+// Recalculate bounds on window resize
+window.addEventListener("resize", () => {
+  Draggable.get(strip).applyBounds({ minX: getMaxDrag(), maxX: 0 });
+});</code></pre>
+
+  <h2>Magnetic Button Effect</h2>
+  <p>This is not a Draggable feature — it uses GSAP's <code>quickTo()</code> for extremely performant cursor tracking. The button "attracts" the cursor when it gets close.</p>
+  <pre><code class="language-javascript">document.querySelectorAll(".magnetic-btn").forEach(btn => {
+  // quickTo creates a cached, optimized setter — much faster than gsap.to() in a loop
+  const xTo = gsap.quickTo(btn, "x", { duration: 0.4, ease: "power2.out" });
+  const yTo = gsap.quickTo(btn, "y", { duration: 0.4, ease: "power2.out" });
+
+  btn.addEventListener("mousemove", (e) => {
+    const rect = btn.getBoundingClientRect();
+    // Distance from cursor to button center
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
+    // Move button 30% toward the cursor
+    xTo(dx * 0.3);
+    yTo(dy * 0.3);
+  });
+
+  btn.addEventListener("mouseleave", () => {
+    // Snap back to original position
+    xTo(0);
+    yTo(0);
+  });
+});</code></pre>
+
+  <div class="box box-tip">
+    <strong>Tip:</strong> Apply the magnetic effect to the contact section buttons (WhatsApp, Viber, Airbnb, Booking.com). It makes them feel alive and invites interaction — exactly what you want for your booking CTAs.
+  </div>
+</section>
+
+<!-- CH 7 -->
+<section class="chapter" id="ch7">
+  <p class="chapter-num">Chapter 7</p>
+  <h1>GSAP SplitText</h1>
+  <p><strong>SplitText</strong> breaks a text element into individual characters, words, or lines — each wrapped in its own <code>&lt;span&gt;</code> — so you can animate them independently. This is how you create the dramatic letter-by-letter title reveals seen on premium hospitality sites.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> The hero title "Dream Chalet" letter-by-letter reveal on load, and the attraction card titles revealing as each card enters during horizontal scroll.
+  </div>
+
+  <h2>Basic SplitText</h2>
+  <pre><code class="language-javascript">// Load SplitText (GSAP Club — free with account)
+// &lt;script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js"&gt;&lt;/script&gt;
+
+gsap.registerPlugin(SplitText);
+
+// Split the title into individual characters
+const split = new SplitText(".hero-title", { type: "chars" });
+
+// Now animate each character
+gsap.from(split.chars, {
+  opacity: 0,
+  y: 80,
+  rotationX: -90,   // 3D flip effect
+  duration: 0.8,
+  stagger: 0.03,    // 30ms between each character
+  ease: "power4.out",
+  transformOrigin: "0% 50% -50px"
+});</code></pre>
+
+  <h2>Split Types</h2>
+  <pre><code class="language-javascript">// Split into characters
+const byChars = new SplitText(".title", { type: "chars" });
+// → split.chars = [span, span, span, ...] one per character
+
+// Split into words
+const byWords = new SplitText(".subtitle", { type: "words" });
+// → split.words = [span, span, ...] one per word
+
+// Split into lines (based on rendered line breaks)
+const byLines = new SplitText(".paragraph", { type: "lines" });
+// → split.lines = [span, span, ...] one per line
+
+// Split into all three at once
+const all = new SplitText(".text", { type: "chars,words,lines" });</code></pre>
+
+  <h2>Line Reveal (Mask Effect)</h2>
+  <p>A popular premium effect: each line slides up from behind an invisible mask, hiding the animation start point.</p>
+  <pre><code class="language-javascript">const split = new SplitText(".about-text", { type: "lines" });
+
+// Wrap each line in a div with overflow:hidden to create the mask
+split.lines.forEach(line => {
+  const wrapper = document.createElement("div");
+  wrapper.style.overflow = "hidden";
+  line.parentNode.insertBefore(wrapper, line);
+  wrapper.appendChild(line);
+});
+
+// Now animate lines from below — they appear to "emerge" from behind the mask
+gsap.from(split.lines, {
+  y: "100%",
+  opacity: 0,
+  duration: 0.9,
+  stagger: 0.12,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".about-text",
+    start: "top 80%"
+  }
+});</code></pre>
+
+  <h2>Revert SplitText</h2>
+  <pre><code class="language-javascript">// After the animation, restore the original HTML (important for accessibility)
+const split = new SplitText(".title", { type: "chars" });
+const anim = gsap.from(split.chars, { opacity: 0, y: 50, stagger: 0.05 });
+
+anim.then(() => {
+  split.revert(); // restores original text structure
+});</code></pre>
+
+  <div class="box box-warn">
+    <strong>Accessibility note:</strong> SplitText wraps each character in a span, which can confuse screen readers. Add <code>aria-label="Dream Chalet"</code> to the parent element so assistive technology reads the full text correctly.
+  </div>
+</section>
+
+<!-- CH 8 -->
+<section class="chapter" id="ch8">
+  <p class="chapter-num">Chapter 8</p>
+  <h1>Lenis Smooth Scroll</h1>
+  <p>Lenis replaces the browser's default abrupt scroll with a smooth, momentum-based scrolling experience. When the user scrolls, instead of snapping to the new position, the page glides there with a natural ease — like scrolling on iOS. This alone makes a site feel dramatically more premium.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> The entire page scroll experience. Without Lenis, even the best GSAP animations can feel slightly jarring. With Lenis, everything flows as one cohesive experience.
+  </div>
+
+  <h2>Basic Setup</h2>
+  <pre><code class="language-javascript">// Create Lenis instance
+const lenis = new Lenis({
+  duration: 1.2,         // scroll animation duration (seconds)
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo ease
+  orientation: "vertical",
+  smoothWheel: true,     // smooth mouse wheel
+  syncTouch: false,      // don't override native touch scroll (iOS)
+});
+
+// The animation loop — Lenis needs to be updated every frame
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);</code></pre>
+
+  <h2>Connecting Lenis to GSAP ScrollTrigger</h2>
+  <p>This is critical. Without this connection, ScrollTrigger uses the native scroll position, which conflicts with Lenis's virtual scroll. You MUST add these lines.</p>
+  <pre><code class="language-javascript">const lenis = new Lenis({ duration: 1.2 });
+
+// Tell GSAP ticker to update Lenis on each frame
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000); // GSAP time is in seconds, Lenis needs milliseconds
+});
+
+// Tell ScrollTrigger to use Lenis scroll values
+lenis.on("scroll", ScrollTrigger.update);
+
+// Disable GSAP's default lag smoothing (Lenis handles this)
+gsap.ticker.lagSmoothing(0);</code></pre>
+
+  <h2>Programmatic Scroll</h2>
+  <pre><code class="language-javascript">// Scroll to a target element smoothly
+lenis.scrollTo(".contact-section", {
+  offset: -80,    // -80px offset (accounts for fixed nav height)
+  duration: 1.5,
+  easing: (t) => t < 0.5 ? 2*t*t : -1+(4-2*t)*t  // ease in-out
+});
+
+// Scroll to a specific pixel position
+lenis.scrollTo(2400);
+
+// Scroll to top
+lenis.scrollTo(0, { duration: 1.2 });
+
+// Use this for nav link clicks:
+document.querySelectorAll("nav a").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute("href"));
+    lenis.scrollTo(target, { offset: -80 });
+  });
+});</code></pre>
+
+  <h2>Stop / Start (for modals)</h2>
+  <pre><code class="language-javascript">// When gallery fullscreen opens — stop background scroll
+function openGallery() {
+  lenis.stop();
+  // ... open gallery
+}
+
+// When gallery closes — resume scroll
+function closeGallery() {
+  lenis.start();
+  // ... close gallery
+}</code></pre>
+</section>
+
+
+<!-- CH 9 -->
+<section class="chapter" id="ch9">
+  <p class="chapter-num">Chapter 9</p>
+  <h1>Three.js</h1>
+  <p><strong>Three.js</strong> is a JavaScript library that makes WebGL accessible. WebGL is a browser API that lets you draw 3D graphics using the GPU — but it's extremely low-level and complex to use directly. Three.js wraps it in a friendly API, so you can create 3D scenes, lights, cameras, and objects without needing to understand GPU shaders.</p>
+  <p>Think of it like this: WebGL is the engine, Three.js is the car.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> A floating golden particle field rendered on a <code>&lt;canvas&gt;</code> element behind the About section and Attractions section — adds depth, luxury, and visual interest without heavy content.
+  </div>
+
+  <h2>The Core Concepts</h2>
+  <table>
+    <tr><th>Concept</th><th>Real-world analogy</th><th>What it does</th></tr>
+    <tr><td><strong>Scene</strong></td><td>A film set</td><td>Container that holds everything — objects, lights, camera</td></tr>
+    <tr><td><strong>Camera</strong></td><td>The film camera</td><td>Defines what we see and from what angle</td></tr>
+    <tr><td><strong>Renderer</strong></td><td>The film projector</td><td>Draws the scene onto a &lt;canvas&gt; element</td></tr>
+    <tr><td><strong>Geometry</strong></td><td>A wire sculpture</td><td>The shape of a 3D object (box, sphere, plane…)</td></tr>
+    <tr><td><strong>Material</strong></td><td>Paint or texture</td><td>The surface appearance (color, shininess, texture…)</td></tr>
+    <tr><td><strong>Mesh</strong></td><td>The finished sculpture</td><td>Geometry + Material combined = a visible 3D object</td></tr>
+    <tr><td><strong>Points</strong></td><td>A star field</td><td>Geometry rendered as individual dots — used for particles</td></tr>
+  </table>
+
+  <h2>Minimal Scene Setup</h2>
+  <pre><code class="language-javascript">// 1. Scene — the container
+const scene = new THREE.Scene();
+
+// 2. Camera — PerspectiveCamera(fov, aspectRatio, near, far)
+const camera = new THREE.PerspectiveCamera(
+  75,                                    // field of view in degrees
+  window.innerWidth / window.innerHeight, // aspect ratio
+  0.1,                                   // near clipping plane
+  1000                                   // far clipping plane
+);
+camera.position.z = 5; // move camera back so we can see the scene
+
+// 3. Renderer — draws to a canvas
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.querySelector("#three-canvas"),
+  alpha: true,        // transparent background (show page behind it)
+  antialias: true     // smooth edges
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // max 2x for performance
+
+// 4. Create a simple cube
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ color: 0xc9a96e });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// 5. Animation loop
+function animate() {
+  requestAnimationFrame(animate);
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+animate();</code></pre>
+
+  <h2>Creating a Particle System (Dream Chalet style)</h2>
+  <pre><code class="language-javascript">// Particle system — 2000 floating golden dots
+const particleCount = 2000;
+
+// BufferGeometry is efficient for large numbers of points
+const geometry = new THREE.BufferGeometry();
+
+// Create random positions for each particle (x, y, z)
+const positions = new Float32Array(particleCount * 3);
+for (let i = 0; i < particleCount * 3; i++) {
+  positions[i] = (Math.random() - 0.5) * 20; // random between -10 and +10
+}
+geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+// PointsMaterial — how each particle looks
+const material = new THREE.PointsMaterial({
+  color: 0xc9a96e,   // warm gold
+  size: 0.04,        // particle size
+  transparent: true,
+  opacity: 0.7,
+  sizeAttenuation: true  // particles farther away appear smaller
+});
+
+// Points = Geometry + Material (like Mesh but for particles)
+const particles = new THREE.Points(geometry, material);
+scene.add(particles);
+
+// Animate — slowly rotate the entire particle field
+function animate() {
+  requestAnimationFrame(animate);
+  particles.rotation.y += 0.0003;
+  particles.rotation.x += 0.0001;
+  renderer.render(scene, camera);
+}
+animate();</code></pre>
+
+  <h2>Handle Window Resize</h2>
+  <pre><code class="language-javascript">window.addEventListener("resize", () => {
+  // Update camera aspect ratio
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  // Update renderer size
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});</code></pre>
+
+  <h2>Pause When Off-Screen (Performance)</h2>
+  <pre><code class="language-javascript">let isVisible = false;
+
+const observer = new IntersectionObserver(([entry]) => {
+  isVisible = entry.isIntersecting;
+});
+observer.observe(document.querySelector("#three-canvas"));
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (!isVisible) return; // skip rendering when canvas is not visible
+  particles.rotation.y += 0.0003;
+  renderer.render(scene, camera);
+}
+animate();</code></pre>
+
+  <h2>Disable on Low-End Devices</h2>
+  <pre><code class="language-javascript">// Skip Three.js entirely on weak devices (saves battery on mobile)
+const isLowEnd = navigator.hardwareConcurrency < 4 ||
+                 /Mobi|Android/i.test(navigator.userAgent);
+
+if (!isLowEnd) {
+  initThreeJS(); // only init on capable devices
+}</code></pre>
+
+  <div class="box box-tip">
+    <strong>Performance rule:</strong> Keep particle count under 5000 for reliable 60fps. Use <code>renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))</code> — never let it go above 2, or retina screens will render at 3–4x resolution and tank performance.
+  </div>
+</section>
+
+<!-- CH 10 -->
+<section class="chapter" id="ch10">
+  <p class="chapter-num">Chapter 10</p>
+  <h1>MapLibre GL JS</h1>
+  <p><strong>MapLibre GL JS</strong> is a free, open-source map rendering library — a fork of Mapbox GL JS v1. It renders interactive, vector-based maps that look smooth at any zoom level, support custom styling, and allow you to add custom markers, popups, and animations. <em>No API key. No account. No cost.</em></p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> An interactive map showing the property location + 4 nearby attractions (Meteora, Elati, Pertouli, Palaiokarya). Clicking an attraction card on the page flies the map camera to that location.
+  </div>
+
+  <h2>Basic Map Setup</h2>
+  <pre><code class="language-html">&lt;!-- In your HTML --&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"&gt;
+&lt;script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"&gt;&lt;/script&gt;
+
+&lt;div id="map" style="width: 100%; height: 500px;"&gt;&lt;/div&gt;</code></pre>
+
+  <pre><code class="language-javascript">const map = new maplibregl.Map({
+  container: "map",   // the div id
+  // Free tile source — no API key needed
+  style: "https://tiles.openfreemap.org/styles/positron",
+  center: [21.75, 39.61], // [longitude, latitude] — Trikala, Greece
+  zoom: 10,
+  pitch: 30,          // tilt the map (0 = flat, 60 = very tilted)
+  bearing: 0          // rotation in degrees
+});</code></pre>
+
+  <h2>Adding Custom Markers</h2>
+  <pre><code class="language-javascript">// Define all locations
+const locations = [
+  {
+    name: "Dream Chalet",
+    coords: [21.75, 39.61],
+    icon: "🏠",
+    color: "#c9a96e",   // gold
+    description: "Your home for the stay",
+    isMain: true
+  },
+  {
+    name: "Meteora",
+    coords: [21.6311, 39.7217],
+    icon: "⛪",
+    color: "#8a7a6a",
+    description: "UNESCO World Heritage — 22 km",
+    isMain: false
+  },
+  {
+    name: "Elati",
+    coords: [21.5833, 39.5333],
+    icon: "🏔️",
+    color: "#8a7a6a",
+    description: "Mountain Village — 30 km",
+    isMain: false
+  },
+  {
+    name: "Palaiokarya Waterfalls",
+    coords: [21.5167, 39.5333],
+    icon: "💧",
+    color: "#8a7a6a",
+    description: "Hidden Gem — 35 km",
+    isMain: false
+  },
+  {
+    name: "Pertouli",
+    coords: [21.5833, 39.4833],
+    icon: "🎿",
+    color: "#8a7a6a",
+    description: "Ski Village — 54 km",
+    isMain: false
+  }
+];
+
+// Add all markers to the map
+locations.forEach(loc => {
+  // Create custom marker element
+  const el = document.createElement("div");
+  el.className = "custom-marker";
+  el.innerHTML = loc.icon;
+  el.style.cssText = `
+    font-size: ${loc.isMain ? "28px" : "20px"};
+    cursor: pointer;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    transition: transform 0.2s;
+  `;
+  el.addEventListener("mouseenter", () => el.style.transform = "scale(1.3)");
+  el.addEventListener("mouseleave", () => el.style.transform = "scale(1)");
+
+  // Create popup
+  const popup = new maplibregl.Popup({ offset: 25, closeButton: false })
+    .setHTML(`
+      &lt;strong&gt;${loc.name}&lt;/strong&gt;
+      &lt;p&gt;${loc.description}&lt;/p&gt;
+    `);
+
+  // Add marker to map
+  new maplibregl.Marker({ element: el })
+    .setLngLat(loc.coords)
+    .setPopup(popup)
+    .addTo(map);
+});</code></pre>
+
+  <h2>Flying to a Location (connected to Attractions section)</h2>
+  <pre><code class="language-javascript">// When user clicks an attraction card, fly the map there
+document.querySelectorAll(".attraction-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const name = card.dataset.location; // e.g., "meteora"
+    const loc = locations.find(l => l.name.toLowerCase().includes(name));
+
+    if (loc) {
+      map.flyTo({
+        center: loc.coords,
+        zoom: 12,
+        pitch: 45,
+        bearing: 15,
+        duration: 2000,      // animation duration in ms
+        essential: true      // not affected by prefers-reduced-motion
+      });
+    }
+  });
+});</code></pre>
+
+  <h2>Custom Map Style (warm/dark theme)</h2>
+  <pre><code class="language-javascript">// Available free styles (no API key):
+// Light:   "https://tiles.openfreemap.org/styles/positron"
+// Dark:    "https://tiles.openfreemap.org/styles/dark-matter"
+// Natural: "https://tiles.openfreemap.org/styles/bright"
+
+// Or use MapTiler free styles:
+// "https://api.maptiler.com/maps/streets/style.json?key=YOUR_FREE_KEY"
+
+// For Dream Chalet, use dark-matter and style markers with gold color
+const map = new maplibregl.Map({
+  container: "map",
+  style: "https://tiles.openfreemap.org/styles/dark-matter",
+  center: [21.75, 39.61],
+  zoom: 9
+});</code></pre>
+
+  <div class="box box-tip">
+    <strong>Tip:</strong> MapLibre renders maps using WebGL — the same technology as Three.js. Both need a canvas and the GPU, so having both active simultaneously can tax mobile devices. Pause the Three.js particle animation when the map section is visible using IntersectionObserver.
+  </div>
+</section>
+
+
+<!-- CH 11 -->
+<section class="chapter" id="ch11">
+  <p class="chapter-num">Chapter 11</p>
+  <h1>i18next — Multilingual Websites</h1>
+  <p><strong>i18next</strong> is the most widely-used JavaScript internationalization (i18n) library. It lets you write your website in multiple languages and switch between them with a single function call. All text content lives in JSON files — keeping it completely separate from your HTML and JS logic.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> Greek (primary) and English language support. Greek loads by default, the user's choice is saved in localStorage, and a GR|EN toggle in the nav switches the entire site instantly.
+  </div>
+
+  <h2>File Structure</h2>
+  <pre><code class="language-bash">project/
+├── locales/
+│   ├── el.json   ← Greek (primary language)
+│   └── en.json   ← English
+└── js/
+    └── i18n.js   ← i18next initialization</code></pre>
+
+  <h2>Translation Files</h2>
+  <pre><code class="language-json">// locales/el.json — Greek
+{
+  "nav": {
+    "home": "Αρχική",
+    "about": "Σχετικά",
+    "gallery": "Γκαλερί",
+    "amenities": "Παροχές",
+    "contact": "Επικοινωνία"
+  },
+  "hero": {
+    "title": "Dream Chalet",
+    "subtitle": "Το τέλειο καταφύγιό σας στην καρδιά της Τρικαλινής φύσης",
+    "cta_airbnb": "Κράτηση στο Airbnb",
+    "cta_booking": "Κράτηση στο Booking"
+  },
+  "about": {
+    "heading": "Ένα μέρος σαν όνειρο",
+    "description": "Το Dream Chalet σας υποδέχεται σε ένα ζεστό, φιλόξενο περιβάλλον...",
+    "bedrooms": "Υπνοδωμάτια",
+    "bathrooms": "Μπάνια",
+    "rating": "Βαθμολογία",
+    "pets": "Κατοικίδια"
+  },
+  "booking": {
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "heading": "Κάντε Κράτηση",
+    "subtitle": "Επικοινωνήστε μαζί μας για να κλείσετε τις ημερομηνίες σας"
+  }
+}</code></pre>
+
+  <pre><code class="language-json">// locales/en.json — English
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "gallery": "Gallery",
+    "amenities": "Amenities",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Dream Chalet",
+    "subtitle": "Your perfect escape in the heart of Trikala",
+    "cta_airbnb": "Book on Airbnb",
+    "cta_booking": "Book on Booking"
+  },
+  "about": {
+    "heading": "A Dream Come True",
+    "description": "Dream Chalet welcomes you into a warm, inviting atmosphere...",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "rating": "Rating",
+    "pets": "Pets"
+  },
+  "booking": {
+    "whatsapp": "WhatsApp",
+    "viber": "Viber",
+    "heading": "Make a Reservation",
+    "subtitle": "Contact us to book your dates"
+  }
+}</code></pre>
+
+  <h2>HTML — data-i18n attributes</h2>
+  <pre><code class="language-html">&lt;!-- Add data-i18n="key.path" to every text element --&gt;
+&lt;nav&gt;
+  &lt;a href="#about" data-i18n="nav.about"&gt;Σχετικά&lt;/a&gt;
+  &lt;a href="#gallery" data-i18n="nav.gallery"&gt;Γκαλερί&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;h1 data-i18n="hero.title"&gt;Dream Chalet&lt;/h1&gt;
+&lt;p data-i18n="hero.subtitle"&gt;Το τέλειο καταφύγιό σας...&lt;/p&gt;
+&lt;a data-i18n="hero.cta_airbnb"&gt;Κράτηση στο Airbnb&lt;/a&gt;
+
+&lt;!-- Language toggle button --&gt;
+&lt;button id="lang-toggle"&gt;
+  &lt;span class="lang-el"&gt;ΕΛ&lt;/span&gt;
+  &lt;span&gt; | &lt;/span&gt;
+  &lt;span class="lang-en"&gt;EN&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+  <h2>i18next Initialization (js/i18n.js)</h2>
+  <pre><code class="language-javascript">// CDN scripts needed (add before your js/i18n.js):
+// &lt;script src="https://cdn.jsdelivr.net/npm/i18next@23/dist/umd/i18next.min.js"&gt;&lt;/script&gt;
+// &lt;script src="https://cdn.jsdelivr.net/npm/i18next-http-backend@2/i18nextHttpBackend.min.js"&gt;&lt;/script&gt;
+
+const savedLang = localStorage.getItem("lang") || "el"; // Greek default
+
+i18next
+  .use(i18nextHttpBackend)   // loads JSON files via HTTP
+  .init({
+    lng: savedLang,           // starting language
+    fallbackLng: "el",        // fallback if key not found in current lang
+    backend: {
+      loadPath: "/locales/{{lng}}.json"  // path pattern for translation files
+    }
+  })
+  .then(() => {
+    applyTranslations(); // apply on first load
+    updateToggleButton(savedLang);
+  });
+
+// Apply translations to all data-i18n elements
+function applyTranslations() {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    el.textContent = i18next.t(key);
+  });
+  // Update the html lang attribute (important for accessibility & SEO)
+  document.documentElement.lang = i18next.language;
+}
+
+// Toggle between Greek and English
+document.getElementById("lang-toggle").addEventListener("click", () => {
+  const newLang = i18next.language === "el" ? "en" : "el";
+  i18next.changeLanguage(newLang).then(() => {
+    localStorage.setItem("lang", newLang);
+    applyTranslations();
+    updateToggleButton(newLang);
+  });
+});
+
+function updateToggleButton(lang) {
+  document.querySelector(".lang-el").style.fontWeight = lang === "el" ? "700" : "400";
+  document.querySelector(".lang-el").style.color    = lang === "el" ? "#c9a96e" : "#9d8f7e";
+  document.querySelector(".lang-en").style.fontWeight = lang === "en" ? "700" : "400";
+  document.querySelector(".lang-en").style.color    = lang === "en" ? "#c9a96e" : "#9d8f7e";
+}</code></pre>
+
+  <div class="box box-warn">
+    <strong>Important:</strong> i18next-http-backend fetches JSON files via HTTP. This works on GitHub Pages but NOT when you open index.html directly as a file (<code>file://</code> protocol). For local development, use a simple server: run <code>npx serve .</code> in your project folder.
+  </div>
+</section>
+
+<!-- CH 12 -->
+<section class="chapter" id="ch12">
+  <p class="chapter-num">Chapter 12</p>
+  <h1>ical.js — Availability Calendar</h1>
+  <p><strong>ical.js</strong> is a JavaScript library that parses <strong>iCal (.ics)</strong> files — the calendar format used by Airbnb, Booking.com, Google Calendar, and virtually every other calendar system. By fetching the iCal feed from Airbnb and Booking.com, we can show a live availability calendar on the Dream Chalet site that updates automatically whenever a new booking is made.</p>
+
+  <div class="box box-why">
+    <strong>Used in Dream Chalet for:</strong> A monthly availability calendar in the Pricing section. Green = available, grey = booked. Updates automatically from Airbnb and Booking.com. The owner never needs to manually update the website.
+  </div>
+
+  <h2>What is iCal?</h2>
+  <p>iCal is a standard file format (<code>.ics</code>) for calendar events. Each booking platform generates a URL that serves a live <code>.ics</code> file for a property. Here's what it looks like inside:</p>
+  <pre><code class="language-text">BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:20260410
+DTEND:20260415
+SUMMARY:Reserved - Not available
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20260420
+DTEND:20260422
+SUMMARY:Airbnb (HMXXXXXXXX)
+END:VEVENT
+END:VCALENDAR</code></pre>
+
+  <h2>Getting iCal URLs from Airbnb and Booking.com</h2>
+  <pre><code class="language-text">Airbnb:
+  1. Go to airbnb.com → Hosting → Calendar
+  2. Click "Availability settings"
+  3. Scroll to "Sync calendars"
+  4. Click "Export calendar" → copy the .ics URL
+
+Booking.com:
+  1. Go to Extranet → Calendar
+  2. Click "iCal" or "Sync" option
+  3. Copy the export URL</code></pre>
+
+  <h2>Fetching and Parsing iCal</h2>
+  <pre><code class="language-javascript">// Load ical.js from CDN:
+// &lt;script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"&gt;&lt;/script&gt;
+
+// iCal URLs (replace with real URLs from client)
+const AIRBNB_ICAL_URL  = "https://www.airbnb.com/calendar/ical/YOUR_ID.ics";
+const BOOKING_ICAL_URL = "https://ical.booking.com/v1/export?t=YOUR_TOKEN";
+
+// CORS note: fetching from a different domain requires a proxy on GitHub Pages
+// Use a free CORS proxy for now:
+const PROXY = "https://corsproxy.io/?";
+
+async function fetchBookedDates() {
+  const bookedDates = new Set(); // stores "YYYY-MM-DD" strings
+
+  // Fetch both calendars in parallel
+  const [airbnbRes, bookingRes] = await Promise.allSettled([
+    fetch(PROXY + encodeURIComponent(AIRBNB_ICAL_URL)),
+    fetch(PROXY + encodeURIComponent(BOOKING_ICAL_URL))
+  ]);
+
+  for (const result of [airbnbRes, bookingRes]) {
+    if (result.status !== "fulfilled") continue;
+    const text = await result.value.text();
+
+    // Parse with ical.js
+    const parsed = ICAL.parse(text);
+    const comp   = new ICAL.Component(parsed);
+    const events = comp.getAllSubcomponents("vevent");
+
+    events.forEach(event => {
+      const vevent = new ICAL.Event(event);
+      const start  = vevent.startDate.toJSDate();
+      const end    = vevent.endDate.toJSDate();
+
+      // Add every date in the range to the set
+      const current = new Date(start);
+      while (current < end) {
+        bookedDates.add(current.toISOString().split("T")[0]); // "YYYY-MM-DD"
+        current.setDate(current.getDate() + 1);
+      }
+    });
+  }
+
+  return bookedDates;
+}</code></pre>
+
+  <h2>Rendering the Calendar</h2>
+  <pre><code class="language-javascript">async function renderCalendar(year, month) {
+  const bookedDates = await fetchBookedDates();
+  const calendarEl  = document.querySelector(".availability-calendar");
+  calendarEl.innerHTML = "";
+
+  // Month header
+  const monthNames = ["Ιανουάριος","Φεβρουάριος","Μάρτιος","Απρίλιος",
+    "Μάιος","Ιούνιος","Ιούλιος","Αύγουστος","Σεπτέμβριος",
+    "Οκτώβριος","Νοέμβριος","Δεκέμβριος"];
+  const header = document.createElement("h3");
+  header.textContent = `${monthNames[month]} ${year}`;
+  calendarEl.appendChild(header);
+
+  // Day grid
+  const grid = document.createElement("div");
+  grid.className = "calendar-grid";
+
+  const firstDay  = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const today = new Date().toISOString().split("T")[0];
+
+  // Empty cells for days before month starts
+  for (let i = 0; i < firstDay; i++) {
+    grid.appendChild(Object.assign(document.createElement("div"), { className: "day empty" }));
+  }
+
+  // Day cells
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+    const cell    = document.createElement("div");
+    cell.textContent = day;
+
+    if (dateStr < today)         cell.className = "day past";
+    else if (bookedDates.has(dateStr)) cell.className = "day booked";
+    else                          cell.className = "day available";
+
+    grid.appendChild(cell);
+  }
+
+  calendarEl.appendChild(grid);
+}
+
+// Render current month and next month
+const now = new Date();
+renderCalendar(now.getFullYear(), now.getMonth());
+renderCalendar(now.getFullYear(), now.getMonth() + 1);</code></pre>
+</section>
+
+
+<!-- CH 13 -->
+<section class="chapter" id="ch13">
+  <p class="chapter-num">Chapter 13</p>
+  <h1>Putting It All Together — Dream Chalet Patterns</h1>
+  <p>This final chapter shows exactly how all the libraries connect in the Dream Chalet project. These are the specific patterns you will implement, with everything wired together.</p>
+
+  <h2>1. Project Bootstrap (js/main.js)</h2>
+  <p>This is the first file that runs. It registers all plugins, initializes Lenis, and connects everything.</p>
+  <pre><code class="language-javascript">// js/main.js — runs first, sets everything up
+
+// Register all GSAP plugins
+gsap.registerPlugin(ScrollTrigger, Flip, Draggable, SplitText);
+
+// ── Lenis smooth scroll ──────────────────────────────────────
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+});
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.lagSmoothing(0);
+
+// ── Nav anchor links use Lenis ────────────────────────────────
+document.querySelectorAll("nav a[href^='#']").forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    lenis.scrollTo(document.querySelector(link.getAttribute("href")), { offset: -80 });
+  });
+});
+
+// ── Init all modules ─────────────────────────────────────────
+initAnimations();   // js/animations.js
+initScrollVideo();  // js/scroll-video.js
+initThreeJS();      // js/three-bg.js
+initMap();          // js/map.js
+initCalendar();     // js/calendar.js
+initI18n();         // js/i18n.js
+initGallery();      // js/gallery.js</code></pre>
+
+  <h2>2. Transparent Nav → Solid on Scroll</h2>
+  <pre><code class="language-javascript">// In js/animations.js
+function initNav() {
+  const nav = document.querySelector(".nav");
+
+  ScrollTrigger.create({
+    start: "top -80",
+    end: 99999,
+    onUpdate: (self) => {
+      nav.classList.toggle("scrolled", self.progress > 0);
+    }
+  });
+
+  // Mobile hamburger menu
+  const hamburger = document.querySelector(".hamburger");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const menuTl = gsap.timeline({ paused: true });
+
+  menuTl
+    .to(mobileMenu, { x: "0%", duration: 0.5, ease: "power3.out" })
+    .from(".mobile-menu a", { x: -30, opacity: 0, stagger: 0.07 }, "-=0.3");
+
+  hamburger.addEventListener("click", () => {
+    if (mobileMenu.classList.contains("open")) {
+      menuTl.reverse();
+      mobileMenu.classList.remove("open");
+    } else {
+      menuTl.play();
+      mobileMenu.classList.add("open");
+    }
+  });
+}</code></pre>
+
+  <h2>3. Hero Title Letter-by-Letter Reveal</h2>
+  <pre><code class="language-javascript">function initHero() {
+  const split = new SplitText(".hero-title", { type: "chars" });
+
+  const tl = gsap.timeline({ delay: 0.3 });
+  tl.from(split.chars, {
+    opacity: 0,
+    y: 80,
+    rotationX: -90,
+    transformOrigin: "0% 50% -50px",
+    duration: 1,
+    stagger: 0.03,
+    ease: "power4.out"
+  })
+  .from(".hero-subtitle", { opacity: 0, y: 30, duration: 0.8 }, "-=0.4")
+  .from(".hero-cta", { opacity: 0, y: 20, stagger: 0.15, duration: 0.6 }, "-=0.4")
+  .then(() => split.revert()); // restore HTML after animation
+}</code></pre>
+
+  <h2>4. Scroll-Scrubbed Video (js/scroll-video.js)</h2>
+  <pre><code class="language-javascript">function initScrollVideo() {
+  const video = document.querySelector(".scroll-video");
+
+  // Video must be loaded before we can scrub it
+  video.addEventListener("loadedmetadata", () => {
+    gsap.to(video, {
+      currentTime: video.duration,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".scroll-video-section",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          // Fade in/out text overlays based on scroll progress
+          const progress = self.progress;
+          gsap.to(".scroll-overlay-1", { opacity: progress < 0.3 ? progress / 0.3 : 1 - (progress - 0.3) / 0.2 });
+          gsap.to(".scroll-overlay-2", { opacity: progress > 0.5 && progress < 0.8 ? (progress - 0.5) / 0.3 : 0 });
+        }
+      }
+    });
+  });
+
+  video.load(); // ensure video starts loading
+}</code></pre>
+
+  <h2>5. Premium Gallery with Flip (js/gallery.js)</h2>
+  <pre><code class="language-javascript">function initGallery() {
+  const strip      = document.querySelector(".gallery-strip");
+  const overlay    = document.querySelector(".gallery-overlay");
+  const closeBtn   = document.querySelector(".gallery-close");
+  let   activeImg  = null;
+
+  // ── Draggable horizontal strip ───────────────────────────
+  Draggable.create(strip, {
+    type: "x",
+    inertia: true,
+    bounds: { minX: -(strip.scrollWidth - strip.parentElement.offsetWidth), maxX: 0 },
+    edgeResistance: 0.85,
+    cursor: "grab",
+    activeCursor: "grabbing"
+  });
+
+  // ── Click image → Flip to fullscreen ─────────────────────
+  strip.querySelectorAll("img").forEach(img => {
+    img.addEventListener("click", () => {
+      activeImg = img;
+      const state = Flip.getState(img);
+
+      overlay.appendChild(img);
+      overlay.classList.add("active");
+      lenis.stop(); // pause scroll while gallery is open
+
+      Flip.from(state, {
+        duration: 0.7,
+        ease: "power2.inOut",
+        absolute: true,
+        onComplete: () => img.classList.add("expanded")
+      });
+    });
+  });
+
+  // ── Close → Flip back to strip ───────────────────────────
+  closeBtn.addEventListener("click", () => {
+    if (!activeImg) return;
+    activeImg.classList.remove("expanded");
+    const state = Flip.getState(activeImg);
+
+    strip.appendChild(activeImg);
+    overlay.classList.remove("active");
+    lenis.start(); // resume scroll
+
+    Flip.from(state, { duration: 0.6, ease: "power2.inOut", absolute: true });
+    activeImg = null;
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && activeImg) closeBtn.click();
+  });
+}</code></pre>
+
+  <h2>6. Floating Sticky Book Button</h2>
+  <pre><code class="language-javascript">function initStickyBookBtn() {
+  const btn   = document.querySelector(".sticky-book-btn");
+  const panel = document.querySelector(".sticky-book-panel");
+  let   panelOpen = false;
+
+  // Show button after scrolling past hero
+  ScrollTrigger.create({
+    trigger: ".hero",
+    start: "bottom 80%",
+    onEnter: () => gsap.to(btn, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }),
+    onLeaveBack: () => gsap.to(btn, { opacity: 0, y: 20, duration: 0.3 })
+  });
+
+  // Toggle booking panel
+  btn.addEventListener("click", () => {
+    panelOpen = !panelOpen;
+    if (panelOpen) {
+      gsap.to(panel, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" });
+      gsap.from(panel.querySelectorAll("a"), { y: 15, opacity: 0, stagger: 0.08, duration: 0.3 }, "-=0.2");
+    } else {
+      gsap.to(panel, { y: 20, opacity: 0, duration: 0.3 });
+    }
+  });
+}</code></pre>
+
+  <h2>7. Cursor Gallery in About Section</h2>
+  <pre><code class="language-javascript">function initCursorGallery() {
+  const items  = document.querySelectorAll(".room-list-item");
+  const cursor = document.querySelector(".cursor-image");
+
+  // quickTo = pre-cached, ultra-fast setter (much better than gsap.to in mousemove)
+  const xTo = gsap.quickTo(cursor, "x", { duration: 0.5, ease: "power3.out" });
+  const yTo = gsap.quickTo(cursor, "y", { duration: 0.5, ease: "power3.out" });
+
+  document.addEventListener("mousemove", (e) => {
+    xTo(e.clientX);
+    yTo(e.clientY);
+  });
+
+  items.forEach(item => {
+    const imgSrc = item.dataset.image;
+
+    item.addEventListener("mouseenter", () => {
+      cursor.src = imgSrc;
+      gsap.to(cursor, { opacity: 1, scale: 1, duration: 0.3 });
+    });
+
+    item.addEventListener("mouseleave", () => {
+      gsap.to(cursor, { opacity: 0, scale: 0.8, duration: 0.2 });
+    });
+  });
+}</code></pre>
+
+  <h2>8. prefers-reduced-motion (Accessibility)</h2>
+  <pre><code class="language-javascript">// Check if user has requested reduced motion (accessibility setting)
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (prefersReducedMotion) {
+  // Disable GSAP defaults — everything just appears, no movement
+  gsap.defaults({ duration: 0 });
+  gsap.set(".hero-title, .section-title, .card", { opacity: 1 });
+  // Don't init scroll video, Three.js, or Lenis
+} else {
+  // Full experience
+  initLenis();
+  initThreeJS();
+  initScrollVideo();
+}</code></pre>
+
+  <div class="box box-tip">
+    <strong>Final checklist before going live:</strong>
+    <ul style="margin-top:0.5rem">
+      <li>Remove all <code>markers: true</code> from ScrollTrigger instances</li>
+      <li>Replace all placeholder images with client photos</li>
+      <li>Replace all placeholder videos with client videos</li>
+      <li>Fill in actual price per night, min stay, check-in times</li>
+      <li>Confirm exact GPS coordinates for the map pin</li>
+      <li>Add real Airbnb and Booking.com iCal URLs</li>
+      <li>Test on iPhone and Android (check Lenis on touch, Three.js performance)</li>
+      <li>Test <code>prefers-reduced-motion</code> in browser accessibility settings</li>
+      <li>Run Lighthouse audit (aim for &gt;90 Performance)</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- CH 14 -->
+<section class="chapter" id="ch14">
+  <p class="chapter-num">Chapter 14</p>
+  <h1>SEO Mastery</h1>
+  <p>SEO (Search Engine Optimization) is how you make Google find your site, understand it, and rank it high. For Dream Chalet, good SEO means that when someone searches <em>"vacation rental near Meteora"</em> or <em>"ενοικίαση σαλέ Τρίκαλα"</em>, the site appears at the top. These 16 rules will be baked in from day one.</p>
+
+  <div class="box box-why">
+    <strong>The goal:</strong> A technically perfect site that Google can crawl, understand, and trust — plus a compelling appearance in search results that makes people click.
+  </div>
+
+  <h2>Rule 1 — Semantic HTML Structure</h2>
+  <p>Use the correct HTML tags for their purpose: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;footer&gt;</code>. Avoid putting everything in <code>&lt;div&gt;</code>.</p>
+  <p><strong>Why:</strong> Google's crawler reads your HTML like a book. Semantic tags say "this is navigation", "this is the main content". Divs say nothing — it's a book with no chapters.</p>
+  <pre><code class="language-html">&lt;!-- BAD --&gt;
+&lt;div class="top"&gt;&lt;div class="links"&gt;...&lt;/div&gt;&lt;/div&gt;
+&lt;div class="stuff"&gt;&lt;div class="text"&gt;...&lt;/div&gt;&lt;/div&gt;
+
+&lt;!-- GOOD --&gt;
+&lt;header&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;section aria-labelledby="about-heading"&gt;
+    &lt;h2 id="about-heading"&gt;About Dream Chalet&lt;/h2&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre>
+
+  <h2>Rule 2 — One &lt;h1&gt; Per Page, Proper Hierarchy</h2>
+  <p><strong>Why:</strong> Google uses headings as a table of contents. Multiple <code>&lt;h1&gt;</code> tags confuse it. Never skip levels (don't jump from <code>&lt;h1&gt;</code> to <code>&lt;h4&gt;</code>).</p>
+  <pre><code class="language-html">&lt;h1&gt;Dream Chalet Trikala — Vacation Rental&lt;/h1&gt; &lt;!-- Only ONE --&gt;
+  &lt;h2&gt;About the Property&lt;/h2&gt;
+  &lt;h2&gt;Photo Gallery&lt;/h2&gt;
+  &lt;h2&gt;Nearby Attractions&lt;/h2&gt;
+    &lt;h3&gt;Meteora&lt;/h3&gt;
+    &lt;h3&gt;Elati&lt;/h3&gt;
+    &lt;h3&gt;Pertouli&lt;/h3&gt;
+    &lt;h3&gt;Palaiokarya Waterfalls&lt;/h3&gt;
+  &lt;h2&gt;Pricing &amp; Availability&lt;/h2&gt;</code></pre>
+
+  <h2>Rule 3 — Title Tag (Most Important SEO Element)</h2>
+  <p><strong>Why:</strong> This is the blue clickable link in Google results. It's the #1 factor for understanding page topic and is the first thing searchers see.</p>
+  <pre><code class="language-html">&lt;title&gt;Dream Chalet Trikala | Vacation Rental near Meteora, Greece&lt;/title&gt;
+&lt;!-- Rules: under 60 chars · main keyword first · location included --&gt;</code></pre>
+
+  <h2>Rule 4 — Meta Description</h2>
+  <p><strong>Why:</strong> Appears under the title in Google results. Doesn't affect ranking directly but affects <em>click-through rate</em> — a compelling description makes people click yours over competitors.</p>
+  <pre><code class="language-html">&lt;meta name="description" content="Dream Chalet Trikala — 3-bedroom vacation rental with fireplace, garden &amp; free parking near Meteora, Greece. Rated 9.8/10. Book on Airbnb or Booking.com."&gt;
+&lt;!-- 150–160 characters · include keywords naturally · add a CTA --&gt;</code></pre>
+
+  <h2>Rule 5 — &lt;html lang=""&gt; Attribute</h2>
+  <p><strong>Why:</strong> Tells Google and screen readers what language the page is in. A Greek page without <code>lang="el"</code> may not appear in Greek search results.</p>
+  <pre><code class="language-html">&lt;html lang="el"&gt; &lt;!-- Greek by default --&gt;
+
+&lt;!-- JS switches it when user toggles language --&gt;
+document.documentElement.lang = i18next.language; // "el" or "en"</code></pre>
+
+  <h2>Rule 6 — hreflang Tags for Multilingual SEO</h2>
+  <p><strong>Why:</strong> Without hreflang, Google may treat the Greek and English versions as duplicate content and penalize one of them.</p>
+  <pre><code class="language-html">&lt;link rel="alternate" hreflang="el" href="https://yourdomain.com/"&gt;
+&lt;link rel="alternate" hreflang="en" href="https://yourdomain.com/?lang=en"&gt;
+&lt;link rel="alternate" hreflang="x-default" href="https://yourdomain.com/"&gt;</code></pre>
+
+  <h2>Rule 7 — Open Graph & Twitter Cards</h2>
+  <p><strong>Why:</strong> Controls how the site looks when shared on Facebook, WhatsApp, Viber, Telegram. A beautiful preview card with a photo = dramatically more clicks.</p>
+  <pre><code class="language-html">&lt;!-- Open Graph (Facebook, WhatsApp, Viber, Telegram) --&gt;
+&lt;meta property="og:title" content="Dream Chalet Trikala"&gt;
+&lt;meta property="og:description" content="3-bedroom rental near Meteora. Rated 9.8/10."&gt;
+&lt;meta property="og:image" content="https://yourdomain.com/assets/images/og-image.jpg"&gt;
+&lt;meta property="og:image:width" content="1200"&gt;
+&lt;meta property="og:image:height" content="630"&gt;
+&lt;meta property="og:url" content="https://yourdomain.com/"&gt;
+&lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:locale" content="el_GR"&gt;
+&lt;meta property="og:locale:alternate" content="en_US"&gt;
+
+&lt;!-- Twitter Card --&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:title" content="Dream Chalet Trikala"&gt;
+&lt;meta name="twitter:image" content="https://yourdomain.com/assets/images/og-image.jpg"&gt;
+&lt;!-- OG image: 1200x630px — best exterior photo of the chalet --&gt;</code></pre>
+
+  <h2>Rule 8 — JSON-LD Structured Data (Schema.org)</h2>
+  <p><strong>Why:</strong> Tells Google this is a vacation rental with a specific address, price, rating, and rooms. Enables <strong>rich results</strong> — star ratings, price, and images shown directly in search results — which massively increases clicks.</p>
+  <pre><code class="language-html">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "name": "Dream Chalet Trikala",
+  "description": "3-bedroom vacation rental near Meteora, Greece",
+  "image": "https://yourdomain.com/assets/images/hero.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Raxa, Trikala",
+    "addressRegion": "Thessaly",
+    "addressCountry": "GR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "39.6106",
+    "longitude": "21.7500"
+  },
+  "telephone": "+306976908838",
+  "url": "https://yourdomain.com",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "9.8",
+    "bestRating": "10",
+    "ratingCount": "50"
+  },
+  "amenityFeature": [
+    {"@type": "LocationFeatureSpecification", "name": "WiFi", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Fireplace", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Garden", "value": true}
+  ],
+  "numberOfRooms": 3,
+  "petsAllowed": true
+}
+&lt;/script&gt;</code></pre>
+
+  <h2>Rule 9 — Image Optimization</h2>
+  <p><strong>Why:</strong> <code>alt</code> text is how Google "sees" images. Uncompressed images slow your site. Slow site = lower ranking. WebP format is ~30% smaller than JPEG at the same quality.</p>
+  <pre><code class="language-html">&lt;!-- BAD --&gt;
+&lt;img src="photo1.jpg"&gt;
+
+&lt;!-- GOOD --&gt;
+&lt;img
+  src="assets/images/living-room.webp"
+  alt="Spacious living room with fireplace at Dream Chalet Trikala"
+  width="800"
+  height="600"
+  loading="lazy"
+&gt;
+&lt;!-- Hero image: no lazy loading (it's visible immediately) --&gt;
+&lt;img src="assets/images/hero.webp" alt="Dream Chalet exterior, Trikala Greece" width="1920" height="1080"&gt;</code></pre>
+
+  <h2>Rule 10 — Core Web Vitals</h2>
+  <p>Google measures 3 performance metrics and uses them for ranking:</p>
+  <table>
+    <tr><th>Metric</th><th>Measures</th><th>Target</th></tr>
+    <tr><td><strong>LCP</strong> — Largest Contentful Paint</td><td>How fast the biggest element loads</td><td>Under 2.5s</td></tr>
+    <tr><td><strong>INP</strong> — Interaction to Next Paint</td><td>How fast page responds to clicks</td><td>Under 200ms</td></tr>
+    <tr><td><strong>CLS</strong> — Cumulative Layout Shift</td><td>How much layout jumps while loading</td><td>Under 0.1</td></tr>
+  </table>
+  <pre><code class="language-html">&lt;!-- Preload hero image for fast LCP --&gt;
+&lt;link rel="preload" as="image" href="assets/images/hero-poster.webp"&gt;
+
+&lt;!-- Preload critical fonts (eliminates invisible text flash) --&gt;
+&lt;link rel="preload" as="font" href="fonts/cormorant.woff2" crossorigin&gt;
+
+&lt;!-- Always set width + height on images (prevents CLS) --&gt;
+&lt;img src="gallery-1.webp" width="800" height="600" loading="lazy" alt="..."&gt;</code></pre>
+
+  <h2>Rule 11 — Canonical URL</h2>
+  <p><strong>Why:</strong> Your site could be reached via http, https, www, non-www, with trailing slash, with <code>?lang=en</code>… Google could see all of these as duplicate content pages. Canonical says "this one is the real one."</p>
+  <pre><code class="language-html">&lt;link rel="canonical" href="https://yourdomain.com/"&gt;</code></pre>
+
+  <h2>Rule 12 — Sitemap.xml + Robots Meta</h2>
+  <p><strong>Why:</strong> Sitemap tells Google every URL on your site. Robots tells Google what it's allowed to index. Both help the crawler do its job efficiently.</p>
+  <pre><code class="language-xml">&lt;!-- sitemap.xml (in root folder) --&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://yourdomain.com/&lt;/loc&gt;
+    &lt;lastmod&gt;2026-04-02&lt;/lastmod&gt;
+    &lt;priority&gt;1.0&lt;/priority&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</code></pre>
+  <pre><code class="language-html">&lt;!-- In &lt;head&gt; --&gt;
+&lt;meta name="robots" content="index, follow"&gt;
+&lt;link rel="sitemap" type="application/xml" href="/sitemap.xml"&gt;</code></pre>
+
+  <h2>Rule 13 — HTTPS (Free on GitHub Pages)</h2>
+  <p><strong>Why:</strong> Google explicitly penalizes non-HTTPS sites. Browsers show "Not Secure" warnings. GitHub Pages provides free HTTPS automatically — no action needed.</p>
+  <div class="box box-tip"><strong>Action:</strong> In your GitHub repo → Settings → Pages → ensure "Enforce HTTPS" is checked.</div>
+
+  <h2>Rule 14 — Mobile-First Responsive Design</h2>
+  <p><strong>Why:</strong> Google uses the <em>mobile version</em> of your site for ranking. A bad mobile experience lowers your ranking even for desktop searches.</p>
+  <pre><code class="language-html">&lt;!-- Required viewport meta tag --&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+  <pre><code class="language-css">/* Mobile-first CSS — design for small screens first */
+.gallery-strip { flex-direction: column; }
+
+/* Then enhance for larger screens */
+@media (min-width: 768px) {
+  .gallery-strip { flex-direction: row; }
+}
+
+/* Touch targets must be at least 44x44px */
+.nav-link, .btn { min-height: 44px; min-width: 44px; }</code></pre>
+
+  <h2>Rule 15 — Page Speed Optimization</h2>
+  <p><strong>Why:</strong> Google ranks faster sites higher. Every extra second of load time costs you ranking and visitors.</p>
+  <pre><code class="language-html">&lt;!-- defer = load after HTML parsed, execute after HTML ready --&gt;
+&lt;script src="js/three-bg.js" defer&gt;&lt;/script&gt;
+
+&lt;!-- async = load in parallel, execute immediately when ready --&gt;
+&lt;script src="js/analytics.js" async&gt;&lt;/script&gt;
+
+&lt;!-- Critical scripts: no attribute, at end of body --&gt;
+&lt;script src="js/main.js"&gt;&lt;/script&gt;</code></pre>
+
+  <h2>Rule 16 — Favicon & Apple Touch Icon</h2>
+  <p><strong>Why:</strong> Google shows favicons next to URLs in search results. A missing favicon looks unprofessional and slightly hurts click-through rate.</p>
+  <pre><code class="language-html">&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;
+&lt;link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32"&gt;
+&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"&gt;
+&lt;meta name="theme-color" content="#0e0b08"&gt;</code></pre>
+
+  <h2>Full SEO Checklist</h2>
+  <table>
+    <tr><th>#</th><th>Rule</th><th>Impact</th></tr>
+    <tr><td>1</td><td>Semantic HTML</td><td>High</td></tr>
+    <tr><td>2</td><td>One &lt;h1&gt;, proper hierarchy</td><td>High</td></tr>
+    <tr><td>3</td><td>Title tag (&lt;60 chars, keywords first)</td><td>Very High</td></tr>
+    <tr><td>4</td><td>Meta description (150–160 chars)</td><td>High</td></tr>
+    <tr><td>5</td><td>html lang attribute</td><td>Medium</td></tr>
+    <tr><td>6</td><td>hreflang for GR/EN</td><td>High</td></tr>
+    <tr><td>7</td><td>Open Graph + Twitter Cards</td><td>High (social)</td></tr>
+    <tr><td>8</td><td>JSON-LD Schema (rich results)</td><td>Very High</td></tr>
+    <tr><td>9</td><td>Image alt + WebP + lazy loading</td><td>High</td></tr>
+    <tr><td>10</td><td>Core Web Vitals (LCP, INP, CLS)</td><td>Very High</td></tr>
+    <tr><td>11</td><td>Canonical URL</td><td>Medium</td></tr>
+    <tr><td>12</td><td>sitemap.xml + robots meta</td><td>Medium</td></tr>
+    <tr><td>13</td><td>HTTPS (free on GitHub Pages)</td><td>Very High</td></tr>
+    <tr><td>14</td><td>Mobile-first responsive</td><td>Very High</td></tr>
+    <tr><td>15</td><td>Page speed (defer, async, preload)</td><td>Very High</td></tr>
+    <tr><td>16</td><td>Favicon + Apple touch icon</td><td>Low</td></tr>
+  </table>
+
+  <div class="box box-tip">
+    <strong>After going live — verify with these free tools:</strong>
+    <ul style="margin-top:0.5rem">
+      <li><strong>Google Search Console</strong> — submit sitemap, monitor indexing, see search queries</li>
+      <li><strong>PageSpeed Insights</strong> (pagespeed.web.dev) — Core Web Vitals score</li>
+      <li><strong>Rich Results Test</strong> (search.google.com/test/rich-results) — verify Schema.org</li>
+      <li><strong>Open Graph Debugger</strong> (developers.facebook.com/tools/debug) — preview social cards</li>
+    </ul>
+  </div>
+</section>
+
+
+
+<!-- CH 15 -->
+<section class="chapter" id="ch15">
+  <p class="chapter-num">Chapter 15</p>
+  <h1>Advanced Features — Making It World-Class</h1>
+  <p>These are the features that separate a <em>good</em> property website from an <em>award-winning</em> one. A preloader, custom cursor, PWA support, micro-interactions, cookie consent, accessibility, and analytics. Together they make the site feel professional, complete, and legally solid.</p>
+
+  <h2>1. Preloader / Intro Screen</h2>
+  <p>A branded loading animation shown while the page loads. It hides the ugly half-loaded state, builds anticipation, and ensures all animations start at exactly the right moment.</p>
+  <pre><code class="language-html">&lt;!-- Add as first child of &lt;body&gt; --&gt;
+&lt;div id="preloader"&gt;
+  &lt;svg class="preloader-logo" viewBox="0 0 200 60"&gt;
+    &lt;text x="10" y="45" class="logo-text"&gt;Dream Chalet&lt;/text&gt;
+  &lt;/svg&gt;
+  &lt;div class="preloader-bar"&gt;&lt;div class="preloader-fill"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  <pre><code class="language-css">#preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2rem;
+}
+.preloader-bar { width: 200px; height: 1px; background: var(--border); }
+.preloader-fill { height: 100%; width: 0; background: var(--gold); transition: width 0.3s; }
+/* SVG text stroke animation */
+.logo-text {
+  font-family: "Cormorant Garamond", serif; font-size: 32px; fill: none;
+  stroke: var(--gold); stroke-width: 1;
+  stroke-dasharray: 1000; stroke-dashoffset: 1000;
+  animation: draw 1.8s ease forwards;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }</code></pre>
+  <pre><code class="language-javascript">// js/preloader.js
+function initPreloader() {
+  const preloader = document.getElementById("preloader");
+  const fill = preloader.querySelector(".preloader-fill");
+
+  // Simulate progress as resources load
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress = Math.min(progress + Math.random() * 15, 90);
+    fill.style.width = progress + "%";
+  }, 200);
+
+  // When everything is loaded
+  window.addEventListener("load", () => {
+    clearInterval(interval);
+    fill.style.width = "100%";
+
+    // Short pause then reveal the site
+    setTimeout(() => {
+      const tl = gsap.timeline({
+        onComplete: () => preloader.remove()
+      });
+      tl.to(preloader, { opacity: 0, duration: 0.6, ease: "power2.in" })
+        .from(".hero-title", { opacity: 0, y: 60, duration: 1, ease: "power3.out" }, "-=0.2");
+    }, 400);
+  });
+}</code></pre>
+
+  <h2>2. Custom Cursor</h2>
+  <p>Replace the browser cursor with a small gold circle that morphs based on what the user hovers over. The signature of Awwwards-level sites.</p>
+  <pre><code class="language-html">&lt;!-- Add right after &lt;body&gt; --&gt;
+&lt;div id="cursor"&gt;
+  &lt;div class="cursor-dot"&gt;&lt;/div&gt;
+  &lt;div class="cursor-ring"&gt;&lt;/div&gt;
+  &lt;span class="cursor-label"&gt;&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+  <pre><code class="language-css">#cursor { pointer-events: none; position: fixed; z-index: 9998; }
+.cursor-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--gold); position: fixed;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--gold); position: fixed;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, opacity 0.3s;
+}
+.cursor-label {
+  position: fixed; transform: translate(-50%, 24px);
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  color: var(--gold); opacity: 0; transition: opacity 0.2s;
+}
+/* Hide default cursor everywhere */
+*, *::before, *::after { cursor: none !important; }</code></pre>
+  <pre><code class="language-javascript">// js/cursor.js
+function initCursor() {
+  // Skip on touch devices
+  if (window.matchMedia("(hover: none)").matches) return;
+
+  const dot   = document.querySelector(".cursor-dot");
+  const ring  = document.querySelector(".cursor-ring");
+  const label = document.querySelector(".cursor-label");
+
+  const dotX  = gsap.quickTo(dot,  "x", { duration: 0.15, ease: "power3.out" });
+  const dotY  = gsap.quickTo(dot,  "y", { duration: 0.15, ease: "power3.out" });
+  const ringX = gsap.quickTo(ring, "x", { duration: 0.5,  ease: "power3.out" });
+  const ringY = gsap.quickTo(ring, "y", { duration: 0.5,  ease: "power3.out" });
+  const lblX  = gsap.quickTo(label,"x", { duration: 0.5,  ease: "power3.out" });
+  const lblY  = gsap.quickTo(label,"y", { duration: 0.5,  ease: "power3.out" });
+
+  document.addEventListener("mousemove", (e) => {
+    dotX(e.clientX); dotY(e.clientY);
+    ringX(e.clientX); ringY(e.clientY);
+    lblX(e.clientX); lblY(e.clientY);
+  });
+
+  // State: hoverable link/button
+  document.querySelectorAll("a, button, [data-cursor]").forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      gsap.to(ring, { scale: 1.8, opacity: 0.5, duration: 0.3 });
+    });
+    el.addEventListener("mouseleave", () => {
+      gsap.to(ring, { scale: 1, opacity: 1, duration: 0.3 });
+      label.style.opacity = "0";
+    });
+  });
+
+  // State: gallery drag
+  const strip = document.querySelector(".gallery-strip");
+  if (strip) {
+    strip.addEventListener("mouseenter", () => {
+      label.textContent = "Drag";
+      label.style.opacity = "1";
+      gsap.to(ring, { scale: 2.5, duration: 0.3 });
+    });
+    strip.addEventListener("mouseleave", () => {
+      label.style.opacity = "0";
+      gsap.to(ring, { scale: 1, duration: 0.3 });
+    });
+  }
+
+  // State: gallery image view
+  document.querySelectorAll(".gallery-img").forEach(img => {
+    img.addEventListener("mouseenter", () => {
+      label.textContent = "View";
+      label.style.opacity = "1";
+    });
+  });
+}</code></pre>
+
+  <h2>3. Micro-interactions</h2>
+  <p>Small animations that make everything feel alive. The difference between a site that feels premium and one that feels static.</p>
+  <pre><code class="language-css">/* Scroll progress bar — thin gold line at top of viewport */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 999;
+  height: 2px; width: 0%; background: var(--gold);
+  transform-origin: left; transition: none;
+}
+
+/* Button press effect */
+.btn { transition: transform 0.15s, box-shadow 0.15s; }
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,169,110,0.25); }
+.btn:active { transform: translateY(0);    box-shadow: none; }
+
+/* Image hover zoom */
+.gallery-img { overflow: hidden; }
+.gallery-img img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.gallery-img:hover img { transform: scale(1.04); }
+
+/* Nav link underline reveal */
+.nav-link {
+  position: relative;
+  &::after {
+    content: ""; position: absolute; bottom: -2px; left: 0;
+    width: 100%; height: 1px; background: var(--gold);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  &:hover::after { transform: scaleX(1); transform-origin: left; }
+}</code></pre>
+  <pre><code class="language-javascript">// Scroll progress bar
+const progressBar = document.getElementById("scroll-progress");
+window.addEventListener("scroll", () => {
+  const scrolled = window.scrollY;
+  const total    = document.body.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrolled / total * 100) + "%";
+}, { passive: true });
+
+// Stat counters — animate numbers when scrolled into view
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const isDecimal = String(target).includes(".");
+  gsap.to({ val: 0 }, {
+    val: target, duration: 2, ease: "power2.out",
+    onUpdate: function() {
+      el.textContent = isDecimal
+        ? this.targets()[0].val.toFixed(1)
+        : Math.round(this.targets()[0].val);
+    },
+    scrollTrigger: { trigger: el, start: "top 80%", once: true }
+  });
+}
+document.querySelectorAll("[data-target]").forEach(animateCounter);</code></pre>
+
+  <h2>4. PWA — Progressive Web App</h2>
+  <p>Makes the website installable like an app and available offline — crucial for guests traveling in mountain areas with poor signal.</p>
+  <pre><code class="language-json">// manifest.json (in root folder)
+{
+  "name": "Dream Chalet Trikala",
+  "short_name": "Dream Chalet",
+  "description": "3-bedroom vacation rental near Meteora, Greece",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e0b08",
+  "theme_color": "#c9a96e",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}</code></pre>
+  <pre><code class="language-html">&lt;!-- In &lt;head&gt; --&gt;
+&lt;link rel="manifest" href="/manifest.json"&gt;
+&lt;meta name="theme-color" content="#c9a96e"&gt;
+&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</code></pre>
+  <pre><code class="language-javascript">// sw.js — Service Worker (in root folder)
+const CACHE = "dream-chalet-v1";
+const OFFLINE_ASSETS = [
+  "/", "/index.html", "/css/style.css",
+  "/js/main.js", "/js/animations.js",
+  "/assets/images/hero-poster.webp",
+  "/locales/el.json", "/locales/en.json"
+];
+
+// Install: cache key assets
+self.addEventListener("install", e => {
+  e.waitUntil(
+    caches.open(CACHE).then(cache => cache.addAll(OFFLINE_ASSETS))
+  );
+});
+
+// Fetch: serve from cache, fall back to network
+self.addEventListener("fetch", e => {
+  e.respondWith(
+    caches.match(e.request)
+      .then(cached => cached || fetch(e.request))
+      .catch(() => caches.match("/index.html")) // offline fallback
+  );
+});
+
+// In main.js — register the service worker
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("PWA: Service Worker registered"))
+      .catch(err => console.error("SW registration failed:", err));
+  });
+}</code></pre>
+
+  <h2>5. Cookie Consent (GDPR — Required in Greece/EU)</h2>
+  <p>EU law requires explicit consent before loading any tracking scripts. Greece is in the EU. This is not optional — without it the site is technically illegal for EU visitors.</p>
+  <pre><code class="language-html">&lt;!-- vanilla-cookieconsent CDN --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"&gt;&lt;/script&gt;</code></pre>
+  <pre><code class="language-javascript">// js/cookie-consent.js
+CookieConsent.run({
+  guiOptions: {
+    consentModal: { layout: "bar", position: "bottom" }
+  },
+  categories: {
+    necessary: { enabled: true, readOnly: true }, // always on
+    analytics: { enabled: false }                  // opt-in
+  },
+  language: {
+    default: "el",
+    translations: {
+      el: {
+        consentModal: {
+          title: "Χρήση Cookies",
+          description: "Χρησιμοποιούμε cookies για να βελτιώσουμε την εμπειρία σας.",
+          acceptAllBtn: "Αποδοχή Όλων",
+          acceptNecessaryBtn: "Μόνο Απαραίτητα"
+        }
+      },
+      en: {
+        consentModal: {
+          title: "Cookie Consent",
+          description: "We use cookies to improve your experience.",
+          acceptAllBtn: "Accept All",
+          acceptNecessaryBtn: "Essential Only"
+        }
+      }
+    }
+  },
+  onConsent: ({ cookie }) => {
+    // Load GA4 only if user accepted analytics cookies
+    if (CookieConsent.acceptedCategory("analytics")) {
+      loadGoogleAnalytics();
+    }
+  }
+});
+
+function loadGoogleAnalytics() {
+  const script = document.createElement("script");
+  script.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX";
+  script.async = true;
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", "G-XXXXXXXXXX");
+  window.gtag = gtag;
+}</code></pre>
+
+  <h2>6. Accessibility (a11y)</h2>
+  <p>15% of people have some disability. Accessible sites rank better in Google, avoid legal risk, and show true craft. Inaccessible code is lazy code.</p>
+  <pre><code class="language-html">&lt;!-- 1. Skip link — first element in body --&gt;
+&lt;a href="#main-content" class="skip-link"&gt;Skip to content&lt;/a&gt;
+
+&lt;!-- 2. ARIA labels on icon-only buttons --&gt;
+&lt;button class="hamburger" aria-label="Open navigation menu" aria-expanded="false"&gt;
+  &lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- 3. Gallery overlay — dialog role --&gt;
+&lt;div class="gallery-overlay" role="dialog" aria-modal="true" aria-label="Photo gallery"&gt;
+  &lt;button class="gallery-close" aria-label="Close gallery"&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- 4. Main content landmark --&gt;
+&lt;main id="main-content"&gt;...&lt;/main&gt;</code></pre>
+  <pre><code class="language-css">/* Skip link — visible only when focused by keyboard */
+.skip-link {
+  position: absolute; top: -100%; left: 1rem;
+  background: var(--gold); color: var(--bg);
+  padding: 0.5rem 1rem; border-radius: 4px;
+  font-weight: 600; z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; } /* appears when Tab is pressed */
+
+/* Always show focus outlines for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}</code></pre>
+  <pre><code class="language-javascript">// Focus trap — keeps keyboard focus inside modal when open
+function trapFocus(modal) {
+  const focusable = modal.querySelectorAll(
+    "a, button, input, [tabindex]:not([tabindex='-1'])"
+  );
+  const first = focusable[0];
+  const last  = focusable[focusable.length - 1];
+
+  modal.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab") return;
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+    }
+  });
+  first.focus(); // set initial focus
+}
+
+// Update hamburger aria-expanded on toggle
+hamburger.addEventListener("click", () => {
+  const isOpen = mobileMenu.classList.toggle("open");
+  hamburger.setAttribute("aria-expanded", isOpen);
+});</code></pre>
+
+  <h2>7. Google Analytics 4 — Event Tracking</h2>
+  <p>GA4 tracks who visits, where they come from, and what they do. The client can see how many people click "Book on Airbnb" vs WhatsApp, which photos they view most, and where they leave. This is how you prove the site works.</p>
+  <pre><code class="language-javascript">// js/analytics.js — called only after cookie consent
+function initTracking() {
+  if (typeof gtag === "undefined") return;
+
+  // Track all booking button clicks
+  document.querySelectorAll("[data-track]").forEach(el => {
+    el.addEventListener("click", () => {
+      gtag("event", "booking_click", {
+        platform: el.dataset.track,   // "airbnb" | "booking" | "whatsapp" | "viber"
+        location: el.dataset.location // "nav" | "contact" | "sticky"
+      });
+    });
+  });
+
+  // Track gallery opens
+  document.querySelectorAll(".gallery-img").forEach((img, i) => {
+    img.addEventListener("click", () => {
+      gtag("event", "gallery_open", { image_index: i });
+    });
+  });
+
+  // Track language switches
+  document.getElementById("lang-toggle").addEventListener("click", () => {
+    gtag("event", "language_switch", {
+      from: i18next.language,
+      to: i18next.language === "el" ? "en" : "el"
+    });
+  });
+
+  // Track scroll depth (25%, 50%, 75%, 100%)
+  const milestones = [25, 50, 75, 100];
+  const reached = new Set();
+  window.addEventListener("scroll", () => {
+    const pct = Math.round(
+      (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+    );
+    milestones.forEach(m => {
+      if (pct >= m && !reached.has(m)) {
+        reached.add(m);
+        gtag("event", "scroll_depth", { percent: m });
+      }
+    });
+  }, { passive: true });
+}</code></pre>
+  <pre><code class="language-html">&lt;!-- Add data-track attribute to all booking buttons in HTML --&gt;
+&lt;a href="https://wa.me/306976908838" data-track="whatsapp" data-location="contact"&gt;WhatsApp&lt;/a&gt;
+&lt;a href="https://www.airbnb.gr/..." data-track="airbnb" data-location="contact"&gt;Airbnb&lt;/a&gt;</code></pre>
+
+  <h2>8. Performance Budget</h2>
+  <p>Hard limits set from day one. Without a budget, it is easy to add one more library, one more animation, one more image — until the site takes 8 seconds to load and you have lost both the visitor and the ranking.</p>
+  <table>
+    <tr><th>Asset</th><th>Limit</th><th>How to achieve</th></tr>
+    <tr><td>Total page weight</td><td>&lt; 3 MB</td><td>WebP images, compressed video</td></tr>
+    <tr><td>Hero video</td><td>&lt; 5 MB</td><td>H.264, 720p, 10-20 sec loop</td></tr>
+    <tr><td>Each gallery image</td><td>&lt; 200 KB</td><td>WebP, max 1200px wide</td></tr>
+    <tr><td>JavaScript total</td><td>&lt; 400 KB</td><td>CDN, tree-shaking, defer</td></tr>
+    <tr><td>Lighthouse Performance</td><td>≥ 90</td><td>All rules in Ch.14</td></tr>
+    <tr><td>Time to Interactive</td><td>&lt; 3 sec</td><td>Preloader + preload + defer</td></tr>
+  </table>
+  <pre><code class="language-bash"># Check your Lighthouse score before going live
+# In Chrome DevTools → Lighthouse → Generate report
+# Or use the CLI:
+npx lighthouse https://yourdomain.com --only-categories=performance,accessibility,seo</code></pre>
+
+  <div class="box box-tip">
+    <strong>New files added to the project:</strong>
+    <ul style="margin-top:0.5rem">
+      <li><code>manifest.json</code> — PWA app manifest</li>
+      <li><code>sw.js</code> — Service Worker for offline support</li>
+      <li><code>sitemap.xml</code> — SEO sitemap</li>
+      <li><code>js/preloader.js</code> — Intro screen</li>
+      <li><code>js/cursor.js</code> — Custom cursor</li>
+      <li><code>js/cookie-consent.js</code> — GDPR banner</li>
+      <li><code>js/analytics.js</code> — GA4 event tracking</li>
+    </ul>
+  </div>
+</section>
+
+</div><!-- .content -->
+</main><!-- #main -->
+
+<!-- Prism.js syntax highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+
+<script>
+// Highlight active sidebar link on scroll
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll("#sidebar nav a");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove("active"));
+      const active = document.querySelector(`#sidebar nav a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add("active");
+    }
+  });
+}, { threshold: 0.3, rootMargin: "-10% 0px -60% 0px" });
+
+sections.forEach(s => observer.observe(s));
+
+// Close mobile sidebar when a link is clicked
+navLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    document.getElementById("sidebar").classList.remove("open");
+  });
+});
+</script>
+</body>
+</html>
