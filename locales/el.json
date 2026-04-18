@@ -8,8 +8,7 @@
   "hero": {
     "title": "Dream Chalet",
     "subtitle": "Πολυτελές Εξοχικό στα Τρίκαλα",
-    "bookAirbnb": "Κράτηση Airbnb",
-    "bookBooking": "Κράτηση Booking"
+    "bookNow": "Book Now"
   },
   "about": {
     "label": "Η Κατοικία",
@@ -92,7 +91,8 @@
     "minStay": "Ελάχ. παραμονή: 2 νύχτες",
     "checkin": "Check-in: 15:00",
     "checkout": "Check-out: 11:00",
-    "cta": "Κράτηση Τώρα",
+    "cta": "Book Now",
+    "checkAvailability": "Check Availability",
     "calendar": "Ημερολόγιο Διαθεσιμότητας"
   },
   "contact": {
@@ -105,7 +105,9 @@
     "booking": "Booking.com"
   },
   "footer": {
-    "copyright": "© 2026 Dream Chalet Trikala. Με επιφύλαξη παντός δικαιώματος."
+    "copyright": "© 2026 Dream Chalet Trikala. Με επιφύλαξη παντός δικαιώματος.",
+    "quickLinks": "Quick Links",
+    "location": "Location"
   },
   "sticky": {
     "book": "Κράτηση"

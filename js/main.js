@@ -94,6 +94,8 @@
     if (typeof initThreeJS === 'function') initThreeJS();
     if (typeof initMap === 'function') initMap();
     if (typeof initCalendar === 'function') initCalendar();
+    if (typeof initWeather === 'function') initWeather();
+    if (typeof initAvailability === 'function') initAvailability();
     if (typeof initI18n === 'function') initI18n();
     if (typeof initCookieConsent === 'function') initCookieConsent();
   }
