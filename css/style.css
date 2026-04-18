@@ -83,7 +83,7 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.1; fon
 .hero-video-wrap video { width: 100%; height: 100%; object-fit: cover; transform-origin: center; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(14,11,8,0.35) 0%, rgba(14,11,8,0.2) 40%, rgba(14,11,8,0.6) 80%, rgba(14,11,8,0.9) 100%); }
 .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 1rem; }
-.hero-title { font-size: clamp(4rem, 12vw, 10rem); font-weight: 700; letter-spacing: 0.05em; color: var(--cream); line-height: 1; margin-bottom: 1rem; overflow: hidden; }
+.hero-title { font-size: clamp(2.5rem, 10vw, 10rem); font-weight: 700; letter-spacing: 0.05em; color: var(--cream); line-height: 1; margin-bottom: 1rem; overflow: hidden; white-space: nowrap; }
 .hero-title .char { display: inline-block; opacity: 0; transform: translateY(80px) rotateX(-60deg); transform-origin: bottom center; }
 .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2.5rem; opacity: 0; }
 .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; }
@@ -104,7 +104,7 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.1; fon
 .room-list { display: flex; flex-direction: column; gap: 0.5rem; }
 .room-list-item { font-size: 1.1rem; font-weight: 500; color: var(--text-light); padding: 0.5rem 0; border-bottom: 1px solid var(--border); cursor: none; transition: color var(--transition), padding-left var(--transition); }
 .room-list-item:hover { color: var(--gold); padding-left: 0.75rem; }
-#cursor-gallery-img { position: fixed; width: 220px; height: 160px; object-fit: cover; border-radius: var(--radius); pointer-events: none; opacity: 0; z-index: 7000; transform: translate(-50%, -50%); box-shadow: 0 20px 60px rgba(0,0,0,0.5); transition: opacity 0.2s; }
+#cursor-gallery-img { position: fixed; top: 0; left: 0; width: 220px; height: 160px; object-fit: cover; border-radius: var(--radius); pointer-events: none; opacity: 0; z-index: 7000; transform: translate(-50%, -60%); box-shadow: 0 20px 60px rgba(0,0,0,0.5); display: none; }
 .about-image-wrap { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/3; clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
 .about-image-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; z-index: 1; border-top: 1px solid var(--border); padding-top: 3rem; }
@@ -113,7 +113,7 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.1; fon
 .stat-label { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
 .section-gallery { padding: 6rem 0 8rem; background: var(--bg2); overflow: hidden; }
 .gallery-header { margin-bottom: 3rem; }
-.coverflow-container { position: relative; height: 60vh; min-height: 400px; display: flex; align-items: center; justify-content: center; perspective: 1400px; }
+.coverflow-container { position: relative; height: 60vh; min-height: 400px; display: flex; align-items: center; justify-content: center; perspective: 1400px; overflow: hidden; }
 .coverflow-track { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
 .gallery-slide { position: absolute; top: 50%; left: 50%; width: 500px; max-width: 70vw; aspect-ratio: 4/3; border-radius: var(--radius-lg); overflow: hidden; cursor: grab; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), box-shadow 0.5s ease, opacity 0.5s ease; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
 .gallery-slide:active { cursor: grabbing; }
@@ -192,7 +192,7 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.1; fon
 .map-marker { width: 36px; height: 36px; border-radius: 50%; background: var(--gold); border: 3px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; cursor: pointer; transition: transform var(--transition); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
 .map-marker:hover { transform: scale(1.2); }
 .map-marker.main { width: 44px; height: 44px; background: var(--gold); }
-.section-reviews { padding: 8rem 0; background: var(--bg); }
+.section-reviews { padding: 8rem 0 4rem; background: var(--bg); overflow: hidden; }
 .reviews-header { margin-bottom: 4rem; }
 .reviews-stack-container { position: relative; min-height: 500px; display: flex; flex-direction: column; align-items: center; }
 .reviews-stack { position: relative; width: 600px; max-width: 90vw; height: 400px; }
@@ -204,7 +204,7 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.1; fon
 .review-name { display: block; font-weight: 600; font-size: 0.9rem; color: #1a1209; }
 .review-role { display: block; font-size: 0.78rem; color: #7a6a50; }
 .section-pricing { padding: 8rem 0; background: var(--bg2); }
-.pricing-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: start; margin-top: 3rem; }
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; margin-top: 3rem; }
 .price-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; position: relative; overflow: hidden; }
 .price-card.popular { border: 2px solid var(--gold); }
 .price-card::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg); border: 1px solid transparent; background: linear-gradient(135deg, var(--gold), transparent) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude; opacity: 0; transition: opacity var(--transition); }
