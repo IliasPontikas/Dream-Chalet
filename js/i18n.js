@@ -8,12 +8,44 @@ function initI18n() {
   const btn = document.getElementById('lang-toggle');
   let currentLang = localStorage.getItem('lang') || 'el';
 
+  const resources = {
+    el: {
+      translation: {
+        "nav.home": "Αρχική",
+        "nav.about": "Πληροφορίες",
+        "nav.gallery": "Γκαλερί",
+        "nav.amenities": "Παροχές",
+        "nav.contact": "Επικοινωνία",
+        "hero.bookNow": "Κράτηση Τώρα",
+        "hero.title": "Dream Chalet",
+        "hero.subtitle": "Πολυτελές Εξοχικό στα Τρίκαλα",
+        "hero.scrollDown": "Scroll Down",
+        "pricing.cta": "Κράτηση Τώρα",
+        "pricing.calendar": "Ημερολόγιο Διαθεσιμότητας"
+      }
+    },
+    en: {
+      translation: {
+        "nav.home": "Home",
+        "nav.about": "About",
+        "nav.gallery": "Gallery",
+        "nav.amenities": "Amenities",
+        "nav.contact": "Contact",
+        "hero.bookNow": "Book Now",
+        "hero.title": "Dream Chalet",
+        "hero.subtitle": "Luxury Chalet in Trikala",
+        "hero.scrollDown": "Scroll Down",
+        "pricing.cta": "Book Now",
+        "pricing.calendar": "Availability Calendar"
+      }
+    }
+  };
+
   i18next
-    .use(i18nextHttpBackend)
     .init({
       lng: currentLang,
       fallbackLng: 'el',
-      backend: { loadPath: '/locales/{{lng}}.json' },
+      resources: resources,
       interpolation: { escapeValue: false },
     })
     .then(() => {

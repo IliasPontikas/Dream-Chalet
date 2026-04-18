@@ -14,6 +14,7 @@ function initAnimations() {
   initCursorGallery();
   initStickyBookBtn();
   initAttractionsTilt();
+  initAttractionsScroll();
 }
 
 /* ── Navigation ──────────────────────────────────────────── */
@@ -153,7 +154,7 @@ function initSectionEntrances() {
       ease: 'power3.out',
       scrollTrigger: { trigger: '.amenities-grid', start: 'top 80%' },
     });
-  }  
+  }
 
   /* Contact buttons */
   gsap.utils.toArray('.btn-contact').forEach((btn, i) => {
@@ -291,4 +292,36 @@ function initAttractionsTilt() {
     });
   });
 }
-
+
+/* ── Attractions Horizontal Scroll ───────────────────────── */
+function initAttractionsScroll() {
+  const container = document.querySelector('.section-attractions');
+  const track = document.getElementById('attractions-track');
+
+  if (!container || !track) return;
+
+  const cards = track.querySelectorAll('.attraction-card');
+  if (cards.length === 0) return;
+
+  /* Calculate the total distance to scroll horizontally */
+  function getScrollAmount() {
+    return track.scrollWidth - window.innerWidth + (window.innerWidth * 0.1);
+  }
+
+  const tween = gsap.to(track, {
+    x: () => -getScrollAmount(),
+    ease: "none"
+  });
+
+  ScrollTrigger.create({
+    trigger: container,
+    start: "top top",
+    end: () => `+=${getScrollAmount()}`,
+    pin: true,
+    animation: tween,
+    scrub: 1,
+    invalidateOnRefresh: true,
+    anticipatePin: 1
+  });
+}
+

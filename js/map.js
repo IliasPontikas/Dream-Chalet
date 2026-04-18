@@ -3,6 +3,9 @@
 function initMap() {
   'use strict';
 
+  /* Always initialize weather independently */
+  initWeather();
+
   if (typeof maplibregl === 'undefined') return;
 
   const mapEl = document.getElementById('map');
@@ -83,11 +86,6 @@ function initMap() {
         .addTo(map);
     });
   });
-
-    });
-  });
-
-  initWeather();
 }
 
 /* ── 5-Day Weather Forecast using Open-Meteo ───────────────── */
@@ -99,20 +97,20 @@ async function initWeather() {
     const lat = 39.5557;
     const lon = 21.7679; // Trikala region
     const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`);
-    
+
     if (!res.ok) throw new Error('Weather fetch failed');
     const data = await res.json();
     const daily = data.daily;
-    
+
     let html = '';
-    
+
     for (let i = 0; i < 5; i++) {
       const date = new Date(daily.time[i]);
       const dayName = date.toLocaleDateString('el-GR', { weekday: 'short' });
       const maxTemp = Math.round(daily.temperature_2m_max[i]);
       const minTemp = Math.round(daily.temperature_2m_min[i]);
       const code = daily.weather_code[i];
-      
+
       let icon = 'fa-cloud';
       if (code === 0) icon = 'fa-sun';
       else if (code >= 1 && code <= 3) icon = 'fa-cloud-sun';
@@ -129,7 +127,7 @@ async function initWeather() {
         </div>
       `;
     }
-    
+
     container.innerHTML = html;
   } catch (err) {
     console.error(err);

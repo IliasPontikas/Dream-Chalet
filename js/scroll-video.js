@@ -3,8 +3,8 @@
 function initScrollVideo() {
   'use strict';
 
-  const section  = document.getElementById('scroll-video');
-  const video    = document.getElementById('scroll-vid');
+  const section = document.getElementById('scroll-video');
+  const video = document.getElementById('scroll-vid');
   const overlay1 = section?.querySelector('.scroll-overlay-1');
   const overlay2 = section?.querySelector('.scroll-overlay-2');
 
@@ -13,6 +13,18 @@ function initScrollVideo() {
   /* Use a simple scroll-based image fallback if video can't load */
   function setupScrub() {
     if (!video.duration) return;
+
+    let targetTime = 0;
+    let isUpdating = false;
+
+    function renderScrub() {
+      if (Math.abs(video.currentTime - targetTime) > 0.05) {
+        try {
+          video.currentTime = targetTime;
+        } catch (e) { }
+      }
+      isUpdating = false;
+    }
 
     ScrollTrigger.create({
       trigger: section,
@@ -23,12 +35,13 @@ function initScrollVideo() {
       anticipatePin: 1,
       onUpdate(self) {
         if (video.duration) {
-          /* Use try-catch as some browsers throw when scrubbing rapidly */
-          try {
-            video.currentTime = self.progress * video.duration;
-          } catch (e) {}
+          targetTime = self.progress * video.duration;
+          if (!isUpdating) {
+            isUpdating = true;
+            requestAnimationFrame(renderScrub);
+          }
         }
-        
+
         /* Fade overlays based on progress */
         if (overlay1) {
           const p1 = gsap.utils.clamp(0, 1, (self.progress - 0.2) / 0.25);

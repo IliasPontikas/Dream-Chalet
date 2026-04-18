@@ -58,34 +58,49 @@ function initGallery() {
     if (e.key === 'ArrowRight') goTo(current + 1);
   });
 
-  /* ── Drag/Swipe with GSAP Draggable ────────────────────── */
-  if (typeof Draggable !== 'undefined') {
-    Draggable.create(document.createElement('div'), {
-      trigger: track,
-      type: 'x',
-      minimumMovement: 15,
-      onDragEnd: function() {
-        if (this.getDirection("start") === "left") {
-          goTo(current + 1);
-        } else if (this.getDirection("start") === "right") {
-          goTo(current - 1);
-        }
-      }
-    });
-  } else {
-    let touchStartX = 0;
-    track.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-    track.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 50) goTo(current + (dx > 0 ? -1 : 1));
-    });
-  }
+  /* ── Pointer Drag/Swipe ──────────────────────────────── */
+  let isDragging = false;
+  let hasDragged = false;
+  let startX = 0;
+  let dragThreshold = 50;
+
+  track.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    hasDragged = false;
+    startX = e.clientX;
+    track.setPointerCapture(e.pointerId);
+  });
+
+  track.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    if (Math.abs(e.clientX - startX) > 10) {
+      hasDragged = true;
+    }
+  });
+
+  track.addEventListener('pointerup', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > dragThreshold) {
+      if (dx > 0) goTo(current - 1);
+      else goTo(current + 1);
+    }
+  });
+
+  track.addEventListener('pointercancel', () => {
+    isDragging = false;
+    hasDragged = false;
+  });
 
   /* ── Click slide to open fullscreen ─────────────────── */
   slides.forEach((slide, i) => {
-    slide.addEventListener('click', () => {
+    slide.addEventListener('click', (e) => {
+      if (hasDragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
       if (slide.dataset.pos === '0') {
         /* Flip expansion for center slide */
         openOverlay(i);
