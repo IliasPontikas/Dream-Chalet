@@ -58,15 +58,30 @@ function initGallery() {
     if (e.key === 'ArrowRight') goTo(current + 1);
   });
 
-  /* ── Touch/swipe on mobile ───────────────────────────── */
-  let touchStartX = 0;
-  track.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  track.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) goTo(current + (dx > 0 ? -1 : 1));
-  });
+  /* ── Drag/Swipe with GSAP Draggable ────────────────────── */
+  if (typeof Draggable !== 'undefined') {
+    Draggable.create(document.createElement('div'), {
+      trigger: track,
+      type: 'x',
+      minimumMovement: 15,
+      onDragEnd: function() {
+        if (this.getDirection("start") === "left") {
+          goTo(current + 1);
+        } else if (this.getDirection("start") === "right") {
+          goTo(current - 1);
+        }
+      }
+    });
+  } else {
+    let touchStartX = 0;
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) goTo(current + (dx > 0 ? -1 : 1));
+    });
+  }
 
   /* ── Click slide to open fullscreen ─────────────────── */
   slides.forEach((slide, i) => {

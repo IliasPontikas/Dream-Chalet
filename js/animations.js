@@ -21,7 +21,7 @@ function initNav() {
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
-  const mobileLinks = mobileMenu?.querySelectorAll('.mobile-nav-link, .mobile-nav-cta');
+  const mobileLinks = mobileMenu?.querySelectorAll('.mobile-nav-link, .mobile-book-btn, .mobile-menu-socials');
   if (!navbar) return;
 
   /* Transparent → solid on scroll */
@@ -222,6 +222,8 @@ function initCursorGallery() {
   const xTo = gsap.quickTo(img, 'x', { duration: 0.35, ease: 'power3.out' });
   const yTo = gsap.quickTo(img, 'y', { duration: 0.35, ease: 'power3.out' });
 
+  gsap.set(img, { xPercent: -50, yPercent: -50 });
+
   document.querySelectorAll('.room-list-item').forEach((item) => {
     item.addEventListener('mouseenter', () => {
       img.src = item.dataset.image || '';
@@ -289,43 +291,4 @@ function initAttractionsTilt() {
     });
   });
 }
-
-/* ── Attractions Horizontal Scroll ───────────────────────── */
-(function initAttractionsScroll() {
-  const wrapper = document.querySelector('.attractions-wrapper');
-  const track = document.getElementById('attractions-track');
-  const dots = document.querySelectorAll('.attraction-dot');
-  if (!track || !wrapper) return;
-
-  const cards = gsap.utils.toArray('.attraction-card');
-
-  gsap.to(track, {
-    x: () => -(cards.length - 1) * window.innerWidth,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: wrapper,
-      pin: true,
-      scrub: 1,
-      start: 'top top',
-      end: () => `+=${cards.length * window.innerWidth}`,
-      snap: 1 / (cards.length - 1),
-      onUpdate(self) {
-        const idx = Math.round(self.progress * (cards.length - 1));
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      },
-    },
-  });
-
-  /* Dot click navigation */
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      const trigger = ScrollTrigger.getById('attractions-trigger');
-      if (window.__lenis && trigger) {
-        const progress = i / (cards.length - 1);
-        const start = trigger.start;
-        const end = trigger.end;
-        window.__lenis.scrollTo(start + (end - start) * progress);
-      }
-    });
-  });
-})(); 
+

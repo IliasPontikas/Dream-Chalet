@@ -86,6 +86,7 @@
 
   /* ── After preloader: kick off all modules ─────────────── */
   function onReady() {
+    initThemeToggle();
     if (typeof initAnimations === 'function') initAnimations();
     if (typeof initCursor === 'function') initCursor();
     if (typeof initScrollVideo === 'function') initScrollVideo();
@@ -96,6 +97,36 @@
     if (typeof initCalendar === 'function') initCalendar();
     if (typeof initI18n === 'function') initI18n();
     if (typeof initCookieConsent === 'function') initCookieConsent();
+  }
+
+  /* ── Theme Toggle ──────────────────────────────────────── */
+  function initThemeToggle() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    const icon = toggleBtn?.querySelector('i');
+    if (!toggleBtn || !icon) return;
+
+    // Check local storage or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    let isLight = savedTheme === 'light' || (!savedTheme && prefersLight);
+
+    function applyTheme() {
+      if (isLight) {
+        document.documentElement.setAttribute('data-theme', 'light');
+        icon.className = 'fa-solid fa-sun';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        icon.className = 'fa-solid fa-moon';
+      }
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+
+    applyTheme();
+
+    toggleBtn.addEventListener('click', () => {
+      isLight = !isLight;
+      applyTheme();
+    });
   }
 
   /* ── Service Worker ────────────────────────────────────── */

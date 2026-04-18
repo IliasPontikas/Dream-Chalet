@@ -84,11 +84,55 @@ function initMap() {
     });
   });
 
-  /* flyTo when attraction cards are clicked */
-  document.querySelectorAll('.attraction-card[data-coords]').forEach((card) => {
-    card.addEventListener('click', () => {
-      const [lng, lat] = card.dataset.coords.split(',').map(Number);
-      map.flyTo({ center: [lng, lat], zoom: 12, duration: 1800, essential: true });
     });
   });
+
+  initWeather();
+}
+
+/* ── 5-Day Weather Forecast using Open-Meteo ───────────────── */
+async function initWeather() {
+  const container = document.getElementById('weather-container');
+  if (!container) return;
+
+  try {
+    const lat = 39.5557;
+    const lon = 21.7679; // Trikala region
+    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`);
+    
+    if (!res.ok) throw new Error('Weather fetch failed');
+    const data = await res.json();
+    const daily = data.daily;
+    
+    let html = '';
+    
+    for (let i = 0; i < 5; i++) {
+      const date = new Date(daily.time[i]);
+      const dayName = date.toLocaleDateString('el-GR', { weekday: 'short' });
+      const maxTemp = Math.round(daily.temperature_2m_max[i]);
+      const minTemp = Math.round(daily.temperature_2m_min[i]);
+      const code = daily.weather_code[i];
+      
+      let icon = 'fa-cloud';
+      if (code === 0) icon = 'fa-sun';
+      else if (code >= 1 && code <= 3) icon = 'fa-cloud-sun';
+      else if (code === 45 || code === 48) icon = 'fa-smog';
+      else if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) icon = 'fa-cloud-rain';
+      else if ((code >= 71 && code <= 77) || code === 85 || code === 86) icon = 'fa-snowflake';
+      else if (code >= 95) icon = 'fa-bolt';
+
+      html += `
+        <div class="weather-day">
+          <span class="day-name">${dayName}</span>
+          <i class="fa-solid ${icon} weather-icon"></i>
+          <span class="weather-temp">${maxTemp}° / <span style="color:var(--text-muted);font-size:0.85em">${minTemp}°</span></span>
+        </div>
+      `;
+    }
+    
+    container.innerHTML = html;
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = '<div style="color:var(--text-muted);font-size:0.9rem;">Μη διαθέσιμα δεδομένα καιρού.</div>';
+  }
 }
