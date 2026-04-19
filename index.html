@@ -119,8 +119,7 @@
       </div>
 
       <div class="nav-actions">
-        <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-airbnb nav-btn" aria-label="Book on Airbnb">Airbnb</a>
-        <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-booking nav-btn" aria-label="Book on Booking.com">Booking</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Theme toggle" title="Toggle dark/light mode"></button>
         <button id="lang-toggle" class="lang-toggle" aria-label="Language toggle" data-lang="el">EN</button>
         <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
           <span></span>
@@ -133,13 +132,27 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu" role="navigation" aria-hidden="true">
       <div class="mobile-menu-inner">
-        <a href="#about" class="mobile-nav-link" data-i18n="nav.about">Πληροφορίες</a>
-        <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">Γκαλερί</a>
-        <a href="#amenities" class="mobile-nav-link" data-i18n="nav.amenities">Παροχές</a>
-        <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">Επικοινωνία</a>
-        <hr>
-        <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" class="mobile-nav-cta btn-airbnb">Airbnb</a>
-        <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" class="mobile-nav-cta btn-booking">Booking.com</a>
+        <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo">
+
+        <div class="mobile-menu-nav">
+          <a href="#about" class="mobile-nav-link" data-i18n="nav.about">Πληροφορίες</a>
+          <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">Γκαλερί</a>
+          <a href="#amenities" class="mobile-nav-link" data-i18n="nav.amenities">Παροχές</a>
+          <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">Επικοινωνία</a>
+          <a href="javascript:void(0)" class="mobile-nav-link btn-book-now" data-i18n="hero.bookNow" onclick="window.location.href='https://www.airbnb.gr/rooms/1019294882973971198'">Book Now</a>
+        </div>
+
+        <div class="mobile-menu-social">
+          <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
+            <i class="fa-brands fa-airbnb"></i>
+          </a>
+          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
+            <i class="fa-solid fa-bed"></i>
+          </a>
+        </div>
       </div>
     </div>
   </nav>
@@ -157,8 +170,7 @@
         <h1 class="hero-title" data-i18n="hero.title">Dream Chalet</h1>
         <p class="hero-subtitle" data-i18n="hero.subtitle">Πολυτελές Εξοχικό στα Τρίκαλα</p>
         <div class="hero-ctas">
-          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta btn-airbnb" data-i18n="hero.bookAirbnb" data-track="booking">Κράτηση Airbnb</a>
-          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-cta btn-booking" data-i18n="hero.bookBooking" data-track="booking">Κράτηση Booking</a>
+          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta book-now" data-i18n="hero.bookNow" data-track="booking">Book Now</a>
         </div>
       </div>
       <div class="hero-scroll-hint" aria-hidden="true">
@@ -266,22 +278,27 @@
       </div>
     </section>
 
-    <!-- Amenities -->
+    <!-- Amenities Marquee -->
     <section id="amenities" class="section-amenities" role="region" aria-label="Amenities">
       <div class="container">
         <span class="section-label" data-i18n="amenities.label">Παροχές</span>
         <h2 class="section-heading" data-i18n="amenities.heading">Όλα Όσα Χρειάζεστε</h2>
         <div class="amenities-grid">
-          <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span data-i18n="amenities.wifi">WiFi</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-kitchen-set"></i><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-water-ladder"></i><span data-i18n="amenities.washer">Πλυντήριο</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-fire"></i><span data-i18n="amenities.fireplace">Τζάκι</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-tv"></i><span data-i18n="amenities.tv">Τηλεόραση</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-square-parking"></i><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-sun"></i><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-leaf"></i><span data-i18n="amenities.garden">Κήπος</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-snowflake"></i><span data-i18n="amenities.ac">Κλιματισμός</span></div>
-          <div class="amenity-item"><i class="fa-solid fa-ban-smoking"></i><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
+          <div class="amenities-marquee" id="amenities-marquee">
+            <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span data-i18n="amenities.wifi">WiFi</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-kitchen-set"></i><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-water-ladder"></i><span data-i18n="amenities.washer">Πλυντήριο</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-fire"></i><span data-i18n="amenities.fireplace">Τζάκι</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-tv"></i><span data-i18n="amenities.tv">Τηλεόραση</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-square-parking"></i><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-sun"></i><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-leaf"></i><span data-i18n="amenities.garden">Κήπος</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-snowflake"></i><span data-i18n="amenities.ac">Κλιματισμός</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-ban-smoking"></i><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
+            <!-- Repeat for infinite loop -->
+            <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span data-i18n="amenities.wifi">WiFi</span></div>
+            <div class="amenity-item"><i class="fa-solid fa-kitchen-set"></i><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -345,13 +362,36 @@
       </div>
     </section>
 
-    <!-- Map -->
+    <!-- Map & Location -->
     <section id="map-section" class="section-map" role="region" aria-label="Map section">
-      <div class="container map-header">
-        <span class="section-label" data-i18n="map.label">Τοποθεσία</span>
-        <h2 class="section-heading" data-i18n="map.heading">Βρείτε Μας</h2>
+      <div class="container">
+        <div class="map-header">
+          <span class="section-label" data-i18n="map.label">Τοποθεσία</span>
+          <h2 class="section-heading" data-i18n="map.heading">Βρείτε Μας</h2>
+        </div>
+        <div class="map-wrapper">
+          <div id="map" role="application" aria-label="Dream Chalet location map"></div>
+          <div class="nearby-locations">
+            <h3 class="section-heading" style="font-size: 1.2rem; margin-bottom: 1.5rem;">Κοντινά Σημεία Ενδιαφέροντος</h3>
+            <div class="nearby-item">
+              <h4>Μετέωρα</h4>
+              <p>UNESCO World Heritage Site • ~22 km</p>
+              <a href="https://maps.google.com/?q=21.6315,39.7228" target="_blank" rel="noopener" class="btn-map">Open in Maps</a>
+            </div>
+            <div class="nearby-item">
+              <h4>Ελάτι</h4>
+              <p>Ορεινό χωριό • ~30 km</p>
+              <a href="https://maps.google.com/?q=21.4833,39.5333" target="_blank" rel="noopener" class="btn-map">Open in Maps</a>
+            </div>
+            <div class="nearby-item">
+              <h4>Καταρράκτες Παλαιοκαριάς</h4>
+              <p>Καταρράκτες & Γέφυρα • ~35 km</p>
+              <a href="https://maps.google.com/?q=21.8333,39.6333" target="_blank" rel="noopener" class="btn-map">Open in Maps</a>
+            </div>
+          </div>
+        </div>
+        <div class="weather-grid" id="weather-grid"></div>
       </div>
-      <div id="map" role="application" aria-label="Dream Chalet location map"></div>
     </section>
 
     <!-- Reviews (Stacking Cards) -->
@@ -439,13 +479,31 @@
               <li><i class="fa-solid fa-clock"></i> <span data-i18n="pricing.checkin">Check-in: 15:00</span></li>
               <li><i class="fa-solid fa-door-open"></i> <span data-i18n="pricing.checkout">Check-out: 11:00</span></li>
             </ul>
-            <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta btn-airbnb" data-i18n="pricing.cta" data-track="booking">Κράτηση Τώρα</a>
+            <button class="price-cta" id="check-availability" data-i18n="pricing.checkAvailability">Check Availability</button>
+            <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta book-now" data-i18n="hero.bookNow" data-track="booking">Book Now</a>
           </div>
 
-          <div class="calendar-wrap">
-            <h3 data-i18n="pricing.calendar">Ημερολόγιο Διαθεσιμότητας</h3>
-            <div id="calendar-container" role="presentation"></div>
+          <div class="price-card popular">
+            <div class="popular-badge">Most Popular</div>
+            <div class="price-amount">
+              <span class="price-currency">€</span>
+              <span class="price-number">200</span>
+              <span class="price-unit" data-i18n="pricing.perNight">/νύχτα</span>
+            </div>
+            <ul class="price-details">
+              <li><i class="fa-solid fa-users"></i> <span>Exclusive Features</span></li>
+              <li><i class="fa-solid fa-moon"></i> <span>Min. 3 nights</span></li>
+              <li><i class="fa-solid fa-clock"></i> <span>Flexible Check-in</span></li>
+              <li><i class="fa-solid fa-door-open"></i> <span>Late Check-out</span></li>
+            </ul>
+            <button class="price-cta" id="check-availability-2" data-i18n="pricing.checkAvailability">Check Availability</button>
+            <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-cta book-now" data-i18n="hero.bookNow" data-track="booking">Book Now</a>
           </div>
+        </div>
+
+        <div class="calendar-wrap" style="margin-top: 3rem;">
+          <h3 data-i18n="pricing.calendar">Ημερολόγιο Διαθεσιμότητας</h3>
+          <div id="calendar-container" role="presentation"></div>
         </div>
       </div>
     </section>
@@ -453,8 +511,10 @@
     <!-- Contact -->
     <section id="contact" class="section-contact" role="region" aria-label="Contact">
       <div class="container">
-        <span class="section-label" data-i18n="contact.label">Επικοινωνία</span>
-        <h2 class="section-heading" data-i18n="contact.heading">Επικοινωνήστε Μαζί μας</h2>
+        <div class="contact-header">
+          <span class="section-label" data-i18n="contact.label">Επικοινωνία</span>
+          <h2 class="section-heading" data-i18n="contact.heading">Επικοινωνήστε Μαζί μας</h2>
+        </div>
         <p class="contact-phone">
           <i class="fa-solid fa-phone"></i>
           <a href="tel:+306976908838" data-i18n="contact.phone">+30 697 690 8838</a>
@@ -469,11 +529,11 @@
             <i class="fa-brands fa-viber"></i>
             <span data-i18n="contact.viber">Viber</span>
           </a>
-          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-contact btn-airbnb" data-track="airbnb">
+          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-contact btn-airbnb" data-track="airbnb" aria-label="Contact via Airbnb">
             <i class="fa-brands fa-airbnb"></i>
             <span data-i18n="contact.airbnb">Airbnb</span>
           </a>
-          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-contact btn-booking" data-track="booking">
+          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-contact btn-booking" data-track="booking" aria-label="Contact via Booking.com">
             <i class="fa-solid fa-bed"></i>
             <span data-i18n="contact.booking">Booking.com</span>
           </a>
@@ -484,18 +544,41 @@
     <!-- Footer -->
     <footer id="footer" class="site-footer" role="contentinfo">
       <div class="container footer-inner">
-        <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="footer-logo">
-        <div class="footer-links">
-          <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
-            <i class="fa-brands fa-airbnb"></i>
-          </a>
-          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
-            <i class="fa-solid fa-bed"></i>
-          </a>
+        <div class="footer-section">
+          <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="footer-logo">
+          <div class="footer-links">
+            <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
+              <i class="fa-brands fa-airbnb"></i>
+            </a>
+            <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
+              <i class="fa-solid fa-bed"></i>
+            </a>
+          </div>
         </div>
+
+        <div class="footer-section">
+          <h4 class="footer-title" data-i18n="footer.quickLinks">Quick Links</h4>
+          <div class="footer-quick-links">
+            <a href="#about" data-i18n="nav.about">Πληροφορίες</a>
+            <a href="#gallery" data-i18n="nav.gallery">Γκαλερί</a>
+            <a href="#amenities" data-i18n="nav.amenities">Παροχές</a>
+            <a href="#contact" data-i18n="nav.contact">Επικοινωνία</a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h4 class="footer-title" data-i18n="footer.location">Location</h4>
+          <div class="footer-quick-links">
+            <a href="https://maps.google.com/?q=21.75,39.6106" target="_blank" rel="noopener">Raxa, Trikala</a>
+            <a href="tel:+306976908838">+30 697 690 8838</a>
+            <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener">Book on Airbnb</a>
+            <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener">Book on Booking</a>
+          </div>
+        </div>
+
         <p class="footer-copy" data-i18n="footer.copyright">© 2026 Dream Chalet Trikala. Με επιφύλαξη παντός δικαιώματος.</p>
       </div>
     </footer>
@@ -548,6 +631,8 @@
   <script src="js/three-bg.js" defer></script>
   <script src="js/map.js" defer></script>
   <script src="js/calendar.js" defer></script>
+  <script src="js/weather.js" defer></script>
+  <script src="js/availability.js" defer></script>
   <script src="js/i18n.js" defer></script>
   <script src="js/cookie-consent.js" defer></script>
   <script src="js/analytics.js" defer></script>

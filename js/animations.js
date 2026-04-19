@@ -4,7 +4,7 @@ function initAnimations() {
   'use strict';
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) { initStickyBookBtn(); return; }
+  if (prefersReduced) { initStickyBookBtn(); initThemeToggle(); return; }
 
   initNav();
   initHero();
@@ -13,6 +13,7 @@ function initAnimations() {
   initScrollProgress();
   initCursorGallery();
   initStickyBookBtn();
+  initThemeToggle();
   initAttractionsTilt();
 }
 
@@ -219,16 +220,20 @@ function initCursorGallery() {
   const img = document.getElementById('cursor-gallery-img');
   if (!img) return;
 
-  const xTo = gsap.quickTo(img, 'x', { duration: 0.35, ease: 'power3.out' });
-  const yTo = gsap.quickTo(img, 'y', { duration: 0.35, ease: 'power3.out' });
+  const xTo = gsap.quickTo(img, 'x', { duration: 0.3, ease: 'power3.out' });
+  const yTo = gsap.quickTo(img, 'y', { duration: 0.3, ease: 'power3.out' });
 
   document.querySelectorAll('.room-list-item').forEach((item) => {
     item.addEventListener('mouseenter', () => {
-      img.src = item.dataset.image || '';
-      gsap.to(img, { opacity: 1, duration: 0.2 });
+      const src = item.dataset.image || '';
+      if (!src) return;
+      img.src = src;
+      img.style.display = 'block';
+      gsap.killTweensOf(img);
+      gsap.to(img, { opacity: 1, duration: 0.3, overwrite: 'auto' });
     });
     item.addEventListener('mouseleave', () => {
-      gsap.to(img, { opacity: 0, duration: 0.2 });
+      gsap.to(img, { opacity: 0, duration: 0.3, onComplete: () => { img.style.display = 'none'; } });
     });
   });
 
@@ -266,6 +271,21 @@ function initStickyBookBtn() {
       panel.classList.remove('open');
       btn.setAttribute('aria-expanded', false);
     }
+  });
+}
+
+/* ── Theme Toggle ────────────────────────────────────────── */
+function initThemeToggle() {
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  const isDark = localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme');
+  if (isDark) toggle.classList.add('dark');
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('dark');
+    const isDarkMode = toggle.classList.contains('dark');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
   });
 }
 

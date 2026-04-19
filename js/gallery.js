@@ -58,6 +58,26 @@ function initGallery() {
     if (e.key === 'ArrowRight') goTo(current + 1);
   });
 
+  /* ── Mouse drag support via GSAP Draggable ──────────── */
+  let dragStartX = 0;
+  let isDragging = false;
+
+  if (typeof Draggable !== 'undefined') {
+    Draggable.create(track, {
+      type: 'x',
+      inertia: true,
+      cursor: 'grab',
+      activeCursor: 'grabbing',
+      onDragStart() { isDragging = true; dragStartX = this.x; },
+      onDragEnd() {
+        const dx = this.x - dragStartX;
+        if (Math.abs(dx) > 60) goTo(current + (dx > 0 ? -1 : 1));
+        gsap.set(track, { x: 0 });
+        setTimeout(() => { isDragging = false; }, 100);
+      },
+    });
+  }
+
   /* ── Touch/swipe on mobile ───────────────────────────── */
   let touchStartX = 0;
   track.addEventListener('touchstart', (e) => {
@@ -71,11 +91,10 @@ function initGallery() {
   /* ── Click slide to open fullscreen ─────────────────── */
   slides.forEach((slide, i) => {
     slide.addEventListener('click', () => {
+      if (isDragging) return;
       if (slide.dataset.pos === '0') {
-        /* Flip expansion for center slide */
         openOverlay(i);
       } else {
-        /* Side slide → navigate to center */
         goTo(i);
       }
     });
