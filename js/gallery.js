@@ -59,35 +59,37 @@ function initGallery() {
     if (e.key === 'ArrowRight') goTo(current + 1);
   });
 
-  /* ── Mouse drag support via GSAP Draggable ──────────── */
+  /* ── Drag + swipe via GSAP Draggable (handles both mouse & touch) ── */
   let dragStartX = 0;
   let isDragging = false;
+  let lastSwipeAt = 0;
+  const SWIPE_COOLDOWN = 450; /* ms — matches slide transition so we don't skip */
+  const THRESHOLD = 80;       /* px — minimum drag distance to count as swipe */
 
   if (typeof Draggable !== 'undefined') {
     Draggable.create(track, {
       type: 'x',
-      inertia: true,
+      inertia: false,
+      dragResistance: 0.6,
       cursor: 'grab',
       activeCursor: 'grabbing',
-      onDragStart() { isDragging = true; dragStartX = this.x; },
+      onDragStart() {
+        isDragging = true;
+        dragStartX = this.x;
+      },
       onDragEnd() {
-        const dx = this.x - dragStartX;
-        if (Math.abs(dx) > 60) goTo(current + (dx > 0 ? -1 : 1));
-        gsap.set(track, { x: 0 });
-        setTimeout(() => { isDragging = false; }, 100);
+        const dx  = this.x - dragStartX;
+        const now = performance.now();
+        gsap.to(track, { x: 0, duration: 0.3, ease: 'power2.out' });
+
+        if (Math.abs(dx) > THRESHOLD && now - lastSwipeAt > SWIPE_COOLDOWN) {
+          goTo(current + (dx > 0 ? -1 : 1));
+          lastSwipeAt = now;
+        }
+        setTimeout(() => { isDragging = false; }, 150);
       },
     });
   }
-
-  /* ── Touch/swipe on mobile ───────────────────────────── */
-  let touchStartX = 0;
-  track.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  track.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 50) goTo(current + (dx > 0 ? -1 : 1));
-  });
 
   /* ── Click slide to open fullscreen ─────────────────── */
   slides.forEach((slide, i) => {
