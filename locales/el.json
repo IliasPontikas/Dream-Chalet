@@ -76,7 +76,8 @@
   },
   "map": {
     "label": "Τοποθεσία",
-    "heading": "Βρείτε Μας"
+    "heading": "Βρείτε Μας",
+    "nearbyTitle": "Κοντινά Σημεία Ενδιαφέροντος"
   },
   "reviews": {
     "label": "Κριτικές",
@@ -91,23 +92,35 @@
     "minStay": "Ελάχ. παραμονή: 2 νύχτες",
     "checkin": "Check-in: 15:00",
     "checkout": "Check-out: 11:00",
+    "checkinLabel": "Ημερομηνία Άφιξης",
+    "checkoutLabel": "Ημερομηνία Αναχώρησης",
     "cta": "Book Now",
-    "checkAvailability": "Check Availability",
+    "checkAvailability": "Έλεγχος Διαθεσιμότητας",
     "calendar": "Ημερολόγιο Διαθεσιμότητας"
   },
   "contact": {
     "label": "Επικοινωνία",
     "heading": "Επικοινωνήστε Μαζί μας",
+    "intro": "Είμαστε διαθέσιμοι για κάθε ερώτηση ή κράτηση. Επιλέξτε τον τρόπο επικοινωνίας που σας εξυπηρετεί καλύτερα.",
     "phone": "+30 697 690 8838",
     "whatsapp": "WhatsApp",
     "viber": "Viber",
     "airbnb": "Airbnb",
-    "booking": "Booking.com"
+    "booking": "Booking.com",
+    "addressLabel": "Διεύθυνση",
+    "timingsLabel": "Check-in / Check-out",
+    "guestsLabel": "Επισκέπτες"
   },
   "footer": {
     "copyright": "© 2026 Dream Chalet Trikala. Με επιφύλαξη παντός δικαιώματος.",
     "quickLinks": "Quick Links",
-    "location": "Location"
+    "location": "Location",
+    "tagline": "Πολυτελές εξοχικό σπίτι στα Τρίκαλα, στην καρδιά της ελληνικής φύσης.",
+    "contactTitle": "Επικοινωνία",
+    "mapLink": "Τοποθεσία",
+    "pricingLink": "Τιμές",
+    "bookAirbnb": "Κράτηση στο Airbnb",
+    "bookBooking": "Κράτηση στο Booking"
   },
   "sticky": {
     "book": "Κράτηση"
