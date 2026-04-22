@@ -17,7 +17,7 @@ function initGallery() {
 
   const slides = Array.from(track.querySelectorAll('.gallery-slide'));
   const total  = slides.length;
-  let current  = Math.floor(total / 2); /* Start centered */
+  let current  = 0; 
 
   /* ── Build dot indicators ────────────────────────────── */
   slides.forEach((_, i) => {
