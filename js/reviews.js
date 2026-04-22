@@ -1,11 +1,10 @@
-/* reviews.js — Stacking card deck animation with always-visible title */
+/* reviews.js — Stacking card deck animation with CSS sticky (no GSAP pin) */
 
 function initReviews() {
   'use strict';
 
-  const section  = document.getElementById('reviews');
-  const header   = section?.querySelector('.reviews-header');
-  const stack    = document.getElementById('reviews-stack');
+  const section = document.getElementById('reviews');
+  const stack   = document.getElementById('reviews-stack');
   if (!section || !stack) return;
 
   const cards = Array.from(stack.querySelectorAll('.review-card'));
@@ -14,21 +13,21 @@ function initReviews() {
   const rotations = [-2.5, 1.8, -1.2, 2.2, -1.8, 0.9];
   const yOffsets  = [0, -6, -12, -18, -24, -28];
 
+  /* Section height = viewport + scroll space for all cards */
+  const scrollLen = cards.length * 450;
+  section.style.height = `calc(100vh + ${scrollLen}px)`;
+
   /* Cards start below viewport */
   gsap.set(cards, { y: '100vh', rotation: 0, transformOrigin: 'center bottom' });
   cards.forEach((card, i) => { card.style.zIndex = i + 1; });
 
-  /* Pin the WHOLE section so header stays visible */
-  const scrollLen = cards.length * 450;
-
+  /* Scrub-driven timeline tied to section scroll — no GSAP pin needed */
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: () => `+=${scrollLen}`,
-      pin: true,
-      scrub: 0.8,
-      invalidateOnRefresh: true,
+      end: 'bottom bottom',
+      scrub: true,
     },
   });
 
