@@ -1,4 +1,4 @@
-/* scroll-video.js — Smooth scroll-scrubbed video using RAF + seek throttle */
+/* scroll-video.js — Smooth scroll-scrubbed video with throttled seeks + lerp */
 
 function initScrollVideo() {
   'use strict';
@@ -7,26 +7,34 @@ function initScrollVideo() {
   const video    = document.getElementById('scroll-vid');
   const overlay1 = section?.querySelector('.scroll-overlay-1');
   const overlay2 = section?.querySelector('.scroll-overlay-2');
-
   if (!section || !video) return;
 
-  let targetTime = 0;
-  let rafId = null;
+  let targetTime  = 0;
+  let currentTime = 0;
+  let lastSeek    = 0;
+  let rafId       = null;
 
-  /* Smooth seek: lerp currentTime toward targetTime each frame */
-  function smoothSeek() {
-    const diff = targetTime - video.currentTime;
-    if (Math.abs(diff) > 0.01) {
-      try { video.currentTime += diff * 0.12; } catch(e) {}
+  /* Smooth lerp with rate-limited seek (16 fps) */
+  function tick() {
+    const diff = targetTime - currentTime;
+    if (Math.abs(diff) > 0.001) {
+      currentTime += diff * 0.1;          /* lerp 10% per frame */
+      const now = performance.now();
+      if (now - lastSeek > 60) {          /* throttle to ~16 fps seeks */
+        try {
+          if (video.fastSeek) video.fastSeek(currentTime);
+          else video.currentTime = currentTime;
+        } catch (e) {}
+        lastSeek = now;
+      }
     }
-    rafId = requestAnimationFrame(smoothSeek);
+    rafId = requestAnimationFrame(tick);
   }
 
   function setupScrub() {
     if (!video.duration) return;
-
-    /* Force preload */
     video.preload = 'auto';
+    video.pause();
 
     ScrollTrigger.create({
       trigger: section,
@@ -38,35 +46,29 @@ function initScrollVideo() {
       onUpdate(self) {
         const p = self.progress;
         targetTime = p * video.duration;
-
-        /* Fade text overlays */
         if (overlay1) {
-          const p1    = gsap.utils.clamp(0, 1, (p - 0.15) / 0.2);
-          const p1out = gsap.utils.clamp(0, 1, (0.45 - p) / 0.1);
-          overlay1.style.opacity = Math.min(p1, p1out);
+          const inP  = gsap.utils.clamp(0, 1, (p - 0.15) / 0.2);
+          const outP = gsap.utils.clamp(0, 1, (0.45 - p) / 0.1);
+          overlay1.style.opacity = Math.min(inP, outP);
         }
         if (overlay2) {
-          const p2    = gsap.utils.clamp(0, 1, (p - 0.6) / 0.2);
-          const p2out = gsap.utils.clamp(0, 1, (0.88 - p) / 0.1);
-          overlay2.style.opacity = Math.min(p2, p2out);
+          const inP  = gsap.utils.clamp(0, 1, (p - 0.6) / 0.2);
+          const outP = gsap.utils.clamp(0, 1, (0.88 - p) / 0.1);
+          overlay2.style.opacity = Math.min(inP, outP);
         }
       },
     });
 
-    /* Start smooth seek loop */
-    smoothSeek();
+    tick();
   }
 
   video.addEventListener('loadedmetadata', setupScrub);
   if (video.readyState >= 1) setupScrub();
 
-  /* Poster fallback */
   video.addEventListener('error', () => {
     if (rafId) cancelAnimationFrame(rafId);
     video.style.display = 'none';
     const inner = section.querySelector('.scroll-video-inner');
-    if (inner) {
-      inner.style.background = `url('${video.poster}') center/cover no-repeat`;
-    }
+    if (inner) inner.style.background = `url('${video.poster}') center/cover no-repeat`;
   });
 }

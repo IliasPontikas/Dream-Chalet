@@ -279,13 +279,20 @@ function initThemeToggle() {
   const toggle = document.getElementById('theme-toggle');
   if (!toggle) return;
 
-  const isDark = localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme');
-  if (isDark) toggle.classList.add('dark');
+  const saved = localStorage.getItem('theme');
+  const isDark = saved ? saved === 'dark' : true;
+
+  function applyTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    toggle.classList.toggle('dark', dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+
+  applyTheme(isDark);
 
   toggle.addEventListener('click', () => {
-    toggle.classList.toggle('dark');
-    const isDarkMode = toggle.classList.contains('dark');
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    const currentDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    applyTheme(!currentDark);
   });
 }
 
@@ -297,55 +304,30 @@ function initAttractionsTilt() {
       const mx = ((e.clientX - left) / width - 0.5) * 2;
       const my = ((e.clientY - top) / height - 0.5) * 2;
       gsap.to(card, {
-        rotateY: mx * 8,
-        rotateX: -my * 5,
-        duration: 0.3,
+        rotateY: mx * 10,
+        rotateX: -my * 8,
+        duration: 0.4,
         ease: 'power2.out',
-        transformPerspective: 1000,
+        transformPerspective: 1200,
+        transformOrigin: 'center center',
       });
     });
     card.addEventListener('mouseleave', () => {
-      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.5 });
+      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' });
     });
   });
 }
 
-/* ── Attractions Horizontal Scroll ───────────────────────── */
-(function initAttractionsScroll() {
-  const wrapper = document.querySelector('.attractions-wrapper');
-  const track = document.getElementById('attractions-track');
-  const dots = document.querySelectorAll('.attraction-dot');
-  if (!track || !wrapper) return;
-
-  const cards = gsap.utils.toArray('.attraction-card');
-
-  gsap.to(track, {
-    x: () => -(cards.length - 1) * window.innerWidth,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: wrapper,
-      pin: true,
-      scrub: 1,
-      start: 'top top',
-      end: () => `+=${cards.length * window.innerWidth}`,
-      snap: 1 / (cards.length - 1),
-      onUpdate(self) {
-        const idx = Math.round(self.progress * (cards.length - 1));
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      },
-    },
+/* Attractions: simple reveal + 3D hover handled by initAttractionsTilt */
+(function initAttractionsReveal() {
+  const cards = document.querySelectorAll('.attraction-card');
+  if (!cards.length || typeof gsap === 'undefined') return;
+  gsap.from(cards, {
+    y: 60,
+    opacity: 0,
+    duration: 0.9,
+    stagger: 0.15,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.attractions-grid', start: 'top 80%' },
   });
-
-  /* Dot click navigation */
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      const trigger = ScrollTrigger.getById('attractions-trigger');
-      if (window.__lenis && trigger) {
-        const progress = i / (cards.length - 1);
-        const start = trigger.start;
-        const end = trigger.end;
-        window.__lenis.scrollTo(start + (end - start) * progress);
-      }
-    });
-  });
-})(); 
+})();

@@ -1,6 +1,6 @@
-/* sw.js — Service Worker: cache-first for offline support */
+/* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v1';
+const CACHE = 'dream-chalet-v3';
 
 const ASSETS = [
   '/',
@@ -15,20 +15,18 @@ const ASSETS = [
   '/js/three-bg.js',
   '/js/map.js',
   '/js/calendar.js',
+  '/js/weather.js',
+  '/js/availability.js',
   '/js/i18n.js',
   '/js/cookie-consent.js',
   '/js/analytics.js',
   '/locales/el.json',
   '/locales/en.json',
-  '/images/exterior1.avif',
-  '/images/exterior2.avif',
   '/images/logo-removebg2.png',
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(ASSETS))
-  );
+  e.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
 });
 
@@ -41,11 +39,22 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
+/* Network-first: always try the network first, fall back to cache if offline */
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  const url = new URL(e.request.url);
+
+  /* Skip cross-origin (CDN scripts, fonts, APIs) */
+  if (url.origin !== self.location.origin) return;
+
   e.respondWith(
-    caches.match(e.request).then(
-      (cached) => cached || fetch(e.request).catch(() => caches.match('/index.html'))
-    )
+    fetch(e.request)
+      .then((response) => {
+        /* Update cache with fresh copy */
+        const clone = response.clone();
+        caches.open(CACHE).then((cache) => cache.put(e.request, clone));
+        return response;
+      })
+      .catch(() => caches.match(e.request).then((c) => c || caches.match('/index.html')))
   );
 });

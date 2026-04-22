@@ -13,7 +13,7 @@ function initI18n() {
     .init({
       lng: currentLang,
       fallbackLng: 'el',
-      backend: { loadPath: '/locales/{{lng}}.json' },
+      backend: { loadPath: 'locales/{{lng}}.json' },
       interpolation: { escapeValue: false },
     })
     .then(() => {

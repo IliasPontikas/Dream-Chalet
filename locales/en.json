@@ -8,8 +8,7 @@
   "hero": {
     "title": "Dream Chalet",
     "subtitle": "Luxury Retreat in Trikala",
-    "bookAirbnb": "Book on Airbnb",
-    "bookBooking": "Book on Booking"
+    "bookNow": "Book Now"
   },
   "about": {
     "label": "The Property",
@@ -93,6 +92,7 @@
     "checkin": "Check-in: 3:00 PM",
     "checkout": "Check-out: 11:00 AM",
     "cta": "Book Now",
+    "checkAvailability": "Check Availability",
     "calendar": "Availability Calendar"
   },
   "contact": {
@@ -105,7 +105,9 @@
     "booking": "Booking.com"
   },
   "footer": {
-    "copyright": "© 2026 Dream Chalet Trikala. All rights reserved."
+    "copyright": "© 2026 Dream Chalet Trikala. All rights reserved.",
+    "quickLinks": "Quick Links",
+    "location": "Location"
   },
   "sticky": {
     "book": "Book"

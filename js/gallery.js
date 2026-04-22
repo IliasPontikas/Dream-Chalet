@@ -29,14 +29,15 @@ function initGallery() {
     dotsEl?.appendChild(dot);
   });
 
-  /* ── Layout: assign data-pos to each slide ───────────── */
+  /* ── Layout: assign data-pos to each slide (shortest-path) ─── */
   function layout() {
     slides.forEach((slide, i) => {
-      const pos = i - current;
+      let pos = i - current;
+      /* Wrap to shortest path: range -total/2 .. +total/2 */
+      if (pos >  total / 2) pos -= total;
+      if (pos < -total / 2) pos += total;
       slide.dataset.pos = pos;
     });
-
-    /* Update dots */
     dotsEl?.querySelectorAll('.coverflow-dot').forEach((d, i) => {
       d.classList.toggle('active', i === current);
     });
