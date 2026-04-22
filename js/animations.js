@@ -72,6 +72,7 @@ function initNav() {
 /* ── Hero Title (manual char split) ─────────────────────── */
 function initHero() {
   const titleEl = document.querySelector('.hero-title');
+  const eyebrow = document.querySelector('.hero-eyebrow');
   const subtitle = document.querySelector('.hero-subtitle');
   const ctas = document.querySelector('.hero-ctas');
   if (!titleEl) return;
@@ -87,13 +88,14 @@ function initHero() {
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
+  if (eyebrow) tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.6 });
   tl.to(chars, {
     opacity: 1,
     y: 0,
     rotateX: 0,
     duration: 0.7,
     stagger: 0.04,
-  })
+  }, eyebrow ? '-=0.3' : 0)
     .to(subtitle, { opacity: 1, y: 0, duration: 0.7 }, '-=0.3')
     .to(ctas, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
 }
