@@ -26,9 +26,9 @@ function initReviews() {
       trigger: section,
       start: 'top top',
       end: () => `+=${scrollLen}`,
-      pin: true,         /* pins the whole section */
-      scrub: 1.2,
-      anticipatePin: 1,
+      pin: true,
+      scrub: 0.8,
+      invalidateOnRefresh: true,
     },
   });
 

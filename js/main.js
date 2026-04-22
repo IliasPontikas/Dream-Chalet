@@ -31,6 +31,9 @@
 
     gsap.ticker.lagSmoothing(0);
 
+    /* Keep Lenis scroll limits in sync whenever ScrollTrigger adds pin spacers */
+    ScrollTrigger.addEventListener('refresh', () => lenis.resize());
+
     /* Smooth anchor links */
     document.querySelectorAll('a[href^="#"]').forEach((a) => {
       a.addEventListener('click', (e) => {
@@ -98,6 +101,8 @@
     if (typeof initAvailability === 'function') initAvailability();
     if (typeof initI18n === 'function') initI18n();
     if (typeof initCookieConsent === 'function') initCookieConsent();
+    /* Refresh after all ScrollTriggers are registered so Lenis spacers are correct */
+    ScrollTrigger.refresh();
   }
 
   /* ── Service Worker ────────────────────────────────────── */
