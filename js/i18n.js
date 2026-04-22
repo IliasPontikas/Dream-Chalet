@@ -1,51 +1,63 @@
-/* i18n.js — Greek/English toggle with i18next */
+/* i18n.js — Greek/English toggle (self-contained, no external backend) */
 
 function initI18n() {
   'use strict';
 
-  if (typeof i18next === 'undefined') return;
-
   const btn = document.getElementById('lang-toggle');
   let currentLang = localStorage.getItem('lang') || 'el';
+  let translations = {};
 
-  i18next
-    .use(i18nextHttpBackend)
-    .init({
-      lng: currentLang,
-      fallbackLng: 'el',
-      backend: { loadPath: 'locales/{{lng}}.json' },
-      interpolation: { escapeValue: false },
-    })
-    .then(() => {
-      applyTranslations();
-      updateToggleBtn();
-    });
+  /* Resolve dotted path like "nav.about" to nested string in JSON */
+  function resolve(obj, key) {
+    return key.split('.').reduce((o, k) => (o && o[k] != null ? o[k] : null), obj);
+  }
 
   function applyTranslations() {
-    document.documentElement.lang = i18next.language;
+    const dict = translations[currentLang];
+    if (!dict) return;
+    document.documentElement.lang = currentLang;
     document.querySelectorAll('[data-i18n]').forEach((el) => {
       const key = el.dataset.i18n;
-      const translation = i18next.t(key);
-      if (translation && translation !== key) {
-        el.textContent = translation;
-      }
+      const val = resolve(dict, key);
+      if (typeof val === 'string') el.textContent = val;
     });
+    updateToggleBtn();
   }
 
   function updateToggleBtn() {
-    if (btn) btn.textContent = i18next.language === 'el' ? 'EN' : 'ΕΛ';
+    if (btn) btn.textContent = currentLang === 'el' ? 'EN' : 'ΕΛ';
   }
 
+  function loadLang(lang) {
+    if (translations[lang]) return Promise.resolve(translations[lang]);
+    return fetch(`locales/${lang}.json`, { cache: 'no-cache' })
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((json) => {
+        translations[lang] = json;
+        return json;
+      })
+      .catch((err) => {
+        console.warn(`[i18n] failed to load ${lang}.json:`, err);
+        return null;
+      });
+  }
+
+  /* Initial load */
+  loadLang(currentLang).then(() => applyTranslations());
+
+  /* Click → swap language */
   btn?.addEventListener('click', () => {
-    const newLang = i18next.language === 'el' ? 'en' : 'el';
-    i18next.changeLanguage(newLang).then(() => {
+    const newLang = currentLang === 'el' ? 'en' : 'el';
+    loadLang(newLang).then((dict) => {
+      if (!dict) return;
+      currentLang = newLang;
       localStorage.setItem('lang', newLang);
       applyTranslations();
-      updateToggleBtn();
-
-      /* Track language switch */
       if (typeof gtag === 'function') {
-        gtag('event', 'language_switch', { from: i18next.language, to: newLang });
+        gtag('event', 'language_switch', { to: newLang });
       }
     });
   });
