@@ -36,6 +36,8 @@ function initGallery() {
       /* Wrap to shortest path: range -total/2 .. +total/2 */
       if (pos >  total / 2) pos -= total;
       if (pos < -total / 2) pos += total;
+      /* Clamp to CSS-handled range; slides beyond ±5 are hidden */
+      pos = Math.max(-5, Math.min(5, pos));
       slide.dataset.pos = pos;
     });
     dotsEl?.querySelectorAll('.coverflow-dot').forEach((d, i) => {
@@ -80,7 +82,7 @@ function initGallery() {
       onDragEnd() {
         const dx  = this.x - dragStartX;
         const now = performance.now();
-        gsap.to(track, { x: 0, duration: 0.3, ease: 'power2.out' });
+        gsap.set(track, { x: 0 });
 
         if (Math.abs(dx) > THRESHOLD && now - lastSwipeAt > SWIPE_COOLDOWN) {
           goTo(current + (dx > 0 ? -1 : 1));
