@@ -41,7 +41,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.css">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=7">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -245,10 +245,6 @@
       </div>
 
       <div class="coverflow-stage">
-        <button class="coverflow-btn coverflow-prev" id="coverflow-prev" aria-label="Previous image" type="button">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-
         <div class="coverflow-container" data-cursor="drag">
           <div class="coverflow-track" id="coverflow-track">
           <div class="gallery-slide" data-index="0"><img src="images/living-room1.avif" alt="Living room" loading="lazy"></div>
@@ -286,9 +282,14 @@
           </div>
         </div>
 
-        <button class="coverflow-btn coverflow-next" id="coverflow-next" aria-label="Next image" type="button">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
+        <div class="coverflow-controls">
+          <button class="coverflow-btn coverflow-prev" id="coverflow-prev" aria-label="Previous image" type="button">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="coverflow-btn coverflow-next" id="coverflow-next" aria-label="Next image" type="button">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
       </div>
 
       <div class="coverflow-dots" id="coverflow-dots" role="tablist" aria-label="Gallery pagination"></div>
@@ -749,7 +750,7 @@
   <script src="js/animations.js?v=6" defer></script>
   <script src="js/cursor.js?v=6" defer></script>
   <script src="js/scroll-video.js?v=6" defer></script>
-  <script src="js/gallery.js?v=6" defer></script>
+  <script src="js/gallery.js?v=7" defer></script>
   <script src="js/reviews.js?v=6" defer></script>
   <script src="js/three-bg.js?v=6" defer></script>
   <script src="js/map.js?v=6" defer></script>
