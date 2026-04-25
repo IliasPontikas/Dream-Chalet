@@ -2325,11 +2325,11 @@ h4 {
     --cf-offset-2: 62vw;
     --cf-rot-1: 45deg;
     --cf-rot-2: 60deg;
-    height: 58vh;
-    min-height: 380px;
+    height: 66vh;
+    min-height: 460px;
   }
   .gallery-slide {
-    width: min(72vw, 480px);
+    width: min(76vw, 520px);
   }
   .attraction-content {
     left: 3rem;
@@ -2346,10 +2346,10 @@ h4 {
 }
 @media (max-width: 768px) {
   :root {
-    --nav-h: 90px;
+    --nav-h: 135px;
   }
   .logo-img {
-    height: 72px;
+    height: 135px;
   }
   .nav-inner {
     padding: 0 1rem;
@@ -2398,11 +2398,11 @@ h4 {
     --cf-offset-2: 64vw;
     --cf-rot-1: 52deg;
     --cf-rot-2: 66deg;
-    height: 52vh;
-    min-height: 300px;
+    height: 64vh;
+    min-height: 440px;
   }
   .gallery-slide {
-    width: min(66vw, 300px);
+    width: min(72vw, 360px);
   }
   .coverflow-btn {
     width: 44px;
@@ -2438,8 +2438,8 @@ h4 {
     width: fit-content;
   }
   .sticky-book {
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 0.75rem;
+    right: 0.75rem;
   }
   .map-wrapper {
     grid-template-columns: 1fr;
