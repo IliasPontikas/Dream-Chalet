@@ -97,12 +97,14 @@ function initHero() {
   const ctas = document.querySelector('.hero-ctas');
   if (!titleEl) return;
 
-  /* Split characters manually */
-  const text = titleEl.textContent;
-  titleEl.innerHTML = text
-    .split('')
-    .map((c) => `<span class="char">${c === ' ' ? '&nbsp;' : c}</span>`)
-    .join('');
+  /* Use pre-built .char spans from HTML; fall back to auto-split if absent */
+  if (!titleEl.querySelectorAll('.char').length) {
+    const text = titleEl.textContent;
+    titleEl.innerHTML = text
+      .split('')
+      .map((c) => `<span class="char">${c === ' ' ? '&nbsp;' : c}</span>`)
+      .join('');
+  }
 
   const chars = titleEl.querySelectorAll('.char');
 

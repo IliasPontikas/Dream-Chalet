@@ -97,12 +97,12 @@ function initMap() {
 
   map.on('load', addMarkers);
 
-  /* Re-style map when theme toggles */
+  /* Re-style map when theme toggles — use 'idle' because 'load' only fires once */
   new MutationObserver(() => {
     markers.forEach((m) => m.remove());
     markers = [];
     map.setStyle(getStyle());
-    map.once('load', addMarkers);
+    map.once('idle', addMarkers);
   }).observe(document.documentElement, {
     attributes: true,
     attributeFilter: ['data-theme'],

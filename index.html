@@ -38,10 +38,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.css">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="css/style.css?v=11">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -135,34 +135,34 @@
         <button id="lang-toggle" class="lang-toggle" aria-label="Language toggle" data-lang="el">EN</button>
       </div>
     </div>
-  </nav>
 
-  <!-- Mobile Menu — outside navbar so backdrop-filter doesn't trap fixed positioning -->
-  <div id="mobile-menu" class="mobile-menu" role="navigation" aria-hidden="true">
-    <div class="mobile-menu-inner">
-      <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo">
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu" role="navigation" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo">
 
-      <div class="mobile-menu-nav">
-        <a href="#about" class="mobile-nav-link" data-i18n="nav.about">Πληροφορίες</a>
-        <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">Γκαλερί</a>
-        <a href="#amenities" class="mobile-nav-link" data-i18n="nav.amenities">Παροχές</a>
-        <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">Επικοινωνία</a>
-        <a href="javascript:void(0)" class="mobile-nav-link btn-book-now" data-i18n="hero.bookNow" onclick="window.location.href='https://www.airbnb.gr/rooms/1019294882973971198'">Book Now</a>
-      </div>
+        <div class="mobile-menu-nav">
+          <a href="#about" class="mobile-nav-link" data-i18n="nav.about">Πληροφορίες</a>
+          <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">Γκαλερί</a>
+          <a href="#amenities" class="mobile-nav-link" data-i18n="nav.amenities">Παροχές</a>
+          <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">Επικοινωνία</a>
+          <a href="javascript:void(0)" class="mobile-nav-link btn-book-now" data-i18n="hero.bookNow" onclick="window.location.href='https://www.airbnb.gr/rooms/1019294882973971198'">Book Now</a>
+        </div>
 
-      <div class="mobile-menu-social">
-        <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
-          <i class="fa-brands fa-airbnb"></i>
-        </a>
-        <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
-          <i class="fa-solid fa-bed"></i>
-        </a>
+        <div class="mobile-menu-social">
+          <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
+            <i class="fa-brands fa-airbnb"></i>
+          </a>
+          <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
+            <i class="fa-solid fa-bed"></i>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </nav>
 
   <main id="main">
     <!-- Hero Section -->
@@ -176,7 +176,7 @@
       <div class="hero-content">
         <div class="hero-content-inner">
           <span class="hero-eyebrow" data-i18n="hero.eyebrow">Raxa — Trikala · Est. 2024</span>
-          <h1 class="hero-title" data-i18n="hero.title">Dream Chalet</h1>
+          <h1 class="hero-title"><span class="char">D</span><span class="char">r</span><span class="char">e</span><span class="char">a</span><span class="char">m</span>&nbsp;<span class="char">C</span><span class="char">h</span><span class="char">a</span><span class="char">l</span><span class="char">e</span><span class="char">t</span></h1>
           <p class="hero-subtitle" data-i18n="hero.subtitle">Πολυτελές Εξοχικό στα Τρίκαλα</p>
           <div class="hero-ctas">
             <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta book-now" data-i18n="hero.bookNow" data-track="booking">Book Now</a>
@@ -184,11 +184,9 @@
         </div>
       </div>
       <div class="hero-scroll-hint" aria-hidden="true">
-        <span class="scroll-hint-text" data-i18n="hero.scrollHint">Ανακαλύψτε το Chalet</span>
-        <div class="scroll-hint-arrow">
-          <span class="scroll-hint-line"></span>
-          <span class="scroll-hint-chevron"></span>
-        </div>
+        <svg width="24" height="40" viewBox="0 0 24 40">
+          <path d="M12 4v20M6 24l6 8 6-8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
       </div>
     </section>
 
@@ -214,8 +212,8 @@
           </div>
         </div>
 
-        <!-- Cursor Gallery Image — uncomment along with initCursorGallery() in animations.js to re-enable -->
-        <!-- <img id="cursor-gallery-img" src="" alt="" aria-hidden="true"> -->
+        <!-- Cursor Gallery Image -->
+        <img id="cursor-gallery-img" src="" alt="" aria-hidden="true">
 
         <!-- Stats -->
         <div class="stats-grid">
@@ -748,19 +746,19 @@
   <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/main.js?v=10" defer></script>
-  <script src="js/animations.js?v=10" defer></script>
-  <script src="js/cursor.js?v=10" defer></script>
-  <script src="js/scroll-video.js?v=10" defer></script>
-  <script src="js/gallery.js?v=10" defer></script>
-  <script src="js/reviews.js?v=10" defer></script>
-  <script src="js/three-bg.js?v=10" defer></script>
-  <script src="js/map.js?v=10" defer></script>
-  <script src="js/calendar.js?v=10" defer></script>
-  <script src="js/weather.js?v=10" defer></script>
-  <script src="js/availability.js?v=10" defer></script>
-  <script src="js/i18n.js?v=10" defer></script>
-  <script src="js/cookie-consent.js?v=10" defer></script>
-  <script src="js/analytics.js?v=10" defer></script>
+  <script src="js/main.js?v=11" defer></script>
+  <script src="js/animations.js?v=11" defer></script>
+  <script src="js/cursor.js?v=11" defer></script>
+  <script src="js/scroll-video.js?v=11" defer></script>
+  <script src="js/gallery.js?v=11" defer></script>
+  <script src="js/reviews.js?v=11" defer></script>
+  <script src="js/three-bg.js?v=11" defer></script>
+  <script src="js/map.js?v=11" defer></script>
+  <script src="js/calendar.js?v=11" defer></script>
+  <script src="js/weather.js?v=11" defer></script>
+  <script src="js/availability.js?v=11" defer></script>
+  <script src="js/i18n.js?v=11" defer></script>
+  <script src="js/cookie-consent.js?v=11" defer></script>
+  <script src="js/analytics.js?v=11" defer></script>
 </body>
 </html>
