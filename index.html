@@ -244,8 +244,16 @@
         <h2 class="section-heading" data-i18n="gallery.heading">Κάθε Γωνία, Μια Ιστορία</h2>
       </div>
 
-      <div class="coverflow-container" data-cursor="drag">
-        <div class="coverflow-track" id="coverflow-track">
+      <div class="coverflow-stage">
+        <button class="coverflow-btn coverflow-prev" id="coverflow-prev" aria-label="Previous image" type="button">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="coverflow-container" data-cursor="drag">
+          <div class="coverflow-bg" aria-hidden="true">
+            <img id="coverflow-bg-img" class="coverflow-bg-img" alt="">
+          </div>
+          <div class="coverflow-track" id="coverflow-track">
           <div class="gallery-slide" data-index="0"><img src="images/living-room1.avif" alt="Living room" loading="lazy"></div>
           <div class="gallery-slide" data-index="1"><img src="images/living-room2.avif" alt="Living room 2" loading="lazy"></div>
           <div class="gallery-slide" data-index="2"><img src="images/living-room3.avif" alt="Living room 3" loading="lazy"></div>
@@ -278,10 +286,12 @@
           <div class="gallery-slide" data-index="29"><img src="images/exterior4.avif" alt="Exterior view 4" loading="lazy"></div>
           <div class="gallery-slide" data-index="30"><img src="images/exterior5.avif" alt="Exterior view 5" loading="lazy"></div>
           <div class="gallery-slide" data-index="31"><img src="images/exterior6.avif" alt="Exterior view 6" loading="lazy"></div>
+          </div>
         </div>
 
-        <button class="coverflow-btn coverflow-prev" id="coverflow-prev" aria-label="Previous image">←</button>
-        <button class="coverflow-btn coverflow-next" id="coverflow-next" aria-label="Next image">→</button>
+        <button class="coverflow-btn coverflow-next" id="coverflow-next" aria-label="Next image" type="button">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
       </div>
 
       <div class="coverflow-dots" id="coverflow-dots" role="tablist" aria-label="Gallery pagination"></div>

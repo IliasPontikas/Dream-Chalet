@@ -7,6 +7,7 @@ function initGallery() {
   const dotsEl  = document.getElementById('coverflow-dots');
   const prevBtn = document.getElementById('coverflow-prev');
   const nextBtn = document.getElementById('coverflow-next');
+  const bgImg   = document.getElementById('coverflow-bg-img');
   const overlay = document.getElementById('gallery-overlay');
   const overlayImg = document.getElementById('gallery-overlay-img');
   const closeBtn   = document.getElementById('gallery-close');
@@ -17,7 +18,20 @@ function initGallery() {
 
   const slides = Array.from(track.querySelectorAll('.gallery-slide'));
   const total  = slides.length;
-  let current  = 0; 
+  let current  = 0;
+
+  /* ── Update blurred backdrop to match active slide ─────── */
+  function updateBackdrop() {
+    if (!bgImg || !slides[current]) return;
+    const src = slides[current].querySelector('img')?.src;
+    if (src && bgImg.getAttribute('src') !== src) {
+      bgImg.classList.remove('loaded');
+      bgImg.onload = () => bgImg.classList.add('loaded');
+      bgImg.src = src;
+    } else if (src) {
+      bgImg.classList.add('loaded');
+    }
+  }
 
   /* ── Build dot indicators ────────────────────────────── */
   slides.forEach((_, i) => {
@@ -43,6 +57,7 @@ function initGallery() {
     dotsEl?.querySelectorAll('.coverflow-dot').forEach((d, i) => {
       d.classList.toggle('active', i === current);
     });
+    updateBackdrop();
   }
 
   /* ── Navigate ────────────────────────────────────────── */
