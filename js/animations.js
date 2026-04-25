@@ -33,6 +33,24 @@ function initNav() {
     },
   });
 
+  /* Hide navbar on scroll down, reveal on scroll up */
+  let lastY = window.scrollY;
+  ScrollTrigger.create({
+    start: 0,
+    end: 'max',
+    onUpdate() {
+      const y = window.scrollY;
+      const pastHero = y > window.innerHeight * 0.4;
+      if (!pastHero) {
+        navbar.classList.remove('hidden');
+        lastY = y;
+        return;
+      }
+      if (y > lastY + 8)  { navbar.classList.add('hidden');    lastY = y; }
+      if (y < lastY - 8)  { navbar.classList.remove('hidden'); lastY = y; }
+    },
+  });
+
   /* Hamburger open/close */
   if (!hamburger || !mobileMenu) return;
 
@@ -42,6 +60,8 @@ function initNav() {
     hamburger.setAttribute('aria-expanded', isOpen);
     mobileMenu.setAttribute('aria-hidden', !isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
+    /* Always show navbar when menu is open */
+    if (isOpen) navbar.classList.remove('hidden');
 
     if (isOpen) {
       gsap.to(mobileLinks, {
