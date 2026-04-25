@@ -47,37 +47,56 @@
 
   /* ── Preloader ─────────────────────────────────────────── */
   function initPreloader() {
-    const preloader = document.getElementById('preloader');
+    const preloader   = document.getElementById('preloader');
     const progressBar = preloader?.querySelector('.preloader-progress');
+    const counterEl   = preloader?.querySelector('.preloader-num');
     if (!preloader) return;
 
-    let progress = 0;
+    let target    = 0;   /* fake progress target, climbs to 90 then 100 */
+    let displayed = 0;   /* smoothly lerped value driving counter + bar */
+    let rafId     = 0;
+
+    const tick = () => {
+      displayed += (target - displayed) * 0.08;
+      const shown = Math.min(100, Math.round(displayed));
+      if (counterEl)   counterEl.textContent  = shown;
+      if (progressBar) progressBar.style.width = displayed + '%';
+      rafId = requestAnimationFrame(tick);
+    };
+    tick();
+
     const interval = setInterval(() => {
-      progress += Math.random() * 15;
-      if (progress > 90) progress = 90;
-      if (progressBar) progressBar.style.width = progress + '%';
-    }, 120);
+      target += Math.random() * 12;
+      if (target > 90) target = 90;
+    }, 140);
 
     const finish = () => {
       clearInterval(interval);
-      if (progressBar) progressBar.style.width = '100%';
+      target = 100;
 
-      if (prefersReduced) {
-        preloader.style.display = 'none';
-        onReady();
-        return;
-      }
+      /* Wait for the lerp to settle near 100, then snap and slide away */
+      setTimeout(() => {
+        cancelAnimationFrame(rafId);
+        if (counterEl)   counterEl.textContent   = '100';
+        if (progressBar) progressBar.style.width = '100%';
 
-      gsap.to(preloader, {
-        yPercent: -100,
-        duration: 0.9,
-        ease: 'power3.inOut',
-        delay: 0.3,
-        onComplete: () => {
+        if (prefersReduced) {
           preloader.style.display = 'none';
           onReady();
-        },
-      });
+          return;
+        }
+
+        gsap.to(preloader, {
+          yPercent: -100,
+          duration: 0.9,
+          ease: 'power3.inOut',
+          delay: 0.25,
+          onComplete: () => {
+            preloader.style.display = 'none';
+            onReady();
+          },
+        });
+      }, 600);
     };
 
     if (document.readyState === 'complete') {
