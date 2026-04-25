@@ -7,7 +7,6 @@ function initGallery() {
   const dotsEl  = document.getElementById('coverflow-dots');
   const prevBtn = document.getElementById('coverflow-prev');
   const nextBtn = document.getElementById('coverflow-next');
-  const bgImg   = document.getElementById('coverflow-bg-img');
   const overlay = document.getElementById('gallery-overlay');
   const overlayImg = document.getElementById('gallery-overlay-img');
   const closeBtn   = document.getElementById('gallery-close');
@@ -20,28 +19,30 @@ function initGallery() {
   const total  = slides.length;
   let current  = 0;
 
-  /* ── Update blurred backdrop to match active slide ─────── */
-  function updateBackdrop() {
-    if (!bgImg || !slides[current]) return;
-    const src = slides[current].querySelector('img')?.src;
-    if (src && bgImg.getAttribute('src') !== src) {
-      bgImg.classList.remove('loaded');
-      bgImg.onload = () => bgImg.classList.add('loaded');
-      bgImg.src = src;
-    } else if (src) {
-      bgImg.classList.add('loaded');
+  /* ── Condensed dot indicators (always 5, active always center) ─ */
+  const DOT_COUNT = 5;
+  const DOT_HALF  = Math.floor(DOT_COUNT / 2);
+  const DOT_SCALES = [1.5, 0.75, 0.45]; /* center, ±1, ±2 */
+
+  if (dotsEl) {
+    for (let d = 0; d < DOT_COUNT; d++) {
+      const dot = document.createElement('button');
+      dot.className = 'coverflow-dot' + (d === DOT_HALF ? ' active' : '');
+      dot.setAttribute('role', 'tab');
+      dotsEl.appendChild(dot);
+      dot.addEventListener('click', () => goTo(current + (d - DOT_HALF)));
     }
   }
 
-  /* ── Build dot indicators ────────────────────────────── */
-  slides.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'coverflow-dot' + (i === current ? ' active' : '');
-    dot.setAttribute('role', 'tab');
-    dot.setAttribute('aria-label', `Image ${i + 1}`);
-    dot.addEventListener('click', () => goTo(i));
-    dotsEl?.appendChild(dot);
-  });
+  function updateDots() {
+    dotsEl?.querySelectorAll('.coverflow-dot').forEach((dot, d) => {
+      const dist    = Math.abs(d - DOT_HALF);
+      const slideIdx = ((current + d - DOT_HALF) % total + total) % total;
+      dot.classList.toggle('active', d === DOT_HALF);
+      dot.setAttribute('aria-label', `Image ${slideIdx + 1} of ${total}`);
+      dot.style.setProperty('--dot-s', DOT_SCALES[Math.min(dist, 2)]);
+    });
+  }
 
   /* ── Layout: assign data-pos to each slide (shortest-path) ─── */
   function layout() {
@@ -54,10 +55,7 @@ function initGallery() {
       pos = Math.max(-5, Math.min(5, pos));
       slide.dataset.pos = pos;
     });
-    dotsEl?.querySelectorAll('.coverflow-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === current);
-    });
-    updateBackdrop();
+    updateDots();
   }
 
   /* ── Navigate ────────────────────────────────────────── */
