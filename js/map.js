@@ -1,4 +1,4 @@
-/* map.js — MapLibre GL JS with 5 custom pins */
+/* map.js — MapLibre GL JS with 5 custom pins, light/dark style switching */
 
 function initMap() {
   'use strict';
@@ -8,9 +8,14 @@ function initMap() {
   const mapEl = document.getElementById('map');
   if (!mapEl) return;
 
+  const getStyle = () =>
+    document.documentElement.getAttribute('data-theme') === 'light'
+      ? 'https://tiles.openfreemap.org/styles/liberty'
+      : 'https://tiles.openfreemap.org/styles/dark';
+
   const map = new maplibregl.Map({
     container: 'map',
-    style: 'https://tiles.openfreemap.org/styles/dark',
+    style: getStyle(),
     center: [21.74715078198729, 39.60386403048851],
     zoom: 9.5,
     pitch: 25,
@@ -60,9 +65,13 @@ function initMap() {
     },
   ];
 
-  map.on('load', () => {
+  let markers = [];
+
+  function addMarkers() {
+    markers.forEach((m) => m.remove());
+    markers = [];
+
     locations.forEach((loc) => {
-      /* Create custom marker element */
       const el = document.createElement('div');
       el.className = 'map-marker' + (loc.isMain ? ' main' : '');
       el.textContent = loc.emoji;
@@ -77,11 +86,26 @@ function initMap() {
         <p style="margin:0.4rem 0 0;font-size:0.85rem;color:#9e9690;">${loc.desc}</p>
       `);
 
-      new maplibregl.Marker({ element: el })
+      const marker = new maplibregl.Marker({ element: el })
         .setLngLat(loc.coords)
         .setPopup(popup)
         .addTo(map);
+
+      markers.push(marker);
     });
+  }
+
+  map.on('load', addMarkers);
+
+  /* Re-style map when theme toggles — use 'idle' because 'load' only fires once */
+  new MutationObserver(() => {
+    markers.forEach((m) => m.remove());
+    markers = [];
+    map.setStyle(getStyle());
+    map.once('idle', addMarkers);
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
   });
 
   /* flyTo when attraction cards are clicked */

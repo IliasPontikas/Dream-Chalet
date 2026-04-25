@@ -77,27 +77,30 @@ function initHero() {
   const ctas = document.querySelector('.hero-ctas');
   if (!titleEl) return;
 
-  /* Split characters manually */
-  const text = titleEl.textContent;
-  titleEl.innerHTML = text
-    .split('')
-    .map((c) => `<span class="char">${c === ' ' ? '&nbsp;' : c}</span>`)
-    .join('');
+  /* Use pre-built .char spans from HTML; fall back to auto-split if absent */
+  if (!titleEl.querySelectorAll('.char').length) {
+    const text = titleEl.textContent;
+    titleEl.innerHTML = text
+      .split('')
+      .map((c) => `<span class="char">${c === ' ' ? '&nbsp;' : c}</span>`)
+      .join('');
+  }
 
   const chars = titleEl.querySelectorAll('.char');
 
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-  if (eyebrow) tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.6 });
+  if (eyebrow) tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' });
   tl.to(chars, {
     opacity: 1,
     y: 0,
     rotateX: 0,
-    duration: 0.7,
-    stagger: 0.04,
-  }, eyebrow ? '-=0.3' : 0)
-    .to(subtitle, { opacity: 1, y: 0, duration: 0.7 }, '-=0.3')
-    .to(ctas, { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
+    duration: 1.2,
+    stagger: 0.11,
+    ease: 'expo.out',
+  }, eyebrow ? '-=0.4' : 0)
+    .to(subtitle, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6')
+    .to(ctas, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4');
 }
 
 /* ── Generic section entrances ───────────────────────────── */
