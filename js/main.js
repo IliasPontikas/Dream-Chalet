@@ -3,6 +3,10 @@
 (function () {
   'use strict';
 
+  /* ── Disable browser scroll restoration so mobile refresh always starts at top ── */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
   /* ── Register GSAP plugins ─────────────────────────────── */
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Flip, Draggable);
   if (typeof InertiaPlugin !== 'undefined') gsap.registerPlugin(InertiaPlugin);
