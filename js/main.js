@@ -47,20 +47,21 @@
 
   /* ── Preloader ─────────────────────────────────────────── */
   function initPreloader() {
-    const preloader   = document.getElementById('preloader');
-    const progressBar = preloader?.querySelector('.preloader-progress');
-    const counterEl   = preloader?.querySelector('.preloader-num');
+    const preloader = document.getElementById('preloader');
+    const ringArc   = preloader?.querySelector('.preloader-ring-arc');
     if (!preloader) return;
 
-    let target    = 0;   /* fake progress target, climbs to 90 then 100 */
-    let displayed = 0;   /* smoothly lerped value driving counter + bar */
+    const circumference = 2 * Math.PI * 122; /* r=122, matches SVG */
+
+    let target    = 0;
+    let displayed = 0;
     let rafId     = 0;
 
     const tick = () => {
-      displayed += (target - displayed) * 0.08;
-      const shown = Math.min(100, Math.round(displayed));
-      if (counterEl)   counterEl.textContent  = shown;
-      if (progressBar) progressBar.style.width = displayed + '%';
+      displayed += (target - displayed) * 0.07;
+      if (ringArc) {
+        ringArc.style.strokeDashoffset = circumference * (1 - displayed / 100);
+      }
       rafId = requestAnimationFrame(tick);
     };
     tick();
@@ -74,11 +75,10 @@
       clearInterval(interval);
       target = 100;
 
-      /* Wait for the lerp to settle near 100, then snap and slide away */
+      /* Let the ring visually complete before sliding away */
       setTimeout(() => {
         cancelAnimationFrame(rafId);
-        if (counterEl)   counterEl.textContent   = '100';
-        if (progressBar) progressBar.style.width = '100%';
+        if (ringArc) ringArc.style.strokeDashoffset = '0';
 
         if (prefersReduced) {
           preloader.style.display = 'none';
@@ -90,13 +90,13 @@
           yPercent: -100,
           duration: 0.9,
           ease: 'power3.inOut',
-          delay: 0.25,
+          delay: 0.3,
           onComplete: () => {
             preloader.style.display = 'none';
             onReady();
           },
         });
-      }, 600);
+      }, 650);
     };
 
     if (document.readyState === 'complete') {
