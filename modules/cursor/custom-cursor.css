@@ -1,0 +1,54 @@
+/*
+ * custom-cursor.css — Styles for the dual-ring custom cursor
+ *
+ * Override CSS variables:
+ *   --cursor-color   : dot + ring accent color  (default #c9a96e)
+ *   --cursor-dot-sz  : dot diameter             (default 8px)
+ *   --cursor-ring-sz : ring diameter            (default 36px)
+ */
+
+body { cursor: none; }
+button, a, [role="button"] { cursor: none; }
+
+.cursor-dot,
+.cursor-ring,
+.cursor-label {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 8999;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.cursor-dot {
+  width:  var(--cursor-dot-sz, 8px);
+  height: var(--cursor-dot-sz, 8px);
+  background: var(--cursor-color, #c9a96e);
+}
+
+.cursor-ring {
+  width:  var(--cursor-ring-sz, 36px);
+  height: var(--cursor-ring-sz, 36px);
+  border: 1.5px solid rgba(201, 169, 110, 0.6);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+}
+
+.cursor-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--cursor-color, #c9a96e);
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  margin-top: 24px;
+}
+
+/* Hide on touch devices */
+@media (hover: none) {
+  .cursor-dot,
+  .cursor-ring,
+  .cursor-label { display: none; }
+  body, button, a, [role="button"] { cursor: auto; }
+}

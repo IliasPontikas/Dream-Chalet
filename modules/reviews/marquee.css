@@ -1,0 +1,61 @@
+/*
+ * marquee.css — Infinite bidirectional CSS marquee
+ *
+ * Override CSS variables:
+ *   --marquee-gap       : gap between items  (default 1.5rem)
+ *   --marquee-speed     : animation duration (default 40s)
+ *   --marquee-fade-w    : edge fade width    (default 80px)
+ *   --marquee-fade-bg   : edge fade color    (default --bg / #0e0b08)
+ */
+
+.marquee-row {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* Soft edge fade-out on both sides */
+.marquee-row::before,
+.marquee-row::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: var(--marquee-fade-w, 80px);
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-row::before {
+  left: 0;
+  background: linear-gradient(to right, var(--marquee-fade-bg, #0e0b08), transparent);
+}
+.marquee-row::after {
+  right: 0;
+  background: linear-gradient(to left, var(--marquee-fade-bg, #0e0b08), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: var(--marquee-gap, 1.5rem);
+  width: max-content;
+  will-change: transform;
+}
+
+/* Direction classes */
+.marquee-left  { animation: marqueeLeft  var(--marquee-speed, 40s) linear infinite; }
+.marquee-right { animation: marqueeRight var(--marquee-speed, 40s) linear infinite; }
+
+.marquee-track:hover { animation-play-state: paused; }
+
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-left,
+  .marquee-right { animation: none; }
+}

@@ -1,0 +1,101 @@
+/*
+ * stacked-cards.css — Styles for the scroll-scrubbed stacking card deck
+ *
+ * Override CSS variables:
+ *   --card-bg      : card background  (default #f5f0e8 cream)
+ *   --card-color   : card text color  (default #1a1209 dark)
+ *   --card-radius  : border radius    (default 20px)
+ *   --card-w       : card width       (default 600px)
+ *   --card-h       : card height      (default 400px)
+ *   --card-gold    : accent line      (default rgba(201,169,110,.3))
+ */
+
+.reviews-stack-container {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews-stack {
+  position: relative;
+  width: var(--card-w, 600px);
+  max-width: 90vw;
+  height: var(--card-h, 400px);
+}
+
+.review-card {
+  position: absolute;
+  inset: 0;
+  background: var(--card-bg, #f5f0e8);
+  color: var(--card-color, #1a1209);
+  border-radius: var(--card-radius, 20px);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transform: translateY(100vh);
+  will-change: transform;
+}
+
+.review-quote {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: #1a1209;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.review-body {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #3a3020;
+  flex-grow: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.review-footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--card-gold, rgba(201, 169, 110, 0.3));
+  flex-shrink: 0;
+}
+
+.review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(201, 169, 110, 0.4);
+}
+
+.review-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1a1209;
+}
+
+.review-role {
+  display: block;
+  font-size: 0.78rem;
+  color: #7a6a50;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .reviews-stack { height: 360px; }
+  .review-card   { padding: 1.5rem; }
+  .review-body   { -webkit-line-clamp: 2; }
+}
