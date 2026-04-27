@@ -1,0 +1,18 @@
+# Raw client files — never commit (too large, private)
+raw/images/*
+raw/hero/*
+raw/scrub/*
+!raw/images/.gitkeep
+!raw/hero/.gitkeep
+!raw/scrub/.gitkeep
+
+# Generated output — rebuild by running optimize-media.sh
+output/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
