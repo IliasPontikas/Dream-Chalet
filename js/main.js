@@ -117,11 +117,9 @@
     if (typeof initScrollVideo === 'function') initScrollVideo();
     if (typeof initGallery === 'function') initGallery();
     if (typeof initReviews === 'function') initReviews();
-    if (typeof initThreeJS === 'function') initThreeJS();
     if (typeof initMap === 'function') initMap();
     if (typeof initCalendar === 'function') initCalendar();
     if (typeof initWeather === 'function') initWeather();
-    if (typeof initAvailability === 'function') initAvailability();
     if (typeof initI18n === 'function') initI18n();
     if (typeof initCookieConsent === 'function') initCookieConsent();
     /* Refresh after all ScrollTriggers are registered so Lenis spacers are correct */

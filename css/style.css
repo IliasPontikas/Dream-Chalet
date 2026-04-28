@@ -66,6 +66,7 @@ body {
 html {
   scroll-behavior: auto;
   font-size: 16px;
+  scroll-padding-top: 135px;
 }
 body {
   background: var(--bg);
@@ -79,6 +80,14 @@ img,
 video {
   max-width: 100%;
   display: block;
+}
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: -0.125em;
+  flex-shrink: 0;
 }
 a {
   color: inherit;
@@ -241,6 +250,12 @@ h4 {
   button {
     cursor: pointer;
   }
+}
+input,
+textarea,
+select,
+.calendar-day-selectable {
+  cursor: auto !important;
 }
 .scroll-progress {
   position: fixed;
@@ -449,6 +464,11 @@ h4 {
 }
 .theme-toggle.dark .theme-icon-sun {
   display: inline-block;
+}
+.theme-toggle .icon {
+  width: 1.1em;
+  height: 1.1em;
+  pointer-events: none;
 }
 .hamburger {
   display: none;

@@ -25,23 +25,22 @@
   <!-- Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://tiles.openfreemap.org">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-
   <!-- MapLibre CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
+
+  <!-- LCP: preload hero poster so it shows immediately while video loads -->
+  <link rel="preload" href="images/exterior1.avif" as="image" type="image/avif">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="css/style.css?v=12">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -49,28 +48,67 @@
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     "name": "Dream Chalet Trikala",
-    "description": "Πολυτελές εξοχικό σπίτι ενοικίασης",
+    "description": "Πολυτελές εξοχικό σπίτι ενοικίασης με 3 υπνοδωμάτια και 2 μπάνια στα Τρίκαλα",
+    "url": "https://dreamchalet-trikala.gr/",
+    "telephone": "+306976908838",
+    "image": [
+      "https://dreamchalet-trikala.gr/images/exterior1.avif",
+      "https://dreamchalet-trikala.gr/images/exterior2.avif",
+      "https://dreamchalet-trikala.gr/images/living-room1.avif"
+    ],
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Raxa, Trikala",
+      "streetAddress": "Raxa",
       "addressLocality": "Trikala",
+      "addressRegion": "Thessaly",
+      "postalCode": "42100",
       "addressCountry": "GR"
     },
-    "telephone": "+306976908838",
-    "url": "https://dreamchalet-trikala.gr/",
-    "image": "images/exterior1.avif",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 39.60386403048851,
+      "longitude": 21.74715078198729
+    },
+    "checkinTime": "15:00",
+    "checkoutTime": "11:00",
+    "petsAllowed": false,
+    "numberOfRooms": 3,
     "priceRange": "€€€",
+    "sameAs": [
+      "https://www.airbnb.gr/rooms/1019294882973971198",
+      "https://www.booking.com/hotel/gr/dream-chalet-trikala.html",
+      "https://www.instagram.com/dream_chalet_trikala/"
+    ],
+    "amenityFeature": [
+      {"@type": "LocationFeatureSpecification", "name": "WiFi", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Kitchen", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Fireplace", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Garden", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Air Conditioning", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Washing Machine", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Smart TV", "value": true}
+    ],
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": 9.8,
-      "ratingCount": 50
+      "ratingValue": "9.8",
+      "bestRating": "10",
+      "worstRating": "1",
+      "ratingCount": "50"
     },
-    "amenityFeature": [
-      {"name": "WiFi"},
-      {"name": "Kitchen"},
-      {"name": "Fireplace"},
-      {"name": "Parking"},
-      {"name": "Garden"}
+    "review": [
+      {
+        "@type": "Review",
+        "reviewRating": {"@type": "Rating", "ratingValue": "10", "bestRating": "10"},
+        "author": {"@type": "Person", "name": "Μαρία"},
+        "reviewBody": "Υπέροχη διαμονή! Το σπίτι είναι ακριβώς όπως στις φωτογραφίες."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": {"@type": "Rating", "ratingValue": "10", "bestRating": "10"},
+        "author": {"@type": "Person", "name": "Γιάννης"},
+        "reviewBody": "Εξαιρετική τοποθεσία, άψογη καθαριότητα και φιλόξενοι οικοδεσπότες."
+      }
     ]
   }
   </script>
@@ -86,7 +124,7 @@
   <div id="preloader" class="preloader">
     <div class="preloader-inner">
       <div class="preloader-logo-wrap">
-        <img src="images/logo-removebg2.png" alt="Dream Chalet" class="preloader-logo-img">
+        <img src="images/logo-removebg2.png" alt="Dream Chalet" class="preloader-logo-img" width="372" height="245">
         <svg class="preloader-ring" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="130" cy="130" r="122" fill="none" stroke="rgba(201,169,110,0.12)" stroke-width="1"/>
           <circle cx="130" cy="130" r="122" fill="none" stroke="#c9a96e" stroke-width="1" stroke-linecap="round"
@@ -123,14 +161,14 @@
 
       <div class="nav-center">
         <a href="#" class="logo-link">
-          <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="logo-img">
+          <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="logo-img" width="372" height="245">
         </a>
       </div>
 
       <div class="nav-right">
         <button id="theme-toggle" class="theme-toggle" aria-label="Theme toggle" title="Toggle dark/light mode">
-          <i class="fa-solid fa-moon theme-icon-moon" aria-hidden="true"></i>
-          <i class="fa-solid fa-sun theme-icon-sun" aria-hidden="true"></i>
+          <svg class="icon" aria-hidden="true" theme-icon-moon"><use href="images/icons.svg#fa-moon"></use></svg>
+          <svg class="icon" aria-hidden="true" theme-icon-sun"><use href="images/icons.svg#fa-sun"></use></svg>
         </button>
         <button id="lang-toggle" class="lang-toggle" aria-label="Language toggle" data-lang="el">EN</button>
       </div>
@@ -139,7 +177,7 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu" role="navigation" aria-hidden="true">
       <div class="mobile-menu-inner">
-        <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo">
+        <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo" width="372" height="245">
 
         <div class="mobile-menu-nav">
           <a href="#about" class="mobile-nav-link" data-i18n="nav.about">Πληροφορίες</a>
@@ -151,13 +189,13 @@
 
         <div class="mobile-menu-social">
           <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-instagram"></use></svg>
           </a>
           <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
-            <i class="fa-brands fa-airbnb"></i>
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg>
           </a>
           <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
-            <i class="fa-solid fa-bed"></i>
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg>
           </a>
         </div>
       </div>
@@ -168,7 +206,7 @@
     <!-- Hero Section -->
     <section id="hero" class="section-hero" role="region" aria-label="Hero section">
       <div class="hero-video-wrap">
-        <video id="hero-video" autoplay muted loop playsinline poster="images/exterior1.avif" aria-hidden="true">
+        <video id="hero-video" autoplay muted loop playsinline preload="none" poster="images/exterior1.avif" aria-hidden="true">
           <source src="videos/chalet-video.mp4" type="video/mp4">
         </video>
       </div>
@@ -208,7 +246,7 @@
             </ul>
           </div>
           <div class="about-image-wrap">
-            <img src="images/living-room1.avif" alt="Interior Dream Chalet" loading="lazy" decoding="async">
+            <img src="images/living-room1.avif" alt="Interior Dream Chalet" loading="lazy" decoding="async" width="1200" height="800">
           </div>
         </div>
 
@@ -247,47 +285,47 @@
       <div class="coverflow-stage">
         <div class="coverflow-container" data-cursor="drag">
           <div class="coverflow-track" id="coverflow-track">
-          <div class="gallery-slide" data-index="0"><img src="images/living-room1.avif" alt="Living room" loading="lazy"></div>
-          <div class="gallery-slide" data-index="1"><img src="images/living-room2.avif" alt="Living room 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="2"><img src="images/living-room3.avif" alt="Living room 3" loading="lazy"></div>
-          <div class="gallery-slide" data-index="3"><img src="images/living-room4.avif" alt="Living room 4" loading="lazy"></div>
-          <div class="gallery-slide" data-index="4"><img src="images/living-room5.avif" alt="Living room 5" loading="lazy"></div>
-          <div class="gallery-slide" data-index="5"><img src="images/kitchen1.avif" alt="Kitchen" loading="lazy"></div>
-          <div class="gallery-slide" data-index="6"><img src="images/kitchen2.avif" alt="Kitchen 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="7"><img src="images/dining-room1.avif" alt="Dining room" loading="lazy"></div>
-          <div class="gallery-slide" data-index="8"><img src="images/dining-room2.avif" alt="Dining room 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="9"><img src="images/dining-room3.avif" alt="Dining room 3" loading="lazy"></div>
-          <div class="gallery-slide" data-index="10"><img src="images/dining-room4.avif" alt="Dining room 4" loading="lazy"></div>
-          <div class="gallery-slide" data-index="11"><img src="images/drink.avif" alt="Welcome drink" loading="lazy"></div>
-          <div class="gallery-slide" data-index="12"><img src="images/clock.avif" alt="Clock detail" loading="lazy"></div>
-          <div class="gallery-slide" data-index="13"><img src="images/second-floor.avif" alt="Second floor" loading="lazy"></div>
-          <div class="gallery-slide" data-index="14"><img src="images/bedroom1.avif" alt="Master bedroom" loading="lazy"></div>
-          <div class="gallery-slide" data-index="15"><img src="images/bedroom2.avif" alt="Bedroom 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="16"><img src="images/bedroom3.avif" alt="Bedroom 3" loading="lazy"></div>
-          <div class="gallery-slide" data-index="17"><img src="images/second-bedroom1.avif" alt="Second bedroom" loading="lazy"></div>
-          <div class="gallery-slide" data-index="18"><img src="images/second-bedroom2.avif" alt="Second bedroom 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="19"><img src="images/second-bedroom3.avif" alt="Second bedroom 3" loading="lazy"></div>
-          <div class="gallery-slide" data-index="20"><img src="images/third-bedroom1.avif" alt="Third bedroom" loading="lazy"></div>
-          <div class="gallery-slide" data-index="21"><img src="images/third-bedroom2.avif" alt="Third bedroom 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="22"><img src="images/third-bedroom3.avif" alt="Third bedroom 3" loading="lazy"></div>
-          <div class="gallery-slide" data-index="23"><img src="images/bathroom1.avif" alt="Bathroom" loading="lazy"></div>
-          <div class="gallery-slide" data-index="24"><img src="images/bathroom2.avif" alt="Bathroom 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="25"><img src="images/second-bathroom.avif" alt="Second bathroom" loading="lazy"></div>
-          <div class="gallery-slide" data-index="26"><img src="images/exterior1.avif" alt="Exterior view" loading="lazy"></div>
-          <div class="gallery-slide" data-index="27"><img src="images/exterior2.avif" alt="Exterior view 2" loading="lazy"></div>
-          <div class="gallery-slide" data-index="28"><img src="images/exterior3.avif" alt="Exterior view 3" loading="lazy"></div>
-          <div class="gallery-slide" data-index="29"><img src="images/exterior4.avif" alt="Exterior view 4" loading="lazy"></div>
-          <div class="gallery-slide" data-index="30"><img src="images/exterior5.avif" alt="Exterior view 5" loading="lazy"></div>
-          <div class="gallery-slide" data-index="31"><img src="images/exterior6.avif" alt="Exterior view 6" loading="lazy"></div>
+          <div class="gallery-slide" data-index="0"><picture><source srcset="images/living-room1.avif" type="image/avif"><img src="images/living-room1.avif" alt="Living room" loading="lazy" width="1200" height="800"></picture></div>
+          <div class="gallery-slide" data-index="1"><picture><source srcset="images/living-room2.avif" type="image/avif"><img src="images/living-room2.avif" alt="Living room 2" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="2"><picture><source srcset="images/living-room3.avif" type="image/avif"><img src="images/living-room3.avif" alt="Living room 3" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="3"><picture><source srcset="images/living-room4.avif" type="image/avif"><img src="images/living-room4.avif" alt="Living room 4" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="4"><picture><source srcset="images/living-room5.avif" type="image/avif"><img src="images/living-room5.avif" alt="Living room 5" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="5"><picture><source srcset="images/kitchen1.avif" type="image/avif"><img src="images/kitchen1.avif" alt="Kitchen" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="6"><picture><source srcset="images/kitchen2.avif" type="image/avif"><img src="images/kitchen2.avif" alt="Kitchen 2" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="7"><picture><source srcset="images/dining-room1.avif" type="image/avif"><img src="images/dining-room1.avif" alt="Dining room" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="8"><picture><source srcset="images/dining-room2.avif" type="image/avif"><img src="images/dining-room2.avif" alt="Dining room 2" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="9"><picture><source srcset="images/dining-room3.avif" type="image/avif"><img src="images/dining-room3.avif" alt="Dining room 3" loading="lazy" width="720" height="1080"></picture></div>
+          <div class="gallery-slide" data-index="10"><picture><source srcset="images/dining-room4.avif" type="image/avif"><img src="images/dining-room4.avif" alt="Dining room 4" loading="lazy" width="1200" height="800"></picture></div>
+          <div class="gallery-slide" data-index="11"><picture><source srcset="images/drink.avif" type="image/avif"><img src="images/drink.avif" alt="Welcome drink" loading="lazy" width="720" height="1080"></picture></div>
+          <div class="gallery-slide" data-index="12"><picture><source srcset="images/clock.avif" type="image/avif"><img src="images/clock.avif" alt="Clock detail" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="13"><picture><source srcset="images/second-floor.avif" type="image/avif"><img src="images/second-floor.avif" alt="Second floor" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="14"><picture><source srcset="images/bedroom1.avif" type="image/avif"><img src="images/bedroom1.avif" alt="Master bedroom" loading="lazy" width="1200" height="800"></picture></div>
+          <div class="gallery-slide" data-index="15"><picture><source srcset="images/bedroom2.avif" type="image/avif"><img src="images/bedroom2.avif" alt="Bedroom 2" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="16"><picture><source srcset="images/bedroom3.avif" type="image/avif"><img src="images/bedroom3.avif" alt="Bedroom 3" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="17"><picture><source srcset="images/second-bedroom1.avif" type="image/avif"><img src="images/second-bedroom1.avif" alt="Second bedroom" loading="lazy" width="1200" height="800"></picture></div>
+          <div class="gallery-slide" data-index="18"><picture><source srcset="images/second-bedroom2.avif" type="image/avif"><img src="images/second-bedroom2.avif" alt="Second bedroom 2" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="19"><picture><source srcset="images/second-bedroom3.avif" type="image/avif"><img src="images/second-bedroom3.avif" alt="Second bedroom 3" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="20"><picture><source srcset="images/third-bedroom1.avif" type="image/avif"><img src="images/third-bedroom1.avif" alt="Third bedroom" loading="lazy" width="1200" height="800"></picture></div>
+          <div class="gallery-slide" data-index="21"><picture><source srcset="images/third-bedroom2.avif" type="image/avif"><img src="images/third-bedroom2.avif" alt="Third bedroom 2" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="22"><picture><source srcset="images/third-bedroom3.avif" type="image/avif"><img src="images/third-bedroom3.avif" alt="Third bedroom 3" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="23"><picture><source srcset="images/bathroom1.avif" type="image/avif"><img src="images/bathroom1.avif" alt="Bathroom" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="24"><picture><source srcset="images/bathroom2.avif" type="image/avif"><img src="images/bathroom2.avif" alt="Bathroom 2" loading="lazy" width="720" height="480"></picture></div>
+          <div class="gallery-slide" data-index="25"><picture><source srcset="images/second-bathroom.avif" type="image/avif"><img src="images/second-bathroom.avif" alt="Second bathroom" loading="lazy" width="1200" height="800"></picture></div>
+          <div class="gallery-slide" data-index="26"><picture><source srcset="images/exterior1.avif" type="image/avif"><img src="images/exterior1.avif" alt="Exterior view" loading="lazy" width="720" height="580"></picture></div>
+          <div class="gallery-slide" data-index="27"><picture><source srcset="images/exterior2.avif" type="image/avif"><img src="images/exterior2.avif" alt="Exterior view 2" loading="lazy" width="720" height="768"></picture></div>
+          <div class="gallery-slide" data-index="28"><picture><source srcset="images/exterior3.avif" type="image/avif"><img src="images/exterior3.avif" alt="Exterior view 3" loading="lazy" width="720" height="872"></picture></div>
+          <div class="gallery-slide" data-index="29"><picture><source srcset="images/exterior4.avif" type="image/avif"><img src="images/exterior4.avif" alt="Exterior view 4" loading="lazy" width="720" height="720"></picture></div>
+          <div class="gallery-slide" data-index="30"><picture><source srcset="images/exterior5.avif" type="image/avif"><img src="images/exterior5.avif" alt="Exterior view 5" loading="lazy" width="720" height="720"></picture></div>
+          <div class="gallery-slide" data-index="31"><picture><source srcset="images/exterior6.avif" type="image/avif"><img src="images/exterior6.avif" alt="Exterior view 6" loading="lazy" width="720" height="540"></picture></div>
           </div>
         </div>
 
         <div class="coverflow-controls">
           <button class="coverflow-btn coverflow-prev" id="coverflow-prev" aria-label="Previous image" type="button">
-            <i class="fa-solid fa-chevron-left"></i>
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-left"></use></svg>
           </button>
           <button class="coverflow-btn coverflow-next" id="coverflow-next" aria-label="Next image" type="button">
-            <i class="fa-solid fa-chevron-right"></i>
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
           </button>
         </div>
       </div>
@@ -326,32 +364,32 @@
         <div class="amenities-grid">
           <div class="marquee-row">
             <div class="marquee-track marquee-left">
-              <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span data-i18n="amenities.wifi">WiFi</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-kitchen-set"></i><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-water-ladder"></i><span data-i18n="amenities.washer">Πλυντήριο</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-fire"></i><span data-i18n="amenities.fireplace">Τζάκι</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-tv"></i><span data-i18n="amenities.tv">Τηλεόραση</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-water-ladder"></use></svg><span data-i18n="amenities.washer">Πλυντήριο</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></div>
               <!-- duplicate for seamless loop -->
-              <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span data-i18n="amenities.wifi">WiFi</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-kitchen-set"></i><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-water-ladder"></i><span data-i18n="amenities.washer">Πλυντήριο</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-fire"></i><span data-i18n="amenities.fireplace">Τζάκι</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-tv"></i><span data-i18n="amenities.tv">Τηλεόραση</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-water-ladder"></use></svg><span data-i18n="amenities.washer">Πλυντήριο</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></div>
             </div>
           </div>
           <div class="marquee-row">
             <div class="marquee-track marquee-right">
-              <div class="amenity-item"><i class="fa-solid fa-square-parking"></i><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-sun"></i><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-leaf"></i><span data-i18n="amenities.garden">Κήπος</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-snowflake"></i><span data-i18n="amenities.ac">Κλιματισμός</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-ban-smoking"></i><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Κήπος</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
               <!-- duplicate -->
-              <div class="amenity-item"><i class="fa-solid fa-square-parking"></i><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-sun"></i><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-leaf"></i><span data-i18n="amenities.garden">Κήπος</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-snowflake"></i><span data-i18n="amenities.ac">Κλιματισμός</span></div>
-              <div class="amenity-item"><i class="fa-solid fa-ban-smoking"></i><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Κήπος</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
             </div>
           </div>
         </div>
@@ -372,7 +410,7 @@
             <span class="attraction-distance" data-i18n="attractions.meteora.distance">~22 km</span>
             <h3 class="attraction-title" data-i18n="attractions.meteora.title">Μετέωρα</h3>
             <p class="attraction-desc" data-i18n="attractions.meteora.desc">Μοναστήρια του 14ου αιώνα. UNESCO World Heritage Site με εκπληκτική θέα.</p>
-            <a href="https://maps.google.com/?q=21.6315,39.7228" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+            <a href="https://maps.google.com/?q=21.6315,39.7228" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
           </div>
         </div>
 
@@ -382,7 +420,7 @@
             <span class="attraction-distance" data-i18n="attractions.elati.distance">~30 km</span>
             <h3 class="attraction-title" data-i18n="attractions.elati.title">Ελάτι</h3>
             <p class="attraction-desc" data-i18n="attractions.elati.desc">Το μεγαλύτερο ορεινό χωριό. Πεζοπορία, δάση, χιονιά και παραδοσιακή αρχιτεκτονική.</p>
-            <a href="https://maps.google.com/?q=21.4833,39.5333" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+            <a href="https://maps.google.com/?q=21.4833,39.5333" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
           </div>
         </div>
 
@@ -392,7 +430,7 @@
             <span class="attraction-distance" data-i18n="attractions.pertouli.distance">~54 km</span>
             <h3 class="attraction-title" data-i18n="attractions.pertouli.title">Περτούλι</h3>
             <p class="attraction-desc" data-i18n="attractions.pertouli.desc">Χωριό στα σύννεφα με σταθμό χιονοδρομιών. Καταγάλανα δάση.</p>
-            <a href="https://maps.google.com/?q=21.4,39.45" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+            <a href="https://maps.google.com/?q=21.4,39.45" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
           </div>
         </div>
 
@@ -402,7 +440,7 @@
             <span class="attraction-distance" data-i18n="attractions.palaiokarya.distance">~35 km</span>
             <h3 class="attraction-title" data-i18n="attractions.palaiokarya.title">Καταρράκτες Παλαιοκαριάς</h3>
             <p class="attraction-desc" data-i18n="attractions.palaiokarya.desc">Εντυπωσιακές καταρράκτες, γέφυρα 1517 και παραδοσιακός μύλος 200 ετών.</p>
-            <a href="https://maps.google.com/?q=21.8333,39.6333" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+            <a href="https://maps.google.com/?q=21.8333,39.6333" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
           </div>
         </div>
       </div>
@@ -422,22 +460,22 @@
             <div class="nearby-item">
               <h4>Μετέωρα</h4>
               <p>UNESCO World Heritage Site • ~22 km</p>
-              <a href="https://maps.google.com/?q=39.72279696985126,21.63065515278235" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+              <a href="https://maps.google.com/?q=39.72279696985126,21.63065515278235" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
             </div>
             <div class="nearby-item">
               <h4>Ελάτι</h4>
               <p>Ορεινό χωριό • ~30 km</p>
-              <a href="https://maps.google.com/?q=39.50317742958358,21.535341361331444" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+              <a href="https://maps.google.com/?q=39.50317742958358,21.535341361331444" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
             </div>
             <div class="nearby-item">
               <h4>Καταρράκτες Παλαιοκαριάς</h4>
               <p>Καταρράκτες & Γέφυρα 1517 • ~35 km</p>
-              <a href="https://maps.google.com/?q=39.431308047515344,21.527416210816465" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+              <a href="https://maps.google.com/?q=39.431308047515344,21.527416210816465" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
             </div>
             <div class="nearby-item">
               <h4>Περτούλι</h4>
               <p>Χιονοδρομικό κέντρο • ~54 km</p>
-              <a href="https://maps.google.com/?q=39.54109910736869,21.465859934678086" target="_blank" rel="noopener" class="btn-map"><i class="fa-solid fa-map-location-dot"></i> Open in Maps</a>
+              <a href="https://maps.google.com/?q=39.54109910736869,21.465859934678086" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> Open in Maps</a>
             </div>
           </div>
         </div>
@@ -543,10 +581,10 @@
                 <span class="price-unit" data-i18n="pricing.perNight">/νύχτα</span>
               </div>
               <ul class="price-details">
-                <li><i class="fa-solid fa-users"></i> <span data-i18n="pricing.guests">Έως 6 επισκέπτες</span></li>
-                <li><i class="fa-solid fa-moon"></i> <span data-i18n="pricing.minStay">Ελάχ. παραμονή: 2 νύχτες</span></li>
-                <li><i class="fa-solid fa-clock"></i> <span data-i18n="pricing.checkin">Check-in: 15:00</span></li>
-                <li><i class="fa-solid fa-door-open"></i> <span data-i18n="pricing.checkout">Check-out: 11:00</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-users"></use></svg> <span data-i18n="pricing.guests">Έως 6 επισκέπτες</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-moon"></use></svg> <span data-i18n="pricing.minStay">Ελάχ. παραμονή: 2 νύχτες</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-clock"></use></svg> <span data-i18n="pricing.checkin">Check-in: 15:00</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-door-open"></use></svg> <span data-i18n="pricing.checkout">Check-out: 11:00</span></li>
               </ul>
             </div>
 
@@ -558,10 +596,10 @@
                 <span class="price-unit" data-i18n="pricing.perNight">/νύχτα</span>
               </div>
               <ul class="price-details">
-                <li><i class="fa-solid fa-users"></i> <span data-i18n="pricing.guests">Έως 6 επισκέπτες</span></li>
-                <li><i class="fa-solid fa-moon"></i> <span>Min. 3 νύχτες</span></li>
-                <li><i class="fa-solid fa-clock"></i> <span>Ευέλικτο Check-in</span></li>
-                <li><i class="fa-solid fa-door-open"></i> <span>Late Check-out</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-users"></use></svg> <span data-i18n="pricing.guests">Έως 6 επισκέπτες</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-moon"></use></svg> <span>Min. 3 νύχτες</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-clock"></use></svg> <span>Ευέλικτο Check-in</span></li>
+                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-door-open"></use></svg> <span>Late Check-out</span></li>
               </ul>
             </div>
           </div>
@@ -584,7 +622,7 @@
                 </div>
               </div>
               <button class="btn-check-avail" id="check-availability" data-i18n="pricing.checkAvailability">
-                <i class="fa-solid fa-calendar-check"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-calendar-check"></use></svg>
                 <span>Έλεγχος Διαθεσιμότητας</span>
               </button>
             </div>
@@ -602,24 +640,24 @@
             <h2 class="section-heading" data-i18n="contact.heading">Επικοινωνήστε<br>Μαζί μας</h2>
             <p class="contact-intro" data-i18n="contact.intro">Είμαστε διαθέσιμοι για κάθε ερώτηση ή κράτηση. Επιλέξτε τον τρόπο επικοινωνίας που σας εξυπηρετεί καλύτερα.</p>
             <p class="contact-phone">
-              <i class="fa-solid fa-phone"></i>
+              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-phone"></use></svg>
               <a href="tel:+306976908838" data-i18n="contact.phone">+30 697 690 8838</a>
             </p>
             <div class="contact-btns">
               <a href="https://wa.me/306976908838" target="_blank" rel="noopener" class="btn-contact btn-whatsapp" data-track="whatsapp" aria-label="Contact via WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg>
                 <span data-i18n="contact.whatsapp">WhatsApp</span>
               </a>
               <a href="viber://chat?number=306976908838" class="btn-contact btn-viber" data-track="viber" aria-label="Contact via Viber">
-                <i class="fa-brands fa-viber"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-viber"></use></svg>
                 <span data-i18n="contact.viber">Viber</span>
               </a>
               <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-contact btn-airbnb" data-track="airbnb" aria-label="Contact via Airbnb">
-                <i class="fa-brands fa-airbnb"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg>
                 <span data-i18n="contact.airbnb">Airbnb</span>
               </a>
               <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-contact btn-booking" data-track="booking" aria-label="Contact via Booking.com">
-                <i class="fa-solid fa-bed"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg>
                 <span data-i18n="contact.booking">Booking.com</span>
               </a>
             </div>
@@ -657,13 +695,13 @@
             <p class="footer-tagline" data-i18n="footer.tagline">Πολυτελές εξοχικό σπίτι στα Τρίκαλα, στην καρδιά της ελληνικής φύσης.</p>
             <div class="footer-links">
               <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
-                <i class="fa-brands fa-instagram"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-instagram"></use></svg>
               </a>
               <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
-                <i class="fa-brands fa-airbnb"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg>
               </a>
               <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
-                <i class="fa-solid fa-bed"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg>
               </a>
             </div>
           </div>
@@ -684,19 +722,19 @@
             <h4 class="footer-title" data-i18n="footer.contactTitle">Επικοινωνία</h4>
             <div class="footer-contact-info">
               <div class="footer-contact-item">
-                <i class="fa-solid fa-location-dot"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-location-dot"></use></svg>
                 <a href="https://maps.google.com/?q=39.60386403048851,21.74715078198729" target="_blank" rel="noopener">Raxa, Trikala 42100</a>
               </div>
               <div class="footer-contact-item">
-                <i class="fa-solid fa-phone"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-phone"></use></svg>
                 <a href="tel:+306976908838">+30 697 690 8838</a>
               </div>
               <div class="footer-contact-item">
-                <i class="fa-brands fa-airbnb"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg>
                 <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" data-i18n="footer.bookAirbnb">Κράτηση στο Airbnb</a>
               </div>
               <div class="footer-contact-item">
-                <i class="fa-solid fa-bed"></i>
+                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg>
                 <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" data-i18n="footer.bookBooking">Κράτηση στο Booking</a>
               </div>
             </div>
@@ -713,21 +751,21 @@
   <!-- Sticky Book Button -->
   <div id="sticky-book" class="sticky-book">
     <button class="sticky-book-btn" id="sticky-book-btn" aria-label="Booking options" aria-expanded="false" data-i18n="sticky.book">
-      <i class="fa-solid fa-calendar-check"></i>
+      <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-calendar-check"></use></svg>
       <span>Κράτηση</span>
     </button>
     <div class="sticky-book-panel" id="sticky-book-panel" aria-hidden="true">
       <a href="https://wa.me/306976908838" target="_blank" rel="noopener" data-track="whatsapp">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg> WhatsApp
       </a>
       <a href="viber://chat?number=306976908838" data-track="viber">
-        <i class="fa-brands fa-viber"></i> Viber
+        <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-viber"></use></svg> Viber
       </a>
       <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" data-track="airbnb">
-        <i class="fa-brands fa-airbnb"></i> Airbnb
+        <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg> Airbnb
       </a>
       <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" data-track="booking">
-        <i class="fa-solid fa-bed"></i> Booking
+        <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg> Booking
       </a>
     </div>
   </div>
@@ -740,25 +778,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/InertiaPlugin.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ical.js@5.0.0/build/ical.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/main.js?v=11" defer></script>
-  <script src="js/animations.js?v=11" defer></script>
-  <script src="js/cursor.js?v=11" defer></script>
-  <script src="js/scroll-video.js?v=11" defer></script>
-  <script src="js/gallery.js?v=11" defer></script>
-  <script src="js/reviews.js?v=11" defer></script>
-  <script src="js/three-bg.js?v=11" defer></script>
-  <script src="js/map.js?v=11" defer></script>
-  <script src="js/calendar.js?v=11" defer></script>
-  <script src="js/weather.js?v=11" defer></script>
-  <script src="js/availability.js?v=11" defer></script>
-  <script src="js/i18n.js?v=11" defer></script>
-  <script src="js/cookie-consent.js?v=11" defer></script>
-  <script src="js/analytics.js?v=11" defer></script>
+  <script src="js/config.js?v=12" defer></script>
+  <script src="js/main.js?v=12" defer></script>
+  <script src="js/animations.js?v=12" defer></script>
+  <script src="js/cursor.js?v=12" defer></script>
+  <script src="js/scroll-video.js?v=12" defer></script>
+  <script src="js/gallery.js?v=12" defer></script>
+  <script src="js/reviews.js?v=12" defer></script>
+  <script type="module" src="js/three-bg.js?v=12"></script>
+  <script src="js/map.js?v=12" defer></script>
+  <script src="js/calendar.js?v=12" defer></script>
+  <script src="js/weather.js?v=12" defer></script>
+  <script src="js/i18n.js?v=12" defer></script>
+  <script src="js/cookie-consent.js?v=12" defer></script>
+  <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
+  <!-- <script src="js/analytics.js?v=12" defer></script> -->
 </body>
 </html>

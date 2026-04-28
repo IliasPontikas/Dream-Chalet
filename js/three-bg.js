@@ -1,13 +1,13 @@
-/* three-bg.js — Golden particle field in About section */
+/* three-bg.js — Golden particle field in About section (ESM, ~150KB vs 600KB global build) */
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
 
-function initThreeJS() {
+(function () {
   'use strict';
 
-  /* Skip on low-end devices */
   if (navigator.hardwareConcurrency < 4) return;
 
   const canvas = document.getElementById('three-canvas');
-  if (!canvas || typeof THREE === 'undefined') return;
+  if (!canvas) return;
 
   const scene    = new THREE.Scene();
   const camera   = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
@@ -17,8 +17,7 @@ function initThreeJS() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
-  /* Particles */
-  const count    = 2000;
+  const count     = 2000;
   const positions = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
     positions[i * 3]     = (Math.random() - 0.5) * 20;
@@ -40,28 +39,23 @@ function initThreeJS() {
   const points = new THREE.Points(geometry, material);
   scene.add(points);
 
-  /* Pause when off-screen */
   let isVisible = false;
   const observer = new IntersectionObserver((entries) => {
     isVisible = entries[0].isIntersecting;
   }, { threshold: 0.1 });
   observer.observe(canvas);
 
-  /* Animation loop */
   const clock = new THREE.Clock();
   function animate() {
     requestAnimationFrame(animate);
     if (!isVisible) return;
-
     const elapsed = clock.getElapsedTime();
     points.rotation.y = elapsed * 0.04;
     points.rotation.x = elapsed * 0.015;
-
     renderer.render(scene, camera);
   }
   animate();
 
-  /* Resize */
   window.addEventListener('resize', () => {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
@@ -69,4 +63,4 @@ function initThreeJS() {
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
   });
-}
+})();

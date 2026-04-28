@@ -3,8 +3,8 @@
 function loadGoogleAnalytics() {
   'use strict';
 
-  /* Replace G-XXXXXXXXXX with real GA4 Measurement ID */
-  const GA_ID = 'G-XXXXXXXXXX';
+  const GA_ID = (typeof SITE_CONFIG !== 'undefined' && SITE_CONFIG.ga4Id) ? SITE_CONFIG.ga4Id : '';
+  if (!GA_ID) return;
 
   if (document.querySelector(`script[src*="${GA_ID}"]`)) return; /* Already loaded */
 

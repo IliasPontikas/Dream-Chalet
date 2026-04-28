@@ -3,8 +3,8 @@
 function initWeather() {
   'use strict';
 
-  const lat = 39.60386403048851;
-  const lon = 21.74715078198729;
+  const lat = (typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.coords.lat : 39.60386403048851);
+  const lon = (typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.coords.lng : 21.74715078198729);
   const gridEl = document.getElementById('weather-grid');
   if (!gridEl) return;
 
