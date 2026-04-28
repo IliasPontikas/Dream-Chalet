@@ -16,7 +16,9 @@ function initMap() {
   const map = new maplibregl.Map({
     container: 'map',
     style: getStyle(),
-    center: [21.74715078198729, 39.60386403048851],
+    center: (typeof SITE_CONFIG !== 'undefined'
+      ? [SITE_CONFIG.coords.lng, SITE_CONFIG.coords.lat]
+      : [21.74715078198729, 39.60386403048851]),
     zoom: 9.5,
     pitch: 25,
     bearing: 0,

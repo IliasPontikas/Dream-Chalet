@@ -1,11 +1,12 @@
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v11';
+const CACHE = 'dream-chalet-v12';
 
 const ASSETS = [
   '/',
   '/index.html',
   '/css/style.css',
+  '/js/config.js',
   '/js/main.js',
   '/js/animations.js',
   '/js/cursor.js',
@@ -16,13 +17,12 @@ const ASSETS = [
   '/js/map.js',
   '/js/calendar.js',
   '/js/weather.js',
-  '/js/availability.js',
   '/js/i18n.js',
   '/js/cookie-consent.js',
-  '/js/analytics.js',
   '/locales/el.json',
   '/locales/en.json',
   '/images/logo-removebg2.png',
+  '/images/icons.svg',
 ];
 
 self.addEventListener('install', (e) => {

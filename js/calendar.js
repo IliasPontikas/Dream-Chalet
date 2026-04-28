@@ -204,16 +204,16 @@ function showAvailabilityModal(type, title, message, showBook = false) {
   modal.innerHTML = `
     <div class="avail-modal-inner">
       <div class="avail-modal-icon ${clsMap[type]}">
-        <i class="fa-solid ${iconMap[type]}"></i>
+        <svg class="icon" aria-hidden="true"><use href="images/icons.svg#${iconMap[type]}"></use></svg>
       </div>
       <h3>${title}</h3>
       <p>${message}</p>
       ${showBook ? `
       <div class="avail-modal-btns">
-        <a href="https://wa.me/306976908838" target="_blank" rel="noopener" class="btn-avail-contact">
-          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        <a href="${typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.whatsappUrl : 'https://wa.me/306976908838'}" target="_blank" rel="noopener" class="btn-avail-contact">
+          <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg> WhatsApp
         </a>
-        <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-avail-book">
+        <a href="${typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.airbnbUrl : 'https://www.airbnb.gr/rooms/1019294882973971198'}" target="_blank" rel="noopener" class="btn-avail-book">
           Κράτηση Airbnb →
         </a>
       </div>` : ''}
