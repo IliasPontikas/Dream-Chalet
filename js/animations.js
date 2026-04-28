@@ -325,38 +325,78 @@ function initThemeToggle() {
   });
 }
 
-/* ── Attractions 3D mouse tilt ────────────────────────────── */
+/* ── Attractions: subtle desktop tilt (no touch), scroll parallax ─ */
 function initAttractionsTilt() {
+  const isTouch = window.matchMedia('(hover: none)').matches;
+  const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   document.querySelectorAll('.attraction-card').forEach((card) => {
+    const bg = card.querySelector('.attraction-bg');
+
+    /* Scroll-driven parallax on the background image (all viewports) */
+    if (bg && typeof ScrollTrigger !== 'undefined' && !reduce) {
+      gsap.fromTo(
+        bg,
+        { yPercent: -6 },
+        {
+          yPercent: 6,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        }
+      );
+    }
+
+    /* Desktop-only mouse tilt — much subtler than before */
+    if (isTouch || reduce) return;
     card.addEventListener('mousemove', (e) => {
       const { left, top, width, height } = card.getBoundingClientRect();
       const mx = ((e.clientX - left) / width - 0.5) * 2;
       const my = ((e.clientY - top) / height - 0.5) * 2;
       gsap.to(card, {
-        rotateY: mx * 10,
-        rotateX: -my * 8,
-        duration: 0.4,
+        rotateY: mx * 3,
+        rotateX: -my * 2.5,
+        duration: 0.5,
         ease: 'power2.out',
-        transformPerspective: 1200,
+        transformPerspective: 1400,
         transformOrigin: 'center center',
       });
     });
     card.addEventListener('mouseleave', () => {
-      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.6, ease: 'power3.out' });
+      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.7, ease: 'power3.out' });
     });
   });
 }
 
-/* Attractions: simple reveal + 3D hover handled by initAttractionsTilt */
+/* Attractions: cinematic reveal — hero fades up, satellites stagger in */
 (function initAttractionsReveal() {
-  const cards = document.querySelectorAll('.attraction-card');
-  if (!cards.length || typeof gsap === 'undefined') return;
-  gsap.from(cards, {
-    y: 60,
-    opacity: 0,
-    duration: 0.9,
-    stagger: 0.15,
-    ease: 'power3.out',
-    scrollTrigger: { trigger: '.attractions-grid', start: 'top 80%' },
-  });
+  const grid  = document.querySelector('.attractions-grid');
+  const hero  = document.querySelector('.attraction-card--hero');
+  const cards = document.querySelectorAll('.attraction-card:not(.attraction-card--hero)');
+  if (!grid || typeof gsap === 'undefined') return;
+
+  if (hero) {
+    gsap.from(hero, {
+      y: 40,
+      scale: 0.98,
+      opacity: 0,
+      duration: 1.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: grid, start: 'top 85%' },
+    });
+  }
+  if (cards.length) {
+    gsap.from(cards, {
+      y: 50,
+      opacity: 0,
+      duration: 0.85,
+      stagger: 0.12,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: grid, start: 'top 75%' },
+    });
+  }
 })();

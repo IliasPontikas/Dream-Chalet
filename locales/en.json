@@ -19,13 +19,6 @@
     "label": "The Property",
     "heading": "Experience the Luxury of Nature",
     "text": "Dream Chalet is an exceptional vacation home that blends natural beauty with luxury. With 3 comfortable bedrooms, 2 modern bathrooms, and everything you need, it's the perfect retreat for families and groups.",
-    "rooms": {
-      "living": "Living Room",
-      "kitchen": "Kitchen",
-      "bedroom": "Bedroom",
-      "dining": "Dining Room",
-      "bathroom": "Bathroom"
-    },
     "stats": {
       "bedrooms": "Bedrooms",
       "bathrooms": "Bathrooms",
@@ -58,6 +51,7 @@
   "attractions": {
     "label": "Around You",
     "heading": "Discover the Region",
+    "viewMap": "View on map",
     "meteora": {
       "distance": "~22 km",
       "title": "Meteora",

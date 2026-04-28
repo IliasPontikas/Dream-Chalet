@@ -838,41 +838,6 @@ select,
   line-height: 1.8;
   margin-bottom: 2rem;
 }
-.room-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.room-list-item {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--text-light);
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border);
-  cursor: none;
-  transition:
-    color var(--transition),
-    padding-left var(--transition);
-}
-.room-list-item:hover {
-  color: var(--gold);
-  padding-left: 0.75rem;
-}
-#cursor-gallery-img {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 220px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: var(--radius);
-  pointer-events: none;
-  opacity: 0;
-  z-index: 7000;
-  transform: translate(-50%, -60%);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  display: none;
-}
 .about-image-wrap {
   position: relative;
   border-radius: var(--radius-lg);
@@ -1284,7 +1249,7 @@ select,
 }
 .section-attractions {
   padding: 6rem 0 8rem;
-  overflow: visible;
+  overflow: hidden;
 }
 .attractions-header {
   margin-bottom: 4rem;
@@ -1295,103 +1260,220 @@ select,
 }
 .attractions-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  max-width: 1280px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "hero hero hero"
+    "a    b    c";
+  gap: 1.25rem;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 2rem;
-  perspective: 1500px;
 }
 .attraction-card {
   position: relative;
-  aspect-ratio: 4/3;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transform-style: preserve-3d;
-  transition:
-    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 0.4s ease;
+  aspect-ratio: 4/5;
+  isolation: isolate;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.5s ease;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   will-change: transform;
 }
+.attraction-card--hero {
+  grid-area: hero;
+  aspect-ratio: 21/9;
+}
+.attraction-card:nth-child(2) { grid-area: a; }
+.attraction-card:nth-child(3) { grid-area: b; }
+.attraction-card:nth-child(4) { grid-area: c; }
+
 .attraction-card:hover {
+  transform: translateY(-4px);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
 }
 .attraction-bg {
   position: absolute;
-  inset: 0;
-  background-image: var(--bg-url);
+  inset: -8% -4%;             /* extra room for parallax/ken-burns */
   background-size: cover;
   background-position: center;
-  transition: transform 0.6s ease;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
 }
 /* Per-attraction placeholders — swap in proper photos when available */
 .attraction-card.attr-meteora     .attraction-bg { background-image: url('../images/exterior4.avif'); }
 .attraction-card.attr-elati       .attraction-bg { background-image: url('../images/exterior5.avif'); }
 .attraction-card.attr-pertouli    .attraction-bg { background-image: url('../images/exterior6.avif'); }
 .attraction-card.attr-palaiokarya .attraction-bg { background-image: url('../images/exterior2.avif'); }
+
 .attraction-card:hover .attraction-bg {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
+.attraction-card::before,
 .attraction-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 10, 0.95) 0%,
-    rgba(10, 10, 10, 0.55) 45%,
-    rgba(10, 10, 10, 0.15) 100%
-  );
   pointer-events: none;
+  z-index: 1;
+}
+.attraction-card::before {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 8, 6, 0)   0%,
+    rgba(10, 8, 6, 0.1) 35%,
+    rgba(10, 8, 6, 0.7) 75%,
+    rgba(10, 8, 6, 0.95) 100%
+  );
+}
+.attraction-card::after {
+  /* Subtle gold inner glow on hover */
+  box-shadow: inset 0 0 0 1px rgba(201, 169, 110, 0);
+  transition: box-shadow 0.4s ease;
+}
+.attraction-card:hover::after {
+  box-shadow: inset 0 0 0 1px rgba(201, 169, 110, 0.35);
 }
 .attraction-content {
   position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  right: 2rem;
+  inset: auto 1.5rem 1.5rem;
   z-index: 2;
-  transform: translateZ(50px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+.attraction-card--hero .attraction-content {
+  inset: auto 3rem 3rem;
+  max-width: 620px;
+  gap: 0.85rem;
 }
 .attraction-distance {
-  display: inline-block;
-  font-size: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold);
-  background: rgba(212, 175, 55, 0.15);
-  padding: 0.35rem 0.85rem;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  margin-bottom: 0.85rem;
-  backdrop-filter: blur(6px);
+  background: rgba(14, 11, 8, 0.55);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .attraction-title {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  color: var(--cream);
-  margin-bottom: 0.75rem;
-  line-height: 1.15;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+}
+.attraction-card--hero .attraction-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
 }
 .attraction-desc {
-  font-size: 0.9rem;
-  color: rgba(240, 240, 240, 0.85);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
-  max-width: 500px;
+  font-size: 0.88rem;
+  color: rgba(245, 240, 232, 0.82);
+  line-height: 1.55;
+  max-width: 38ch;
+  /* Hide on small cards by default; show on hero */
+  display: none;
 }
-.attraction-content .btn-map {
-  font-size: 0.8rem;
-  padding: 0.55rem 1rem;
+.attraction-card--hero .attraction-desc {
+  display: block;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  max-width: 56ch;
 }
-@media (max-width: 768px) {
+.attraction-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.4);
+  transition: gap 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  margin-top: 0.25rem;
+}
+.attraction-link .icon {
+  width: 0.7em;
+  height: 0.7em;
+  transition: transform 0.3s ease;
+}
+.attraction-link:hover {
+  gap: 0.75rem;
+  color: var(--cream);
+  border-bottom-color: var(--cream);
+}
+.attraction-link:hover .icon {
+  transform: translateX(3px);
+}
+
+/* Tablet: hero stays full width, others wrap to 2 columns */
+@media (max-width: 960px) {
   .attractions-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 0 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "hero hero"
+      "a    b"
+      "c    c";
   }
   .attraction-card {
-    aspect-ratio: 3/2;
+    aspect-ratio: 3/4;
+  }
+  .attraction-card--hero {
+    aspect-ratio: 16/9;
+  }
+}
+
+/* Mobile: full-bleed cinematic stack */
+@media (max-width: 640px) {
+  .section-attractions {
+    padding: 5rem 0 6rem;
+  }
+  .attractions-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "hero"
+      "a"
+      "b"
+      "c";
+    gap: 0;
+    padding: 0;
+    max-width: none;
+  }
+  .attraction-card,
+  .attraction-card--hero {
+    aspect-ratio: 4/5;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .attraction-card:hover {
+    transform: none;
+  }
+  .attraction-content,
+  .attraction-card--hero .attraction-content {
+    inset: auto 1.5rem 2rem;
+    max-width: none;
+  }
+  .attraction-title {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+  }
+  .attraction-card--hero .attraction-title {
+    font-size: clamp(2.4rem, 10vw, 3.2rem);
+  }
+  /* Show description on every card on mobile (single column has room) */
+  .attraction-desc {
+    display: block;
+    font-size: 0.92rem;
+    max-width: 44ch;
   }
 }
 .section-map {
@@ -2465,10 +2547,6 @@ select,
     left: calc(50% + 8px);
     right: auto;
   }
-  .attraction-content {
-    left: 3rem;
-    right: 3rem;
-  }
   .contact-inner {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -2579,14 +2657,6 @@ select,
   }
   .review-role {
     font-size: 0.72rem;
-  }
-  .attractions-track {
-    width: 400vw;
-  }
-  .attraction-content {
-    left: 2rem;
-    right: 2rem;
-    bottom: 3rem;
   }
   .contact-btns {
     flex-direction: column;

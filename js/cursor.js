@@ -49,7 +49,7 @@ function initCursor() {
   }
 
   /* Apply states based on target element */
-  const hoverTargets  = 'a, button, .nav-link, .mobile-nav-link, .room-list-item, .btn-cta, .btn-contact, .attraction-dot, .coverflow-btn, .lang-toggle';
+  const hoverTargets  = 'a, button, .nav-link, .mobile-nav-link, .btn-cta, .btn-contact, .attraction-dot, .coverflow-btn, .lang-toggle';
   const dragTargets   = '.coverflow-container, [data-cursor="drag"]';
   const viewTargets   = '.gallery-slide';
 
