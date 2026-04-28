@@ -22,6 +22,7 @@ function initI18n() {
       if (typeof val === 'string') el.textContent = val;
     });
     updateToggleBtn();
+    document.dispatchEvent(new CustomEvent('lang:change', { detail: { lang: currentLang } }));
   }
 
   function updateToggleBtn() {

@@ -22,7 +22,7 @@ function initNav() {
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
-  const mobileLinks = mobileMenu?.querySelectorAll('.mobile-nav-link, .mobile-nav-cta');
+  const mobileLinks = mobileMenu?.querySelectorAll('.mobile-nav-link, .mobile-menu-cta');
   if (!navbar) return;
 
   /* Transparent → solid on scroll */
@@ -53,6 +53,9 @@ function initNav() {
 
   /* Hamburger open/close */
   if (!hamburger || !mobileMenu) return;
+
+  /* Initial hidden state for stagger reveal */
+  if (mobileLinks?.length) gsap.set(mobileLinks, { opacity: 0, y: 24 });
 
   hamburger.addEventListener('click', () => {
     const isOpen = mobileMenu.classList.toggle('open');
@@ -333,19 +336,19 @@ function initAttractionsTilt() {
   document.querySelectorAll('.attraction-card').forEach((card) => {
     const bg = card.querySelector('.attraction-bg');
 
-    /* Scroll-driven parallax on the background image (all viewports) */
+    /* Scroll-driven parallax via background-position (no transform conflict) */
     if (bg && typeof ScrollTrigger !== 'undefined' && !reduce) {
       gsap.fromTo(
         bg,
-        { yPercent: -6 },
+        { backgroundPositionY: '40%' },
         {
-          yPercent: 6,
+          backgroundPositionY: '60%',
           ease: 'none',
           scrollTrigger: {
             trigger: card,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.6,
           },
         }
       );

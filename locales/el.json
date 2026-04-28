@@ -76,7 +76,14 @@
   "map": {
     "label": "Τοποθεσία",
     "heading": "Βρείτε Μας",
-    "nearbyTitle": "Κοντινά Σημεία Ενδιαφέροντος"
+    "nearbyTitle": "Κοντινά Σημεία Ενδιαφέροντος",
+    "openMaps": "Άνοιγμα στους Χάρτες",
+    "nearby": {
+      "meteora":     { "title": "Μετέωρα",                 "desc": "UNESCO World Heritage Site • ~22 km" },
+      "elati":       { "title": "Ελάτι",                   "desc": "Ορεινό χωριό • ~30 km" },
+      "palaiokarya": { "title": "Καταρράκτες Παλαιοκαριάς", "desc": "Καταρράκτες & Γέφυρα 1517 • ~35 km" },
+      "pertouli":    { "title": "Περτούλι",                "desc": "Χιονοδρομικό κέντρο • ~54 km" }
+    }
   },
   "reviews": {
     "label": "Κριτικές",
@@ -85,10 +92,20 @@
   "pricing": {
     "label": "Τιμές",
     "heading": "Διαθεσιμότητα & Τιμές",
+    "intro": "Δύο εποχιακές τιμές για να ταιριάζουν στη διαμονή σας. Όλες οι παροχές περιλαμβάνονται.",
+    "from": "από",
     "price": "150",
-    "perNight": "/νύχτα",
+    "perNight": "/ νύχτα",
+    "popular": "Most Popular",
+    "lowSeason": "Χαμηλή Περίοδος",
+    "lowSeasonRange": "Οκτ – Μάι",
+    "highSeason": "Υψηλή Περίοδος",
+    "highSeasonRange": "Ιουν – Σεπ • Εορτές",
     "guests": "Έως 6 επισκέπτες",
     "minStay": "Ελάχ. παραμονή: 2 νύχτες",
+    "minStay3": "Ελάχ. παραμονή: 3 νύχτες",
+    "flexCheckin": "Ευέλικτο Check-in",
+    "lateCheckout": "Late Check-out",
     "checkin": "Check-in: 15:00",
     "checkout": "Check-out: 11:00",
     "checkinLabel": "Ημερομηνία Άφιξης",
