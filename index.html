@@ -16,7 +16,22 @@
   <meta property="og:url" content="https://dreamchalet-trikala.gr/">
   <meta property="og:title" content="Dream Chalet Trikala — Πολυτελές Εξοχικό">
   <meta property="og:description" content="3 υπνοδωμάτια, 2 μπάνια, πολυτέλεια στη φύση. Ιδανικό για οικογένειες και ομάδες.">
-  <meta property="og:image" content="images/exterior1.avif">
+  <meta property="og:image" content="https://dreamchalet-trikala.gr/images/exterior1.avif">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="580">
+  <meta property="og:locale" content="el_GR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Dream Chalet Trikala">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dream Chalet Trikala — Πολυτελές Εξοχικό">
+  <meta name="twitter:description" content="3 υπνοδωμάτια, 2 μπάνια, πολυτέλεια στη φύση.">
+  <meta name="twitter:image" content="https://dreamchalet-trikala.gr/images/exterior1.avif">
+
+  <!-- Favicons / iOS -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo-removebg2.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo-removebg2.png">
 
   <!-- hreflang -->
   <link rel="alternate" hreflang="el" href="https://dreamchalet-trikala.gr/">
@@ -40,7 +55,7 @@
   <link rel="preload" href="images/exterior1.avif" as="image" type="image/avif">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=12">
+  <link rel="stylesheet" href="css/style.css?v=13">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -118,7 +133,7 @@
 </head>
 <body>
   <!-- Skip Link -->
-  <a href="#main" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>
+  <a href="#main" class="skip-link" data-i18n="a11y.skipLink">Μετάβαση στο κύριο περιεχόμενο</a>
 
   <!-- Preloader -->
   <div id="preloader" class="preloader">
@@ -170,7 +185,7 @@
           <svg class="icon" aria-hidden="true" theme-icon-moon"><use href="images/icons.svg#fa-moon"></use></svg>
           <svg class="icon" aria-hidden="true" theme-icon-sun"><use href="images/icons.svg#fa-sun"></use></svg>
         </button>
-        <button id="lang-toggle" class="lang-toggle" aria-label="Language toggle" data-lang="el">EN</button>
+        <button id="lang-toggle" class="lang-toggle" lang="en" aria-label="Switch to English">EN</button>
       </div>
     </div>
 
@@ -404,7 +419,7 @@
       </div>
 
       <div class="attractions-grid">
-        <div class="attraction-card" data-coords="21.6315,39.7228" style="--bg-url: url('https://images.unsplash.com/photo-1555993539-1732b0258235?w=1200&auto=format&fit=crop')">
+        <div class="attraction-card attr-meteora" data-coords="21.6315,39.7228">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.meteora.distance">~22 km</span>
@@ -414,7 +429,7 @@
           </div>
         </div>
 
-        <div class="attraction-card" data-coords="21.4833,39.5333" style="--bg-url: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&auto=format&fit=crop')">
+        <div class="attraction-card attr-elati" data-coords="21.4833,39.5333">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.elati.distance">~30 km</span>
@@ -424,7 +439,7 @@
           </div>
         </div>
 
-        <div class="attraction-card" data-coords="21.4,39.45" style="--bg-url: url('https://images.unsplash.com/photo-1491555103944-7c647fd857e6?w=1200&auto=format&fit=crop')">
+        <div class="attraction-card attr-pertouli" data-coords="21.4,39.45">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.pertouli.distance">~54 km</span>
@@ -434,7 +449,7 @@
           </div>
         </div>
 
-        <div class="attraction-card" data-coords="21.8333,39.6333" style="--bg-url: url('https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1200&auto=format&fit=crop')">
+        <div class="attraction-card attr-palaiokarya" data-coords="21.8333,39.6333">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.palaiokarya.distance">~35 km</span>
@@ -783,20 +798,20 @@
   <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=12" defer></script>
-  <script src="js/main.js?v=12" defer></script>
-  <script src="js/animations.js?v=12" defer></script>
-  <script src="js/cursor.js?v=12" defer></script>
-  <script src="js/scroll-video.js?v=12" defer></script>
-  <script src="js/gallery.js?v=12" defer></script>
-  <script src="js/reviews.js?v=12" defer></script>
-  <script type="module" src="js/three-bg.js?v=12"></script>
-  <script src="js/map.js?v=12" defer></script>
-  <script src="js/calendar.js?v=12" defer></script>
-  <script src="js/weather.js?v=12" defer></script>
-  <script src="js/i18n.js?v=12" defer></script>
-  <script src="js/cookie-consent.js?v=12" defer></script>
+  <script src="js/config.js?v=13" defer></script>
+  <script src="js/main.js?v=13" defer></script>
+  <script src="js/animations.js?v=13" defer></script>
+  <script src="js/cursor.js?v=13" defer></script>
+  <script src="js/scroll-video.js?v=13" defer></script>
+  <script src="js/gallery.js?v=13" defer></script>
+  <script src="js/reviews.js?v=13" defer></script>
+  <script type="module" src="js/three-bg.js?v=13"></script>
+  <script src="js/map.js?v=13" defer></script>
+  <script src="js/calendar.js?v=13" defer></script>
+  <script src="js/weather.js?v=13" defer></script>
+  <script src="js/i18n.js?v=13" defer></script>
+  <script src="js/cookie-consent.js?v=13" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=12" defer></script> -->
+  <!-- <script src="js/analytics.js?v=13" defer></script> -->
 </body>
 </html>

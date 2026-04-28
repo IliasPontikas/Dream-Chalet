@@ -25,7 +25,16 @@ function initI18n() {
   }
 
   function updateToggleBtn() {
-    if (btn) btn.textContent = currentLang === 'el' ? 'EN' : 'ΕΛ';
+    if (!btn) return;
+    if (currentLang === 'el') {
+      btn.textContent = 'EN';
+      btn.setAttribute('lang', 'en');
+      btn.setAttribute('aria-label', 'Switch to English');
+    } else {
+      btn.textContent = 'ΕΛ';
+      btn.setAttribute('lang', 'el');
+      btn.setAttribute('aria-label', 'Αλλαγή σε Ελληνικά');
+    }
   }
 
   function loadLang(lang) {

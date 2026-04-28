@@ -1,4 +1,7 @@
 {
+  "a11y": {
+    "skipLink": "Skip to main content"
+  },
   "nav": {
     "about": "About",
     "gallery": "Gallery",

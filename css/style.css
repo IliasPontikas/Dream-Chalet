@@ -1325,6 +1325,11 @@ select,
   background-position: center;
   transition: transform 0.6s ease;
 }
+/* Per-attraction placeholders — swap in proper photos when available */
+.attraction-card.attr-meteora     .attraction-bg { background-image: url('../images/exterior4.avif'); }
+.attraction-card.attr-elati       .attraction-bg { background-image: url('../images/exterior5.avif'); }
+.attraction-card.attr-pertouli    .attraction-bg { background-image: url('../images/exterior6.avif'); }
+.attraction-card.attr-palaiokarya .attraction-bg { background-image: url('../images/exterior2.avif'); }
 .attraction-card:hover .attraction-bg {
   transform: scale(1.08);
 }

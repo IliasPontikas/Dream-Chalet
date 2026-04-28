@@ -2,21 +2,49 @@
   "name": "Dream Chalet Trikala",
   "short_name": "Dream Chalet",
   "description": "Πολυτελές εξοχικό σπίτι στα Τρίκαλα",
+  "lang": "el",
+  "dir": "ltr",
+  "scope": "/",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0e0b08",
   "theme_color": "#c9a96e",
   "orientation": "portrait-primary",
+  "categories": ["travel", "lifestyle"],
   "icons": [
     {
       "src": "images/logo-removebg2.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "images/logo-removebg2.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo-removebg2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Now",
+      "short_name": "Book",
+      "description": "Reserve your stay",
+      "url": "/#pricing",
+      "icons": [{ "src": "images/logo-removebg2.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Gallery",
+      "short_name": "Gallery",
+      "description": "View photos",
+      "url": "/#gallery",
+      "icons": [{ "src": "images/logo-removebg2.png", "sizes": "192x192" }]
     }
   ]
 }
