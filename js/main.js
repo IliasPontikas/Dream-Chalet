@@ -3,9 +3,16 @@
 (function () {
   'use strict';
 
-  /* ── Disable browser scroll restoration so mobile refresh always starts at top ── */
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
+  /* ── Scroll restoration: manual only on the very first visit so the
+        preloader plays cleanly. Once seen, hand back to the browser so
+        Back/Forward navigation restores position correctly. ── */
+  if ('scrollRestoration' in history) {
+    const seen = sessionStorage.getItem('dc:visited') === '1';
+    history.scrollRestoration = seen ? 'auto' : 'manual';
+    if (!seen) window.scrollTo(0, 0);
+  } else {
+    window.scrollTo(0, 0);
+  }
 
   /* ── Register GSAP plugins ─────────────────────────────── */
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Flip, Draggable);
@@ -54,6 +61,14 @@
     const preloader = document.getElementById('preloader');
     const ringArc   = preloader?.querySelector('.preloader-ring-arc');
     if (!preloader) return;
+
+    /* Skip preloader entirely on repeat visits within this tab session */
+    if (sessionStorage.getItem('dc:visited') === '1') {
+      preloader.style.display = 'none';
+      onReady();
+      return;
+    }
+    sessionStorage.setItem('dc:visited', '1');
 
     const circumference = 2 * Math.PI * 122; /* r=122, matches SVG */
 

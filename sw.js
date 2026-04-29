@@ -1,6 +1,6 @@
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v18';
+const CACHE = 'dream-chalet-v19';
 
 const ASSETS = [
   '/',
@@ -41,18 +41,49 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
-/* Network-first: always try the network first, fall back to cache if offline */
+/* Hosts whose URLs are immutable (versioned in path) — cache-first is safe */
+const IMMUTABLE_HOSTS = new Set([
+  'cdnjs.cloudflare.com',
+  'cdn.jsdelivr.net',
+  'fonts.gstatic.com',
+]);
+
+/* Hosts that should NEVER be cached (live data) */
+const NO_CACHE_HOSTS = new Set([
+  'api.open-meteo.com',
+  'tiles.openfreemap.org',
+]);
+
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
 
-  /* Skip cross-origin (CDN scripts, fonts, APIs) */
+  /* Live APIs / map tiles: pass through, no caching */
+  if (NO_CACHE_HOSTS.has(url.hostname)) return;
+
+  /* Immutable CDN assets (versioned in URL): cache-first, fall back to network */
+  if (url.origin !== self.location.origin && IMMUTABLE_HOSTS.has(url.hostname)) {
+    e.respondWith(
+      caches.match(e.request).then((cached) => {
+        if (cached) return cached;
+        return fetch(e.request).then((response) => {
+          if (!response || response.status !== 200) return response;
+          const clone = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(e.request, clone));
+          return response;
+        });
+      })
+    );
+    return;
+  }
+
+  /* Other cross-origin: pass through */
   if (url.origin !== self.location.origin) return;
 
+  /* Same-origin: network-first, fall back to cache */
   e.respondWith(
     fetch(e.request)
       .then((response) => {
-        /* Update cache with fresh copy */
         const clone = response.clone();
         caches.open(CACHE).then((cache) => cache.put(e.request, clone));
         return response;

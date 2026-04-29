@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0e0b08">
+  <title>404 — Dream Chalet Trikala</title>
+
+  <link rel="canonical" href="https://dreamchalet-trikala.gr/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Inter:wght@200;300;500&display=swap"
+        onload="this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,400&family=Inter:wght@200;300;500&display=swap">
+  </noscript>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo-removebg2.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo-removebg2.png">
+
+  <style>
+    :root {
+      --bg: #0e0b08;
+      --gold: #c9a96e;
+      --cream: #f5f0e8;
+      --text-muted: #9e9690;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 100%, rgba(201, 169, 110, 0.08), transparent 55%),
+        radial-gradient(circle at 80% 0%,  rgba(201, 169, 110, 0.05), transparent 60%),
+        var(--bg);
+      color: var(--cream);
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    main {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      gap: 1.5rem;
+    }
+    .logo {
+      width: 180px;
+      height: auto;
+      opacity: 0.92;
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.42em;
+      text-indent: 0.42em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .code {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(5rem, 18vw, 10rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+    }
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-weight: 500;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      line-height: 1.15;
+      letter-spacing: -0.005em;
+    }
+    p {
+      max-width: 44ch;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 1.5rem;
+      padding: 0.95rem 2.2rem;
+      border: 1px solid var(--gold);
+      border-radius: 999px;
+      background: rgba(201, 169, 110, 0.08);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-indent: 0.22em;
+      text-transform: uppercase;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .cta:hover { background: rgba(201, 169, 110, 0.2); transform: translateY(-1px); }
+    .arrow {
+      width: 0.9em; height: 0.9em;
+      transition: transform 0.3s ease;
+    }
+    .cta:hover .arrow { transform: translateX(3px); }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="logo" width="372" height="245">
+    <span class="eyebrow">404</span>
+    <div class="code">404</div>
+    <h1>Αυτή η σελίδα έχει χαθεί στο δάσος.</h1>
+    <p>This page took a wrong turn somewhere near Pertouli. Let's get you back to the chalet.</p>
+    <a class="cta" href="/">
+      <span>Return Home</span>
+      <svg class="arrow" viewBox="0 0 320 512" aria-hidden="true" fill="currentColor">
+        <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
+      </svg>
+    </a>
+  </main>
+</body>
+</html>

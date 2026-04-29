@@ -146,7 +146,7 @@ function initGallery() {
     overlayImg.src = src;
     overlayImg.alt = alt;
     overlay.classList.add('open');
-    overlay.setAttribute('aria-hidden', false);
+    overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     if (window.__lenis) window.__lenis.stop();
     closeBtn?.focus();
@@ -154,7 +154,7 @@ function initGallery() {
 
   function closeOverlay() {
     overlay.classList.remove('open');
-    overlay.setAttribute('aria-hidden', true);
+    overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     if (window.__lenis) window.__lenis.start();
   }

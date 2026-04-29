@@ -60,8 +60,8 @@ function initNav() {
   hamburger.addEventListener('click', () => {
     const isOpen = mobileMenu.classList.toggle('open');
     hamburger.classList.toggle('active', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-    mobileMenu.setAttribute('aria-hidden', !isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    mobileMenu.setAttribute('aria-hidden', String(!isOpen));
     document.body.style.overflow = isOpen ? 'hidden' : '';
     /* Always show navbar when menu is open */
     if (isOpen) navbar.classList.remove('hidden');
@@ -84,8 +84,8 @@ function initNav() {
     link.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', false);
-      mobileMenu.setAttribute('aria-hidden', true);
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       gsap.set(mobileLinks, { opacity: 0, y: 20 });
     });
@@ -300,15 +300,15 @@ function initStickyBookBtn() {
   /* Toggle panel */
   btn.addEventListener('click', () => {
     const open = panel.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open);
-    panel.setAttribute('aria-hidden', !open);
+    btn.setAttribute('aria-expanded', String(open));
+    panel.setAttribute('aria-hidden', String(!open));
   });
 
   /* Close panel on outside click */
   document.addEventListener('click', (e) => {
     if (!stickyBook.contains(e.target)) {
       panel.classList.remove('open');
-      btn.setAttribute('aria-expanded', false);
+      btn.setAttribute('aria-expanded', 'false');
     }
   });
 }

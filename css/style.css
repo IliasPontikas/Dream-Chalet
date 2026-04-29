@@ -42,11 +42,11 @@
   --bg2: #f0ebe3;
   --bg3: #e8e2d8;
   --text-light: #1a1511;
-  --text-muted: #6b6560;
+  --text-muted: #514c47;        /* was #6b6560 — now ~5.0:1 on --bg2 (WCAG AA) */
   --border: rgba(160, 120, 64, 0.2);
-  --gold: #a07840;
-  --gold-dark: #7a5a30;
-  --accent: #a07840;
+  --gold: #8a6730;              /* was #a07840 — bumps contrast on cream bgs */
+  --gold-dark: #6a4f25;
+  --accent: #8a6730;
   --glass-bg: rgba(255, 255, 255, 0.6);
   --glass-border: rgba(160, 120, 64, 0.2);
 }
@@ -1768,9 +1768,67 @@ select,
   transform: scale(1.2);
 }
 .map-marker.main {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   background: var(--gold);
+  position: relative;
+  z-index: 2;
+}
+/* Pulse halo on the main (chalet) marker */
+.map-marker.main::before,
+.map-marker.main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold);
+  pointer-events: none;
+  animation: chaletPulse 2.6s cubic-bezier(0.4, 0, 0.4, 1) infinite;
+}
+.map-marker.main::after {
+  animation-delay: 1.3s;
+}
+@keyframes chaletPulse {
+  0%   { transform: scale(0.9); opacity: 0.85; }
+  80%  { transform: scale(2.2); opacity: 0;    }
+  100% { transform: scale(2.2); opacity: 0;    }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-marker.main::before,
+  .map-marker.main::after { animation: none; opacity: 0; }
+}
+
+/* Map zoom toggle button */
+.map-zoom-toggle {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 4;
+  font-family: "Inter", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-indent: 0.16em;
+  color: var(--gold);
+  background: rgba(14, 11, 8, 0.78);
+  border: 1px solid rgba(201, 169, 110, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.map-zoom-toggle:hover {
+  background: rgba(201, 169, 110, 0.22);
+  border-color: rgba(201, 169, 110, 0.75);
+  transform: translateY(-1px);
+}
+[data-theme="light"] .map-zoom-toggle {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(160, 120, 64, 0.45);
+  color: var(--gold);
 }
 .section-reviews {
   background: var(--bg);
@@ -1861,7 +1919,7 @@ select,
 .review-role {
   display: block;
   font-size: 0.78rem;
-  color: #7a6a50;
+  color: #5a4a30;             /* was #7a6a50 — ~5.6:1 on cream */
 }
 .section-pricing {
   padding: 8rem 0;
@@ -2379,12 +2437,19 @@ select,
   pointer-events: none;
   transition:
     opacity var(--transition),
-    transform var(--transition);
+    transform var(--transition),
+    bottom 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .sticky-book.visible {
   opacity: 1;
   transform: translateY(0);
   pointer-events: all;
+}
+/* Lift sticky book above the cookie consent bar when the consent modal is up.
+   cookieconsent v3 adds `show--consent` to <html> while the bar is visible. */
+html.show--consent .sticky-book { bottom: 9rem; }
+@media (min-width: 768px) {
+  html.show--consent .sticky-book { bottom: 6.5rem; }
 }
 .sticky-book-btn {
   display: flex;

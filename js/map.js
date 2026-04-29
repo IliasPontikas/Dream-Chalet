@@ -13,13 +13,18 @@ function initMap() {
       ? 'https://tiles.openfreemap.org/styles/liberty'
       : 'https://tiles.openfreemap.org/styles/dark';
 
+  const center = (typeof SITE_CONFIG !== 'undefined'
+    ? [SITE_CONFIG.coords.lng, SITE_CONFIG.coords.lat]
+    : [21.74715078198729, 39.60386403048851]);
+
+  const ZOOM_CHALET   = 13;
+  const ZOOM_OVERVIEW = 9.5;
+
   const map = new maplibregl.Map({
     container: 'map',
     style: getStyle(),
-    center: (typeof SITE_CONFIG !== 'undefined'
-      ? [SITE_CONFIG.coords.lng, SITE_CONFIG.coords.lat]
-      : [21.74715078198729, 39.60386403048851]),
-    zoom: 9.5,
+    center,
+    zoom: ZOOM_CHALET,
     pitch: 25,
     bearing: 0,
     attributionControl: false,
@@ -27,6 +32,26 @@ function initMap() {
 
   map.addControl(new maplibregl.NavigationControl(), 'top-right');
   map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+
+  /* Zoom toggle: chalet ⇄ overview */
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'map-zoom-toggle';
+  toggle.dataset.mode = 'chalet';
+  toggle.setAttribute('aria-label', 'Toggle map view');
+  toggle.textContent = 'Show all attractions';
+  toggle.addEventListener('click', () => {
+    const isChalet = toggle.dataset.mode === 'chalet';
+    map.flyTo({
+      center,
+      zoom: isChalet ? ZOOM_OVERVIEW : ZOOM_CHALET,
+      duration: 1400,
+      essential: true,
+    });
+    toggle.dataset.mode = isChalet ? 'overview' : 'chalet';
+    toggle.textContent = isChalet ? 'Center on chalet' : 'Show all attractions';
+  });
+  mapEl.appendChild(toggle);
 
   const locations = [
     {
