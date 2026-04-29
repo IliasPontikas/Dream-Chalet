@@ -3,9 +3,26 @@
 function initCookieConsent() {
   'use strict';
 
-  if (typeof CookieConsent === 'undefined') return;
+  if (typeof CookieConsent === 'undefined') {
+    console.warn('[cookies] CookieConsent global is undefined — vendor script failed to load');
+    return;
+  }
+  console.info('[cookies] init');
+
+  /* Expose a manual reset helper for testing:
+     run window.resetCookieConsent() in DevTools to clear the saved
+     consent and force the banner to reappear on next refresh. */
+  window.resetCookieConsent = () => {
+    try { CookieConsent.eraseCookies && CookieConsent.eraseCookies('cc_cookie'); } catch (_) {}
+    document.cookie = 'cc_cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    location.reload();
+  };
 
   CookieConsent.run({
+    /* Bump revision when policy changes — also forces banner to re-show */
+    revision: 1,
+    autoShow: true,
+    disablePageInteraction: false,
     guiOptions: {
       consentModal: { layout: 'bar', position: 'bottom' },
       preferencesModal: { layout: 'box' },
@@ -15,7 +32,8 @@ function initCookieConsent() {
       analytics: { enabled: false },
     },
     language: {
-      default: localStorage.getItem('lang') || 'el',
+      default: localStorage.getItem('lang') === 'en' ? 'en' : 'el',
+      autoDetect: 'document',
       translations: {
         el: {
           consentModal: {
@@ -24,12 +42,14 @@ function initCookieConsent() {
             acceptAllBtn: 'Αποδοχή όλων',
             acceptNecessaryBtn: 'Μόνο απαραίτητα',
             showPreferencesBtn: 'Προτιμήσεις',
+            closeIconLabel: 'Κλείσιμο',
           },
           preferencesModal: {
             title: 'Προτιμήσεις cookies',
             acceptAllBtn: 'Αποδοχή όλων',
             acceptNecessaryBtn: 'Μόνο απαραίτητα',
             savePreferencesBtn: 'Αποθήκευση',
+            closeIconLabel: 'Κλείσιμο',
             sections: [
               {
                 title: 'Απαραίτητα cookies',
@@ -51,12 +71,14 @@ function initCookieConsent() {
             acceptAllBtn: 'Accept all',
             acceptNecessaryBtn: 'Necessary only',
             showPreferencesBtn: 'Preferences',
+            closeIconLabel: 'Close',
           },
           preferencesModal: {
             title: 'Cookie preferences',
             acceptAllBtn: 'Accept all',
             acceptNecessaryBtn: 'Necessary only',
             savePreferencesBtn: 'Save preferences',
+            closeIconLabel: 'Close',
             sections: [
               {
                 title: 'Necessary cookies',
