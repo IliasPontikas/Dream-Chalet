@@ -124,6 +124,17 @@ function initHero() {
   }, eyebrow ? '-=0.4' : 0)
     .to(subtitle, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6')
     .to(ctas, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4');
+
+  /* Fade out the scroll indicator once the user has scrolled past ~25% of the hero */
+  const hint = document.querySelector('.hero-scroll-hint');
+  if (hint) {
+    const onScroll = () => {
+      const past = window.scrollY > window.innerHeight * 0.25;
+      hint.classList.toggle('faded', past);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 }
 
 /* ── Generic section entrances ───────────────────────────── */

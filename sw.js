@@ -1,6 +1,6 @@
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v16';
+const CACHE = 'dream-chalet-v17';
 
 const ASSETS = [
   '/',
@@ -23,6 +23,8 @@ const ASSETS = [
   '/locales/en.json',
   '/images/logo-removebg2.png',
   '/images/icons.svg',
+  '/vendor/cookieconsent/cookieconsent.css',
+  '/vendor/cookieconsent/cookieconsent.umd.js',
 ];
 
 self.addEventListener('install', (e) => {
