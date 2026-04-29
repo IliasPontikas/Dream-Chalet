@@ -62,10 +62,19 @@
     const ringArc   = preloader?.querySelector('.preloader-ring-arc');
     if (!preloader) return;
 
-    /* Skip preloader entirely on repeat visits within this tab session */
+    /* Skip preloader entirely on repeat visits within this tab session.
+       NOTE: main.js is itself a deferred script, so when this runs the
+       *other* deferred modules (animations.js, cursor.js, gallery.js…)
+       may not have been parsed yet — initAnimations, initCursor etc.
+       are still undefined. DOMContentLoaded fires only after every
+       defer script has executed, so we wait for it. */
     if (sessionStorage.getItem('dc:visited') === '1') {
       preloader.style.display = 'none';
-      onReady();
+      if (document.readyState === 'complete') {
+        Promise.resolve().then(onReady);
+      } else {
+        document.addEventListener('DOMContentLoaded', onReady, { once: true });
+      }
       return;
     }
     sessionStorage.setItem('dc:visited', '1');
