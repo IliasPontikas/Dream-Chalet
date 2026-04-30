@@ -1,4 +1,49 @@
-/* calendar.js — Availability calendar with date-range selection */
+/* calendar.js — Availability calendar with date-range selection (i18n-aware) */
+
+const CALENDAR_STRINGS = {
+  el: {
+    days: ['Κυ', 'Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα'],
+    months: [
+      'Ιανουάριος','Φεβρουάριος','Μάρτιος','Απρίλιος','Μάιος','Ιούνιος',
+      'Ιούλιος','Αύγουστος','Σεπτέμβριος','Οκτώβριος','Νοέμβριος','Δεκέμβριος',
+    ],
+    prevMonth: 'Προηγούμενος μήνας',
+    nextMonth: 'Επόμενος μήνας',
+    pickDates: 'Επιλέξτε ημερομηνίες',
+    pickDatesMsg: 'Παρακαλώ επιλέξτε ημερομηνία άφιξης και αναχώρησης.',
+    invalidDates: 'Μη έγκυρες ημερομηνίες',
+    invalidDatesMsg: 'Η ημερομηνία αναχώρησης πρέπει να είναι μετά την άφιξη.',
+    unavailableTitle: 'Μη Διαθέσιμο',
+    unavailableMsg: 'Δυστυχώς το chalet δεν είναι διαθέσιμο για τις επιλεγμένες ημερομηνίες. Επικοινωνήστε μαζί μας για εναλλακτικές ή επιλέξτε άλλες ημερομηνίες.',
+    availableTitle: 'Διαθέσιμο!',
+    availableMsg: (n, ci, co) => `Το chalet είναι διαθέσιμο για ${n} νύχτ${n === 1 ? 'α' : 'ες'} (${ci} → ${co}). Επικοινωνήστε μαζί μας για να ολοκληρώσετε την κράτηση.`,
+    bookAirbnb: 'Κράτηση Airbnb →',
+    close: 'Κλείσιμο',
+  },
+  en: {
+    days: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    months: [
+      'January','February','March','April','May','June',
+      'July','August','September','October','November','December',
+    ],
+    prevMonth: 'Previous month',
+    nextMonth: 'Next month',
+    pickDates: 'Pick dates',
+    pickDatesMsg: 'Please choose a check-in and check-out date.',
+    invalidDates: 'Invalid dates',
+    invalidDatesMsg: 'Check-out must be after check-in.',
+    unavailableTitle: 'Not Available',
+    unavailableMsg: 'Sorry, the chalet is not available for the selected dates. Contact us for alternatives or pick different dates.',
+    availableTitle: 'Available!',
+    availableMsg: (n, ci, co) => `The chalet is available for ${n} night${n === 1 ? '' : 's'} (${ci} → ${co}). Contact us to complete your booking.`,
+    bookAirbnb: 'Book on Airbnb →',
+    close: 'Close',
+  },
+};
+
+function _calLang() {
+  return document.documentElement.lang === 'en' ? 'en' : 'el';
+}
 
 function initCalendar() {
   'use strict';
@@ -13,12 +58,6 @@ function initCalendar() {
     '2026-05-15', '2026-05-16', '2026-05-17', '2026-05-18', '2026-05-19',
     '2026-06-10', '2026-06-11', '2026-06-12',
   ]);
-
-  const DAYS_EL  = ['Κυ', 'Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα'];
-  const MONTHS_EL = [
-    'Ιανουάριος','Φεβρουάριος','Μάρτιος','Απρίλιος','Μάιος','Ιούνιος',
-    'Ιούλιος','Αύγουστος','Σεπτέμβριος','Οκτώβριος','Νοέμβριος','Δεκέμβριος',
-  ];
 
   let viewDate = new Date();
   viewDate.setDate(1);
@@ -51,6 +90,7 @@ function initCalendar() {
   }
 
   function renderMonth(y, m) {
+    const t = CALENDAR_STRINGS[_calLang()];
     const firstDay    = new Date(y, m, 1).getDay();
     const daysInMonth = new Date(y, m + 1, 0).getDate();
     const ciKey = checkIn  ? keyFromDate(checkIn)  : null;
@@ -58,12 +98,12 @@ function initCalendar() {
 
     let html = `
       <div class="calendar-month-header">
-        <button class="calendar-nav-btn" id="cal-prev" aria-label="Previous month">‹</button>
-        <span class="calendar-month-title">${MONTHS_EL[m]} ${y}</span>
-        <button class="calendar-nav-btn" id="cal-next" aria-label="Next month">›</button>
+        <button class="calendar-nav-btn" id="cal-prev" aria-label="${t.prevMonth}">‹</button>
+        <span class="calendar-month-title">${t.months[m]} ${y}</span>
+        <button class="calendar-nav-btn" id="cal-next" aria-label="${t.nextMonth}">›</button>
       </div>
       <div class="calendar-grid">
-        ${DAYS_EL.map((d) => `<div class="calendar-day-header">${d}</div>`).join('')}
+        ${t.days.map((d) => `<div class="calendar-day-header">${d}</div>`).join('')}
         ${Array(firstDay).fill('<div class="calendar-day empty"></div>').join('')}
     `;
 
@@ -151,15 +191,16 @@ function initCalendar() {
 
   /* Check Availability button */
   checkBtn?.addEventListener('click', () => {
+    const t = CALENDAR_STRINGS[_calLang()];
     const ci = checkinInput?.value;
     const co = checkoutInput?.value;
 
     if (!ci || !co) {
-      showAvailabilityModal('warn', 'Επιλέξτε ημερομηνίες', 'Παρακαλώ επιλέξτε ημερομηνία άφιξης και αναχώρησης.');
+      showAvailabilityModal('warn', t.pickDates, t.pickDatesMsg);
       return;
     }
     if (ci >= co) {
-      showAvailabilityModal('warn', 'Μη έγκυρες ημερομηνίες', 'Η ημερομηνία αναχώρησης πρέπει να είναι μετά την άφιξη.');
+      showAvailabilityModal('warn', t.invalidDates, t.invalidDatesMsg);
       return;
     }
 
@@ -174,26 +215,23 @@ function initCalendar() {
     const nights = Math.round((end - new Date(ci + 'T12:00:00')) / 86400000);
 
     if (conflict) {
-      showAvailabilityModal(
-        'no',
-        'Μη Διαθέσιμο',
-        `Δυστυχώς το chalet δεν είναι διαθέσιμο για τις επιλεγμένες ημερομηνίες. Επικοινωνήστε μαζί μας για εναλλακτικές ή επιλέξτε άλλες ημερομηνίες.`
-      );
+      showAvailabilityModal('no', t.unavailableTitle, t.unavailableMsg);
     } else {
-      showAvailabilityModal(
-        'ok',
-        'Διαθέσιμο!',
-        `Το chalet είναι διαθέσιμο για ${nights} νύχτ${nights === 1 ? 'α' : 'ες'} (${ci} → ${co}). Επικοινωνήστε μαζί μας για να ολοκληρώσετε την κράτηση.`,
-        true
-      );
+      showAvailabilityModal('ok', t.availableTitle, t.availableMsg(nights, ci, co), true);
     }
   });
 
   renderMonth(viewDate.getFullYear(), viewDate.getMonth());
+
+  /* Re-render on language change */
+  document.addEventListener('lang:change', () => {
+    renderMonth(viewDate.getFullYear(), viewDate.getMonth());
+  });
 }
 
 /* ── Availability popup modal ─────────────────────────────── */
 function showAvailabilityModal(type, title, message, showBook = false) {
+  const t = CALENDAR_STRINGS[_calLang()];
   const iconMap = { ok: 'fa-check', no: 'fa-xmark', warn: 'fa-triangle-exclamation' };
   const clsMap  = { ok: 'avail-ok', no: 'avail-no', warn: 'avail-warn' };
 
@@ -214,10 +252,10 @@ function showAvailabilityModal(type, title, message, showBook = false) {
           <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg> WhatsApp
         </a>
         <a href="${typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.airbnbUrl : 'https://www.airbnb.gr/rooms/1019294882973971198'}" target="_blank" rel="noopener" class="btn-avail-book">
-          Κράτηση Airbnb →
+          ${t.bookAirbnb}
         </a>
       </div>` : ''}
-      <button class="avail-modal-close">Κλείσιμο</button>
+      <button class="avail-modal-close">${t.close}</button>
     </div>
   `;
 

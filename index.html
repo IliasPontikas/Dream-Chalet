@@ -59,13 +59,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=20">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=21">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="images/exterior1.avif" as="image" type="image/avif">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=20">
+  <link rel="stylesheet" href="css/style.css?v=21">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -202,6 +202,10 @@
   <!-- Mobile Menu (sibling of navbar to escape any stacking context) -->
   <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Menu">
     <div class="mobile-menu-bg" aria-hidden="true"></div>
+    <button id="mobile-menu-close" class="mobile-menu-close" type="button" aria-label="Close menu">
+      <span></span>
+      <span></span>
+    </button>
     <div class="mobile-menu-inner">
       <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo" width="372" height="245">
 
@@ -249,7 +253,7 @@
         </div>
       </div>
       <div class="hero-scroll-hint" aria-hidden="true">
-        <span class="scroll-hint-text">Scroll</span>
+        <span class="scroll-hint-text" data-i18n="hero.scrollHint">Scroll</span>
         <span class="scroll-hint-line"></span>
       </div>
     </section>
@@ -284,7 +288,7 @@
             <span class="stat-label" data-i18n="about.stats.guests">Μέγ. Επισκέπτες</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">9.8</span>
+            <span class="stat-number" data-target="9.8">0</span>
             <span class="stat-label" data-i18n="about.stats.rating">★ Βαθμολογία</span>
           </div>
         </div>
@@ -420,49 +424,49 @@
       </div>
 
       <div class="attractions-grid">
-        <article class="attraction-card attraction-card--hero attr-meteora" data-coords="21.6315,39.7228">
+        <article class="attraction-card attraction-card--hero attr-meteora" data-coords="21.63065515278235,39.72279696985126">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.meteora.distance">~22 km</span>
             <h3 class="attraction-title" data-i18n="attractions.meteora.title">Μετέωρα</h3>
             <p class="attraction-desc" data-i18n="attractions.meteora.desc">Μοναστήρια του 14ου αιώνα. UNESCO World Heritage Site με εκπληκτική θέα.</p>
-            <a href="https://maps.google.com/?q=21.6315,39.7228" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
+            <a href="https://maps.google.com/?q=39.72279696985126,21.63065515278235" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
               <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
             </a>
           </div>
         </article>
 
-        <article class="attraction-card attr-elati" data-coords="21.4833,39.5333">
+        <article class="attraction-card attr-elati" data-coords="21.535341361331444,39.50317742958358">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.elati.distance">~30 km</span>
             <h3 class="attraction-title" data-i18n="attractions.elati.title">Ελάτι</h3>
             <p class="attraction-desc" data-i18n="attractions.elati.desc">Το μεγαλύτερο ορεινό χωριό. Πεζοπορία, δάση, χιονιά και παραδοσιακή αρχιτεκτονική.</p>
-            <a href="https://maps.google.com/?q=21.4833,39.5333" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
+            <a href="https://maps.google.com/?q=39.50317742958358,21.535341361331444" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
               <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
             </a>
           </div>
         </article>
 
-        <article class="attraction-card attr-pertouli" data-coords="21.4,39.45">
+        <article class="attraction-card attr-pertouli" data-coords="21.465859934678086,39.54109910736869">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.pertouli.distance">~54 km</span>
             <h3 class="attraction-title" data-i18n="attractions.pertouli.title">Περτούλι</h3>
             <p class="attraction-desc" data-i18n="attractions.pertouli.desc">Χωριό στα σύννεφα με σταθμό χιονοδρομιών. Καταγάλανα δάση.</p>
-            <a href="https://maps.google.com/?q=21.4,39.45" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
+            <a href="https://maps.google.com/?q=39.54109910736869,21.465859934678086" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
               <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
             </a>
           </div>
         </article>
 
-        <article class="attraction-card attr-palaiokarya" data-coords="21.8333,39.6333">
+        <article class="attraction-card attr-palaiokarya" data-coords="21.527416210816465,39.431308047515344">
           <div class="attraction-bg"></div>
           <div class="attraction-content">
             <span class="attraction-distance" data-i18n="attractions.palaiokarya.distance">~35 km</span>
             <h3 class="attraction-title" data-i18n="attractions.palaiokarya.title">Καταρράκτες Παλαιοκαριάς</h3>
             <p class="attraction-desc" data-i18n="attractions.palaiokarya.desc">Εντυπωσιακές καταρράκτες, γέφυρα 1517 και παραδοσιακός μύλος 200 ετών.</p>
-            <a href="https://maps.google.com/?q=21.8333,39.6333" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
+            <a href="https://maps.google.com/?q=39.431308047515344,21.527416210816465" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
               <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
             </a>
           </div>
@@ -816,23 +820,23 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ical.js@5.0.0/build/ical.min.js"></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=20"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=21"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=20" defer></script>
-  <script src="js/main.js?v=20" defer></script>
-  <script src="js/animations.js?v=20" defer></script>
-  <script src="js/cursor.js?v=20" defer></script>
-  <script src="js/scroll-video.js?v=20" defer></script>
-  <script src="js/gallery.js?v=20" defer></script>
-  <script src="js/reviews.js?v=20" defer></script>
-  <script type="module" src="js/three-bg.js?v=20"></script>
-  <script src="js/map.js?v=20" defer></script>
-  <script src="js/calendar.js?v=20" defer></script>
-  <script src="js/weather.js?v=20" defer></script>
-  <script src="js/i18n.js?v=20" defer></script>
-  <script src="js/cookie-consent.js?v=20" defer></script>
+  <script src="js/config.js?v=21" defer></script>
+  <script src="js/main.js?v=21" defer></script>
+  <script src="js/animations.js?v=21" defer></script>
+  <script src="js/cursor.js?v=21" defer></script>
+  <script src="js/scroll-video.js?v=21" defer></script>
+  <script src="js/gallery.js?v=21" defer></script>
+  <script src="js/reviews.js?v=21" defer></script>
+  <script type="module" src="js/three-bg.js?v=21"></script>
+  <script src="js/map.js?v=21" defer></script>
+  <script src="js/calendar.js?v=21" defer></script>
+  <script src="js/weather.js?v=21" defer></script>
+  <script src="js/i18n.js?v=21" defer></script>
+  <script src="js/cookie-consent.js?v=21" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=20" defer></script> -->
+  <!-- <script src="js/analytics.js?v=21" defer></script> -->
 </body>
 </html>

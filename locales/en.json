@@ -9,11 +9,10 @@
     "contact": "Contact"
   },
   "hero": {
-    "title": "Dream Chalet",
     "subtitle": "Luxury Retreat in Trikala",
     "eyebrow": "Raxa — Trikala · Est. 2024",
     "bookNow": "Book Now",
-    "scrollHint": "Explore the Chalet"
+    "scrollHint": "Scroll"
   },
   "about": {
     "label": "The Property",
@@ -110,7 +109,6 @@
     "checkout": "Check-out: 11:00 AM",
     "checkinLabel": "Check-in Date",
     "checkoutLabel": "Check-out Date",
-    "cta": "Book Now",
     "checkAvailability": "Check Availability",
     "calendar": "Availability Calendar"
   },
@@ -130,7 +128,6 @@
   "footer": {
     "copyright": "© 2026 Dream Chalet Trikala. All rights reserved.",
     "quickLinks": "Quick Links",
-    "location": "Location",
     "tagline": "Luxury vacation home in Trikala, in the heart of Greek nature.",
     "contactTitle": "Contact",
     "mapLink": "Location",

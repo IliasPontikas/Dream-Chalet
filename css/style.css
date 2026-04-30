@@ -160,15 +160,6 @@ em, i, .accent-italic {
   font-weight: 500;
   letter-spacing: -0.01em;
 }
-.section-title {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2.1rem, 5vw, 3.6rem);
-  color: var(--text-light);
-  margin-bottom: 1.75rem;
-  line-height: 1.05;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
 .container {
   max-width: 1280px;
   margin: 0 auto;
@@ -277,7 +268,7 @@ em, i, .accent-italic {
 input,
 textarea,
 select,
-.calendar-day-selectable {
+.cal-day-selectable {
   cursor: auto !important;
 }
 .scroll-progress {
@@ -393,41 +384,6 @@ select,
   height: 135px;
   width: auto;
   object-fit: contain;
-}
-.nav-actions {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-.nav-btn {
-  padding: 0.6rem 1.2rem;
-  border-radius: var(--radius);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  transition:
-    transform var(--transition),
-    opacity var(--transition);
-}
-.nav-btn:hover {
-  transform: translateY(-2px);
-}
-.btn-airbnb {
-  background: #ff5a5f;
-  color: #fff;
-}
-.btn-booking {
-  background: #003580;
-  color: #fff;
-}
-.btn-book-now {
-  background: rgba(212, 175, 55, 0.15);
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  backdrop-filter: blur(10px);
-}
-.btn-book-now:hover {
-  background: rgba(212, 175, 55, 0.25);
 }
 .lang-toggle {
   font-size: 0.8rem;
@@ -575,9 +531,39 @@ select,
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
 }
-[data-theme="light"] .mobile-menu-bg {
-  background: rgba(250, 248, 245, 0.97);
+/* Premium pattern: mobile menu stays dark with light type in BOTH themes */
+
+/* Dedicated close button — visible regardless of navbar z-index */
+.mobile-menu-close {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+  width: 44px;
+  height: 44px;
+  z-index: 2;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 240, 232, 0.22);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  padding: 0;
 }
+.mobile-menu-close:hover {
+  background: rgba(201, 169, 110, 0.12);
+  border-color: rgba(201, 169, 110, 0.55);
+  transform: rotate(90deg);
+}
+.mobile-menu-close span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 1px;
+  background: var(--gold);
+  transform-origin: center;
+}
+.mobile-menu-close span:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg);  }
+.mobile-menu-close span:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
 /* Subtle gold radial accent in the corner */
 .mobile-menu-bg::before {
   content: "";
@@ -684,7 +670,6 @@ select,
   color: rgba(245, 240, 232, 0.6);
   transition: color 0.3s ease, transform 0.3s ease;
 }
-[data-theme="light"] .mobile-menu-social a { color: rgba(20, 14, 8, 0.6); }
 .mobile-menu-social a:hover { color: var(--gold); transform: translateY(-2px); }
 .section-hero {
   position: relative;
@@ -3004,17 +2989,8 @@ html.show--consent .sticky-book { bottom: 9rem; }
 [data-theme="light"] .hamburger-bar { background: var(--text-dark); }
 
 /* Mobile menu glassy backdrop already handled by data-theme rule.
-   Add gold accent + CTA inversion for light. */
-[data-theme="light"] .mobile-menu-bg::before {
-  background: radial-gradient(circle, rgba(160, 120, 64, 0.14), transparent 70%);
-}
-[data-theme="light"] .mobile-menu-cta {
-  background: var(--text-dark);
-  color: var(--bg);
-}
-[data-theme="light"] .mobile-menu-cta:hover { background: #000; }
-[data-theme="light"] .mobile-nav-link { color: var(--text-dark); }
-[data-theme="light"] .mobile-menu-foot { border-top-color: rgba(160, 120, 64, 0.2); }
+   Mobile menu intentionally stays dark in BOTH themes (premium pattern),
+   so no light-theme override here. */
 
 /* Pricing cards on light bg */
 [data-theme="light"] .price-card {

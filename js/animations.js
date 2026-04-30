@@ -4,14 +4,39 @@ function initAnimations() {
   'use strict';
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) { initStickyBookBtn(); initThemeToggle(); return; }
+
+  if (prefersReduced) {
+    /* No motion: still wire up navbar (scroll-triggered class toggling
+       isn't motion), still init all interactive controls, and force
+       elements that were hidden in CSS for animation entry to their
+       final visible state so the page is usable. */
+    document.querySelectorAll(
+      '.hero-eyebrow, .hero-subtitle, .hero-ctas, .amenity-item'
+    ).forEach((el) => { el.style.opacity = '1'; });
+
+    document.querySelectorAll('.hero-title .char').forEach((el) => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+
+    /* Stats: snap counters straight to their target value */
+    document.querySelectorAll('.stat-number[data-target]').forEach((el) => {
+      const t = parseFloat(el.dataset.target);
+      el.textContent = Number.isInteger(t) ? String(t) : t.toFixed(1);
+    });
+
+    initNav();
+    initScrollProgress();
+    initStickyBookBtn();
+    initThemeToggle();
+    return;
+  }
 
   initNav();
   initHero();
   initSectionEntrances();
   initStats();
   initScrollProgress();
-  /* initCursorGallery(); — uncomment to re-enable hover image preview on .room-list-item */
   initStickyBookBtn();
   initThemeToggle();
   initAttractionsTilt();
@@ -57,38 +82,46 @@ function initNav() {
   /* Initial hidden state for stagger reveal */
   if (mobileLinks?.length) gsap.set(mobileLinks, { opacity: 0, y: 24 });
 
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburger.classList.toggle('active', isOpen);
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    /* Always show navbar when menu is open */
-    if (isOpen) navbar.classList.remove('hidden');
+  const closeBtn = document.getElementById('mobile-menu-close');
 
-    if (isOpen) {
-      gsap.to(mobileLinks, {
-        opacity: 1,
-        y: 0,
-        stagger: 0.07,
-        duration: 0.5,
-        ease: 'power3.out',
-        delay: 0.2,
-      });
-    } else {
-      gsap.set(mobileLinks, { opacity: 0, y: 20 });
-    }
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    hamburger.classList.add('active');
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    navbar.classList.remove('hidden');
+    gsap.to(mobileLinks, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.07,
+      duration: 0.5,
+      ease: 'power3.out',
+      delay: 0.2,
+    });
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    gsap.set(mobileLinks, { opacity: 0, y: 20 });
+  }
+
+  hamburger.addEventListener('click', () => {
+    if (mobileMenu.classList.contains('open')) closeMenu();
+    else openMenu();
   });
 
-  mobileLinks?.forEach((link) => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('active');
-      hamburger.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      gsap.set(mobileLinks, { opacity: 0, y: 20 });
-    });
+  closeBtn?.addEventListener('click', closeMenu);
+
+  mobileLinks?.forEach((link) => link.addEventListener('click', closeMenu));
+
+  /* ESC closes the menu */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
   });
 }
 
@@ -185,15 +218,15 @@ function initSectionEntrances() {
   /* Amenities stagger */
   const amenities = gsap.utils.toArray('.amenity-item');
   if (amenities.length) {
-    gsap.to(amenities, {
-      opacity: 1,
-      y: 0,
+    gsap.from(amenities, {
+      opacity: 0,
+      y: 20,
       stagger: 0.05,
       duration: 0.6,
       ease: 'power3.out',
       scrollTrigger: { trigger: '.amenities-grid', start: 'top 80%' },
     });
-  }  
+  }
 
   /* Contact buttons */
   gsap.utils.toArray('.btn-contact').forEach((btn, i) => {

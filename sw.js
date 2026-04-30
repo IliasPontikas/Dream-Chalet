@@ -1,6 +1,6 @@
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v20';
+const CACHE = 'dream-chalet-v21';
 
 const ASSETS = [
   '/',
@@ -88,6 +88,16 @@ self.addEventListener('fetch', (e) => {
         caches.open(CACHE).then((cache) => cache.put(e.request, clone));
         return response;
       })
-      .catch(() => caches.match(e.request).then((c) => c || caches.match('/index.html')))
+      .catch(() =>
+        caches.match(e.request).then(
+          (c) => c
+              || caches.match('/index.html').then((idx) => idx
+              || new Response('Offline — please reconnect', {
+                   status: 504,
+                   statusText: 'Gateway Timeout',
+                   headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+                 }))
+        )
+      )
   );
 });
