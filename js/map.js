@@ -58,7 +58,7 @@ function initMap() {
     : [21.74715078198729, 39.60386403048851]);
 
   const ZOOM_CHALET   = 13;
-  const ZOOM_OVERVIEW = 9.5;
+  const ZOOM_OVERVIEW = 9.2;
 
   const map = new maplibregl.Map({
     container: 'map',
