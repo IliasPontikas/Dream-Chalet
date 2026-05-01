@@ -287,6 +287,7 @@ select,
   left: 0;
   right: 0;
   height: var(--nav-h);
+  overflow: visible;
   z-index: 7600;
   transition:
     background var(--transition),
@@ -379,10 +380,14 @@ select,
 .logo-link {
   display: inline-flex;
   align-items: center;
+  /* Allow logo to gently overflow navbar bounds for a more prominent feel */
+  position: relative;
+  z-index: 1;
 }
 .logo-img {
-  height: 135px;
+  height: 150px;
   width: auto;
+  max-width: min(38vw, 240px);
   object-fit: contain;
 }
 .lang-toggle {
@@ -450,7 +455,7 @@ select,
   height: 1.1em;
   pointer-events: none;
 }
-/* ── Premium Hamburger ────────────────────────────────────── */
+/* ── Premium Hamburger (always gold — readable on both themes) ── */
 .hamburger {
   display: none;
   position: relative;
@@ -458,21 +463,24 @@ select,
   height: 44px;
   padding: 0;
   z-index: 9501;          /* above mobile-menu when open */
-  background: transparent;
-  border: 1px solid rgba(245, 240, 232, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(201, 169, 110, 0.35);
   cursor: pointer;
   border-radius: 999px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   transition: background 0.4s ease, border-color 0.4s ease;
 }
 .hamburger:hover {
-  background: rgba(201, 169, 110, 0.1);
-  border-color: rgba(201, 169, 110, 0.55);
+  background: rgba(201, 169, 110, 0.16);
+  border-color: rgba(201, 169, 110, 0.7);
 }
 .hamburger-bar {
   position: absolute;
   display: block;
-  height: 1px;
-  background: #fff;
+  height: 1.5px;
+  background: var(--gold);
+  border-radius: 1px;
   transform-origin: center;
   transition:
     transform 0.55s cubic-bezier(0.68, -0.35, 0.265, 1.45),
@@ -523,47 +531,28 @@ select,
   pointer-events: all;
   transition: opacity 0.5s ease;
 }
-/* Solid + glassy backdrop layer guarantees content underneath is hidden */
+/* Always-light backdrop — independent of site theme.
+   Cream/warm-white surface with gentle blur. */
 .mobile-menu-bg {
   position: absolute;
   inset: 0;
-  background: rgba(14, 11, 8, 0.97);
+  background: rgba(250, 248, 245, 0.97);
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
 }
-/* Premium pattern: mobile menu stays dark with light type in BOTH themes */
-
-/* Dedicated close button — visible regardless of navbar z-index */
-.mobile-menu-close {
-  position: absolute;
-  top: 1.4rem;
-  right: 1.4rem;
-  width: 44px;
-  height: 44px;
-  z-index: 2;
-  border-radius: 999px;
-  border: 1px solid rgba(245, 240, 232, 0.22);
-  background: transparent;
-  cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-  padding: 0;
+/* When the mobile menu is open, lift the navbar above the menu so the
+   hamburger (which morphs to X) stays clickable. Hide the other navbar
+   children so only the hamburger shows above the overlay. */
+.navbar.menu-open {
+  z-index: 9501;
 }
-.mobile-menu-close:hover {
-  background: rgba(201, 169, 110, 0.12);
-  border-color: rgba(201, 169, 110, 0.55);
-  transform: rotate(90deg);
+.navbar.menu-open .nav-center,
+.navbar.menu-open .nav-right,
+.navbar.menu-open .nav-links {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
-.mobile-menu-close span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 18px;
-  height: 1px;
-  background: var(--gold);
-  transform-origin: center;
-}
-.mobile-menu-close span:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg);  }
-.mobile-menu-close span:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
 /* Subtle gold radial accent in the corner */
 .mobile-menu-bg::before {
   content: "";
@@ -572,7 +561,7 @@ select,
   right: -15%;
   width: 60%;
   height: 60%;
-  background: radial-gradient(circle, rgba(201, 169, 110, 0.18), transparent 70%);
+  background: radial-gradient(circle, rgba(160, 120, 64, 0.14), transparent 70%);
   pointer-events: none;
 }
 .mobile-menu-inner {
@@ -609,7 +598,7 @@ select,
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.05;
-  color: var(--text-light);
+  color: #1a1511;            /* always dark on cream menu surface */
   position: relative;
   padding-left: 0;
   transition: color 0.4s ease, padding-left 0.4s ease;
@@ -646,8 +635,8 @@ select,
   text-align: center;
   padding: 1rem 2rem;
   border-radius: 999px;
-  background: var(--gold);
-  color: #0e0b08;
+  background: #1a1511;       /* dark fill on cream menu */
+  color: #faf8f5;
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.22em;
@@ -657,7 +646,7 @@ select,
 }
 .mobile-menu-cta:hover,
 .mobile-menu-cta:active {
-  background: var(--gold-dark);
+  background: #000;
   transform: translateY(-1px);
 }
 .mobile-menu-social {
@@ -667,7 +656,7 @@ select,
   align-self: center;
 }
 .mobile-menu-social a {
-  color: rgba(245, 240, 232, 0.6);
+  color: rgba(20, 14, 8, 0.55);
   transition: color 0.3s ease, transform 0.3s ease;
 }
 .mobile-menu-social a:hover { color: var(--gold); transform: translateY(-2px); }
@@ -1258,6 +1247,9 @@ select,
   overflow: hidden;
   width: 100%;
   position: relative;
+  /* Top/bottom breathing room so .amenity-item:hover translateY(-4px)
+     and the box-shadow don't get clipped by overflow:hidden */
+  padding: 12px 0;
 }
 .marquee-row::before,
 .marquee-row::after {
@@ -1312,7 +1304,8 @@ select,
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.1rem;
   padding: 2.5rem 2rem;
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -1328,12 +1321,14 @@ select,
   transform: translateY(-4px);
   border-color: var(--gold);
 }
-.amenity-item i {
-  font-size: 2.2rem;
+.amenity-item .icon {
+  width: 2.2rem;
+  height: 2.2rem;
   color: var(--gold);
+  fill: currentColor;
   transition: transform var(--transition);
 }
-.amenity-item:hover i {
+.amenity-item:hover .icon {
   transform: scale(1.2);
 }
 .amenity-item span {
@@ -2783,10 +2778,11 @@ html.show--consent .sticky-book { bottom: 9rem; }
 }
 @media (max-width: 768px) {
   :root {
-    --nav-h: 92px;
+    --nav-h: 100px;
   }
   .logo-img {
-    height: 92px;
+    height: 110px;
+    max-width: 50vw;
   }
   .nav-inner {
     padding: 0 1rem;
@@ -2980,17 +2976,9 @@ html.show--consent .sticky-book { bottom: 9rem; }
   );
 }
 
-/* Hamburger button + bars on light bg */
-[data-theme="light"] .hamburger { border-color: rgba(20, 14, 8, 0.18); }
-[data-theme="light"] .hamburger:hover {
-  background: rgba(160, 120, 64, 0.08);
-  border-color: rgba(160, 120, 64, 0.55);
-}
-[data-theme="light"] .hamburger-bar { background: var(--text-dark); }
-
-/* Mobile menu glassy backdrop already handled by data-theme rule.
-   Mobile menu intentionally stays dark in BOTH themes (premium pattern),
-   so no light-theme override here. */
+/* Hamburger uses gold accents in BOTH themes — no override needed.
+   Mobile menu uses an always-light cream surface in BOTH themes — no
+   override needed either. */
 
 /* Pricing cards on light bg */
 [data-theme="light"] .price-card {

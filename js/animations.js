@@ -82,10 +82,9 @@ function initNav() {
   /* Initial hidden state for stagger reveal */
   if (mobileLinks?.length) gsap.set(mobileLinks, { opacity: 0, y: 24 });
 
-  const closeBtn = document.getElementById('mobile-menu-close');
-
   function openMenu() {
     mobileMenu.classList.add('open');
+    navbar.classList.add('menu-open');
     hamburger.classList.add('active');
     hamburger.setAttribute('aria-expanded', 'true');
     mobileMenu.setAttribute('aria-hidden', 'false');
@@ -103,6 +102,7 @@ function initNav() {
 
   function closeMenu() {
     mobileMenu.classList.remove('open');
+    navbar.classList.remove('menu-open');
     hamburger.classList.remove('active');
     hamburger.setAttribute('aria-expanded', 'false');
     mobileMenu.setAttribute('aria-hidden', 'true');
@@ -114,8 +114,6 @@ function initNav() {
     if (mobileMenu.classList.contains('open')) closeMenu();
     else openMenu();
   });
-
-  closeBtn?.addEventListener('click', closeMenu);
 
   mobileLinks?.forEach((link) => link.addEventListener('click', closeMenu));
 

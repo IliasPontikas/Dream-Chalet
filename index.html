@@ -59,13 +59,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=21">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=22">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="images/exterior1.avif" as="image" type="image/avif">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=21">
+  <link rel="stylesheet" href="css/style.css?v=22">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -99,6 +99,7 @@
     "petsAllowed": false,
     "numberOfRooms": 3,
     "priceRange": "€€€",
+    "knowsLanguage": ["el", "en"],
     "sameAs": [
       "https://www.airbnb.gr/rooms/1019294882973971198",
       "https://www.booking.com/hotel/gr/dream-chalet-trikala.html",
@@ -106,33 +107,42 @@
     ],
     "amenityFeature": [
       {"@type": "LocationFeatureSpecification", "name": "WiFi", "value": true},
-      {"@type": "LocationFeatureSpecification", "name": "Kitchen", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Full Kitchen", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Washing Machine", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Fireplace", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Smart TV", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Sunny Terrace", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Garden", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Air Conditioning", "value": true},
-      {"@type": "LocationFeatureSpecification", "name": "Washing Machine", "value": true},
-      {"@type": "LocationFeatureSpecification", "name": "Smart TV", "value": true}
+      {"@type": "LocationFeatureSpecification", "name": "Non-Smoking Property", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Mountain View", "value": true}
     ],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "9.8",
       "bestRating": "10",
       "worstRating": "1",
-      "ratingCount": "50"
+      "ratingCount": "50",
+      "author": {
+        "@type": "Organization",
+        "name": "Booking.com"
+      }
     },
     "review": [
       {
         "@type": "Review",
         "reviewRating": {"@type": "Rating", "ratingValue": "10", "bestRating": "10"},
-        "author": {"@type": "Person", "name": "Μαρία"},
-        "reviewBody": "Υπέροχη διαμονή! Το σπίτι είναι ακριβώς όπως στις φωτογραφίες."
+        "author": {"@type": "Person", "name": "Nikos"},
+        "publisher": {"@type": "Organization", "name": "Airbnb"},
+        "reviewBody": "Οποίος νομίζει ότι έχει μείνει σε καλύτερο σπίτι στα Τρίκαλα πραγματικά κάνει λάθος."
       },
       {
         "@type": "Review",
         "reviewRating": {"@type": "Rating", "ratingValue": "10", "bestRating": "10"},
-        "author": {"@type": "Person", "name": "Γιάννης"},
-        "reviewBody": "Εξαιρετική τοποθεσία, άψογη καθαριότητα και φιλόξενοι οικοδεσπότες."
+        "author": {"@type": "Person", "name": "Ηλίας"},
+        "publisher": {"@type": "Organization", "name": "Airbnb"},
+        "reviewBody": "Το κατάλυμα ήταν πεντακάθαρο, άνετο και ακριβώς όπως στις φωτογραφίες."
       }
     ]
   }
@@ -202,10 +212,6 @@
   <!-- Mobile Menu (sibling of navbar to escape any stacking context) -->
   <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Menu">
     <div class="mobile-menu-bg" aria-hidden="true"></div>
-    <button id="mobile-menu-close" class="mobile-menu-close" type="button" aria-label="Close menu">
-      <span></span>
-      <span></span>
-    </button>
     <div class="mobile-menu-inner">
       <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo" width="372" height="245">
 
@@ -820,23 +826,23 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.0.0/dist/maplibre-gl.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ical.js@5.0.0/build/ical.min.js"></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=21"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=22"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=21" defer></script>
-  <script src="js/main.js?v=21" defer></script>
-  <script src="js/animations.js?v=21" defer></script>
-  <script src="js/cursor.js?v=21" defer></script>
-  <script src="js/scroll-video.js?v=21" defer></script>
-  <script src="js/gallery.js?v=21" defer></script>
-  <script src="js/reviews.js?v=21" defer></script>
-  <script type="module" src="js/three-bg.js?v=21"></script>
-  <script src="js/map.js?v=21" defer></script>
-  <script src="js/calendar.js?v=21" defer></script>
-  <script src="js/weather.js?v=21" defer></script>
-  <script src="js/i18n.js?v=21" defer></script>
-  <script src="js/cookie-consent.js?v=21" defer></script>
+  <script src="js/config.js?v=22" defer></script>
+  <script src="js/main.js?v=22" defer></script>
+  <script src="js/animations.js?v=22" defer></script>
+  <script src="js/cursor.js?v=22" defer></script>
+  <script src="js/scroll-video.js?v=22" defer></script>
+  <script src="js/gallery.js?v=22" defer></script>
+  <script src="js/reviews.js?v=22" defer></script>
+  <script type="module" src="js/three-bg.js?v=22"></script>
+  <script src="js/map.js?v=22" defer></script>
+  <script src="js/calendar.js?v=22" defer></script>
+  <script src="js/weather.js?v=22" defer></script>
+  <script src="js/i18n.js?v=22" defer></script>
+  <script src="js/cookie-consent.js?v=22" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=21" defer></script> -->
+  <!-- <script src="js/analytics.js?v=22" defer></script> -->
 </body>
 </html>
