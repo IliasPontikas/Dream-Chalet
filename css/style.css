@@ -531,14 +531,18 @@ select,
   pointer-events: all;
   transition: opacity 0.5s ease;
 }
-/* Always-light backdrop — independent of site theme.
-   Cream/warm-white surface with gentle blur. */
+/* Backdrop follows the site theme — dark default, cream in light mode.
+   The typography on top (links + CTA) stays LIGHT in both modes so the
+   menu has its own consistent premium identity. */
 .mobile-menu-bg {
   position: absolute;
   inset: 0;
-  background: rgba(250, 248, 245, 0.97);
+  background: rgba(14, 11, 8, 0.97);
   backdrop-filter: blur(28px) saturate(140%);
   -webkit-backdrop-filter: blur(28px) saturate(140%);
+}
+[data-theme="light"] .mobile-menu-bg {
+  background: rgba(250, 248, 245, 0.97);
 }
 /* When the mobile menu is open, lift the navbar above the menu so the
    hamburger (which morphs to X) stays clickable. Hide the other navbar
@@ -575,10 +579,13 @@ select,
   gap: 2rem;
 }
 .mobile-menu-logo {
-  height: 70px;
+  height: clamp(100px, 14vh, 140px);
   width: auto;
+  max-width: 60vw;
+  object-fit: contain;
   align-self: flex-start;
   margin: 0;
+  flex-shrink: 0;
 }
 .mobile-menu-nav {
   display: flex;
@@ -598,7 +605,11 @@ select,
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.05;
-  color: #1a1511;            /* always dark on cream menu surface */
+  /* Always cream/light — the menu typography stays consistent across
+     themes; only the backdrop flips. Text-shadow keeps it readable on
+     the cream light-mode backdrop too. */
+  color: #f5f0e8;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
   position: relative;
   padding-left: 0;
   transition: color 0.4s ease, padding-left 0.4s ease;
@@ -635,8 +646,13 @@ select,
   text-align: center;
   padding: 1rem 2rem;
   border-radius: 999px;
-  background: #1a1511;       /* dark fill on cream menu */
-  color: #faf8f5;
+  /* Always the same gold pill regardless of theme — light/luxe treatment
+     readable against both the dark and the cream menu backdrops. */
+  background: rgba(201, 169, 110, 0.16);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.22em;
@@ -646,7 +662,7 @@ select,
 }
 .mobile-menu-cta:hover,
 .mobile-menu-cta:active {
-  background: #000;
+  background: rgba(201, 169, 110, 0.3);
   transform: translateY(-1px);
 }
 .mobile-menu-social {
@@ -656,7 +672,8 @@ select,
   align-self: center;
 }
 .mobile-menu-social a {
-  color: rgba(20, 14, 8, 0.55);
+  /* Muted gold reads on both dark + cream backdrops */
+  color: rgba(201, 169, 110, 0.65);
   transition: color 0.3s ease, transform 0.3s ease;
 }
 .mobile-menu-social a:hover { color: var(--gold); transform: translateY(-2px); }
