@@ -511,9 +511,12 @@ h4 {
   padding: 2rem 0;
 }
 .mobile-menu-logo {
-  height: 80px;
+  height: clamp(96px, 13vh, 130px);
   width: auto;
-  margin-top: 2rem;
+  max-width: 60vw;
+  object-fit: contain;
+  margin-top: 1.25rem;
+  flex-shrink: 0;
 }
 .mobile-menu-nav {
   display: flex;
@@ -539,12 +542,27 @@ h4 {
   font-family: "Playfair Display", serif;
   font-size: 2.5rem;
   font-weight: 600;
-  color: var(--text-light);
+  /* Always light/cream regardless of site theme.
+     BG of .mobile-menu still flips with theme; only the typography
+     stays consistent so the menu has its own premium identity. */
+  color: #f5f0e8;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(20px);
   transition: color var(--transition);
 }
 .mobile-nav-link:hover {
+  color: var(--gold);
+}
+.mobile-nav-link.btn-book-now {
+  /* CTA also always uses the light/gold pill — same in both themes */
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  text-shadow: none;
+}
+.mobile-nav-link.btn-book-now:hover {
+  background: rgba(212, 175, 55, 0.28);
   color: var(--gold);
 }
 .mobile-menu hr {
