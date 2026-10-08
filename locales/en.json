@@ -14,15 +14,9 @@
     "bookNow": "Book now"
   },
   "hero": {
-    "subtitle": "A house with soul",
+    "subtitle": "A house with soul, ten minutes from Trikala",
     "bookNow": "Book now",
-    "seeHouse": "See the house",
-    "facts": {
-      "bedrooms": "3 bedrooms",
-      "guests": "Up to 6 guests",
-      "fireplace": "Fireplace",
-      "pets": "Pets welcome"
-    }
+    "seeHouse": "See the house"
   },
   "about": {
     "label": "The House",
@@ -31,11 +25,10 @@
     "text2": "Three bedrooms, two bathrooms, up to six guests. And a family that welcomes you as one of their own — the thing our guests remember most.",
     "stats": {
       "bedrooms": "Bedrooms",
-      "bathrooms": "Bathrooms",
-      "guests": "Guests"
-    },
-    "ratingAirbnb": "· 58 reviews",
-    "ratingBooking": "Booking.com · 14 reviews"
+      "guests": "Guests",
+      "airbnb": "★ Airbnb · 58 reviews",
+      "booking": "Booking.com · 14 reviews"
+    }
   },
   "gallery": {
     "label": "Gallery",

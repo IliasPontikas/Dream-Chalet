@@ -11,7 +11,7 @@ function initAnimations() {
        elements that were hidden in CSS for animation entry to their
        final visible state so the page is usable. */
     document.querySelectorAll(
-      '.hero-subtitle, .hero-facts, .hero-ctas, .amenity-item'
+      '.hero-subtitle, .hero-ctas, .amenity-item'
     ).forEach((el) => { el.style.opacity = '1'; });
 
     document.querySelectorAll('.hero-title .char').forEach((el) => {
@@ -152,7 +152,7 @@ function initHero() {
     ease: 'expo.out',
   }, eyebrow ? '-=0.4' : 0)
     .to(subtitle, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6')
-    .to(['.hero-facts', ctas], { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out' }, '-=0.5');
+    .to(ctas, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5');
 
   /* Fade out the scroll indicator once the user has scrolled past ~25% of the hero */
   const hint = document.querySelector('.hero-scroll-hint');
@@ -202,13 +202,39 @@ function initSectionEntrances() {
   }
 
   const imgWrap = document.querySelector('.about-image-wrap');
+  const accent  = document.querySelector('.about-image-accent');
   if (imgWrap) {
-    gsap.to(imgWrap, {
-      clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-      duration: 1.2,
-      ease: 'power3.inOut',
-      scrollTrigger: { trigger: imgWrap, start: 'top 75%' },
-    });
+    gsap.matchMedia()
+      /* Desktop: wipe-in reveal */
+      .add('(min-width: 769px)', () => {
+        gsap.to(imgWrap, {
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+          duration: 1.2,
+          ease: 'power3.inOut',
+          scrollTrigger: { trigger: imgWrap, start: 'top 75%' },
+        });
+      })
+      /* Phones: scroll-linked — the photo opens from a framed window to
+         full width while it settles from a slow zoom; the small photo
+         drifts up over it. Scrubbed with easing for a smooth feel. */
+      .add('(max-width: 768px)', () => {
+        const img = imgWrap.querySelector('img');
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: imgWrap, start: 'top 95%', end: 'center 45%', scrub: 1.2 },
+        });
+        tl.fromTo(imgWrap,
+          { clipPath: 'inset(10% 8% 10% 8% round 18px)' },
+          { clipPath: 'inset(0% 0% 0% 0% round 0px)', ease: 'power2.out' }, 0)
+          .fromTo(img, { scale: 1.25 }, { scale: 1, ease: 'power2.out' }, 0);
+        if (accent) {
+          gsap.fromTo(accent,
+            { y: 90, opacity: 0, rotate: -3 },
+            {
+              y: 0, opacity: 1, rotate: 0, ease: 'power2.out',
+              scrollTrigger: { trigger: imgWrap, start: 'top 70%', end: 'bottom 85%', scrub: 1.2 },
+            });
+        }
+      });
   }
 
   /* Amenities stagger */
