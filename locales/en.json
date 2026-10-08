@@ -82,7 +82,14 @@
     "terrace": "Sunny Terrace",
     "garden": "Garden",
     "ac": "Air Conditioning",
-    "nonsmoking": "Non-Smoking"
+    "nonsmoking": "Non-Smoking",
+    "groups": {
+      "comfort": "Warmth & comfort",
+      "everyday": "Everyday",
+      "connected": "Stay connected",
+      "outdoors": "Outdoors",
+      "practical": "Practical"
+    }
   },
   "attractions": {
     "label": "The Area",

@@ -60,14 +60,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=52">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=53">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=52">
+  <link rel="stylesheet" href="css/style.css?v=53">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -488,6 +488,59 @@
       <div class="container">
         <span class="section-label" data-i18n="amenities.label">Παροχές</span>
         <h2 class="section-heading" data-i18n="amenities.heading">Όλα Όσα Χρειάζεστε</h2>
+        <!-- Phones: stacking cards (natural scroll, no pinning) -->
+        <div class="amenity-stack">
+          <article class="astack-card" style="--i:0">
+            <header class="astack-head">
+              <h3 data-i18n="amenities.groups.comfort">Ζεστασιά & άνεση</h3>
+              <span class="astack-num">01 / 05</span>
+            </header>
+            <ul class="astack-list">
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg></span><span data-i18n="amenities.fireplace">Τζάκι</span></li>
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg></span><span data-i18n="amenities.ac">Κλιματισμός</span></li>
+            </ul>
+          </article>
+          <article class="astack-card" style="--i:1">
+            <header class="astack-head">
+              <h3 data-i18n="amenities.groups.everyday">Καθημερινότητα</h3>
+              <span class="astack-num">02 / 05</span>
+            </header>
+            <ul class="astack-list">
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg></span><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></li>
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-washer"></use></svg></span><span data-i18n="amenities.washer">Πλυντήριο</span></li>
+            </ul>
+          </article>
+          <article class="astack-card" style="--i:2">
+            <header class="astack-head">
+              <h3 data-i18n="amenities.groups.connected">Ψυχαγωγία</h3>
+              <span class="astack-num">03 / 05</span>
+            </header>
+            <ul class="astack-list">
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg></span><span data-i18n="amenities.wifi">WiFi</span></li>
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg></span><span data-i18n="amenities.tv">Τηλεόραση</span></li>
+            </ul>
+          </article>
+          <article class="astack-card" style="--i:3">
+            <header class="astack-head">
+              <h3 data-i18n="amenities.groups.outdoors">Υπαίθριοι χώροι</h3>
+              <span class="astack-num">04 / 05</span>
+            </header>
+            <ul class="astack-list">
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg></span><span data-i18n="amenities.garden">Κήπος</span></li>
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg></span><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></li>
+            </ul>
+          </article>
+          <article class="astack-card" style="--i:4">
+            <header class="astack-head">
+              <h3 data-i18n="amenities.groups.practical">Πρακτικά</h3>
+              <span class="astack-num">05 / 05</span>
+            </header>
+            <ul class="astack-list">
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg></span><span data-i18n="amenities.parking">Δωρεάν Parking</span></li>
+              <li><span class="astack-icon"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg></span><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></li>
+            </ul>
+          </article>
+        </div>
         <div class="amenities-grid">
           <div class="marquee-row">
             <div class="marquee-track marquee-left">
@@ -834,22 +887,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=52"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=53"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=52" defer></script>
-  <script src="js/theme.js?v=52" defer></script>
-  <script src="js/main.js?v=52" defer></script>
-  <script src="js/animations.js?v=52" defer></script>
-  <script src="js/scroll-video.js?v=52" defer></script>
-  <script src="js/gallery.js?v=52" defer></script>
-  <script src="js/reviews.js?v=52" defer></script>
-  <script src="js/map.js?v=52" defer></script>
-  <script src="js/calendar.js?v=52" defer></script>
-  <script src="js/weather.js?v=52" defer></script>
-  <script src="js/i18n.js?v=52" defer></script>
-  <script src="js/cookie-consent.js?v=52" defer></script>
+  <script src="js/config.js?v=53" defer></script>
+  <script src="js/theme.js?v=53" defer></script>
+  <script src="js/main.js?v=53" defer></script>
+  <script src="js/animations.js?v=53" defer></script>
+  <script src="js/scroll-video.js?v=53" defer></script>
+  <script src="js/gallery.js?v=53" defer></script>
+  <script src="js/reviews.js?v=53" defer></script>
+  <script src="js/map.js?v=53" defer></script>
+  <script src="js/calendar.js?v=53" defer></script>
+  <script src="js/weather.js?v=53" defer></script>
+  <script src="js/i18n.js?v=53" defer></script>
+  <script src="js/cookie-consent.js?v=53" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=52" defer></script> -->
+  <!-- <script src="js/analytics.js?v=53" defer></script> -->
 </body>
 </html>

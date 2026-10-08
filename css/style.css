@@ -3579,3 +3579,90 @@ a.stat-item:hover {
 @media (max-width: 600px) {
   .ggo-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 4px; }
 }
+
+/* ══ Amenities (phones): sticky stacking cards ════════════════
+   Each card sticks a little lower than the one before and the next
+   one slides over it — normal scrolling, nothing is pinned. */
+.amenity-stack {
+  display: none;
+}
+@media (max-width: 768px) {
+  .section-amenities .amenities-grid {
+    display: none;
+  }
+  .amenity-stack {
+    display: block;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+  }
+  .astack-card {
+    position: sticky;
+    top: calc(var(--nav-h) + 1rem + var(--i) * 12px);
+    margin-bottom: 1rem;
+    padding: 1.4rem 1.4rem 1.5rem;
+    border-radius: 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.18), 0 18px 40px rgba(0, 0, 0, 0.12);
+    transform-origin: 50% 0;
+    will-change: transform, filter;
+    /* --covered goes 0 → 1 as the next card slides over this one */
+    --covered: 0;
+    filter: brightness(calc(1 - var(--covered) * var(--astack-dim, 0.3)));
+  }
+  [data-theme="light"] .astack-card {
+    --astack-dim: 0.07;
+  }
+  .astack-card:last-child {
+    margin-bottom: 0;
+  }
+  .astack-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .astack-head h3 {
+    font-size: 1.55rem;
+    color: var(--text-light);
+  }
+  .astack-num {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .astack-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  .astack-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    color: var(--text-light);
+  }
+  .astack-icon {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(201, 169, 110, 0.14);
+    color: var(--gold);
+  }
+  .astack-icon .icon {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+}

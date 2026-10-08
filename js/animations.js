@@ -251,6 +251,33 @@ function initSectionEntrances() {
       });
   }
 
+  /* Amenities (phones): stacking cards — each one tilts up into place,
+     the card it covers settles back (smaller, dimmer). All scroll-linked,
+     nothing pinned, so it stays quick to scroll through. */
+  gsap.matchMedia().add('(max-width: 768px)', () => {
+    const cards = gsap.utils.toArray('.astack-card');
+    const navH = document.getElementById('navbar')?.offsetHeight || 92;
+    cards.forEach((card, i) => {
+      gsap.fromTo(card,
+        { rotateX: -18, y: 40, opacity: 0.5, transformPerspective: 900 },
+        { rotateX: 0, y: 0, opacity: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 62%', scrub: 0.5 } });
+      const next = cards[i + 1];
+      if (!next) return;
+      gsap.to(card, {
+        scale: 0.9,
+        '--covered': 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: next,
+          start: 'top 80%',
+          end: () => `top ${navH + 16 + (i + 1) * 12}px`,
+          scrub: 0.4,
+        },
+      });
+    });
+  });
+
   /* Amenities stagger */
   const amenities = gsap.utils.toArray('.amenity-item');
   if (amenities.length) {
