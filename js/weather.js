@@ -21,7 +21,8 @@ function initWeather() {
 
   const STRINGS = {
     el: {
-      title: 'Πρόγνωση 5 Ημερών — Τρίκαλα',
+      title: 'Καιρός στα Τρίκαλα',
+      today: 'Σήμερα',
       day: 'Ημέρα', cond: 'Καιρός', min: 'Ελάχ.', max: 'Μέγ.',
       unavailable: 'Τα δεδομένα καιρού δεν είναι διαθέσιμα αυτή τη στιγμή.',
       desc: {
@@ -36,7 +37,8 @@ function initWeather() {
       },
     },
     en: {
-      title: '5-Day Forecast — Trikala',
+      title: 'Weather in Trikala',
+      today: 'Today',
       day: 'Day', cond: 'Weather', min: 'Low', max: 'High',
       unavailable: 'Weather data is not available right now.',
       desc: {
@@ -62,44 +64,31 @@ function initWeather() {
     const t = STRINGS[lang];
     const loc = localeFor(lang);
 
+    /* Minimal strip: weekday · icon · max / min */
     gridEl.innerHTML = `
-      <div class="weather-title-row">
-        <h4>${t.title}</h4>
-        <span class="weather-source">Open-Meteo</span>
-      </div>
-      <div class="weather-table-head">
-        <div>${t.day}</div>
-        <div>${t.cond}</div>
-        <div>${t.min}</div>
-        <div>${t.max}</div>
-      </div>
+      <p class="wx-title">${t.title}</p>
+      <ol class="wx-days"></ol>
     `;
+    const list = gridEl.querySelector('.wx-days');
 
     daily.time.slice(0, 5).forEach((date, i) => {
       const d = new Date(date + 'T12:00:00');
-      const dayName   = d.toLocaleDateString(loc, { weekday: 'long' });
-      const shortDate = d.toLocaleDateString(loc, { day: 'numeric', month: 'short' });
+      const dayName = i === 0 ? t.today : d.toLocaleDateString(loc, { weekday: 'short' }).replace('.', '');
       const tempMax = Math.round(daily.temperature_2m_max[i]);
       const tempMin = Math.round(daily.temperature_2m_min[i]);
       const code = daily.weathercode[i];
       const icon = WMO_ICONS[code] ?? '🌤️';
       const desc = t.desc[code] ?? t.desc[2];
 
-      const row = document.createElement('div');
-      row.className = 'weather-table-row';
-      row.innerHTML = `
-        <div class="weather-col-day">
-          <span class="w-day">${dayName}</span>
-          <span class="w-date">${shortDate}</span>
-        </div>
-        <div class="weather-col-cond">
-          <span class="weather-emoji">${icon}</span>
-          <span class="weather-desc">${desc}</span>
-        </div>
-        <div class="weather-col-min"><span>${tempMin}°</span></div>
-        <div class="weather-col-max"><span class="temp-max">${tempMax}°</span></div>
+      const li = document.createElement('li');
+      li.className = 'wx-day';
+      li.title = desc;
+      li.innerHTML = `
+        <span class="wx-name">${dayName}</span>
+        <span class="wx-icon" role="img" aria-label="${desc}">${icon}</span>
+        <span class="wx-temp"><strong>${tempMax}°</strong> <span>${tempMin}°</span></span>
       `;
-      gridEl.appendChild(row);
+      list.appendChild(li);
     });
   }
 

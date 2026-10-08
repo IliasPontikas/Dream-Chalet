@@ -154,6 +154,9 @@
     "arrival": "Arrival",
     "departure": "Departure",
     "guests": "Guests",
-    "cta": "Continue to booking"
+    "cta": "Continue to booking",
+    "legendFree": "Available",
+    "legendBooked": "Booked",
+    "legendPicked": "Your dates"
   }
 }

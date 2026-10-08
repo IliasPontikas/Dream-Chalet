@@ -60,14 +60,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=53">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=54">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=53">
+  <link rel="stylesheet" href="css/style.css?v=54">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -738,6 +738,11 @@
           <p class="avail-intro" data-i18n="availability.intro">Επιλέξτε άφιξη και αναχώρηση στο ημερολόγιο και συνεχίστε στο Airbnb, στο Booking.com ή στείλτε μας μήνυμα — οι ημερομηνίες σας περνούν αυτόματα.</p>
 
           <div id="calendar-container" role="presentation"></div>
+          <ul class="cal-legend" aria-hidden="true">
+            <li><span class="cal-dot is-free"></span><span data-i18n="availability.legendFree">Διαθέσιμο</span></li>
+            <li><span class="cal-dot is-booked"></span><span data-i18n="availability.legendBooked">Κρατημένο</span></li>
+            <li><span class="cal-dot is-picked"></span><span data-i18n="availability.legendPicked">Οι μέρες σας</span></li>
+          </ul>
 
           <div class="avail-check">
             <div class="avail-dates">
@@ -887,22 +892,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=53"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=54"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=53" defer></script>
-  <script src="js/theme.js?v=53" defer></script>
-  <script src="js/main.js?v=53" defer></script>
-  <script src="js/animations.js?v=53" defer></script>
-  <script src="js/scroll-video.js?v=53" defer></script>
-  <script src="js/gallery.js?v=53" defer></script>
-  <script src="js/reviews.js?v=53" defer></script>
-  <script src="js/map.js?v=53" defer></script>
-  <script src="js/calendar.js?v=53" defer></script>
-  <script src="js/weather.js?v=53" defer></script>
-  <script src="js/i18n.js?v=53" defer></script>
-  <script src="js/cookie-consent.js?v=53" defer></script>
+  <script src="js/config.js?v=54" defer></script>
+  <script src="js/theme.js?v=54" defer></script>
+  <script src="js/main.js?v=54" defer></script>
+  <script src="js/animations.js?v=54" defer></script>
+  <script src="js/scroll-video.js?v=54" defer></script>
+  <script src="js/gallery.js?v=54" defer></script>
+  <script src="js/reviews.js?v=54" defer></script>
+  <script src="js/map.js?v=54" defer></script>
+  <script src="js/calendar.js?v=54" defer></script>
+  <script src="js/weather.js?v=54" defer></script>
+  <script src="js/i18n.js?v=54" defer></script>
+  <script src="js/cookie-consent.js?v=54" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=53" defer></script> -->
+  <!-- <script src="js/analytics.js?v=54" defer></script> -->
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v53';
+const CACHE = 'dream-chalet-v54';
 
 const ASSETS = [
   '/',
@@ -67,6 +67,13 @@ self.addEventListener('fetch', (e) => {
   /* Live APIs / map tiles: pass through, no caching */
   if (NO_CACHE_HOSTS.has(url.hostname)) return;
 
+  /* Video/audio and any byte-range request go straight to the network.
+     Media served through a service worker breaks seeking in Safari
+     (scroll-scrubbed video showed only its first frame on repeat visits). */
+  if (e.request.headers.has('range') ||
+      e.request.destination === 'video' || e.request.destination === 'audio' ||
+      /\.(mp4|webm|mov|m4v)$/i.test(url.pathname)) return;
+
   /* Immutable CDN assets (versioned in URL): cache-first, fall back to network */
   if (url.origin !== self.location.origin && IMMUTABLE_HOSTS.has(url.hostname)) {
     e.respondWith(
@@ -90,8 +97,11 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     fetch(e.request)
       .then((response) => {
-        const clone = response.clone();
-        caches.open(CACHE).then((cache) => cache.put(e.request, clone));
+        /* Only cache complete, successful responses */
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(e.request, clone)).catch(() => {});
+        }
         return response;
       })
       .catch(() =>

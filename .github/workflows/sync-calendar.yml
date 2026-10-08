@@ -1,0 +1,42 @@
+name: Sync booking calendar
+
+# Pulls the Airbnb / Booking.com iCal feeds every 3 hours and updates
+# data/booked.json, which the availability calendar on the site reads.
+# Set the feed links as repository secrets: AIRBNB_ICAL_URL, BOOKING_ICAL_URL
+
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-calendar
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch feeds
+        env:
+          AIRBNB_ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
+          BOOKING_ICAL_URL: ${{ secrets.BOOKING_ICAL_URL }}
+        run: python scripts/sync_ical.py
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/booked.json; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name  "calendar-sync"
+          git config user.email "calendar-sync@users.noreply.github.com"
+          git add data/booked.json
+          git commit -m "Update booked dates"
+          git push

@@ -57,15 +57,30 @@ function initMap() {
     ? [SITE_CONFIG.coords.lng, SITE_CONFIG.coords.lat]
     : [21.74715078198729, 39.60386403048851]);
 
-  const ZOOM_CHALET   = 13;
-  const ZOOM_OVERVIEW = 9.2;
+  const ZOOM_CHALET = 13;
+
+  /* Overview = a frame that fits the chalet and every attraction */
+  const ALL_POINTS = [
+    center,
+    [21.63065515278235, 39.72279696985126],  /* Meteora */
+    [21.535341361331444, 39.50317742958358], /* Elati */
+    [21.527416210816465, 39.431308047515344],/* Palaiokarya */
+    [21.465859934678086, 39.54109910736869], /* Pertouli */
+  ];
+  const lngs = ALL_POINTS.map((p) => p[0]);
+  const lats = ALL_POINTS.map((p) => p[1]);
+  const BOUNDS = [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]];
+  const fitPadding = () => {
+    const small = mapEl.clientWidth < 520;
+    return small ? { top: 70, bottom: 60, left: 40, right: 40 } : { top: 80, bottom: 70, left: 70, right: 70 };
+  };
 
   const map = new maplibregl.Map({
     container: 'map',
     style: getStyle(),
-    center,
-    zoom: ZOOM_CHALET,
-    pitch: 25,
+    bounds: BOUNDS,
+    fitBoundsOptions: { padding: fitPadding() },
+    pitch: 0,
     bearing: 0,
     attributionControl: false,
   });
@@ -77,7 +92,7 @@ function initMap() {
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'map-zoom-toggle';
-  toggle.dataset.mode = 'chalet';
+  toggle.dataset.mode = 'overview';
   toggle.setAttribute('aria-label', 'Toggle map view');
   function updateToggleText() {
     const t = MAP_STRINGS[_mapLang()];
@@ -85,12 +100,11 @@ function initMap() {
   }
   toggle.addEventListener('click', () => {
     const isChalet = toggle.dataset.mode === 'chalet';
-    map.flyTo({
-      center,
-      zoom: isChalet ? ZOOM_OVERVIEW : ZOOM_CHALET,
-      duration: 1400,
-      essential: true,
-    });
+    if (isChalet) {
+      map.fitBounds(BOUNDS, { padding: fitPadding(), duration: 1400, essential: true });
+    } else {
+      map.flyTo({ center, zoom: ZOOM_CHALET, duration: 1400, essential: true });
+    }
     toggle.dataset.mode = isChalet ? 'overview' : 'chalet';
     updateToggleText();
   });
@@ -158,6 +172,8 @@ function initMap() {
       const [lng, lat] = card.dataset.coords.split(',').map(Number);
       cards.forEach((c) => c.classList.toggle('active', c === card));
       map.flyTo({ center: [lng, lat], zoom: 12, duration: 1800, essential: true });
+      toggle.dataset.mode = 'chalet';   /* button now offers 'show all' */
+      updateToggleText();
       /* On phones the map sits below the list — bring it into view */
       if (window.matchMedia('(max-width: 1024px)').matches) {
         window.__lenis ? window.__lenis.scrollTo(mapEl, { offset: -90 }) : mapEl.scrollIntoView({ behavior: 'smooth' });
