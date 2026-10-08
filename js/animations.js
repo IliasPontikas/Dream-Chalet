@@ -21,8 +21,7 @@ function initAnimations() {
 
     /* Stats: snap counters straight to their target value */
     document.querySelectorAll('.stat-number[data-target]').forEach((el) => {
-      const t = parseFloat(el.dataset.target);
-      el.textContent = Number.isInteger(t) ? String(t) : t.toFixed(1);
+      el.textContent = formatStat(parseFloat(el.dataset.target), el);
     });
 
     initNav();
@@ -250,6 +249,13 @@ function initSectionEntrances() {
 }
 
 /* ── Stats counters ───────────────────────────────────────── */
+/* Decimals from data-decimals; Greek uses a decimal comma (4,97) */
+function formatStat(val, el) {
+  const d = parseInt(el.dataset.decimals || '0', 10);
+  const txt = d ? val.toFixed(d) : String(Math.round(val));
+  return document.documentElement.lang === 'el' ? txt.replace('.', ',') : txt;
+}
+
 function initStats() {
   document.querySelectorAll('.stat-number[data-target]').forEach((el) => {
     const target = parseFloat(el.dataset.target);
@@ -260,11 +266,17 @@ function initStats() {
       duration: 1.8,
       ease: 'power2.out',
       onUpdate() {
-        el.textContent = Number.isInteger(target)
-          ? Math.round(obj.val)
-          : obj.val.toFixed(1);
+        el.textContent = formatStat(obj.val, el);
       },
+      onComplete() { el.dataset.done = '1'; },
       scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+    });
+  });
+
+  /* Keep the decimal separator in sync with the language */
+  document.addEventListener('lang:change', () => {
+    document.querySelectorAll('.stat-number[data-done]').forEach((el) => {
+      el.textContent = formatStat(parseFloat(el.dataset.target), el);
     });
   });
 }

@@ -28,14 +28,15 @@
     "ratingBooking": "Booking.com · 14 reviews"
   },
   "about": {
-    "label": "The Property",
-    "heading": "Experience the Luxury of Nature",
-    "text": "Dream Chalet is an exceptional vacation home that blends natural beauty with luxury. With 3 comfortable bedrooms, 2 modern bathrooms, and everything you need, it's the perfect retreat for families and groups.",
+    "label": "The House",
+    "heading": "A house full of stories",
+    "text": "A house with character in Raxa, ten minutes from Trikala. A stone fireplace, wooden ceilings, mosaic floors and antiques in every corner — plus a large fenced lawn where children and pets can run free.",
+    "text2": "Three bedrooms, two bathrooms, up to six guests. And a family that welcomes you as one of their own — the thing our guests remember most.",
     "stats": {
       "bedrooms": "Bedrooms",
       "bathrooms": "Bathrooms",
-      "guests": "Max Guests",
-      "rating": "★ Rating"
+      "guests": "Guests",
+      "rating": "★ Airbnb · 58 reviews"
     }
   },
   "gallery": {

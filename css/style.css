@@ -963,14 +963,6 @@ select,
   padding: 8rem 0 6rem;
   overflow: hidden;
 }
-#three-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0.5;
-}
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -985,10 +977,33 @@ select,
 .about-text p {
   color: var(--text-muted);
   font-size: 1.05rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.85;
   margin-bottom: 2rem;
   max-width: 56ch;
+}
+.about-media {
+  position: relative;
+  padding: 0 0 3rem 3rem;
+}
+.about-image-accent {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 34%;
+  height: auto;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 6px solid var(--bg);
+  box-shadow: var(--shadow-lg);
+  z-index: 2;
+}
+.about-text p + p {
+  margin-top: -0.75rem;
+}
+.no-anim .about-image-wrap {
+  clip-path: none !important;
 }
 .about-image-wrap {
   position: relative;
