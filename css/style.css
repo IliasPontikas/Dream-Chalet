@@ -1310,121 +1310,6 @@ select,
 .calendar-day.empty {
   pointer-events: none;
 }
-.section-contact {
-  padding: 8rem 0;
-  background: var(--bg);
-}
-.contact-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-}
-.contact-intro {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.8;
-  margin-bottom: 2rem;
-}
-.contact-phone {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-.contact-phone a {
-  color: var(--gold);
-  font-weight: 600;
-  transition: color var(--transition);
-}
-.contact-phone a:hover {
-  color: var(--text-light);
-}
-.contact-phone i {
-  color: var(--gold);
-}
-.contact-btns {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.btn-contact {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.85rem 1.6rem;
-  border-radius: var(--radius);
-  font-weight: 600;
-  font-size: 0.9rem;
-  background: transparent;
-  border: 1.5px solid var(--border);
-  color: var(--text-light);
-  transition:
-    border-color var(--transition),
-    color var(--transition),
-    background var(--transition);
-}
-.btn-contact:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(201, 169, 110, 0.06);
-}
-.btn-contact i {
-  font-size: 1.1rem;
-}
-.btn-whatsapp:hover {
-  border-color: #25d366;
-  color: #25d366;
-  background: rgba(37, 211, 102, 0.06);
-}
-.btn-viber:hover {
-  border-color: #7360f2;
-  color: #7360f2;
-  background: rgba(115, 96, 242, 0.06);
-}
-.btn-contact.btn-airbnb:hover {
-  border-color: #ff5a5f;
-  color: #ff5a5f;
-  background: rgba(255, 90, 95, 0.06);
-}
-.btn-contact.btn-booking:hover {
-  border-color: #4a90d9;
-  color: #4a90d9;
-  background: rgba(74, 144, 217, 0.06);
-}
-.contact-info-card {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  box-shadow: var(--shadow-card);
-}
-.contact-info-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-.contact-info-item:not(:last-child) {
-  padding-bottom: 1.75rem;
-  border-bottom: 1px solid var(--border);
-}
-.contact-info-label {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.contact-info-value {
-  font-size: 1rem;
-  color: var(--text-light);
-  font-weight: 500;
-}
 .site-footer {
   background: var(--bg2) url('../images/photos/living-above-960.avif') center/cover no-repeat;
   padding: 4rem 0 0;
@@ -1880,10 +1765,6 @@ html.show--consent .sticky-book { bottom: 9rem; }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .contact-inner {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
   .weather-table-head,
   .weather-table-row {
     grid-template-columns: 2fr 2fr 1fr 1fr;
@@ -1951,13 +1832,6 @@ html.show--consent .sticky-book { bottom: 9rem; }
   }
   .hero-rating {
     margin-top: 1.75rem;
-  }
-  .contact-btns {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .btn-contact {
-    width: fit-content;
   }
   .sticky-book {
     bottom: 0.75rem;
@@ -2906,4 +2780,136 @@ html.show--consent .sticky-book { bottom: 9rem; }
 .avail-panel .calendar-day {
   aspect-ratio: auto;
   height: 2.6rem;
+}
+
+/* ══ Contact ══════════════════════════════════════════════════ */
+.section-contact {
+  padding: 8rem 0;
+}
+.contact-layout {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 5rem;
+  align-items: center;
+}
+.contact-intro {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 50ch;
+  margin-bottom: 2.25rem;
+}
+.contact-primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+.btn-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition);
+}
+.btn-contact .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.btn-contact:hover {
+  transform: translateY(-2px);
+}
+.btn-whatsapp {
+  background: #1f8f4e;
+  color: #fff;
+}
+.btn-whatsapp:hover {
+  background: #187a41;
+}
+.btn-call {
+  border: 1.5px solid var(--text-light);
+  color: var(--text-light);
+  font-variant-numeric: tabular-nums;
+}
+.btn-call:hover {
+  background: var(--text-light);
+  color: var(--bg);
+}
+.contact-more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.25rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.contact-more a {
+  color: var(--text-light);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  transition: border-color var(--transition), color var(--transition);
+}
+.contact-more a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+.contact-card {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.contact-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.contact-facts {
+  padding: 0.5rem 1.75rem 1rem;
+}
+.contact-facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.contact-facts div:last-child {
+  border-bottom: 0;
+}
+.contact-facts dt {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.contact-facts dd {
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-light);
+}
+.contact-facts dd a:hover {
+  color: var(--gold);
+}
+@media (max-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+@media (max-width: 768px) {
+  .section-contact {
+    padding: 5rem 0;
+  }
+  .contact-primary .btn-contact {
+    width: 100%;
+    justify-content: center;
+  }
+  .contact-facts {
+    padding: 0.25rem 1.25rem 0.75rem;
+  }
 }

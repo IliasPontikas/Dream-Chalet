@@ -52,14 +52,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=35">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=36">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=35">
+  <link rel="stylesheet" href="css/style.css?v=36">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -631,56 +631,40 @@
 
     <!-- Contact -->
     <section id="contact" class="section-contact tone-light" role="region" aria-label="Contact">
-      <div class="container">
-        <div class="contact-inner">
-          <div class="contact-left">
-            <span class="section-label" data-i18n="contact.label">Επικοινωνία</span>
-            <h2 class="section-heading" data-i18n="contact.heading">Επικοινωνήστε<br>Μαζί μας</h2>
-            <p class="contact-intro" data-i18n="contact.intro">Είμαστε διαθέσιμοι για κάθε ερώτηση ή κράτηση. Επιλέξτε τον τρόπο επικοινωνίας που σας εξυπηρετεί καλύτερα.</p>
-            <p class="contact-phone">
+      <div class="container contact-layout">
+        <div class="contact-main">
+          <span class="section-label" data-i18n="contact.label">Επικοινωνία</span>
+          <h2 class="section-heading" data-i18n="contact.heading">Ρωτήστε μας οτιδήποτε</h2>
+          <p class="contact-intro" data-i18n="contact.intro">Για ημερομηνίες, κατοικίδια ή ό,τι άλλο θέλετε να μάθετε — γράψτε μας ή πάρτε μας τηλέφωνο. Ο Κωνσταντίνος και η οικογένειά του θα σας απαντήσουν με χαρά.</p>
+
+          <div class="contact-primary">
+            <a href="https://wa.me/306976908838" target="_blank" rel="noopener" class="btn-contact btn-whatsapp" data-track="whatsapp">
+              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg>
+              <span data-i18n="contact.whatsappCta">Μήνυμα στο WhatsApp</span>
+            </a>
+            <a href="tel:+306976908838" class="btn-contact btn-call" data-track="phone">
               <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-phone"></use></svg>
-              <a href="tel:+306976908838" data-i18n="contact.phone">+30 697 690 8838</a>
-            </p>
-            <div class="contact-btns">
-              <a href="https://wa.me/306976908838" target="_blank" rel="noopener" class="btn-contact btn-whatsapp" data-track="whatsapp" aria-label="Contact via WhatsApp">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg>
-                <span data-i18n="contact.whatsapp">WhatsApp</span>
-              </a>
-              <a href="viber://chat?number=306976908838" class="btn-contact btn-viber" data-track="viber" aria-label="Contact via Viber">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-viber"></use></svg>
-                <span data-i18n="contact.viber">Viber</span>
-              </a>
-              <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-contact btn-airbnb" data-track="airbnb" aria-label="Contact via Airbnb">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg>
-                <span data-i18n="contact.airbnb">Airbnb</span>
-              </a>
-              <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" class="btn-contact btn-booking" data-track="booking" aria-label="Contact via Booking.com">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg>
-                <span data-i18n="contact.booking">Booking.com</span>
-              </a>
-            </div>
+              <span>+30 697 690 8838</span>
+            </a>
           </div>
-          <div class="contact-right">
-            <div class="contact-info-card">
-              <div class="contact-info-item">
-                <span class="contact-info-label" data-i18n="contact.addressLabel">Διεύθυνση</span>
-                <span class="contact-info-value">Raxa, Trikala 42100</span>
-              </div>
-              <div class="contact-info-item">
-                <span class="contact-info-label" data-i18n="contact.timingsLabel">Check-in / Check-out</span>
-                <span class="contact-info-value">15:00 — 11:00</span>
-              </div>
-              <div class="contact-info-item">
-                <span class="contact-info-label" data-i18n="contact.guestsLabel">Επισκέπτες</span>
-                <span class="contact-info-value">Έως 6 άτομα</span>
-              </div>
-              <div class="contact-info-item">
-                <span class="contact-info-label">WhatsApp / Viber</span>
-                <span class="contact-info-value">+30 697 690 8838</span>
-              </div>
-            </div>
-          </div>
+
+          <p class="contact-more">
+            <span data-i18n="contact.also">Επίσης:</span>
+            <a href="viber://chat?number=%2B306976908838" data-track="viber">Viber</a>
+            <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" data-track="airbnb">Airbnb</a>
+            <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" data-track="booking">Booking.com</a>
+            <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener">Instagram</a>
+          </p>
         </div>
+
+        <aside class="contact-card">
+          <img src="images/photos/bedroom-loft-960.avif" alt="" loading="lazy" decoding="async" width="960" height="640">
+          <dl class="contact-facts">
+            <div><dt data-i18n="contact.addressLabel">Διεύθυνση</dt><dd><a href="https://maps.google.com/?q=39.60386403048851,21.74715078198729" target="_blank" rel="noopener" data-i18n="contact.address">Ράξα, Τρίκαλα 42100</a></dd></div>
+            <div><dt data-i18n="contact.timingsLabel">Check-in / Check-out</dt><dd>15:00 — 11:00</dd></div>
+            <div><dt data-i18n="contact.guestsLabel">Επισκέπτες</dt><dd data-i18n="contact.guestsValue">Έως 6 · κατοικίδια ευπρόσδεκτα</dd></div>
+          </dl>
+        </aside>
       </div>
     </section>
 
@@ -784,22 +768,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=35"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=36"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=35" defer></script>
-  <script src="js/main.js?v=35" defer></script>
-  <script src="js/animations.js?v=35" defer></script>
-  <script src="js/cursor.js?v=35" defer></script>
-  <script src="js/scroll-video.js?v=35" defer></script>
-  <script src="js/gallery.js?v=35" defer></script>
-  <script src="js/reviews.js?v=35" defer></script>
-  <script src="js/map.js?v=35" defer></script>
-  <script src="js/calendar.js?v=35" defer></script>
-  <script src="js/weather.js?v=35" defer></script>
-  <script src="js/i18n.js?v=35" defer></script>
-  <script src="js/cookie-consent.js?v=35" defer></script>
+  <script src="js/config.js?v=36" defer></script>
+  <script src="js/main.js?v=36" defer></script>
+  <script src="js/animations.js?v=36" defer></script>
+  <script src="js/cursor.js?v=36" defer></script>
+  <script src="js/scroll-video.js?v=36" defer></script>
+  <script src="js/gallery.js?v=36" defer></script>
+  <script src="js/reviews.js?v=36" defer></script>
+  <script src="js/map.js?v=36" defer></script>
+  <script src="js/calendar.js?v=36" defer></script>
+  <script src="js/weather.js?v=36" defer></script>
+  <script src="js/i18n.js?v=36" defer></script>
+  <script src="js/cookie-consent.js?v=36" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=35" defer></script> -->
+  <!-- <script src="js/analytics.js?v=36" defer></script> -->
 </body>
 </html>

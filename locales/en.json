@@ -128,16 +128,15 @@
   },
   "contact": {
     "label": "Contact",
-    "heading": "Get in Touch",
-    "intro": "We are available for any inquiry or booking. Choose the contact method that suits you best.",
-    "phone": "+30 697 690 8838",
-    "whatsapp": "WhatsApp",
-    "viber": "Viber",
-    "airbnb": "Airbnb",
-    "booking": "Booking.com",
+    "heading": "Ask us anything",
+    "intro": "Dates, pets, or anything else you want to know — message or call us. Konstantinos and his family will be happy to help.",
+    "whatsappCta": "Message on WhatsApp",
+    "also": "Also:",
     "addressLabel": "Address",
+    "address": "Raxa, Trikala 42100",
     "timingsLabel": "Check-in / Check-out",
-    "guestsLabel": "Guests"
+    "guestsLabel": "Guests",
+    "guestsValue": "Up to 6 · pets welcome"
   },
   "footer": {
     "copyright": "© 2026 Dream Chalet Trikala. All rights reserved.",

@@ -230,21 +230,11 @@ function initSectionEntrances() {
       duration: 0.5,
       delay: i * 0.08,
       ease: 'back.out(1.7)',
-      scrollTrigger: { trigger: '.contact-btns', start: 'top 85%' },
+      scrollTrigger: { trigger: '.contact-primary', start: 'top 85%' },
     });
   });
 
-  /* Price card border draw */
-  const priceCard = document.querySelector('.price-card');
-  if (priceCard) {
-    gsap.from(priceCard, {
-      opacity: 0,
-      y: 40,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: priceCard, start: 'top 80%' },
-    });
-  }
+
 }
 
 /* ── Stats counters ───────────────────────────────────────── */
