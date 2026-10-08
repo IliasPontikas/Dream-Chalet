@@ -41,7 +41,13 @@
   },
   "gallery": {
     "label": "Gallery",
-    "heading": "Every Corner, a Story"
+    "heading": "Every corner, a story",
+    "tabs": {
+      "all": "All",
+      "living": "Living room",
+      "rooms": "Bedrooms",
+      "details": "Details"
+    }
   },
   "scrollVideo": {
     "text1": "Paradise Awaits You",

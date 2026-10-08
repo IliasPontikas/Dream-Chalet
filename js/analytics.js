@@ -48,7 +48,7 @@ function initTracking() {
   }, { passive: true });
 
   /* Gallery opens */
-  document.getElementById('gallery-overlay')?.addEventListener('transitionend', (e) => {
+  document.getElementById('lightbox')?.addEventListener('transitionend', (e) => {
     if (e.target.classList.contains('open')) {
       gtag('event', 'gallery_open');
     }

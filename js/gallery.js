@@ -1,225 +1,161 @@
-/* gallery.js — Cover Flow 3D carousel + fullscreen overlay */
+/* gallery.js — Bento grid with room filters, live video tiles, and a lightbox */
 
 function initGallery() {
   'use strict';
 
-  const track   = document.getElementById('coverflow-track');
-  const dotsEl  = document.getElementById('coverflow-dots');
-  const prevBtn = document.getElementById('coverflow-prev');
-  const nextBtn = document.getElementById('coverflow-next');
-  const overlay = document.getElementById('gallery-overlay');
-  const overlayImg = document.getElementById('gallery-overlay-img');
-  const closeBtn   = document.getElementById('gallery-close');
-  const arrowPrev  = document.getElementById('gallery-prev');
-  const arrowNext  = document.getElementById('gallery-next');
+  const grid = document.getElementById('bento');
+  if (!grid) return;
 
-  if (!track) return;
+  const items    = Array.from(grid.querySelectorAll('.bento-item'));
+  const tabs     = Array.from(document.querySelectorAll('.gallery-tab'));
+  const box      = document.getElementById('lightbox');
+  const media    = document.getElementById('lightbox-media');
+  const caption  = document.getElementById('lightbox-caption');
+  const count    = document.getElementById('lightbox-count');
+  const btnClose = document.getElementById('lightbox-close');
+  const btnPrev  = document.getElementById('lightbox-prev');
+  const btnNext  = document.getElementById('lightbox-next');
+  const reduce   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const slides = Array.from(track.querySelectorAll('.gallery-slide'));
-  const total  = slides.length;
-  let current  = 0;
+  const altOf = (el) => {
+    const m = el.querySelector('img, video');
+    if (!m) return '';
+    return document.documentElement.lang === 'en'
+      ? (m.dataset.altEn || m.alt || m.getAttribute('aria-label') || '')
+      : (m.alt || m.getAttribute('aria-label') || '');
+  };
 
-  /* ── Condensed dot indicators (always 5, active always center) ─ */
-  const DOT_COUNT  = 5;
-  const DOT_HALF   = Math.floor(DOT_COUNT / 2);
-  const DOT_SCALES = [1.5, 0.75, 0.45]; /* center, ±1, ±2 */
-
-  if (dotsEl) {
-    for (let d = 0; d < DOT_COUNT; d++) {
-      const dot = document.createElement('button');
-      dot.className = 'coverflow-dot' + (d === DOT_HALF ? ' active' : '');
-      dot.setAttribute('role', 'tab');
-      dotsEl.appendChild(dot);
-      dot.addEventListener('click', () => goTo(current + (d - DOT_HALF), d - DOT_HALF > 0 ? 1 : -1));
-    }
-  }
-
-  function updateDots() {
-    dotsEl?.querySelectorAll('.coverflow-dot').forEach((dot, d) => {
-      const dist     = Math.abs(d - DOT_HALF);
-      const slideIdx = ((current + d - DOT_HALF) % total + total) % total;
-      dot.classList.toggle('active', d === DOT_HALF);
-      dot.setAttribute('aria-label', `Image ${slideIdx + 1} of ${total}`);
-      dot.style.setProperty('--dot-s', DOT_SCALES[Math.min(dist, 2)]);
-    });
-  }
-
-  /* Shift dot strip in nav direction + bounce the active center dot */
-  function animateDots(dir) {
-    if (!dotsEl || dir === 0) return;
-
-    gsap.fromTo(dotsEl,
-      { x: dir * -10 },
-      { x: 0, duration: 0.55, ease: 'elastic.out(1, 0.65)' }
-    );
-
-    const activeDot = dotsEl.querySelectorAll('.coverflow-dot')[DOT_HALF];
-    if (activeDot) {
-      activeDot.classList.remove('bounce');
-      void activeDot.offsetWidth; /* reflow to restart animation */
-      activeDot.classList.add('bounce');
-    }
-  }
-
-  /* ── Layout: assign data-pos to each slide (shortest-path) ─── */
-  function layout() {
-    slides.forEach((slide, i) => {
-      let pos = i - current;
-      if (pos >  total / 2) pos -= total;
-      if (pos < -total / 2) pos += total;
-      pos = Math.max(-5, Math.min(5, pos));
-      slide.dataset.pos = pos;
-    });
-    updateDots();
-  }
-
-  /* ── Navigate ────────────────────────────────────────── */
-  function goTo(idx, dir) {
-    current = ((idx % total) + total) % total;
-    layout();
-    animateDots(dir || 0);
-  }
-
-  prevBtn?.addEventListener('click', () => goTo(current - 1, -1));
-  nextBtn?.addEventListener('click', () => goTo(current + 1,  1));
-
-  /* ── Keyboard nav ────────────────────────────────────── */
-  document.addEventListener('keydown', (e) => {
-    if (overlay.classList.contains('open')) return;
-    if (e.key === 'ArrowLeft')  goTo(current - 1, -1);
-    if (e.key === 'ArrowRight') goTo(current + 1,  1);
-  });
-
-  /* ── Drag + swipe via GSAP Draggable ──────────────────── */
-  let dragStartX  = 0;
-  let isDragging  = false;
-  let lastSwipeAt = 0;
-  const SWIPE_COOLDOWN = 400;
-  const THRESHOLD      = 50; /* px — lower = easier to swipe */
-
-  if (typeof Draggable !== 'undefined') {
-    Draggable.create(track, {
-      type: 'x',
-      inertia: false,
-      dragResistance: 0.25,
-      cursor: 'grab',
-      activeCursor: 'grabbing',
-      onDragStart() {
-        isDragging = true;
-        dragStartX = this.x;
-      },
-      onDragEnd() {
-        const dx  = this.x - dragStartX;
-        const now = performance.now();
-        gsap.set(track, { x: 0 });
-
-        if (Math.abs(dx) > THRESHOLD && now - lastSwipeAt > SWIPE_COOLDOWN) {
-          const dir = dx > 0 ? -1 : 1;
-          goTo(current + dir, dir);
-          lastSwipeAt = now;
+  /* ── Video tiles play only while visible ─────────────────── */
+  const tileVideos = grid.querySelectorAll('video');
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (isIntersecting) {
+          if (target.preload === 'none') target.preload = 'auto';
+          target.play().catch(() => {});
+        } else {
+          target.pause();
         }
-        setTimeout(() => { isDragging = false; }, 150);
-      },
-    });
+      });
+    }, { threshold: 0.35 });
+    tileVideos.forEach((v) => io.observe(v));
   }
 
-  /* ── Click slide to open fullscreen ─────────────────── */
-  slides.forEach((slide, i) => {
-    slide.addEventListener('click', () => {
-      if (isDragging) return;
-      if (slide.dataset.pos === '0') {
-        openOverlay(i);
-      } else {
-        const dir = parseInt(slide.dataset.pos) > 0 ? 1 : -1;
-        goTo(i, dir);
-      }
+  /* ── Filters ─────────────────────────────────────────────── */
+  function applyFilter(filter) {
+    const state = typeof Flip !== 'undefined' && !reduce ? Flip.getState(items) : null;
+
+    items.forEach((el) => {
+      el.hidden = !(filter === 'all' || el.dataset.cat === filter);
+    });
+    grid.classList.toggle('is-filtered', filter !== 'all');
+
+    if (state) {
+      Flip.from(state, {
+        duration: 0.6,
+        ease: 'power3.inOut',
+        absolute: true,
+        scale: true,
+        onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 }),
+        onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.9, duration: 0.3 }),
+        onComplete: () => ScrollTrigger.refresh(),
+      });
+    } else if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.refresh();
+    }
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      if (tab.classList.contains('active')) return;
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      applyFilter(tab.dataset.filter);
     });
   });
 
-  /* ── Fullscreen overlay ──────────────────────────────── */
-  let overlayIndex = 0;
+  /* ── Lightbox ────────────────────────────────────────────── */
+  if (!box || !media) return;
 
-  function openOverlay(idx) {
-    overlayIndex = idx;
-    const img0 = slides[idx].querySelector('img');
-    const src = img0?.dataset.full || img0?.src || '';
-    const alt = slides[idx].querySelector('img')?.alt || '';
-    overlayImg.src = src;
-    overlayImg.alt = alt;
-    overlay.classList.add('open');
-    overlay.setAttribute('aria-hidden', 'false');
+  let list = [];
+  let index = 0;
+  let lastFocus = null;
+
+  function render() {
+    const el = list[index];
+    if (!el) return;
+    media.innerHTML = '';
+    let node;
+    if (el.dataset.kind === 'vid') {
+      node = document.createElement('video');
+      node.src = el.dataset.full;
+      node.muted = true;
+      node.loop = true;
+      node.playsInline = true;
+      node.autoplay = true;
+      node.controls = false;
+    } else {
+      node = document.createElement('img');
+      node.src = el.dataset.full;
+      node.decoding = 'async';
+    }
+    node.alt = altOf(el);
+    media.appendChild(node);
+    if (node.play) node.play().catch(() => {});
+    caption.textContent = altOf(el);
+    count.textContent = `${index + 1} / ${list.length}`;
+    if (!reduce && typeof gsap !== 'undefined') {
+      gsap.fromTo(node, { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
+    }
+  }
+
+  function open(el) {
+    list = items.filter((i) => !i.hidden);
+    index = Math.max(0, list.indexOf(el));
+    lastFocus = document.activeElement;
+    render();
+    box.classList.add('open');
+    box.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    if (window.__lenis) window.__lenis.stop();
-    closeBtn?.focus();
+    window.__lenis?.stop();
+    btnClose?.focus();
+    if (typeof gtag === 'function') gtag('event', 'gallery_open');
   }
 
-  function closeOverlay() {
-    overlay.classList.remove('open');
-    overlay.setAttribute('aria-hidden', 'true');
+  function close() {
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
-    if (window.__lenis) window.__lenis.start();
+    window.__lenis?.start();
+    media.innerHTML = '';
+    lastFocus?.focus?.();
   }
 
-  function overlayNav(dir) {
-    overlayIndex = ((overlayIndex + dir + total) % total);
-    const img = slides[overlayIndex].querySelector('img');
-    if (!img) return;
-    gsap.to(overlayImg, {
-      opacity: 0, x: dir * -40, duration: 0.18,
-      onComplete() {
-        overlayImg.src = img.dataset.full || img.src;
-        overlayImg.alt = img.alt;
-        gsap.fromTo(overlayImg,
-          { opacity: 0, x: dir * 40 },
-          { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' }
-        );
-      },
-    });
-  }
+  const step = (d) => { index = (index + d + list.length) % list.length; render(); };
 
-  closeBtn?.addEventListener('click', closeOverlay);
-  arrowPrev?.addEventListener('click', () => overlayNav(-1));
-  arrowNext?.addEventListener('click', () => overlayNav( 1));
+  items.forEach((el) => el.addEventListener('click', () => open(el)));
+  btnClose?.addEventListener('click', close);
+  btnPrev?.addEventListener('click', () => step(-1));
+  btnNext?.addEventListener('click', () => step(1));
+  box.addEventListener('click', (e) => { if (e.target === box) close(); });
 
   document.addEventListener('keydown', (e) => {
-    if (!overlay.classList.contains('open')) return;
-    if (e.key === 'Escape')     closeOverlay();
-    if (e.key === 'ArrowLeft')  overlayNav(-1);
-    if (e.key === 'ArrowRight') overlayNav( 1);
+    if (!box.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
   });
 
-  /* Close on backdrop click */
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeOverlay();
+  /* Swipe on touch screens */
+  let x0 = null;
+  box.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+    x0 = null;
   });
-
-  /* ── Overlay swipe (touch) ───────────────────────────── */
-  let overlayTouchStartX = 0;
-  overlay.addEventListener('touchstart', (e) => {
-    overlayTouchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  overlay.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - overlayTouchStartX;
-    if (Math.abs(dx) > 50) overlayNav(dx > 0 ? -1 : 1);
-  }, { passive: true });
-
-  /* ── Overlay drag (mouse) ────────────────────────────── */
-  let overlayDragStartX = null;
-  overlayImg.addEventListener('mousedown', (e) => {
-    overlayDragStartX = e.clientX;
-    overlayImg.style.cursor = 'grabbing';
-    e.preventDefault();
-  });
-  window.addEventListener('mouseup', (e) => {
-    if (overlayDragStartX === null) return;
-    const dx = e.clientX - overlayDragStartX;
-    overlayDragStartX = null;
-    overlayImg.style.cursor = '';
-    if (Math.abs(dx) > 50 && overlay.classList.contains('open')) {
-      overlayNav(dx > 0 ? -1 : 1);
-    }
-  });
-
-  /* ── Init ────────────────────────────────────────────── */
-  layout();
 }
