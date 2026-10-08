@@ -119,12 +119,7 @@
   },
   "reviews": {
     "label": "Reviews",
-    "heading": "What guests say",
-    "more": "Read more",
-    "less": "Show less",
-    "airbnbCount": "58 reviews",
-    "bookingCount": "14 reviews",
-    "bookingWord": "Exceptional"
+    "heading": "What Guests Are Saying"
   },
   "contact": {
     "label": "Contact",
