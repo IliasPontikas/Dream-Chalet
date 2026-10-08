@@ -674,9 +674,11 @@ select,
   height: 100vh;
   min-height: 600px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
   overflow: hidden;
+  padding-bottom: clamp(4rem, 12vh, 8rem);
+  background: #0e0b08;
 }
 .hero-video-wrap {
   position: absolute;
@@ -691,13 +693,9 @@ select,
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    100deg,
-    rgba(14, 11, 8, 0.82) 0%,
-    rgba(14, 11, 8, 0.5) 45%,
-    rgba(14, 11, 8, 0.2) 70%,
-    rgba(14, 11, 8, 0.7) 100%
-  );
+  background:
+    linear-gradient(to top, rgba(14, 11, 8, 0.85) 0%, rgba(14, 11, 8, 0) 45%),
+    linear-gradient(100deg, rgba(14, 11, 8, 0.78) 0%, rgba(14, 11, 8, 0.45) 45%, rgba(14, 11, 8, 0.1) 75%);
 }
 .hero-content {
   position: relative;
@@ -706,7 +704,7 @@ select,
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: clamp(4rem, 12vh, 9rem) 2rem 0;
+  padding: 0 2rem;
 }
 .hero-content-inner {
   max-width: 640px;
@@ -770,22 +768,67 @@ select,
 .no-anim .hero-title .char,
 .no-anim .hero-subtitle,
 .no-anim .hero-eyebrow,
-.no-anim .hero-ctas {
+.no-anim .hero-ctas,
+.no-anim .hero-facts,
+.no-anim .hero-rating {
   opacity: 1 !important;
   transform: none !important;
 }
 .hero-subtitle {
-  font-family: "Manrope", sans-serif;
-  font-size: clamp(0.82rem, 1.25vw, 1rem);
-  font-weight: 200;
-  letter-spacing: 0.32em;
-  text-indent: 0.32em;
-  text-transform: uppercase;
-  color: rgba(245, 240, 232, 0.75);
-  margin-bottom: 2.75rem;
+  font-family: "EB Garamond", serif;
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 400;
+  color: rgba(245, 240, 232, 0.9);
+  margin-bottom: 1.5rem;
   opacity: 0;
-  max-width: 440px;
-  line-height: 1.7;
+  max-width: 520px;
+  line-height: 1.35;
+}
+.hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0;
+  margin-bottom: 2.25rem;
+  opacity: 0;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.72);
+}
+.hero-facts li:not(:last-child)::after {
+  content: "·";
+  margin: 0 0.75rem;
+  color: var(--gold);
+}
+.hero-rating {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.1rem;
+  margin-top: 2.25rem;
+  opacity: 0;
+  font-size: 0.82rem;
+  color: rgba(245, 240, 232, 0.75);
+}
+.hero-rating-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.hero-rating strong {
+  font-family: "EB Garamond", serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--cream);
+}
+.hero-rating .icon {
+  color: var(--gold);
+}
+.hero-rating-sep {
+  width: 1px;
+  height: 1.2rem;
+  background: rgba(245, 240, 232, 0.25);
 }
 .hero-ctas {
   display: flex;
@@ -798,7 +841,7 @@ select,
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1.05rem 2.4rem;
+  padding: 1rem 2rem;
   border-radius: var(--radius);
   font-weight: 500;
   font-size: 0.78rem;
@@ -811,15 +854,28 @@ select,
   border: none;
 }
 .btn-cta.book-now {
-  background: rgba(212, 175, 55, 0.12);
-  color: var(--gold);
+  background: var(--gold);
+  color: #16110c;
+  font-weight: 700;
   border: 1.5px solid var(--gold);
-  backdrop-filter: blur(10px);
+  border-radius: 999px;
 }
 .btn-cta.book-now:hover {
-  background: rgba(212, 175, 55, 0.2);
+  background: #dcbd85;
+  border-color: #dcbd85;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 12px 30px rgba(201, 169, 110, 0.25);
+}
+.btn-cta.btn-ghost {
+  color: var(--cream);
+  border: 1.5px solid rgba(245, 240, 232, 0.4);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  font-weight: 600;
+}
+.btn-cta.btn-ghost:hover {
+  border-color: var(--cream);
+  background: rgba(245, 240, 232, 0.08);
 }
 .btn-cta:hover {
   transform: translateY(-2px);
@@ -2835,12 +2891,26 @@ html.show--consent .sticky-book { bottom: 9rem; }
     width: 1.4rem;
   }
   .hero-subtitle {
-    letter-spacing: 0.18em;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
+  }
+  .hero-facts {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.75rem;
+  }
+  .hero-facts li:not(:last-child)::after {
+    margin: 0 0.45rem;
   }
   .hero-ctas {
-    flex-direction: column;
-    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .hero-ctas .btn-cta {
+    padding: 0.9rem 1.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+  .hero-rating {
+    margin-top: 1.75rem;
   }
   .coverflow-container {
     --cf-offset-1: 38vw;
@@ -3028,4 +3098,17 @@ html.show--consent .sticky-book { bottom: 9rem; }
   .attraction-card:hover::after { box-shadow: none; }
   .price-card:hover { transform: none; }
   .nav-link::after { transition: none; }
+}
+
+/* Hero: scroll hint sits bottom-right so it never collides with the rating row */
+.hero-scroll-hint {
+  left: auto;
+  right: 2.5rem;
+  transform: none;
+}
+@media (max-width: 768px) {
+  .hero-scroll-hint,
+  .hero-rating-sep {
+    display: none;
+  }
 }

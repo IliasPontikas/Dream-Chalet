@@ -147,12 +147,12 @@ function initHero() {
     opacity: 1,
     y: 0,
     rotateX: 0,
-    duration: 1.2,
-    stagger: 0.11,
+    duration: 1,
+    stagger: 0.05,
     ease: 'expo.out',
   }, eyebrow ? '-=0.4' : 0)
     .to(subtitle, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6')
-    .to(ctas, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4');
+    .to(['.hero-facts', ctas, '.hero-rating'], { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out' }, '-=0.5');
 
   /* Fade out the scroll indicator once the user has scrolled past ~25% of the hero */
   const hint = document.querySelector('.hero-scroll-hint');

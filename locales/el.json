@@ -13,10 +13,19 @@
     "amenities": "Παροχές"
   },
   "hero": {
-    "subtitle": "Πολυτελές Εξοχικό στα Τρίκαλα",
-    "eyebrow": "Raxa — Trikala · Est. 2024",
-    "bookNow": "Book Now",
-    "scrollHint": "Κύλιση"
+    "subtitle": "Ένα σπίτι με ψυχή, δέκα λεπτά από τα Τρίκαλα",
+    "eyebrow": "Ράξα · Τρίκαλα",
+    "bookNow": "Κράτηση",
+    "scrollHint": "Κύλιση",
+    "seeHouse": "Δείτε το σπίτι",
+    "facts": {
+      "bedrooms": "3 υπνοδωμάτια",
+      "guests": "Έως 6 επισκέπτες",
+      "fireplace": "Τζάκι",
+      "pets": "Κατοικίδια ευπρόσδεκτα"
+    },
+    "ratingAirbnb": "· 58 κριτικές",
+    "ratingBooking": "Booking.com · 14 κριτικές"
   },
   "about": {
     "label": "Η Κατοικία",

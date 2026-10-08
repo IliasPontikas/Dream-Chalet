@@ -13,10 +13,19 @@
     "amenities": "Amenities"
   },
   "hero": {
-    "subtitle": "Luxury Retreat in Trikala",
-    "eyebrow": "Raxa — Trikala · Est. 2024",
-    "bookNow": "Book Now",
-    "scrollHint": "Scroll"
+    "subtitle": "A house with soul, ten minutes from Trikala",
+    "eyebrow": "Raxa · Trikala",
+    "bookNow": "Book now",
+    "scrollHint": "Scroll",
+    "seeHouse": "See the house",
+    "facts": {
+      "bedrooms": "3 bedrooms",
+      "guests": "Up to 6 guests",
+      "fireplace": "Fireplace",
+      "pets": "Pets welcome"
+    },
+    "ratingAirbnb": "· 58 reviews",
+    "ratingBooking": "Booking.com · 14 reviews"
   },
   "about": {
     "label": "The Property",
