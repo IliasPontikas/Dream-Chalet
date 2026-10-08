@@ -11,7 +11,7 @@ function initAnimations() {
        elements that were hidden in CSS for animation entry to their
        final visible state so the page is usable. */
     document.querySelectorAll(
-      '.hero-eyebrow, .hero-subtitle, .hero-ctas, .amenity-item'
+      '.hero-eyebrow, .hero-subtitle, .hero-facts, .hero-ctas, .hero-rating, .amenity-item'
     ).forEach((el) => { el.style.opacity = '1'; });
 
     document.querySelectorAll('.hero-title .char').forEach((el) => {
@@ -219,7 +219,7 @@ function initSectionEntrances() {
       stagger: 0.05,
       duration: 0.6,
       ease: 'power3.out',
-      scrollTrigger: { trigger: '.amenities-grid', start: 'top 80%' },
+      scrollTrigger: { trigger: '.amenities-list', start: 'top 80%' },
     });
   }
 

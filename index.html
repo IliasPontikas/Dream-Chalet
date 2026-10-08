@@ -52,14 +52,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=31">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=32">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=31">
+  <link rel="stylesheet" href="css/style.css?v=32">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -412,43 +412,29 @@
       </div>
     </section>
 
-    <!-- Amenities Marquee -->
+    <!-- Amenities -->
     <section id="amenities" class="section-amenities tone-light" role="region" aria-label="Amenities">
-      <div class="container">
-        <span class="section-label" data-i18n="amenities.label">Παροχές</span>
-        <h2 class="section-heading" data-i18n="amenities.heading">Όλα Όσα Χρειάζεστε</h2>
-        <div class="amenities-grid">
-          <div class="marquee-row">
-            <div class="marquee-track marquee-left">
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-water-ladder"></use></svg><span data-i18n="amenities.washer">Πλυντήριο</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></div>
-              <!-- duplicate for seamless loop -->
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-water-ladder"></use></svg><span data-i18n="amenities.washer">Πλυντήριο</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></div>
-            </div>
-          </div>
-          <div class="marquee-row">
-            <div class="marquee-track marquee-right">
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Κήπος</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
-              <!-- duplicate -->
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Κήπος</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></div>
-              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
-            </div>
-          </div>
+      <div class="container amenities-layout">
+        <div class="amenities-intro">
+          <span class="section-label" data-i18n="amenities.label">Παροχές</span>
+          <h2 class="section-heading" data-i18n="amenities.heading">Όλα όσα χρειάζεστε</h2>
+          <p data-i18n="amenities.intro">Ό,τι χρειάζεται μια οικογένεια ή μια παρέα για να νιώσει σαν στο σπίτι της — και ο σκύλος σας μαζί.</p>
+          <img src="images/photos/living-sofa-960.avif" alt="Κόκκινος καναπές δίπλα στο τζάκι" loading="lazy" decoding="async" width="960" height="640">
         </div>
+        <ul class="amenities-list">
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρως εξοπλισμένη κουζίνα</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-washer"></use></svg><span data-i18n="amenities.washer">Πλυντήριο ρούχων</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-paw"></use></svg><span data-i18n="amenities.pets">Κατοικίδια ευπρόσδεκτα</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Μεγάλος περιφραγμένος κήπος</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη βεράντα</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν parking στην ιδιοκτησία</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-towel"></use></svg><span data-i18n="amenities.linens">Λευκά είδη & πετσέτες</span></li>
+            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος για μη καπνιστές</span></li>
+        </ul>
       </div>
     </section>
 
@@ -862,22 +848,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=31"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=32"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=31" defer></script>
-  <script src="js/main.js?v=31" defer></script>
-  <script src="js/animations.js?v=31" defer></script>
-  <script src="js/cursor.js?v=31" defer></script>
-  <script src="js/scroll-video.js?v=31" defer></script>
-  <script src="js/gallery.js?v=31" defer></script>
-  <script src="js/reviews.js?v=31" defer></script>
-  <script src="js/map.js?v=31" defer></script>
-  <script src="js/calendar.js?v=31" defer></script>
-  <script src="js/weather.js?v=31" defer></script>
-  <script src="js/i18n.js?v=31" defer></script>
-  <script src="js/cookie-consent.js?v=31" defer></script>
+  <script src="js/config.js?v=32" defer></script>
+  <script src="js/main.js?v=32" defer></script>
+  <script src="js/animations.js?v=32" defer></script>
+  <script src="js/cursor.js?v=32" defer></script>
+  <script src="js/scroll-video.js?v=32" defer></script>
+  <script src="js/gallery.js?v=32" defer></script>
+  <script src="js/reviews.js?v=32" defer></script>
+  <script src="js/map.js?v=32" defer></script>
+  <script src="js/calendar.js?v=32" defer></script>
+  <script src="js/weather.js?v=32" defer></script>
+  <script src="js/i18n.js?v=32" defer></script>
+  <script src="js/cookie-consent.js?v=32" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=31" defer></script> -->
+  <!-- <script src="js/analytics.js?v=32" defer></script> -->
 </body>
 </html>

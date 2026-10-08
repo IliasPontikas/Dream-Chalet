@@ -75,18 +75,21 @@
     }
   },
   "amenities": {
-    "label": "Amenities",
-    "heading": "Everything You Need",
     "wifi": "WiFi",
-    "kitchen": "Full Kitchen",
-    "washer": "Washing Machine",
     "fireplace": "Fireplace",
-    "tv": "Television",
-    "parking": "Free Parking",
-    "terrace": "Sunny Terrace",
-    "garden": "Garden",
-    "ac": "Air Conditioning",
-    "nonsmoking": "Non-Smoking"
+    "kitchen": "Fully equipped kitchen",
+    "washer": "Washing machine",
+    "ac": "Air conditioning",
+    "tv": "TV",
+    "pets": "Pets welcome",
+    "garden": "Large fenced garden",
+    "terrace": "Sunny terrace",
+    "parking": "Free on-site parking",
+    "linens": "Bed linen & towels",
+    "nonsmoking": "Non-smoking",
+    "label": "Amenities",
+    "heading": "Everything you need",
+    "intro": "Everything a family or a group of friends needs to feel at home — your dog included."
   },
   "attractions": {
     "label": "Around You",
