@@ -2034,7 +2034,7 @@ html.show--consent .sticky-book { bottom: 9rem; }
 /* ══ Walkthrough: sticky portrait video + room captions ═══════ */
 .section-scroll-video {
   position: relative;
-  height: 400vh;
+  height: 480vh;
   background: var(--bg);
 }
 .walk-sticky {
@@ -2120,7 +2120,7 @@ html.show--consent .sticky-book { bottom: 9rem; }
 }
 @media (max-width: 768px) {
   .section-scroll-video {
-    height: 350vh;
+    height: 420vh;
   }
   .walk-grid {
     display: block;
