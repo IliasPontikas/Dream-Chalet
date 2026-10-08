@@ -33,15 +33,30 @@ function initScrollVideo() {
   let currentTime = 0;
   let lastSeek    = 0;
   let ticking     = false;
+  let lastSet     = 0;     /* the time we last asked the video to show */
+
+  /* Jump straight to the frame that matches the scroll position */
+  function forceSeek() {
+    currentTime = targetTime;
+    lastSet = targetTime;
+    try { video.currentTime = targetTime; } catch (e) {}
+  }
 
   /* Lerp toward the scroll position, rate-limit seeks so decoding keeps up */
   function tick() {
+    /* If the browser reset or unloaded the video while we were away
+       (it then shows frame 0 — the exterior), resync from its real time */
+    if (!video.seeking && video.readyState >= 1 && Math.abs(video.currentTime - lastSet) > 0.25) {
+      forceSeek();
+    }
     const diff = targetTime - currentTime;
     if (Math.abs(diff) > 0.001) {
       currentTime += diff * 0.12;
       const now = performance.now();
       if (now - lastSeek > 40) {
-        try { video.currentTime = currentTime; } catch (e) {}
+        const t = Math.max(0, currentTime);
+        try { video.currentTime = t; } catch (e) {}
+        lastSet = t;
         lastSeek = now;
       }
     }
@@ -86,9 +101,15 @@ function initScrollVideo() {
       video.pause();
     }
   }
+  /* Media can be dropped when far off-screen; prime again on return */
+  video.addEventListener('emptied', () => { primed = false; });
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) { prime(); }
+      if (!entries.some((e) => e.isIntersecting)) return;
+      if (video.readyState < 2) primed = false;
+      prime();
+      /* Show the frame for where the scroll is now */
+      if (video.readyState >= 1) forceSeek();
     }, { rootMargin: '600px 0px' });
     io.observe(section);
   } else {

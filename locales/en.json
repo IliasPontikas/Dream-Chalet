@@ -36,6 +36,7 @@
     "tabs": {
       "living": "Living room",
       "rooms": "Bedrooms",
+      "bath": "Bathroom",
       "details": "Details"
     },
     "allPhotos": "All photos"

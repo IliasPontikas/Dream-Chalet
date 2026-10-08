@@ -314,6 +314,8 @@ function initBento() {
       applyFilter(tab.dataset.filter);
     });
   });
+  const allCount = document.getElementById('gallery-all-count');
+  if (allCount) allCount.textContent = String(items.length);
   const first = tabs.find((t) => t.classList.contains('active')) || tabs[0];
   if (first) applyFilter(first.dataset.filter);
 
