@@ -48,7 +48,10 @@ function initMap() {
   const mapEl = document.getElementById('map');
   if (!mapEl) return;
 
-  const getStyle = () => 'https://tiles.openfreemap.org/styles/dark';
+  const getStyle = () =>
+    document.documentElement.getAttribute('data-theme') === 'light'
+      ? 'https://tiles.openfreemap.org/styles/positron'
+      : 'https://tiles.openfreemap.org/styles/dark';
 
   const center = (typeof SITE_CONFIG !== 'undefined'
     ? [SITE_CONFIG.coords.lng, SITE_CONFIG.coords.lat]
@@ -137,6 +140,9 @@ function initMap() {
   }
 
   map.on('load', addMarkers);
+
+  /* Follow the site theme (markers are DOM elements, so they survive setStyle) */
+  document.addEventListener('theme:change', () => map.setStyle(getStyle()));
 
   /* Re-render markers + toggle text when language changes */
   document.addEventListener('lang:change', () => {

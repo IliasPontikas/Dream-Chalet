@@ -3,7 +3,7 @@
 function initI18n() {
   'use strict';
 
-  const btn = document.getElementById('lang-toggle');
+  const btns = document.querySelectorAll('[data-lang-btn]');
   let currentLang = localStorage.getItem('lang') || 'el';
   let translations = {};
 
@@ -26,17 +26,13 @@ function initI18n() {
   }
 
   function updateToggleBtn() {
-    if (!btn) return;
-    if (currentLang === 'el') {
-      btn.textContent = 'EN';
-      btn.setAttribute('lang', 'en');
-      btn.setAttribute('aria-label', 'Switch to English');
-    } else {
-      btn.textContent = 'ΕΛ';
-      btn.setAttribute('lang', 'el');
-      btn.setAttribute('aria-label', 'Αλλαγή σε Ελληνικά');
-    }
+    btns.forEach((b) => {
+      const on = b.dataset.langBtn === currentLang;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
   }
+
 
   function loadLang(lang) {
     if (translations[lang]) return Promise.resolve(translations[lang]);
@@ -58,9 +54,10 @@ function initI18n() {
   /* Initial load */
   loadLang(currentLang).then(() => applyTranslations());
 
-  /* Click → swap language */
-  btn?.addEventListener('click', () => {
-    const newLang = currentLang === 'el' ? 'en' : 'el';
+  /* Click EL / EN → switch language */
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const newLang = b.dataset.langBtn;
+    if (newLang === currentLang) return;
     loadLang(newLang).then((dict) => {
       if (!dict) return;
       currentLang = newLang;
@@ -70,5 +67,6 @@ function initI18n() {
         gtag('event', 'language_switch', { to: newLang });
       }
     });
-  });
+  }));
+
 }

@@ -1,13 +1,14 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v41';
+const CACHE = 'dream-chalet-v42';
 
 const ASSETS = [
   '/',
   '/index.html',
   '/css/style.css',
   '/js/config.js',
+  '/js/theme.js',
   '/js/main.js',
   '/js/animations.js',
   '/js/scroll-video.js',
