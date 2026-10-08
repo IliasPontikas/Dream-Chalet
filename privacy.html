@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0e0b08">
+  <meta name="description" content="Πολιτική απορρήτου και cookies του Dream Chalet Trikala.">
+  <title>Πολιτική Απορρήτου — Dream Chalet Trikala</title>
+  <link rel="canonical" href="https://dreamchalet-trikala.gr/privacy.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo-removebg2.png">
+  <link rel="preload" href="fonts/eb-garamond-greek-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/manrope-greek-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=40">
+  <style>
+    @font-face { font-family: 'EB Garamond'; font-display: swap; font-weight: 400 800; src: url('fonts/eb-garamond-greek-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0370-03FF; }
+    @font-face { font-family: 'EB Garamond'; font-display: swap; font-weight: 400 800; src: url('fonts/eb-garamond-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F, U+20AC; }
+    @font-face { font-family: 'Manrope'; font-display: swap; font-weight: 200 800; src: url('fonts/manrope-greek-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0370-03FF; }
+    @font-face { font-family: 'Manrope'; font-display: swap; font-weight: 200 800; src: url('fonts/manrope-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F, U+20AC; }
+
+    :root {
+      --bg: #f4eee4;
+      --ink: #241c15;
+      --muted: #5b524a;
+      --gold: #8a6730;
+      --line: rgba(138, 103, 48, 0.2);
+      --dark: #0e0b08;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Manrope", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--gold); text-underline-offset: 3px; }
+    header {
+      background: var(--dark);
+      padding: 1rem 1.25rem;
+    }
+    .bar {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .bar img { height: 54px; width: auto; display: block; }
+    .bar-actions { display: flex; gap: 0.6rem; align-items: center; }
+    .back, .lang {
+      font: 600 0.72rem/1 "Manrope", sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #f5f0e8;
+      text-decoration: none;
+      padding: 0.7rem 1rem;
+      border: 1px solid rgba(245, 240, 232, 0.3);
+      border-radius: 999px;
+      background: none;
+      cursor: pointer;
+    }
+    .back:hover, .lang:hover { border-color: #c9a96e; color: #c9a96e; }
+    main {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4rem 1.25rem 5rem;
+    }
+    article[hidden] { display: none; }
+    .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    h1 {
+      font-family: "EB Garamond", serif;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 7vw, 3.6rem);
+      line-height: 1.05;
+      margin: 0.75rem 0 0.75rem;
+    }
+    .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
+    h2 {
+      font-family: "EB Garamond", serif;
+      font-weight: 500;
+      font-size: 1.6rem;
+      line-height: 1.2;
+      margin: 2.5rem 0 0.75rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+    p, li { color: var(--muted); }
+    p + p { margin-top: 0.75rem; }
+    ul { margin: 0.75rem 0 0 1.2rem; }
+    li + li { margin-top: 0.4rem; }
+    strong { color: var(--ink); font-weight: 600; }
+    code {
+      font-size: 0.88em;
+      background: rgba(138, 103, 48, 0.1);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      color: var(--ink);
+    }
+    .table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.92rem; }
+    .table th, .table td { text-align: left; padding: 0.7rem 0.5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .table th { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+    .table td { color: var(--muted); }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      font: 700 0.75rem/1 "Manrope", sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.3rem;
+      border-radius: 999px;
+      border: 0;
+      background: var(--gold);
+      color: #fff;
+      cursor: pointer;
+    }
+    footer {
+      background: var(--dark);
+      color: rgba(245, 240, 232, 0.55);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1.5rem 1.25rem;
+    }
+    @media (max-width: 600px) {
+      .table thead { display: none; }
+      .table tr { display: block; padding: 0.6rem 0; border-bottom: 1px solid var(--line); }
+      .table td { display: block; border: 0; padding: 0.15rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a href="/" aria-label="Dream Chalet Trikala"><img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" width="372" height="245"></a>
+      <div class="bar-actions">
+        <button type="button" class="lang" id="lang-btn" lang="en">EN</button>
+        <a class="back" href="/" id="back-link">← Αρχική</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ══════════════ ΕΛΛΗΝΙΚΑ ══════════════ -->
+    <article lang="el" id="el">
+      <span class="label">Απόρρητο</span>
+      <h1>Πολιτική Απορρήτου &amp; Cookies</h1>
+      <p class="updated">Τελευταία ενημέρωση: 8 Οκτωβρίου 2026</p>
+
+      <p>Αυτή η σελίδα εξηγεί ποια δεδομένα επεξεργάζεται ο ιστότοπος <strong>dreamchalet-trikala.gr</strong>, γιατί, και ποια δικαιώματα έχετε σύμφωνα με τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΓΚΠΔ / GDPR).</p>
+
+      <h2>1. Ποιοι είμαστε</h2>
+      <p><strong>Dream Chalet Trikala</strong> — κατάλυμα βραχυχρόνιας μίσθωσης, Ράξα, Τρίκαλα 42100.<br>
+        ΑΜΑ (Αριθμός Μητρώου Ακινήτου): <strong>00002345010</strong><br>
+        Τηλέφωνο / WhatsApp / Viber: <a href="tel:+306976908838">+30 697 690 8838</a></p>
+
+      <h2>2. Τι δεδομένα συλλέγουμε</h2>
+      <p>Ο ιστότοπος <strong>δεν έχει φόρμες, λογαριασμούς ή newsletter</strong> και δεν ζητά το όνομα, το email ή το τηλέφωνό σας.</p>
+      <p>Οι κρατήσεις γίνονται στο Airbnb ή στο Booking.com, ή απευθείας μαζί μας μέσω τηλεφώνου, WhatsApp ή Viber. Όταν επιλέγετε ημερομηνίες στο ημερολόγιο, αυτές απλώς μεταφέρονται στον σύνδεσμο προς την πλατφόρμα που διαλέγετε — δεν αποθηκεύονται από εμάς.</p>
+      <p>Αν επικοινωνήσετε μαζί μας, χρησιμοποιούμε τα στοιχεία που μας δίνετε (όνομα, τηλέφωνο, ημερομηνίες) <strong>μόνο</strong> για να σας απαντήσουμε και να οργανώσουμε τη διαμονή σας (νομική βάση: ενέργειες πριν από τη σύναψη σύμβασης και εκτέλεση σύμβασης, άρθρο 6 παρ. 1 β ΓΚΠΔ).</p>
+
+      <h2>3. Cookies και τοπική αποθήκευση</h2>
+      <table class="table">
+        <thead><tr><th>Όνομα</th><th>Σκοπός</th><th>Διάρκεια</th></tr></thead>
+        <tbody>
+          <tr><td><code>cc_cookie</code></td><td>Θυμάται τις επιλογές σας για τα cookies (απαραίτητο).</td><td>Έως 6 μήνες</td></tr>
+          <tr><td><code>lang</code> (localStorage)</td><td>Θυμάται αν προτιμάτε Ελληνικά ή Αγγλικά.</td><td>Μέχρι να το διαγράψετε</td></tr>
+          <tr><td><code>dc:visited</code> (sessionStorage)</td><td>Παραλείπει την εισαγωγική κινούμενη εικόνα αν την έχετε ήδη δει.</td><td>Μέχρι να κλείσετε την καρτέλα</td></tr>
+          <tr><td>Προσωρινή μνήμη (service worker)</td><td>Αποθηκεύει αρχεία της σελίδας στη συσκευή σας για γρηγορότερη φόρτωση.</td><td>Μέχρι την επόμενη έκδοση</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1rem"><strong>Αναλυτικά cookies (Google Analytics 4):</strong> φορτώνονται <strong>μόνο αν τα αποδεχτείτε</strong> στο μήνυμα cookies, με ανωνυμοποίηση της διεύθυνσης IP. Χωρίς τη συγκατάθεσή σας δεν φορτώνεται κανένα εργαλείο στατιστικών (νομική βάση: συγκατάθεση, άρθρο 6 παρ. 1 α ΓΚΠΔ). Μπορείτε να αλλάξετε γνώμη οποιαδήποτε στιγμή:</p>
+      <button type="button" class="btn js-cookie-settings">Ρυθμίσεις cookies</button>
+
+      <h2>4. Υπηρεσίες τρίτων που φορτώνει η σελίδα</h2>
+      <p>Για να εμφανιστούν ορισμένα στοιχεία, ο browser σας επικοινωνεί απευθείας με τις παρακάτω υπηρεσίες, οι οποίες λαμβάνουν τεχνικά την IP διεύθυνσή σας:</p>
+      <ul>
+        <li><strong>GitHub Pages</strong> (GitHub, Inc.) — φιλοξενία του ιστότοπου· τηρεί αρχεία καταγραφής διακομιστή για λόγους ασφάλειας.</li>
+        <li><strong>OpenFreeMap</strong> — τα πλακίδια του χάρτη στην ενότητα «Περιοχή».</li>
+        <li><strong>Open-Meteo</strong> — η πρόγνωση καιρού για τα Τρίκαλα.</li>
+      </ul>
+      <p>Οι γραμματοσειρές και οι βιβλιοθήκες κώδικα φιλοξενούνται στον δικό μας ιστότοπο — <strong>δεν</strong> χρησιμοποιούμε Google Fonts ή εξωτερικά CDN.</p>
+
+      <h2>5. Εξωτερικοί σύνδεσμοι</h2>
+      <p>Οι σύνδεσμοι προς Airbnb, Booking.com, WhatsApp, Viber, Instagram και Google Maps σας μεταφέρουν σε υπηρεσίες με δικές τους πολιτικές απορρήτου, για τις οποίες δεν είμαστε υπεύθυνοι.</p>
+
+      <h2>6. Τα δικαιώματά σας</h2>
+      <p>Έχετε δικαίωμα πρόσβασης, διόρθωσης, διαγραφής, περιορισμού, φορητότητας και εναντίωσης στην επεξεργασία των δεδομένων σας, καθώς και ανάκλησης της συγκατάθεσής σας ανά πάσα στιγμή. Για οποιοδήποτε αίτημα, επικοινωνήστε μαζί μας στο <a href="tel:+306976908838">+30 697 690 8838</a>.</p>
+      <p>Έχετε επίσης δικαίωμα να υποβάλετε καταγγελία στην <strong>Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα</strong> (<a href="https://www.dpa.gr" target="_blank" rel="noopener">www.dpa.gr</a>).</p>
+
+      <h2>7. Αλλαγές</h2>
+      <p>Αν αλλάξει ο τρόπος λειτουργίας του ιστότοπου, θα ενημερώσουμε αυτή τη σελίδα και την ημερομηνία στην κορυφή.</p>
+    </article>
+
+    <!-- ══════════════ ENGLISH ══════════════ -->
+    <article lang="en" id="en" hidden>
+      <span class="label">Privacy</span>
+      <h1>Privacy &amp; Cookie Policy</h1>
+      <p class="updated">Last updated: 8 October 2026</p>
+
+      <p>This page explains what data <strong>dreamchalet-trikala.gr</strong> processes, why, and what rights you have under the General Data Protection Regulation (GDPR).</p>
+
+      <h2>1. Who we are</h2>
+      <p><strong>Dream Chalet Trikala</strong> — short-term rental, Raxa, Trikala 42100, Greece.<br>
+        Property Registry No. (AMA): <strong>00002345010</strong><br>
+        Phone / WhatsApp / Viber: <a href="tel:+306976908838">+30 697 690 8838</a></p>
+
+      <h2>2. What data we collect</h2>
+      <p>The site has <strong>no forms, accounts or newsletter</strong> and does not ask for your name, email or phone number.</p>
+      <p>Bookings are made on Airbnb or Booking.com, or directly with us by phone, WhatsApp or Viber. When you pick dates on the calendar, they are only passed into the link to the platform you choose — we do not store them.</p>
+      <p>If you contact us, we use the details you give us (name, phone, dates) <strong>only</strong> to reply and to arrange your stay (legal basis: steps prior to and performance of a contract, Art. 6(1)(b) GDPR).</p>
+
+      <h2>3. Cookies and local storage</h2>
+      <table class="table">
+        <thead><tr><th>Name</th><th>Purpose</th><th>Duration</th></tr></thead>
+        <tbody>
+          <tr><td><code>cc_cookie</code></td><td>Remembers your cookie choices (necessary).</td><td>Up to 6 months</td></tr>
+          <tr><td><code>lang</code> (localStorage)</td><td>Remembers whether you prefer Greek or English.</td><td>Until you clear it</td></tr>
+          <tr><td><code>dc:visited</code> (sessionStorage)</td><td>Skips the intro animation if you've already seen it.</td><td>Until you close the tab</td></tr>
+          <tr><td>Offline cache (service worker)</td><td>Stores site files on your device so pages load faster.</td><td>Until the next site version</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:1rem"><strong>Analytics cookies (Google Analytics 4):</strong> loaded <strong>only if you accept them</strong> in the cookie banner, with IP anonymisation. Without your consent no statistics tool is loaded (legal basis: consent, Art. 6(1)(a) GDPR). You can change your mind at any time:</p>
+      <button type="button" class="btn js-cookie-settings">Cookie settings</button>
+
+      <h2>4. Third-party services the page loads</h2>
+      <p>To display some content, your browser connects directly to the services below, which technically receive your IP address:</p>
+      <ul>
+        <li><strong>GitHub Pages</strong> (GitHub, Inc.) — hosts the site; keeps server logs for security.</li>
+        <li><strong>OpenFreeMap</strong> — the map tiles in “The Area”.</li>
+        <li><strong>Open-Meteo</strong> — the weather forecast for Trikala.</li>
+      </ul>
+      <p>Fonts and code libraries are hosted on our own site — we do <strong>not</strong> use Google Fonts or external CDNs.</p>
+
+      <h2>5. External links</h2>
+      <p>Links to Airbnb, Booking.com, WhatsApp, Viber, Instagram and Google Maps take you to services with their own privacy policies, for which we are not responsible.</p>
+
+      <h2>6. Your rights</h2>
+      <p>You have the right to access, rectify, erase, restrict and port your data, to object to processing, and to withdraw consent at any time. For any request, contact us at <a href="tel:+306976908838">+30 697 690 8838</a>.</p>
+      <p>You may also lodge a complaint with the Hellenic Data Protection Authority (<a href="https://www.dpa.gr" target="_blank" rel="noopener">www.dpa.gr</a>).</p>
+
+      <h2>7. Changes</h2>
+      <p>If the way the site works changes, we will update this page and the date at the top.</p>
+    </article>
+  </main>
+
+  <footer>© <span id="year">2026</span> Dream Chalet Trikala · ΑΜΑ 00002345010</footer>
+
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=40"></script>
+  <script src="js/config.js?v=40"></script>
+  <script src="js/analytics.js?v=40"></script>
+  <script src="js/cookie-consent.js?v=40"></script>
+  <script>
+    (function () {
+      var lang = 'el';
+      try { lang = localStorage.getItem('lang') === 'en' ? 'en' : 'el'; } catch (e) {}
+      var btn = document.getElementById('lang-btn');
+      var back = document.getElementById('back-link');
+      function apply() {
+        document.documentElement.lang = lang;
+        document.getElementById('el').hidden = lang !== 'el';
+        document.getElementById('en').hidden = lang !== 'en';
+        btn.textContent = lang === 'el' ? 'EN' : 'ΕΛ';
+        btn.setAttribute('lang', lang === 'el' ? 'en' : 'el');
+        back.textContent = lang === 'el' ? '← Αρχική' : '← Home';
+        document.title = lang === 'el' ? 'Πολιτική Απορρήτου — Dream Chalet Trikala' : 'Privacy Policy — Dream Chalet Trikala';
+      }
+      btn.addEventListener('click', function () {
+        lang = lang === 'el' ? 'en' : 'el';
+        try { localStorage.setItem('lang', lang); } catch (e) {}
+        apply();
+      });
+      apply();
+      document.getElementById('year').textContent = new Date().getFullYear();
+      if (typeof initCookieConsent === 'function') initCookieConsent();
+      document.querySelectorAll('.js-cookie-settings').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (typeof CookieConsent !== 'undefined') CookieConsent.showPreferences();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

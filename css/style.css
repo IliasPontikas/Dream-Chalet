@@ -2807,3 +2807,8 @@ html.show--consent .sticky-book { bottom: 9rem; }
     align-items: flex-start;
   }
 }
+.footer-legal {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}

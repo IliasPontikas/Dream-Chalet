@@ -38,7 +38,7 @@ function initCookieConsent() {
         el: {
           consentModal: {
             title: 'Χρησιμοποιούμε cookies',
-            description: 'Χρησιμοποιούμε cookies για να βελτιώσουμε την εμπειρία σας. Μπορείτε να επιλέξετε ποια cookies αποδέχεστε.',
+            description: 'Χρησιμοποιούμε cookies για να βελτιώσουμε την εμπειρία σας. Μπορείτε να επιλέξετε ποια cookies αποδέχεστε. <a href="privacy.html">Πολιτική απορρήτου</a>',
             acceptAllBtn: 'Αποδοχή όλων',
             acceptNecessaryBtn: 'Μόνο απαραίτητα',
             showPreferencesBtn: 'Προτιμήσεις',
@@ -67,7 +67,7 @@ function initCookieConsent() {
         en: {
           consentModal: {
             title: 'We use cookies',
-            description: 'We use cookies to improve your experience. You can choose which cookies you accept.',
+            description: 'We use cookies to improve your experience. You can choose which cookies you accept. <a href="privacy.html">Privacy policy</a>',
             acceptAllBtn: 'Accept all',
             acceptNecessaryBtn: 'Necessary only',
             showPreferencesBtn: 'Preferences',
