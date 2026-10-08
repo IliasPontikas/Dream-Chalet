@@ -7,7 +7,7 @@
   "scope": "/",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0e0b08",
+  "background_color": "#0a0a0a",
   "theme_color": "#c9a96e",
   "orientation": "portrait-primary",
   "categories": ["travel", "lifestyle"],

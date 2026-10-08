@@ -5,7 +5,7 @@
 
   const root = document.documentElement;
   const meta = document.querySelector('meta[name="theme-color"]');
-  const COLORS = { dark: '#0e0b08', light: '#f6f1ea' };
+  const COLORS = { dark: '#0a0a0a', light: '#eee4d6' };
 
   function apply(theme, save) {
     root.setAttribute('data-theme', theme);
