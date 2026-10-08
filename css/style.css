@@ -1057,301 +1057,6 @@ select,
 .gallery-header {
   margin-bottom: 2rem;
 }
-
-
-
-.section-attractions {
-  padding: 6rem 0 8rem;
-  overflow: hidden;
-}
-.attractions-header {
-  margin-bottom: 4rem;
-  padding: 0 2rem;
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.attractions-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas:
-    "hero hero hero"
-    "a    b    c";
-  gap: 1.25rem;
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-.attraction-card {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  aspect-ratio: 4/5;
-  isolation: isolate;
-  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 0.5s ease;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  will-change: transform;
-}
-.attraction-card--hero {
-  grid-area: hero;
-  aspect-ratio: 21/9;
-}
-.attraction-card:nth-child(2) { grid-area: a; }
-.attraction-card:nth-child(3) { grid-area: b; }
-.attraction-card:nth-child(4) { grid-area: c; }
-
-.attraction-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-}
-.attraction-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center 50%;
-  will-change: background-position, transform;
-}
-.attraction-card:hover .attraction-bg {
-  transform: scale(1.04);
-  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-/* Per-attraction tones (no stock photos — only the chalet's own media is used) */
-.attraction-card.attr-meteora     .attraction-bg { background-image: radial-gradient(120% 90% at 20% 0%, #3a2e22 0%, #14100c 70%); }
-.attraction-card.attr-elati       .attraction-bg { background-image: radial-gradient(120% 90% at 80% 0%, #1e3a2f 0%, #0f1612 70%); }
-.attraction-card.attr-pertouli    .attraction-bg { background-image: radial-gradient(120% 90% at 20% 100%, #26323a 0%, #0f1215 70%); }
-.attraction-card.attr-palaiokarya .attraction-bg { background-image: radial-gradient(120% 90% at 80% 100%, #1d3433 0%, #0e1514 70%); }
-
-.attraction-card::before,
-.attraction-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-.attraction-card::before {
-  background: linear-gradient(
-    180deg,
-    rgba(10, 8, 6, 0)   0%,
-    rgba(10, 8, 6, 0.1) 35%,
-    rgba(10, 8, 6, 0.7) 75%,
-    rgba(10, 8, 6, 0.95) 100%
-  );
-}
-.attraction-card::after {
-  /* Subtle gold inner glow on hover */
-  box-shadow: inset 0 0 0 1px rgba(201, 169, 110, 0);
-  transition: box-shadow 0.4s ease;
-}
-.attraction-card:hover::after {
-  box-shadow: inset 0 0 0 1px rgba(201, 169, 110, 0.35);
-}
-.attraction-content {
-  position: absolute;
-  inset: auto 1.5rem 1.5rem;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.65rem;
-}
-.attraction-card--hero .attraction-content {
-  inset: auto 3rem 3rem;
-  max-width: 620px;
-  gap: 0.85rem;
-}
-.attraction-distance {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(14, 11, 8, 0.55);
-  padding: 0.4rem 0.85rem;
-  border-radius: 999px;
-  border: 1px solid rgba(201, 169, 110, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.attraction-title {
-  font-family: "EB Garamond", serif;
-  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
-  font-weight: 600;
-  color: #fff;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
-}
-.attraction-card--hero .attraction-title {
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-}
-.attraction-desc {
-  font-size: 0.88rem;
-  color: rgba(245, 240, 232, 0.82);
-  line-height: 1.55;
-  max-width: 38ch;
-  /* Hide on small cards by default; show on hero */
-  display: none;
-}
-.attraction-card--hero .attraction-desc {
-  display: block;
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  max-width: 56ch;
-}
-.attraction-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  padding-bottom: 2px;
-  border-bottom: 1px solid rgba(201, 169, 110, 0.4);
-  transition: gap 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-  margin-top: 0.25rem;
-}
-.attraction-link .icon {
-  width: 0.7em;
-  height: 0.7em;
-  transition: transform 0.3s ease;
-}
-.attraction-link:hover {
-  gap: 0.75rem;
-  color: var(--cream);
-  border-bottom-color: var(--cream);
-}
-.attraction-link:hover .icon {
-  transform: translateX(3px);
-}
-
-/* Tablet: hero stays full width, others wrap to 2 columns */
-@media (max-width: 960px) {
-  .attractions-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "hero hero"
-      "a    b"
-      "c    c";
-  }
-  .attraction-card {
-    aspect-ratio: 3/4;
-  }
-  .attraction-card--hero {
-    aspect-ratio: 16/9;
-  }
-}
-
-/* Mobile: full-bleed cinematic stack */
-@media (max-width: 640px) {
-  .section-attractions {
-    padding: 5rem 0 6rem;
-  }
-  .attractions-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "hero"
-      "a"
-      "b"
-      "c";
-    gap: 0;
-    padding: 0;
-    max-width: none;
-  }
-  .attraction-card,
-  .attraction-card--hero {
-    aspect-ratio: 4/5;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .attraction-card:hover {
-    transform: none;
-  }
-  .attraction-content,
-  .attraction-card--hero .attraction-content {
-    inset: auto 1.5rem 2rem;
-    max-width: none;
-  }
-  .attraction-title {
-    font-size: clamp(2rem, 8vw, 2.6rem);
-  }
-  .attraction-card--hero .attraction-title {
-    font-size: clamp(2.4rem, 10vw, 3.2rem);
-  }
-  /* Show description on every card on mobile (single column has room) */
-  .attraction-desc {
-    display: block;
-    font-size: 0.92rem;
-    max-width: 44ch;
-  }
-}
-.section-map {
-  padding: 6rem 0;
-  background: var(--bg2);
-}
-.map-header {
-  padding-bottom: 3rem;
-}
-.map-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
-}
-#map {
-  width: 100%;
-  height: 500px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-}
-.nearby-title {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-}
-.nearby-locations {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.nearby-item {
-  padding: 1.5rem;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition: border-color var(--transition);
-}
-.nearby-item:hover {
-  border-color: var(--gold);
-}
-.nearby-item h4 {
-  color: var(--gold);
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-.nearby-item p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-.btn-map {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  background: rgba(212, 175, 55, 0.15);
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  border-radius: var(--radius);
-  font-size: 0.85rem;
-  transition: background var(--transition);
-}
-.btn-map:hover {
-  background: rgba(212, 175, 55, 0.25);
-}
 .weather-grid {
   margin-top: 3rem;
   background: var(--bg3);
@@ -2580,9 +2285,6 @@ html.show--consent .sticky-book { bottom: 9rem; }
     right: 0.75rem;
     gap: 0.5rem;
   }
-  .map-wrapper {
-    grid-template-columns: 1fr;
-  }
   .footer-inner {
     grid-template-columns: 1fr;
   }
@@ -2683,22 +2385,10 @@ html.show--consent .sticky-book { bottom: 9rem; }
 .tone-light .price-amount { border-bottom-color: rgba(160, 120, 64, 0.18); }
 .tone-light .price-details li { color: rgba(20, 14, 8, 0.78); }
 
-/* Attraction cards: titles fine on light because content has dark
-   gradient overlay; subtle border refinement only */
-.tone-light .attraction-card {
-  box-shadow: 0 20px 50px rgba(20, 14, 8, 0.18);
-}
-.tone-light .attraction-card:hover::after {
-  box-shadow: inset 0 0 0 1px rgba(160, 120, 64, 0.5);
-}
-
 /* ─────────────────────────────────────────────────────────── */
 /* Disable hover-stuck states on touch (no :hover persistence)  */
 /* ─────────────────────────────────────────────────────────── */
 @media (hover: none) {
-  .attraction-card:hover { transform: none; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
-  .attraction-card:hover .attraction-bg { transform: none; }
-  .attraction-card:hover::after { box-shadow: none; }
   .price-card:hover { transform: none; }
   .nav-link::after { transition: none; }
 }
@@ -3124,5 +2814,139 @@ html.show--consent .sticky-book { bottom: 9rem; }
   }
   .amenity-item {
     padding: 1.05rem 0;
+  }
+}
+
+/* ══ The Area: places list + map ══════════════════════════════ */
+.section-attractions {
+  padding: 8rem 0 6rem;
+  background: linear-gradient(180deg, #0e0b08 0%, #12171a 100%);
+}
+.area-header {
+  max-width: 720px;
+  margin-bottom: 3.5rem;
+}
+.area-intro {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 52ch;
+}
+.area-layout {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 3rem;
+  align-items: stretch;
+}
+.attractions-list {
+  display: flex;
+  flex-direction: column;
+}
+.attraction-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.75rem 1.25rem;
+  margin: 0 -1.25rem;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.attraction-card:first-child {
+  border-top: 1px solid rgba(245, 240, 232, 0.08);
+}
+.attraction-card:hover,
+.attraction-card.active {
+  background: rgba(201, 169, 110, 0.07);
+}
+.attraction-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+.attraction-num {
+  font-family: "EB Garamond", serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  padding-top: 0.35rem;
+}
+.attraction-body {
+  flex: 1;
+  min-width: 0;
+}
+.attraction-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.attraction-title {
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  color: var(--cream);
+}
+.attraction-distance {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+.attraction-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+.attraction-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.75;
+  transition: opacity var(--transition), gap var(--transition);
+}
+.attraction-link:hover {
+  opacity: 1;
+  gap: 0.65rem;
+}
+.area-map {
+  position: relative;
+  min-height: 520px;
+}
+#map {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(201, 169, 110, 0.18);
+  background: #16130f;
+}
+.section-attractions .weather-grid {
+  margin-top: 4rem;
+}
+@media (max-width: 1024px) {
+  .area-layout {
+    grid-template-columns: 1fr;
+  }
+  .area-map {
+    min-height: 0;
+    height: 62vh;
+    max-height: 520px;
+  }
+}
+@media (max-width: 768px) {
+  .section-attractions {
+    padding: 5rem 0 4rem;
+  }
+  .attraction-card {
+    gap: 1rem;
+    padding: 1.4rem 1rem;
+    margin: 0 -1rem;
+  }
+  .attraction-top {
+    flex-direction: column;
+    gap: 0.2rem;
   }
 }

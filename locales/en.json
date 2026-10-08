@@ -92,9 +92,8 @@
     "intro": "Everything a family or a group of friends needs to feel at home — your dog included."
   },
   "attractions": {
-    "label": "Around You",
-    "heading": "Discover the Region",
-    "viewMap": "View on map",
+    "label": "The Area",
+    "heading": "In the heart of Thessaly",
     "meteora": {
       "distance": "~22 km",
       "title": "Meteora",
@@ -114,31 +113,9 @@
       "distance": "~35 km",
       "title": "Palaiokarya Waterfalls",
       "desc": "Spectacular waterfalls, a 1517 stone bridge, and a 200-year-old traditional watermill."
-    }
-  },
-  "map": {
-    "label": "Location",
-    "heading": "Find Us",
-    "nearbyTitle": "Nearby Points of Interest",
-    "openMaps": "Open in Maps",
-    "nearby": {
-      "meteora": {
-        "title": "Meteora",
-        "desc": "UNESCO World Heritage Site • ~22 km"
-      },
-      "elati": {
-        "title": "Elati",
-        "desc": "Mountain village • ~30 km"
-      },
-      "palaiokarya": {
-        "title": "Palaiokarya Falls",
-        "desc": "Waterfalls & 1517 bridge • ~35 km"
-      },
-      "pertouli": {
-        "title": "Pertouli",
-        "desc": "Ski resort • ~54 km"
-      }
-    }
+    },
+    "intro": "Meteora, mountain villages and waterfalls — all within a day trip. Tap a place to see it on the map.",
+    "directions": "Directions"
   },
   "reviews": {
     "label": "Reviews",

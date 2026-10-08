@@ -1,4 +1,4 @@
-/* animations.js — nav, hero, section entrances, stats, sticky btn, attractions tilt */
+/* animations.js — nav, hero, section entrances, stats, sticky btn */
 
 function initAnimations() {
   'use strict';
@@ -36,7 +36,6 @@ function initAnimations() {
   initStats();
   initScrollProgress();
   initStickyBookBtn();
-  initAttractionsTilt();
 }
 
 /* ── Navigation ──────────────────────────────────────────── */
@@ -353,79 +352,3 @@ function initStickyBookBtn() {
     }
   });
 }
-
-/* ── Attractions: subtle desktop tilt (no touch), scroll parallax ─ */
-function initAttractionsTilt() {
-  const isTouch = window.matchMedia('(hover: none)').matches;
-  const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  document.querySelectorAll('.attraction-card').forEach((card) => {
-    const bg = card.querySelector('.attraction-bg');
-
-    /* Scroll-driven parallax via background-position (no transform conflict) */
-    if (bg && typeof ScrollTrigger !== 'undefined' && !reduce) {
-      gsap.fromTo(
-        bg,
-        { backgroundPositionY: '40%' },
-        {
-          backgroundPositionY: '60%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.6,
-          },
-        }
-      );
-    }
-
-    /* Desktop-only mouse tilt — much subtler than before */
-    if (isTouch || reduce) return;
-    card.addEventListener('mousemove', (e) => {
-      const { left, top, width, height } = card.getBoundingClientRect();
-      const mx = ((e.clientX - left) / width - 0.5) * 2;
-      const my = ((e.clientY - top) / height - 0.5) * 2;
-      gsap.to(card, {
-        rotateY: mx * 3,
-        rotateX: -my * 2.5,
-        duration: 0.5,
-        ease: 'power2.out',
-        transformPerspective: 1400,
-        transformOrigin: 'center center',
-      });
-    });
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.7, ease: 'power3.out' });
-    });
-  });
-}
-
-/* Attractions: cinematic reveal — hero fades up, satellites stagger in */
-(function initAttractionsReveal() {
-  const grid  = document.querySelector('.attractions-grid');
-  const hero  = document.querySelector('.attraction-card--hero');
-  const cards = document.querySelectorAll('.attraction-card:not(.attraction-card--hero)');
-  if (!grid || typeof gsap === 'undefined') return;
-
-  if (hero) {
-    gsap.from(hero, {
-      y: 40,
-      scale: 0.98,
-      opacity: 0,
-      duration: 1.1,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: grid, start: 'top 85%' },
-    });
-  }
-  if (cards.length) {
-    gsap.from(cards, {
-      y: 50,
-      opacity: 0,
-      duration: 0.85,
-      stagger: 0.12,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: grid, start: 'top 75%' },
-    });
-  }
-})();

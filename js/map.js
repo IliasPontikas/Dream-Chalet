@@ -145,10 +145,21 @@ function initMap() {
   });
 
   /* flyTo when attraction cards are clicked */
-  document.querySelectorAll('.attraction-card[data-coords]').forEach((card) => {
-    card.addEventListener('click', () => {
+  const cards = document.querySelectorAll('.attraction-card[data-coords]');
+  cards.forEach((card) => {
+    const go = (e) => {
+      if (e.target.closest('a')) return; /* let the directions link work */
       const [lng, lat] = card.dataset.coords.split(',').map(Number);
+      cards.forEach((c) => c.classList.toggle('active', c === card));
       map.flyTo({ center: [lng, lat], zoom: 12, duration: 1800, essential: true });
+      /* On phones the map sits below the list — bring it into view */
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        window.__lenis ? window.__lenis.scrollTo(mapEl, { offset: -90 }) : mapEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    card.addEventListener('click', go);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(e); }
     });
   });
 }

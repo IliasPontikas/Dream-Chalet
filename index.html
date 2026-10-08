@@ -52,14 +52,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=32">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=33">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=32">
+  <link rel="stylesheet" href="css/style.css?v=33">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -438,95 +438,63 @@
       </div>
     </section>
 
-    <!-- Attractions (Premium full-bleed showcase) -->
-    <section id="attractions" class="section-attractions" role="region" aria-label="Attractions">
-      <div class="container attractions-header">
-        <span class="section-label" data-i18n="attractions.label">Γύρω Σας</span>
-        <h2 class="section-heading" data-i18n="attractions.heading">Ανακαλύψτε την Περιοχή</h2>
-      </div>
-
-      <div class="attractions-grid">
-        <article class="attraction-card attraction-card--hero attr-meteora" data-coords="21.63065515278235,39.72279696985126">
-          <div class="attraction-bg"></div>
-          <div class="attraction-content">
-            <span class="attraction-distance" data-i18n="attractions.meteora.distance">~22 km</span>
-            <h3 class="attraction-title" data-i18n="attractions.meteora.title">Μετέωρα</h3>
-            <p class="attraction-desc" data-i18n="attractions.meteora.desc">Μοναστήρια του 14ου αιώνα. UNESCO World Heritage Site με εκπληκτική θέα.</p>
-            <a href="https://maps.google.com/?q=39.72279696985126,21.63065515278235" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
-              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="attraction-card attr-elati" data-coords="21.535341361331444,39.50317742958358">
-          <div class="attraction-bg"></div>
-          <div class="attraction-content">
-            <span class="attraction-distance" data-i18n="attractions.elati.distance">~30 km</span>
-            <h3 class="attraction-title" data-i18n="attractions.elati.title">Ελάτι</h3>
-            <p class="attraction-desc" data-i18n="attractions.elati.desc">Το μεγαλύτερο ορεινό χωριό. Πεζοπορία, δάση, χιονιά και παραδοσιακή αρχιτεκτονική.</p>
-            <a href="https://maps.google.com/?q=39.50317742958358,21.535341361331444" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
-              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="attraction-card attr-pertouli" data-coords="21.465859934678086,39.54109910736869">
-          <div class="attraction-bg"></div>
-          <div class="attraction-content">
-            <span class="attraction-distance" data-i18n="attractions.pertouli.distance">~54 km</span>
-            <h3 class="attraction-title" data-i18n="attractions.pertouli.title">Περτούλι</h3>
-            <p class="attraction-desc" data-i18n="attractions.pertouli.desc">Χωριό στα σύννεφα με σταθμό χιονοδρομιών. Καταγάλανα δάση.</p>
-            <a href="https://maps.google.com/?q=39.54109910736869,21.465859934678086" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
-              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="attraction-card attr-palaiokarya" data-coords="21.527416210816465,39.431308047515344">
-          <div class="attraction-bg"></div>
-          <div class="attraction-content">
-            <span class="attraction-distance" data-i18n="attractions.palaiokarya.distance">~35 km</span>
-            <h3 class="attraction-title" data-i18n="attractions.palaiokarya.title">Καταρράκτες Παλαιοκαριάς</h3>
-            <p class="attraction-desc" data-i18n="attractions.palaiokarya.desc">Εντυπωσιακές καταρράκτες, γέφυρα 1517 και παραδοσιακός μύλος 200 ετών.</p>
-            <a href="https://maps.google.com/?q=39.431308047515344,21.527416210816465" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.viewMap">View on map</span>
-              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Map & Location -->
-    <section id="map-section" class="section-map" role="region" aria-label="Map section">
+    <!-- The Area: places + map -->
+    <section id="attractions" class="section-attractions" role="region" aria-label="The area">
       <div class="container">
-        <div class="map-header">
-          <span class="section-label" data-i18n="map.label">Τοποθεσία</span>
-          <h2 class="section-heading" data-i18n="map.heading">Βρείτε Μας</h2>
+        <div class="area-header">
+          <span class="section-label" data-i18n="attractions.label">Η Περιοχή</span>
+          <h2 class="section-heading" data-i18n="attractions.heading">Στην καρδιά της Θεσσαλίας</h2>
+          <p class="area-intro" data-i18n="attractions.intro">Μετέωρα, ορεινά χωριά και καταρράκτες — όλα σε απόσταση μιας μέρας. Πατήστε ένα μέρος για να το δείτε στον χάρτη.</p>
         </div>
-        <div class="map-wrapper">
-          <div id="map" role="application" aria-label="Dream Chalet location map"></div>
-          <div class="nearby-locations">
-            <h3 class="section-heading nearby-title" data-i18n="map.nearbyTitle">Κοντινά Σημεία Ενδιαφέροντος</h3>
-            <div class="nearby-item">
-              <h4 data-i18n="map.nearby.meteora.title">Μετέωρα</h4>
-              <p data-i18n="map.nearby.meteora.desc">UNESCO World Heritage Site • ~22 km</p>
-              <a href="https://maps.google.com/?q=39.72279696985126,21.63065515278235" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> <span data-i18n="map.openMaps">Open in Maps</span></a>
-            </div>
-            <div class="nearby-item">
-              <h4 data-i18n="map.nearby.elati.title">Ελάτι</h4>
-              <p data-i18n="map.nearby.elati.desc">Ορεινό χωριό • ~30 km</p>
-              <a href="https://maps.google.com/?q=39.50317742958358,21.535341361331444" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> <span data-i18n="map.openMaps">Open in Maps</span></a>
-            </div>
-            <div class="nearby-item">
-              <h4 data-i18n="map.nearby.palaiokarya.title">Καταρράκτες Παλαιοκαριάς</h4>
-              <p data-i18n="map.nearby.palaiokarya.desc">Καταρράκτες & Γέφυρα 1517 • ~35 km</p>
-              <a href="https://maps.google.com/?q=39.431308047515344,21.527416210816465" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> <span data-i18n="map.openMaps">Open in Maps</span></a>
-            </div>
-            <div class="nearby-item">
-              <h4 data-i18n="map.nearby.pertouli.title">Περτούλι</h4>
-              <p data-i18n="map.nearby.pertouli.desc">Χιονοδρομικό κέντρο • ~54 km</p>
-              <a href="https://maps.google.com/?q=39.54109910736869,21.465859934678086" target="_blank" rel="noopener" class="btn-map"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-map-location-dot"></use></svg> <span data-i18n="map.openMaps">Open in Maps</span></a>
-            </div>
+        <div class="area-layout">
+          <div class="attractions-list">
+            <article class="attraction-card" data-coords="21.63065515278235,39.72279696985126" tabindex="0" role="button" aria-label="Μετέωρα">
+              <span class="attraction-num">01</span>
+              <div class="attraction-body">
+                <div class="attraction-top">
+                  <h3 class="attraction-title" data-i18n="attractions.meteora.title">Μετέωρα</h3>
+                  <span class="attraction-distance" data-i18n="attractions.meteora.distance">~22 km</span>
+                </div>
+                <p class="attraction-desc" data-i18n="attractions.meteora.desc">Μοναστήρια του 14ου αιώνα σε ύψος 400μ. UNESCO World Heritage Site με εκπληκτική θέα.</p>
+                <a href="https://maps.google.com/?q=39.72279696985126,21.63065515278235" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.directions">Οδηγίες</span> <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg></a>
+              </div>
+            </article>
+            <article class="attraction-card" data-coords="21.527416210816465,39.431308047515344" tabindex="0" role="button" aria-label="Καταρράκτες Παλαιοκαριάς">
+              <span class="attraction-num">02</span>
+              <div class="attraction-body">
+                <div class="attraction-top">
+                  <h3 class="attraction-title" data-i18n="attractions.palaiokarya.title">Καταρράκτες Παλαιοκαριάς</h3>
+                  <span class="attraction-distance" data-i18n="attractions.palaiokarya.distance">~35 km</span>
+                </div>
+                <p class="attraction-desc" data-i18n="attractions.palaiokarya.desc">Εντυπωσιακοί καταρράκτες, γέφυρα 1517 και παραδοσιακός μύλος 200 ετών.</p>
+                <a href="https://maps.google.com/?q=39.431308047515344,21.527416210816465" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.directions">Οδηγίες</span> <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg></a>
+              </div>
+            </article>
+            <article class="attraction-card" data-coords="21.535341361331444,39.50317742958358" tabindex="0" role="button" aria-label="Ελάτι">
+              <span class="attraction-num">03</span>
+              <div class="attraction-body">
+                <div class="attraction-top">
+                  <h3 class="attraction-title" data-i18n="attractions.elati.title">Ελάτι</h3>
+                  <span class="attraction-distance" data-i18n="attractions.elati.distance">~30 km</span>
+                </div>
+                <p class="attraction-desc" data-i18n="attractions.elati.desc">Το μεγαλύτερο ορεινό χωριό. Πεζοπορία, δάση, χιόνι και παραδοσιακή αρχιτεκτονική.</p>
+                <a href="https://maps.google.com/?q=39.50317742958358,21.535341361331444" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.directions">Οδηγίες</span> <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg></a>
+              </div>
+            </article>
+            <article class="attraction-card" data-coords="21.465859934678086,39.54109910736869" tabindex="0" role="button" aria-label="Περτούλι">
+              <span class="attraction-num">04</span>
+              <div class="attraction-body">
+                <div class="attraction-top">
+                  <h3 class="attraction-title" data-i18n="attractions.pertouli.title">Περτούλι</h3>
+                  <span class="attraction-distance" data-i18n="attractions.pertouli.distance">~54 km</span>
+                </div>
+                <p class="attraction-desc" data-i18n="attractions.pertouli.desc">Χωριό στα σύννεφα με σταθμό χιονοδρομιών. Καταγάλανα δάση και αθλητικές δραστηριότητες.</p>
+                <a href="https://maps.google.com/?q=39.54109910736869,21.465859934678086" target="_blank" rel="noopener" class="attraction-link"><span data-i18n="attractions.directions">Οδηγίες</span> <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg></a>
+              </div>
+            </article>
+          </div>
+          <div class="area-map">
+            <div id="map" role="application" aria-label="Map of Dream Chalet and nearby sights"></div>
           </div>
         </div>
         <div class="weather-grid" id="weather-grid"></div>
@@ -774,7 +742,7 @@
               <a href="#about" data-i18n="nav.about">Πληροφορίες</a>
               <a href="#gallery" data-i18n="nav.gallery">Γκαλερί</a>
               <a href="#amenities" data-i18n="nav.amenities">Παροχές</a>
-              <a href="#map-section" data-i18n="footer.mapLink">Τοποθεσία</a>
+              <a href="#attractions" data-i18n="footer.mapLink">Τοποθεσία</a>
               <a href="#pricing" data-i18n="footer.pricingLink">Τιμές</a>
               <a href="#contact" data-i18n="nav.contact">Επικοινωνία</a>
             </div>
@@ -848,22 +816,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=32"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=33"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=32" defer></script>
-  <script src="js/main.js?v=32" defer></script>
-  <script src="js/animations.js?v=32" defer></script>
-  <script src="js/cursor.js?v=32" defer></script>
-  <script src="js/scroll-video.js?v=32" defer></script>
-  <script src="js/gallery.js?v=32" defer></script>
-  <script src="js/reviews.js?v=32" defer></script>
-  <script src="js/map.js?v=32" defer></script>
-  <script src="js/calendar.js?v=32" defer></script>
-  <script src="js/weather.js?v=32" defer></script>
-  <script src="js/i18n.js?v=32" defer></script>
-  <script src="js/cookie-consent.js?v=32" defer></script>
+  <script src="js/config.js?v=33" defer></script>
+  <script src="js/main.js?v=33" defer></script>
+  <script src="js/animations.js?v=33" defer></script>
+  <script src="js/cursor.js?v=33" defer></script>
+  <script src="js/scroll-video.js?v=33" defer></script>
+  <script src="js/gallery.js?v=33" defer></script>
+  <script src="js/reviews.js?v=33" defer></script>
+  <script src="js/map.js?v=33" defer></script>
+  <script src="js/calendar.js?v=33" defer></script>
+  <script src="js/weather.js?v=33" defer></script>
+  <script src="js/i18n.js?v=33" defer></script>
+  <script src="js/cookie-consent.js?v=33" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=32" defer></script> -->
+  <!-- <script src="js/analytics.js?v=33" defer></script> -->
 </body>
 </html>
