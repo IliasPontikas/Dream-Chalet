@@ -3,10 +3,14 @@
     "skipLink": "Μετάβαση στο κύριο περιεχόμενο"
   },
   "nav": {
-    "about": "Πληροφορίες",
+    "about": "Η Κατοικία",
     "gallery": "Γκαλερί",
-    "amenities": "Παροχές",
-    "contact": "Επικοινωνία"
+    "area": "Περιοχή",
+    "reviews": "Κριτικές",
+    "availability": "Διαθεσιμότητα",
+    "contact": "Επικοινωνία",
+    "book": "Κράτηση",
+    "amenities": "Παροχές"
   },
   "hero": {
     "subtitle": "Πολυτελές Εξοχικό στα Τρίκαλα",
@@ -78,10 +82,22 @@
     "nearbyTitle": "Κοντινά Σημεία Ενδιαφέροντος",
     "openMaps": "Άνοιγμα στους Χάρτες",
     "nearby": {
-      "meteora":     { "title": "Μετέωρα",                 "desc": "UNESCO World Heritage Site • ~22 km" },
-      "elati":       { "title": "Ελάτι",                   "desc": "Ορεινό χωριό • ~30 km" },
-      "palaiokarya": { "title": "Καταρράκτες Παλαιοκαριάς", "desc": "Καταρράκτες & Γέφυρα 1517 • ~35 km" },
-      "pertouli":    { "title": "Περτούλι",                "desc": "Χιονοδρομικό κέντρο • ~54 km" }
+      "meteora": {
+        "title": "Μετέωρα",
+        "desc": "UNESCO World Heritage Site • ~22 km"
+      },
+      "elati": {
+        "title": "Ελάτι",
+        "desc": "Ορεινό χωριό • ~30 km"
+      },
+      "palaiokarya": {
+        "title": "Καταρράκτες Παλαιοκαριάς",
+        "desc": "Καταρράκτες & Γέφυρα 1517 • ~35 km"
+      },
+      "pertouli": {
+        "title": "Περτούλι",
+        "desc": "Χιονοδρομικό κέντρο • ~54 km"
+      }
     }
   },
   "reviews": {

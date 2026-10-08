@@ -312,7 +312,7 @@ select,
   right: 0;
   bottom: 0;
   height: 1px;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
@@ -356,14 +356,14 @@ select,
 }
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.75rem;
   align-items: center;
   flex-wrap: nowrap;
 }
 .nav-link {
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #fff;
   position: relative;
@@ -392,9 +392,9 @@ select,
   z-index: 1;
 }
 .logo-img {
-  height: 150px;
+  height: 70px;
   width: auto;
-  max-width: min(38vw, 240px);
+  max-width: min(38vw, 160px);
   object-fit: contain;
 }
 .lang-toggle {
@@ -416,52 +416,40 @@ select,
   border-color: #fff;
   color: #fff;
 }
-.theme-toggle {
-  width: auto;
-  height: auto;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: var(--radius);
-  padding: 0.45rem 0.65rem;
-  color: #fff;
+/* Book button in the nav — the main call to action, always visible */
+.nav-book {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition:
-    background var(--transition),
-    border-color var(--transition);
-  line-height: 1;
+  height: 40px;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #16110c;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background var(--transition), transform var(--transition);
 }
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #fff;
+.nav-book:hover {
+  background: #dcbd85;
+  transform: translateY(-1px);
 }
-.theme-toggle .theme-icon-moon,
-.theme-toggle .theme-icon-sun {
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-  color: #fff;
+.nav-right .nav-links {
+  margin-right: 0.75rem;
 }
-.theme-toggle .theme-icon-moon {
-  display: inline-block;
+.lang-toggle {
+  height: 40px;
 }
-.theme-toggle .theme-icon-sun {
-  display: none;
+@media (max-width: 480px) {
+  .nav-book {
+    height: 36px;
+    padding: 0 0.9rem;
+    font-size: 0.66rem;
+  }
 }
-.theme-toggle.dark .theme-icon-moon {
-  display: none;
-}
-.theme-toggle.dark .theme-icon-sun {
-  display: inline-block;
-}
-.theme-toggle .icon {
-  width: 1.1em;
-  height: 1.1em;
-  pointer-events: none;
-}
+
 /* ── Premium Hamburger (always gold — readable on both themes) ── */
 .hamburger {
   display: none;
@@ -2807,11 +2795,11 @@ html.show--consent .sticky-book { bottom: 9rem; }
 }
 @media (max-width: 768px) {
   :root {
-    --nav-h: 100px;
+    --nav-h: 72px;
   }
   .logo-img {
-    height: 110px;
-    max-width: 50vw;
+    height: 56px;
+    max-width: 40vw;
   }
   .nav-inner {
     padding: 0 1rem;
@@ -2820,8 +2808,7 @@ html.show--consent .sticky-book { bottom: 9rem; }
   .nav-right {
     gap: 0.5rem;
   }
-  .lang-toggle,
-  .theme-toggle {
+  .lang-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;

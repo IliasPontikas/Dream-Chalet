@@ -52,14 +52,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=26">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=27">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=26">
+  <link rel="stylesheet" href="css/style.css?v=27">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -176,10 +176,9 @@
     <div class="nav-inner">
       <div class="nav-left">
         <div class="nav-links">
-          <a href="#about" class="nav-link" data-i18n="nav.about">Πληροφορίες</a>
+          <a href="#about" class="nav-link" data-i18n="nav.about">Η Κατοικία</a>
           <a href="#gallery" class="nav-link" data-i18n="nav.gallery">Γκαλερί</a>
-          <a href="#amenities" class="nav-link" data-i18n="nav.amenities">Παροχές</a>
-          <a href="#contact" class="nav-link" data-i18n="nav.contact">Επικοινωνία</a>
+          <a href="#attractions" class="nav-link" data-i18n="nav.area">Περιοχή</a>
         </div>
         <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
           <span class="hamburger-bar"></span>
@@ -194,7 +193,12 @@
       </div>
 
       <div class="nav-right">
+        <div class="nav-links">
+          <a href="#reviews" class="nav-link" data-i18n="nav.reviews">Κριτικές</a>
+          <a href="#pricing" class="nav-link" data-i18n="nav.availability">Διαθεσιμότητα</a>
+        </div>
         <button id="lang-toggle" class="lang-toggle" lang="en" aria-label="Switch to English">EN</button>
+        <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="nav-book" data-track="booking" data-i18n="nav.book">Κράτηση</a>
       </div>
     </div>
   </nav>
@@ -206,10 +210,12 @@
       <img src="images/logo-removebg2.png" alt="Dream Chalet" class="mobile-menu-logo" width="372" height="245">
 
       <nav class="mobile-menu-nav" aria-label="Mobile">
-        <a href="#about"     class="mobile-nav-link"><span class="mobile-nav-num">01</span><span class="mobile-nav-label" data-i18n="nav.about">Πληροφορίες</span></a>
-        <a href="#gallery"   class="mobile-nav-link"><span class="mobile-nav-num">02</span><span class="mobile-nav-label" data-i18n="nav.gallery">Γκαλερί</span></a>
-        <a href="#amenities" class="mobile-nav-link"><span class="mobile-nav-num">03</span><span class="mobile-nav-label" data-i18n="nav.amenities">Παροχές</span></a>
-        <a href="#contact"   class="mobile-nav-link"><span class="mobile-nav-num">04</span><span class="mobile-nav-label" data-i18n="nav.contact">Επικοινωνία</span></a>
+        <a href="#about" class="mobile-nav-link"><span class="mobile-nav-num">01</span><span class="mobile-nav-label" data-i18n="nav.about">Η Κατοικία</span></a>
+        <a href="#gallery" class="mobile-nav-link"><span class="mobile-nav-num">02</span><span class="mobile-nav-label" data-i18n="nav.gallery">Γκαλερί</span></a>
+        <a href="#attractions" class="mobile-nav-link"><span class="mobile-nav-num">03</span><span class="mobile-nav-label" data-i18n="nav.area">Περιοχή</span></a>
+        <a href="#reviews" class="mobile-nav-link"><span class="mobile-nav-num">04</span><span class="mobile-nav-label" data-i18n="nav.reviews">Κριτικές</span></a>
+        <a href="#pricing" class="mobile-nav-link"><span class="mobile-nav-num">05</span><span class="mobile-nav-label" data-i18n="nav.availability">Διαθεσιμότητα</span></a>
+        <a href="#contact" class="mobile-nav-link"><span class="mobile-nav-num">06</span><span class="mobile-nav-label" data-i18n="nav.contact">Επικοινωνία</span></a>
       </nav>
 
       <div class="mobile-menu-foot">
@@ -807,23 +813,23 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=26"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=27"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=26" defer></script>
-  <script src="js/main.js?v=26" defer></script>
-  <script src="js/animations.js?v=26" defer></script>
-  <script src="js/cursor.js?v=26" defer></script>
-  <script src="js/scroll-video.js?v=26" defer></script>
-  <script src="js/gallery.js?v=26" defer></script>
-  <script src="js/reviews.js?v=26" defer></script>
-  <script type="module" src="js/three-bg.js?v=26"></script>
-  <script src="js/map.js?v=26" defer></script>
-  <script src="js/calendar.js?v=26" defer></script>
-  <script src="js/weather.js?v=26" defer></script>
-  <script src="js/i18n.js?v=26" defer></script>
-  <script src="js/cookie-consent.js?v=26" defer></script>
+  <script src="js/config.js?v=27" defer></script>
+  <script src="js/main.js?v=27" defer></script>
+  <script src="js/animations.js?v=27" defer></script>
+  <script src="js/cursor.js?v=27" defer></script>
+  <script src="js/scroll-video.js?v=27" defer></script>
+  <script src="js/gallery.js?v=27" defer></script>
+  <script src="js/reviews.js?v=27" defer></script>
+  <script type="module" src="js/three-bg.js?v=27"></script>
+  <script src="js/map.js?v=27" defer></script>
+  <script src="js/calendar.js?v=27" defer></script>
+  <script src="js/weather.js?v=27" defer></script>
+  <script src="js/i18n.js?v=27" defer></script>
+  <script src="js/cookie-consent.js?v=27" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=26" defer></script> -->
+  <!-- <script src="js/analytics.js?v=27" defer></script> -->
 </body>
 </html>

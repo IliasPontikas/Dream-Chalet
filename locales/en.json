@@ -3,10 +3,14 @@
     "skipLink": "Skip to main content"
   },
   "nav": {
-    "about": "About",
+    "about": "The House",
     "gallery": "Gallery",
-    "amenities": "Amenities",
-    "contact": "Contact"
+    "area": "The Area",
+    "reviews": "Reviews",
+    "availability": "Availability",
+    "contact": "Contact",
+    "book": "Book",
+    "amenities": "Amenities"
   },
   "hero": {
     "subtitle": "Luxury Retreat in Trikala",
@@ -78,10 +82,22 @@
     "nearbyTitle": "Nearby Points of Interest",
     "openMaps": "Open in Maps",
     "nearby": {
-      "meteora":     { "title": "Meteora",            "desc": "UNESCO World Heritage Site • ~22 km" },
-      "elati":       { "title": "Elati",              "desc": "Mountain village • ~30 km" },
-      "palaiokarya": { "title": "Palaiokarya Falls",  "desc": "Waterfalls & 1517 bridge • ~35 km" },
-      "pertouli":    { "title": "Pertouli",           "desc": "Ski resort • ~54 km" }
+      "meteora": {
+        "title": "Meteora",
+        "desc": "UNESCO World Heritage Site • ~22 km"
+      },
+      "elati": {
+        "title": "Elati",
+        "desc": "Mountain village • ~30 km"
+      },
+      "palaiokarya": {
+        "title": "Palaiokarya Falls",
+        "desc": "Waterfalls & 1517 bridge • ~35 km"
+      },
+      "pertouli": {
+        "title": "Pertouli",
+        "desc": "Ski resort • ~54 km"
+      }
     }
   },
   "reviews": {
