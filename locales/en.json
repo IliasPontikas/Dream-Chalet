@@ -14,19 +14,15 @@
     "bookNow": "Book now"
   },
   "hero": {
-    "subtitle": "A house with soul, ten minutes from Trikala",
-    "eyebrow": "Raxa · Trikala",
+    "subtitle": "A house with soul",
     "bookNow": "Book now",
-    "scrollHint": "Scroll",
     "seeHouse": "See the house",
     "facts": {
       "bedrooms": "3 bedrooms",
       "guests": "Up to 6 guests",
       "fireplace": "Fireplace",
       "pets": "Pets welcome"
-    },
-    "ratingAirbnb": "· 58 reviews",
-    "ratingBooking": "Booking.com · 14 reviews"
+    }
   },
   "about": {
     "label": "The House",
@@ -36,9 +32,10 @@
     "stats": {
       "bedrooms": "Bedrooms",
       "bathrooms": "Bathrooms",
-      "guests": "Guests",
-      "rating": "★ Airbnb · 58 reviews"
-    }
+      "guests": "Guests"
+    },
+    "ratingAirbnb": "· 58 reviews",
+    "ratingBooking": "Booking.com · 14 reviews"
   },
   "gallery": {
     "label": "Gallery",

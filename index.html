@@ -60,14 +60,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=45">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=46">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=45">
+  <link rel="stylesheet" href="css/style.css?v=46">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -267,9 +267,8 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-content-inner">
-          <span class="hero-eyebrow" data-i18n="hero.eyebrow">Ράξα · Τρίκαλα</span>
           <h1 class="hero-title"><span class="char">D</span><span class="char">r</span><span class="char">e</span><span class="char">a</span><span class="char">m</span>&nbsp;<span class="char">C</span><span class="char">h</span><span class="char">a</span><span class="char">l</span><span class="char">e</span><span class="char">t</span></h1>
-          <p class="hero-subtitle" data-i18n="hero.subtitle">Ένα σπίτι με ψυχή, δέκα λεπτά από τα Τρίκαλα</p>
+          <p class="hero-subtitle" data-i18n="hero.subtitle">Ένα σπίτι με ψυχή</p>
           <ul class="hero-facts">
             <li data-i18n="hero.facts.bedrooms">3 υπνοδωμάτια</li>
             <li data-i18n="hero.facts.guests">Έως 6 επισκέπτες</li>
@@ -280,15 +279,10 @@
             <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="btn-cta book-now" data-i18n="hero.bookNow" data-track="booking">Κράτηση</a>
             <a href="#gallery" class="btn-cta btn-ghost" data-i18n="hero.seeHouse">Δείτε το σπίτι</a>
           </div>
-          <div class="hero-rating">
-            <span class="hero-rating-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg><strong>4,97</strong> <span data-i18n="hero.ratingAirbnb">· 58 κριτικές</span></span>
-            <span class="hero-rating-sep" aria-hidden="true"></span>
-            <span class="hero-rating-item"><strong>9,6</strong> <span data-i18n="hero.ratingBooking">Booking.com · 14 κριτικές</span></span>
-          </div>
         </div>
       </div>
       <div class="hero-scroll-hint" aria-hidden="true">
-        <span class="scroll-hint-text" data-i18n="hero.scrollHint">Scroll</span>
+        <span class="scroll-hint-text">Scroll</span>
         <span class="scroll-hint-line"></span>
       </div>
     </section>
@@ -302,6 +296,11 @@
             <h2 class="section-heading" data-i18n="about.heading">Ένα σπίτι γεμάτο ιστορίες</h2>
             <p data-i18n="about.text">Ένα σπίτι με χαρακτήρα στη Ράξα, δέκα λεπτά από τα Τρίκαλα. Πέτρινο τζάκι, ξύλινες οροφές, ψηφιδωτά δάπεδα και αντίκες σε κάθε γωνιά — και ένας μεγάλος περιφραγμένος κήπος με γρασίδι, όπου παιδιά και κατοικίδια τρέχουν ελεύθερα.</p>
             <p data-i18n="about.text2">Τρία υπνοδωμάτια, δύο μπάνια, έως έξι επισκέπτες. Και μια οικογένεια που θα σας υποδεχτεί σαν δικούς της ανθρώπους — αυτό που οι επισκέπτες μας θυμούνται περισσότερο.</p>
+            <div class="about-rating">
+              <a class="about-rating-item" href="https://www.airbnb.gr/rooms/1019294882973971198#reviews" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg><strong>4,97</strong> <span data-i18n="about.ratingAirbnb">· 58 κριτικές</span></a>
+              <span class="about-rating-sep" aria-hidden="true"></span>
+              <a class="about-rating-item" href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html#tab-reviews" target="_blank" rel="noopener"><strong>9,6</strong> <span data-i18n="about.ratingBooking">Booking.com · 14 κριτικές</span></a>
+            </div>
           </div>
           <div class="about-media">
           <div class="about-image-wrap">
@@ -324,10 +323,6 @@
           <div class="stat-item">
             <span class="stat-number" data-target="6">0</span>
             <span class="stat-label" data-i18n="about.stats.guests">Μέγ. Επισκέπτες</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number" data-target="4.97" data-decimals="2">0</span>
-            <span class="stat-label" data-i18n="about.stats.rating">★ Airbnb · 58 κριτικές</span>
           </div>
         </div>
       </div>
@@ -823,22 +818,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=45"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=46"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=45" defer></script>
-  <script src="js/theme.js?v=45" defer></script>
-  <script src="js/main.js?v=45" defer></script>
-  <script src="js/animations.js?v=45" defer></script>
-  <script src="js/scroll-video.js?v=45" defer></script>
-  <script src="js/gallery.js?v=45" defer></script>
-  <script src="js/reviews.js?v=45" defer></script>
-  <script src="js/map.js?v=45" defer></script>
-  <script src="js/calendar.js?v=45" defer></script>
-  <script src="js/weather.js?v=45" defer></script>
-  <script src="js/i18n.js?v=45" defer></script>
-  <script src="js/cookie-consent.js?v=45" defer></script>
+  <script src="js/config.js?v=46" defer></script>
+  <script src="js/theme.js?v=46" defer></script>
+  <script src="js/main.js?v=46" defer></script>
+  <script src="js/animations.js?v=46" defer></script>
+  <script src="js/scroll-video.js?v=46" defer></script>
+  <script src="js/gallery.js?v=46" defer></script>
+  <script src="js/reviews.js?v=46" defer></script>
+  <script src="js/map.js?v=46" defer></script>
+  <script src="js/calendar.js?v=46" defer></script>
+  <script src="js/weather.js?v=46" defer></script>
+  <script src="js/i18n.js?v=46" defer></script>
+  <script src="js/cookie-consent.js?v=46" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=45" defer></script> -->
+  <!-- <script src="js/analytics.js?v=46" defer></script> -->
 </body>
 </html>

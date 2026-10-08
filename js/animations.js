@@ -11,7 +11,7 @@ function initAnimations() {
        elements that were hidden in CSS for animation entry to their
        final visible state so the page is usable. */
     document.querySelectorAll(
-      '.hero-eyebrow, .hero-subtitle, .hero-facts, .hero-ctas, .hero-rating, .amenity-item'
+      '.hero-subtitle, .hero-facts, .hero-ctas, .amenity-item'
     ).forEach((el) => { el.style.opacity = '1'; });
 
     document.querySelectorAll('.hero-title .char').forEach((el) => {
@@ -152,7 +152,7 @@ function initHero() {
     ease: 'expo.out',
   }, eyebrow ? '-=0.4' : 0)
     .to(subtitle, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6')
-    .to(['.hero-facts', ctas, '.hero-rating'], { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out' }, '-=0.5');
+    .to(['.hero-facts', ctas], { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out' }, '-=0.5');
 
   /* Fade out the scroll indicator once the user has scrolled past ~25% of the hero */
   const hint = document.querySelector('.hero-scroll-hint');

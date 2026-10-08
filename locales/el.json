@@ -14,19 +14,15 @@
     "bookNow": "Κάντε κράτηση"
   },
   "hero": {
-    "subtitle": "Ένα σπίτι με ψυχή, δέκα λεπτά από τα Τρίκαλα",
-    "eyebrow": "Ράξα · Τρίκαλα",
+    "subtitle": "Ένα σπίτι με ψυχή",
     "bookNow": "Κράτηση",
-    "scrollHint": "Κύλιση",
     "seeHouse": "Δείτε το σπίτι",
     "facts": {
       "bedrooms": "3 υπνοδωμάτια",
       "guests": "Έως 6 επισκέπτες",
       "fireplace": "Τζάκι",
       "pets": "Κατοικίδια ευπρόσδεκτα"
-    },
-    "ratingAirbnb": "· 58 κριτικές",
-    "ratingBooking": "Booking.com · 14 κριτικές"
+    }
   },
   "about": {
     "label": "Η Κατοικία",
@@ -36,9 +32,10 @@
     "stats": {
       "bedrooms": "Υπνοδωμάτια",
       "bathrooms": "Μπάνια",
-      "guests": "Επισκέπτες",
-      "rating": "★ Airbnb · 58 κριτικές"
-    }
+      "guests": "Επισκέπτες"
+    },
+    "ratingAirbnb": "· 58 κριτικές",
+    "ratingBooking": "Booking.com · 14 κριτικές"
   },
   "gallery": {
     "label": "Γκαλερί",

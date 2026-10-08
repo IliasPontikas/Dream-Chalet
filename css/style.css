@@ -38,7 +38,7 @@
   --border-strong: rgba(255, 255, 255, 0.3);
   --nav-bg: rgba(10, 10, 10, 0.94);
   --menu-bg: rgba(10, 10, 10, 0.97);
-  --menu-tint: rgba(8, 8, 8, 0.72);
+  --menu-tint: rgba(8, 8, 8, 0.5);
   --footer-bg: #050505;
   --footer-ink: 243, 239, 233;
   --card-bg: rgba(255, 255, 255, 0.04);
@@ -79,7 +79,7 @@
   --glass-border: rgba(138, 103, 48, 0.2);
   --nav-bg: rgba(238, 228, 214, 0.95);
   --menu-bg: rgba(238, 228, 214, 0.98);
-  --menu-tint: rgba(238, 228, 214, 0.58);
+  --menu-tint: rgba(238, 228, 214, 0.36);
   --footer-bg: #d8c8b1;
   --footer-ink: 33, 26, 20;
   --card-bg: rgba(255, 255, 255, 0.35);
@@ -313,7 +313,7 @@ select,
   inset: 0;
   background:
     linear-gradient(var(--menu-tint), var(--menu-tint)),
-    url('../images/photos/living-chandelier-960.avif') center 35% / cover no-repeat;
+    url('../images/photos/living-chandelier-1920.avif') center 35% / cover no-repeat;
 }
 /* Subtle gold radial accent in the corner */
 .mobile-menu-bg::before {
@@ -340,9 +340,12 @@ select,
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: center;
-  gap: 1.6rem;
-  margin-top: -3rem;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  margin: 0;
+}
+.mobile-nav-link {
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75), 0 0 2px rgba(0, 0, 0, 0.5);
 }
 .mobile-nav-link {
   display: flex;
@@ -350,7 +353,7 @@ select,
   gap: 1.25rem;
   font-family: "EB Garamond", serif;
   font-style: italic;
-  font-size: clamp(2.4rem, 9vw, 3.4rem);
+  font-size: clamp(2.6rem, 11vw, 3.8rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -523,10 +526,8 @@ select,
 /* Fallback when animations can't run: show everything in its final state */
 .no-anim .hero-title .char,
 .no-anim .hero-subtitle,
-.no-anim .hero-eyebrow,
 .no-anim .hero-ctas,
-.no-anim .hero-facts,
-.no-anim .hero-rating {
+.no-anim .hero-facts {
   opacity: 1 !important;
   transform: none !important;
 }
@@ -557,34 +558,42 @@ select,
   margin: 0 0.75rem;
   color: var(--gold);
 }
-.hero-rating {
+.about-rating {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.6rem 1.1rem;
-  margin-top: 2.25rem;
-  opacity: 0;
-  font-size: 0.82rem;
-  color: rgba(245, 240, 232, 0.75);
+  gap: 0.75rem 1.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
-.hero-rating-item {
+.about-rating-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
+  transition: color var(--transition);
 }
-.hero-rating strong {
+.about-rating-item:hover {
+  color: var(--text-light);
+}
+.about-rating strong {
   font-family: "EB Garamond", serif;
-  font-size: 1.35rem;
+  font-size: 1.7rem;
   font-weight: 500;
-  color: var(--cream);
-}
-.hero-rating .icon {
   color: var(--gold);
 }
-.hero-rating-sep {
+.about-rating .icon {
+  color: var(--gold);
+}
+@media (max-width: 480px) {
+  .about-rating-sep {
+    display: none;
+  }
+}
+.about-rating-sep {
   width: 1px;
-  height: 1.2rem;
-  background: rgba(245, 240, 232, 0.25);
+  height: 1.4rem;
+  background: var(--border-strong);
 }
 .hero-ctas {
   display: flex;
@@ -663,8 +672,8 @@ select,
   letter-spacing: 0.5em;
   text-indent: 0.5em;        /* optical centering for tracked text */
   text-transform: uppercase;
-  font-weight: 300;
-  color: rgba(245, 240, 232, 0.55);
+  font-weight: 500;
+  color: rgba(245, 240, 232, 0.85);
   white-space: nowrap;
   animation: scrollHintFade 3.2s ease-in-out infinite;
 }
@@ -775,7 +784,7 @@ select,
 }
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   position: relative;
   z-index: 1;
@@ -1428,9 +1437,6 @@ html.show--consent .sticky-book { bottom: 9rem; }
     font-size: 0.7rem;
     letter-spacing: 0.16em;
   }
-  .hero-rating {
-    margin-top: 1.75rem;
-  }
   .sticky-book {
     bottom: 0.75rem;
     right: 0.75rem;
@@ -1511,16 +1517,17 @@ html.show--consent .sticky-book { bottom: 9rem; }
   );
 }
 
-/* Hero: scroll hint sits bottom-right so it never collides with the rating row */
-.hero-scroll-hint {
-  left: auto;
-  right: 2.5rem;
-  transform: none;
+/* Hero: centered scroll hint; content sits above it */
+.section-hero {
+  padding-bottom: clamp(9rem, 16vh, 11rem);
 }
 @media (max-width: 768px) {
-  .hero-scroll-hint,
-  .hero-rating-sep {
-    display: none;
+  .scroll-hint-line {
+    height: 56px;
+  }
+  .hero-scroll-hint {
+    bottom: 1.25rem;
+    gap: 0.8rem;
   }
 }
 
@@ -3281,7 +3288,7 @@ main > .site-footer {
    soft cream halo to stay crisp */
 [data-theme="light"] .mobile-nav-link,
 [data-theme="light"] .mobile-menu-cta {
-  text-shadow: 0 0 18px rgba(238, 228, 214, 0.9), 0 0 2px rgba(238, 228, 214, 0.8);
+  text-shadow: 0 0 22px rgba(238, 228, 214, 1), 0 0 10px rgba(238, 228, 214, 0.95), 0 0 3px rgba(238, 228, 214, 0.9);
 }
 [data-theme="light"] .mobile-menu-cta {
   background: rgba(238, 228, 214, 0.78);
