@@ -230,15 +230,21 @@ function initCoverflow() {
   layout();
 }
 
-/* Tablet & phone: bento grid with room filters, live clips and a lightbox */
+/* Tablet & phone: one room at a time as a full-width swipe slider.
+   All sizes: "All photos" opens a full-screen grid; any photo opens the lightbox. */
 function initBento() {
   'use strict';
 
-  const grid = document.getElementById('bento');
-  if (!grid) return;
+  const track = document.getElementById('bento');
+  if (!track) return;
 
-  const items    = Array.from(grid.querySelectorAll('.bento-item'));
+  const items    = Array.from(track.querySelectorAll('.bento-item'));
   const tabs     = Array.from(document.querySelectorAll('.gallery-tab'));
+  const counter  = document.getElementById('gallery-counter');
+  const allBtn   = document.getElementById('gallery-all');
+  const sheet    = document.getElementById('gallery-grid');
+  const sheetList  = document.getElementById('gallery-grid-list');
+  const sheetClose = document.getElementById('gallery-grid-close');
   const box      = document.getElementById('lightbox');
   const media    = document.getElementById('lightbox-media');
   const caption  = document.getElementById('lightbox-caption');
@@ -255,9 +261,9 @@ function initBento() {
       ? (m.dataset.altEn || m.alt || m.getAttribute('aria-label') || '')
       : (m.alt || m.getAttribute('aria-label') || '');
   };
+  const visible = () => items.filter((i) => !i.hidden);
 
-  /* ── Video tiles play only while visible ─────────────────── */
-  const tileVideos = grid.querySelectorAll('video');
+  /* ── Video slides play only while visible ────────────────── */
   if ('IntersectionObserver' in window && !reduce) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach(({ target, isIntersecting }) => {
@@ -268,34 +274,35 @@ function initBento() {
           target.pause();
         }
       });
-    }, { threshold: 0.35 });
-    tileVideos.forEach((v) => io.observe(v));
+    }, { threshold: 0.5 });
+    track.querySelectorAll('video').forEach((v) => io.observe(v));
   }
 
-  /* ── Filters ─────────────────────────────────────────────── */
+  /* ── Slider position: "2 / 7" ───────────────────────────── */
+  function current() {
+    const w = track.clientWidth || 1;
+    return Math.round(track.scrollLeft / w);
+  }
+  function updateCounter() {
+    if (!counter) return;
+    const n = visible().length;
+    counter.textContent = n ? `${Math.min(current() + 1, n)} / ${n}` : '';
+  }
+  let raf = 0;
+  track.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(updateCounter);
+  }, { passive: true });
+
+  /* ── Room tabs ──────────────────────────────────────────── */
   function applyFilter(filter) {
-    const state = typeof Flip !== 'undefined' && !reduce ? Flip.getState(items) : null;
-
-    items.forEach((el) => {
-      el.hidden = !(filter === 'all' || el.dataset.cat === filter);
-    });
-    grid.classList.toggle('is-filtered', filter !== 'all');
-
-    if (state) {
-      Flip.from(state, {
-        duration: 0.6,
-        ease: 'power3.inOut',
-        absolute: true,
-        scale: true,
-        onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5 }),
-        onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.9, duration: 0.3 }),
-        onComplete: () => ScrollTrigger.refresh(),
-      });
-    } else if (typeof ScrollTrigger !== 'undefined') {
-      ScrollTrigger.refresh();
+    items.forEach((el) => { el.hidden = el.dataset.cat !== filter; });
+    track.scrollTo({ left: 0, behavior: 'auto' });
+    if (!reduce && typeof gsap !== 'undefined') {
+      gsap.fromTo(visible().slice(0, 2), { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out', stagger: 0.08 });
     }
+    updateCounter();
   }
-
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       if (tab.classList.contains('active')) return;
@@ -307,6 +314,8 @@ function initBento() {
       applyFilter(tab.dataset.filter);
     });
   });
+  const first = tabs.find((t) => t.classList.contains('active')) || tabs[0];
+  if (first) applyFilter(first.dataset.filter);
 
   /* ── Lightbox ────────────────────────────────────────────── */
   if (!box || !media) return;
@@ -327,7 +336,6 @@ function initBento() {
       node.loop = true;
       node.playsInline = true;
       node.autoplay = true;
-      node.controls = false;
     } else {
       node = document.createElement('img');
       node.src = el.dataset.full;
@@ -343,44 +351,40 @@ function initBento() {
     }
   }
 
-  function open(el) {
-    list = items.filter((i) => !i.hidden);
+  const lockScroll = () => { document.body.style.overflow = 'hidden'; window.__lenis?.stop(); };
+  const unlockScroll = () => {
+    if (box.classList.contains('open') || sheet?.classList.contains('open')) return;
+    document.body.style.overflow = '';
+    window.__lenis?.start();
+  };
+
+  function open(source, el) {
+    list = source;
     index = Math.max(0, list.indexOf(el));
     lastFocus = document.activeElement;
     render();
     box.classList.add('open');
     box.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    window.__lenis?.stop();
+    lockScroll();
     btnClose?.focus();
     if (typeof gtag === 'function') gtag('event', 'gallery_open');
   }
-
   function close() {
     box.classList.remove('open');
     box.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    window.__lenis?.start();
     media.innerHTML = '';
+    unlockScroll();
     lastFocus?.focus?.();
   }
-
   const step = (d) => { index = (index + d + list.length) % list.length; render(); };
 
-  items.forEach((el) => el.addEventListener('click', () => open(el)));
+  items.forEach((el) => el.addEventListener('click', () => open(visible(), el)));
   btnClose?.addEventListener('click', close);
   btnPrev?.addEventListener('click', () => step(-1));
   btnNext?.addEventListener('click', () => step(1));
   box.addEventListener('click', (e) => { if (e.target === box) close(); });
 
-  document.addEventListener('keydown', (e) => {
-    if (!box.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft') step(-1);
-    if (e.key === 'ArrowRight') step(1);
-  });
-
-  /* Swipe on touch screens */
+  /* Swipe inside the lightbox */
   let x0 = null;
   box.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
   box.addEventListener('touchend', (e) => {
@@ -389,4 +393,54 @@ function initBento() {
     if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
     x0 = null;
   });
+
+  /* ── "All photos": full-screen grid ─────────────────────── */
+  if (sheet && sheetList && allBtn) {
+    items.forEach((el) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ggo-item' + (el.dataset.kind === 'vid' ? ' is-video' : '');
+      const src = el.dataset.kind === 'vid'
+        ? el.querySelector('video')?.getAttribute('poster')
+        : el.querySelector('img')?.getAttribute('src');
+      const img = document.createElement('img');
+      img.src = src || '';
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      b.setAttribute('aria-label', altOf(el));
+      b.appendChild(img);
+      b.addEventListener('click', () => open(items, el));
+      sheetList.appendChild(b);
+    });
+
+    const openSheet = () => {
+      sheet.classList.add('open');
+      sheet.setAttribute('aria-hidden', 'false');
+      sheet.scrollTop = 0;
+      lockScroll();
+      sheetClose?.focus();
+      if (!reduce && typeof gsap !== 'undefined') {
+        gsap.fromTo(sheetList.children, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: 'power2.out' });
+      }
+    };
+    const closeSheet = () => {
+      sheet.classList.remove('open');
+      sheet.setAttribute('aria-hidden', 'true');
+      unlockScroll();
+      allBtn.focus();
+    };
+    allBtn.addEventListener('click', openSheet);
+    sheetClose?.addEventListener('click', closeSheet);
+
+    document.addEventListener('keydown', (e) => {
+      if (box.classList.contains('open')) {
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') step(-1);
+        if (e.key === 'ArrowRight') step(1);
+      } else if (e.key === 'Escape' && sheet.classList.contains('open')) {
+        closeSheet();
+      }
+    });
+  }
 }

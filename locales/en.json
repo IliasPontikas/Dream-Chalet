@@ -34,11 +34,11 @@
     "label": "Gallery",
     "heading": "Every Corner, a Story",
     "tabs": {
-      "all": "All",
       "living": "Living room",
       "rooms": "Bedrooms",
       "details": "Details"
-    }
+    },
+    "allPhotos": "All photos"
   },
   "scrollVideo": {
     "label": "Walkthrough scrolling",
