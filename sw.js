@@ -1,7 +1,7 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v24';
+const CACHE = 'dream-chalet-v25';
 
 const ASSETS = [
   '/',
@@ -26,6 +26,12 @@ const ASSETS = [
   '/images/icons.svg',
   '/vendor/cookieconsent/cookieconsent.css',
   '/vendor/cookieconsent/cookieconsent.umd.js',
+  '/vendor/gsap/gsap.min.js',
+  '/vendor/gsap/ScrollTrigger.min.js',
+  '/vendor/gsap/ScrollToPlugin.min.js',
+  '/vendor/gsap/Flip.min.js',
+  '/vendor/gsap/Draggable.min.js',
+  '/vendor/lenis/lenis.min.js',
 ];
 
 self.addEventListener('install', (e) => {

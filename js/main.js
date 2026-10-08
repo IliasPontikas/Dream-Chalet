@@ -31,9 +31,16 @@
     mq.addEventListener?.('change', apply);
   })();
 
+  /* ── No animation library? Show the plain page instead of a stuck preloader ── */
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    document.documentElement.classList.add('no-anim');
+    const pre = document.getElementById('preloader');
+    if (pre) pre.style.display = 'none';
+    return;
+  }
+
   /* ── Register GSAP plugins ─────────────────────────────── */
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Flip, Draggable);
-  if (typeof InertiaPlugin !== 'undefined') gsap.registerPlugin(InertiaPlugin);
 
   /* ── Prefers-reduced-motion ────────────────────────────── */
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -114,9 +121,12 @@
     const interval = setInterval(() => {
       target += Math.random() * 12;
       if (target > 90) target = 90;
-    }, 140);
+    }, 90);
 
+    let finished = false;
     const finish = () => {
+      if (finished) return;
+      finished = true;
       clearInterval(interval);
       target = 100;
 
@@ -133,21 +143,23 @@
 
         gsap.to(preloader, {
           yPercent: -100,
-          duration: 0.9,
+          duration: 0.7,
           ease: 'power3.inOut',
-          delay: 0.3,
+          delay: 0.1,
           onComplete: () => {
             preloader.style.display = 'none';
             onReady();
           },
         });
-      }, 650);
+      }, 350);
     };
 
     if (document.readyState === 'complete') {
-      setTimeout(finish, 600);
+      setTimeout(finish, 300);
     } else {
-      window.addEventListener('load', () => setTimeout(finish, 400));
+      window.addEventListener('load', () => setTimeout(finish, 150));
+      /* Don't wait forever for slow third-party resources */
+      setTimeout(finish, 2500);
     }
   }
 

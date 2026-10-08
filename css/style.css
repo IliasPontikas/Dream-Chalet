@@ -774,6 +774,14 @@ select,
   transform: translateY(40px) rotateX(-30deg);
   transform-origin: bottom center;
 }
+/* Fallback when animations can't run: show everything in its final state */
+.no-anim .hero-title .char,
+.no-anim .hero-subtitle,
+.no-anim .hero-eyebrow,
+.no-anim .hero-ctas {
+  opacity: 1 !important;
+  transform: none !important;
+}
 .hero-subtitle {
   font-family: "Inter", sans-serif;
   font-size: clamp(0.82rem, 1.25vw, 1rem);
