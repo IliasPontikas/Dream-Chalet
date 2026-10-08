@@ -52,14 +52,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=34">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=35">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=34">
+  <link rel="stylesheet" href="css/style.css?v=35">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -195,7 +195,7 @@
       <div class="nav-right">
         <div class="nav-links">
           <a href="#reviews" class="nav-link" data-i18n="nav.reviews">Κριτικές</a>
-          <a href="#pricing" class="nav-link" data-i18n="nav.availability">Διαθεσιμότητα</a>
+          <a href="#availability" class="nav-link" data-i18n="nav.availability">Διαθεσιμότητα</a>
         </div>
         <button id="lang-toggle" class="lang-toggle" lang="en" aria-label="Switch to English">EN</button>
         <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="nav-book" data-track="booking" data-i18n="nav.book">Κράτηση</a>
@@ -214,7 +214,7 @@
         <a href="#gallery" class="mobile-nav-link"><span class="mobile-nav-num">02</span><span class="mobile-nav-label" data-i18n="nav.gallery">Γκαλερί</span></a>
         <a href="#attractions" class="mobile-nav-link"><span class="mobile-nav-num">03</span><span class="mobile-nav-label" data-i18n="nav.area">Περιοχή</span></a>
         <a href="#reviews" class="mobile-nav-link"><span class="mobile-nav-num">04</span><span class="mobile-nav-label" data-i18n="nav.reviews">Κριτικές</span></a>
-        <a href="#pricing" class="mobile-nav-link"><span class="mobile-nav-num">05</span><span class="mobile-nav-label" data-i18n="nav.availability">Διαθεσιμότητα</span></a>
+        <a href="#availability" class="mobile-nav-link"><span class="mobile-nav-num">05</span><span class="mobile-nav-label" data-i18n="nav.availability">Διαθεσιμότητα</span></a>
         <a href="#contact" class="mobile-nav-link"><span class="mobile-nav-num">06</span><span class="mobile-nav-label" data-i18n="nav.contact">Επικοινωνία</span></a>
       </nav>
 
@@ -585,79 +585,45 @@
       </div>
     </section>
 
-    <!-- Pricing + Calendar -->
-    <section id="pricing" class="section-pricing" role="region" aria-label="Pricing and availability">
-      <div class="container">
-        <span class="section-label" data-i18n="pricing.label">Τιμές</span>
-        <h2 class="section-heading" data-i18n="pricing.heading">Διαθεσιμότητα & Τιμές</h2>
+    <!-- Availability (calendar + booking hand-off) -->
+    <section id="availability" class="section-availability" role="region" aria-label="Availability">
+      <div class="container avail-layout">
+        <figure class="avail-photo">
+          <img src="images/photos/detail-clock-1920.avif" srcset="images/photos/detail-clock-960.avif 720w, images/photos/detail-clock-1920.avif 1440w" sizes="(max-width: 1024px) 100vw, 40vw" alt="Ρολόι σταθμού στον πέτρινο τοίχο του σαλονιού" loading="lazy" decoding="async" width="1440" height="1920">
+          <figcaption class="avail-times">
+            <span><small data-i18n="availability.checkinLabel">Check-in</small><strong>15:00</strong></span>
+            <span><small data-i18n="availability.checkoutLabel">Check-out</small><strong>11:00</strong></span>
+          </figcaption>
+        </figure>
 
-        <p class="pricing-intro" data-i18n="pricing.intro">Δύο εποχιακές τιμές για να ταιριάζουν στη διαμονή σας. Όλες οι παροχές περιλαμβάνονται.</p>
+        <div class="avail-panel">
+          <span class="section-label" data-i18n="availability.label">Διαθεσιμότητα</span>
+          <h2 class="section-heading" data-i18n="availability.heading">Διαλέξτε τις μέρες σας</h2>
+          <p class="avail-intro" data-i18n="availability.intro">Επιλέξτε άφιξη και αναχώρηση στο ημερολόγιο και συνεχίστε στο Airbnb, στο Booking.com ή στείλτε μας μήνυμα — οι ημερομηνίες σας περνούν αυτόματα.</p>
 
-        <div class="pricing-layout">
-          <!-- LEFT: Price Cards -->
-          <div class="pricing-cards-col">
-            <article class="price-card">
-              <header class="price-card-head">
-                <span class="price-tier" data-i18n="pricing.lowSeason">Χαμηλή Περίοδος</span>
-                <span class="price-tier-sub" data-i18n="pricing.lowSeasonRange">Οκτ – Μάι</span>
-              </header>
-              <div class="price-amount">
-                <span class="price-from" data-i18n="pricing.from">από</span>
-                <span class="price-currency">€</span>
-                <span class="price-number" data-i18n="pricing.price">150</span>
-                <span class="price-unit" data-i18n="pricing.perNight">/ νύχτα</span>
+          <div id="calendar-container" role="presentation"></div>
+
+          <div class="avail-check">
+            <div class="avail-dates">
+              <div class="avail-date-field">
+                <label for="checkin-date" data-i18n="availability.arrival">Άφιξη</label>
+                <input type="date" id="checkin-date" class="date-input">
               </div>
-              <ul class="price-details">
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-users"></use></svg> <span data-i18n="pricing.guests">Έως 6 επισκέπτες</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-moon"></use></svg> <span data-i18n="pricing.minStay">Ελάχ. παραμονή: 2 νύχτες</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-clock"></use></svg> <span data-i18n="pricing.checkin">Check-in: 15:00</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-door-open"></use></svg> <span data-i18n="pricing.checkout">Check-out: 11:00</span></li>
-              </ul>
-            </article>
-
-            <article class="price-card popular">
-              <div class="popular-badge" data-i18n="pricing.popular">Most Popular</div>
-              <header class="price-card-head">
-                <span class="price-tier" data-i18n="pricing.highSeason">Υψηλή Περίοδος</span>
-                <span class="price-tier-sub" data-i18n="pricing.highSeasonRange">Ιουν – Σεπ • Εορτές</span>
-              </header>
-              <div class="price-amount">
-                <span class="price-from" data-i18n="pricing.from">από</span>
-                <span class="price-currency">€</span>
-                <span class="price-number">200</span>
-                <span class="price-unit" data-i18n="pricing.perNight">/ νύχτα</span>
+              <div class="avail-date-field">
+                <label for="checkout-date" data-i18n="availability.departure">Αναχώρηση</label>
+                <input type="date" id="checkout-date" class="date-input">
               </div>
-              <ul class="price-details">
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-users"></use></svg> <span data-i18n="pricing.guests">Έως 6 επισκέπτες</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-moon"></use></svg> <span data-i18n="pricing.minStay3">Ελάχ. παραμονή: 3 νύχτες</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-clock"></use></svg> <span data-i18n="pricing.flexCheckin">Ευέλικτο Check-in</span></li>
-                <li><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-door-open"></use></svg> <span data-i18n="pricing.lateCheckout">Late Check-out</span></li>
-              </ul>
-            </article>
-          </div>
-
-          <!-- RIGHT: Calendar + Availability Check -->
-          <div class="pricing-calendar-col">
-            <div class="calendar-wrap">
-              <h3 data-i18n="pricing.calendar">Ημερολόγιο Διαθεσιμότητας</h3>
-              <div id="calendar-container" role="presentation"></div>
+              <div class="avail-date-field avail-guests">
+                <label for="guests" data-i18n="availability.guests">Επισκέπτες</label>
+                <select id="guests" class="date-input">
+                  <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+                </select>
+              </div>
             </div>
-            <div class="avail-check">
-              <div class="avail-dates">
-                <div class="avail-date-field">
-                  <label for="checkin-date" data-i18n="pricing.checkinLabel">Check-in</label>
-                  <input type="date" id="checkin-date" class="date-input" aria-label="Check-in date">
-                </div>
-                <div class="avail-date-field">
-                  <label for="checkout-date" data-i18n="pricing.checkoutLabel">Check-out</label>
-                  <input type="date" id="checkout-date" class="date-input" aria-label="Check-out date">
-                </div>
-              </div>
-              <button class="btn-check-avail" id="check-availability" data-i18n="pricing.checkAvailability">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-calendar-check"></use></svg>
-                <span>Έλεγχος Διαθεσιμότητας</span>
-              </button>
-            </div>
+            <button type="button" class="btn-check-avail" id="check-availability">
+              <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-calendar-check"></use></svg>
+              <span data-i18n="availability.cta">Συνέχεια στην κράτηση</span>
+            </button>
           </div>
         </div>
       </div>
@@ -745,7 +711,7 @@
               <a href="#gallery" data-i18n="nav.gallery">Γκαλερί</a>
               <a href="#amenities" data-i18n="nav.amenities">Παροχές</a>
               <a href="#attractions" data-i18n="footer.mapLink">Τοποθεσία</a>
-              <a href="#pricing" data-i18n="footer.pricingLink">Τιμές</a>
+              <a href="#availability" data-i18n="footer.availabilityLink">Διαθεσιμότητα</a>
               <a href="#contact" data-i18n="nav.contact">Επικοινωνία</a>
             </div>
           </div>
@@ -818,22 +784,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=34"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=35"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=34" defer></script>
-  <script src="js/main.js?v=34" defer></script>
-  <script src="js/animations.js?v=34" defer></script>
-  <script src="js/cursor.js?v=34" defer></script>
-  <script src="js/scroll-video.js?v=34" defer></script>
-  <script src="js/gallery.js?v=34" defer></script>
-  <script src="js/reviews.js?v=34" defer></script>
-  <script src="js/map.js?v=34" defer></script>
-  <script src="js/calendar.js?v=34" defer></script>
-  <script src="js/weather.js?v=34" defer></script>
-  <script src="js/i18n.js?v=34" defer></script>
-  <script src="js/cookie-consent.js?v=34" defer></script>
+  <script src="js/config.js?v=35" defer></script>
+  <script src="js/main.js?v=35" defer></script>
+  <script src="js/animations.js?v=35" defer></script>
+  <script src="js/cursor.js?v=35" defer></script>
+  <script src="js/scroll-video.js?v=35" defer></script>
+  <script src="js/gallery.js?v=35" defer></script>
+  <script src="js/reviews.js?v=35" defer></script>
+  <script src="js/map.js?v=35" defer></script>
+  <script src="js/calendar.js?v=35" defer></script>
+  <script src="js/weather.js?v=35" defer></script>
+  <script src="js/i18n.js?v=35" defer></script>
+  <script src="js/cookie-consent.js?v=35" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=34" defer></script> -->
+  <!-- <script src="js/analytics.js?v=35" defer></script> -->
 </body>
 </html>

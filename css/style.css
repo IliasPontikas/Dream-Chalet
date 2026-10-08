@@ -1238,196 +1238,6 @@ select,
   border-color: rgba(160, 120, 64, 0.45);
   color: var(--gold);
 }
-.section-pricing {
-  padding: 8rem 0;
-  background: var(--bg2);
-  position: relative;
-}
-.section-pricing::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 85% 10%, rgba(201, 169, 110, 0.08), transparent 60%),
-    radial-gradient(circle at 15% 90%, rgba(201, 169, 110, 0.04), transparent 55%);
-  pointer-events: none;
-}
-.section-pricing > * { position: relative; }
-.pricing-intro {
-  max-width: 56ch;
-  font-size: 1rem;
-  font-weight: 300;
-  color: var(--text-muted);
-  margin: 0.25rem 0 3rem;
-  line-height: 1.7;
-}
-.pricing-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-.pricing-cards-col {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-.pricing-calendar-col {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.price-card {
-  background: linear-gradient(180deg, rgba(34, 28, 22, 0.65) 0%, rgba(26, 21, 17, 0.65) 100%);
-  border: 1px solid rgba(201, 169, 110, 0.18);
-  border-radius: var(--radius-lg);
-  padding: 2.25rem 2.25rem 2.5rem;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
-}
-.price-card:hover {
-  border-color: rgba(201, 169, 110, 0.5);
-  transform: translateY(-3px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-}
-.price-card.popular {
-  border-color: rgba(201, 169, 110, 0.55);
-  background:
-    linear-gradient(180deg, rgba(201, 169, 110, 0.08) 0%, rgba(34, 28, 22, 0.7) 60%);
-}
-.price-card.popular::before {
-  /* Faint corner glow */
-  content: "";
-  position: absolute;
-  top: -30%;
-  right: -30%;
-  width: 70%;
-  height: 70%;
-  background: radial-gradient(circle, rgba(201, 169, 110, 0.18), transparent 70%);
-  pointer-events: none;
-}
-.popular-badge {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  font-family: "Manrope", sans-serif;
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.32em;
-  text-indent: 0.32em;
-  text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(14, 11, 8, 0.55);
-  padding: 0.45rem 0.85rem;
-  border-radius: 999px;
-  border: 1px solid rgba(201, 169, 110, 0.5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  z-index: 2;
-}
-.price-card-head {
-  margin-bottom: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-.price-tier {
-  display: block;
-  font-family: "EB Garamond", serif;
-  font-style: italic;
-  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
-  font-weight: 500;
-  color: var(--text-light);
-  line-height: 1.1;
-  letter-spacing: -0.005em;
-}
-.price-tier-sub {
-  display: block;
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.28em;
-  text-indent: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.85;
-  margin-top: 0.5rem;
-}
-.price-amount {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-  margin: 0 0 1.75rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(201, 169, 110, 0.12);
-  position: relative;
-  z-index: 1;
-}
-.price-from {
-  font-family: "Manrope", sans-serif;
-  font-size: 0.62rem;
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  text-indent: 0.32em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  align-self: flex-start;
-  margin-top: 0.65rem;
-  margin-right: 0.35rem;
-}
-.price-currency {
-  font-family: "EB Garamond", serif;
-  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
-  color: var(--gold);
-  font-weight: 400;
-  align-self: flex-start;
-  margin-top: 0.45em;
-}
-.price-number {
-  font-family: "EB Garamond", serif;
-  font-size: clamp(3.6rem, 7vw, 5.5rem);
-  font-weight: 500;
-  color: var(--gold);
-  line-height: 0.9;
-  letter-spacing: -0.025em;
-  font-feature-settings: "lnum" 1, "kern" 1;
-}
-.price-unit {
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-left: 0.35rem;
-}
-.price-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  position: relative;
-  z-index: 1;
-}
-.price-details li {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: rgba(245, 240, 232, 0.78);
-}
-.price-details li .icon {
-  color: var(--gold);
-  opacity: 0.75;
-  width: 1em;
-  height: 1em;
-}
-.calendar-wrap h3 {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-}
 #calendar-container {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -2070,9 +1880,6 @@ html.show--consent .sticky-book { bottom: 9rem; }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .pricing-layout {
-    grid-template-columns: 1fr;
-  }
   .contact-inner {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -2235,33 +2042,10 @@ html.show--consent .sticky-book { bottom: 9rem; }
   );
 }
 
-/* Hamburger uses gold accents in BOTH themes — no override needed.
-   Mobile menu uses an always-light cream surface in BOTH themes — no
-   override needed either. */
-
-/* Pricing cards on light bg */
-.tone-light .price-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 240, 232, 0.85) 100%);
-  border-color: rgba(160, 120, 64, 0.22);
-}
-.tone-light .price-card:hover { border-color: rgba(160, 120, 64, 0.55); }
-.tone-light .price-card.popular {
-  background: linear-gradient(180deg, rgba(160, 120, 64, 0.07) 0%, rgba(255, 255, 255, 0.82) 60%);
-  border-color: rgba(160, 120, 64, 0.55);
-}
-.tone-light .popular-badge {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(160, 120, 64, 0.6);
-}
-.tone-light .price-tier { color: var(--text-dark); }
-.tone-light .price-amount { border-bottom-color: rgba(160, 120, 64, 0.18); }
-.tone-light .price-details li { color: rgba(20, 14, 8, 0.78); }
-
 /* ─────────────────────────────────────────────────────────── */
 /* Disable hover-stuck states on touch (no :hover persistence)  */
 /* ─────────────────────────────────────────────────────────── */
 @media (hover: none) {
-  .price-card:hover { transform: none; }
   .nav-link::after { transition: none; }
 }
 
@@ -3011,4 +2795,115 @@ html.show--consent .sticky-book { bottom: 9rem; }
   .score-meta {
     font-size: 0.7rem;
   }
+}
+
+/* ══ Availability: clock photo + calendar ═════════════════════ */
+.section-availability {
+  padding: 8rem 0;
+  background: var(--bg2);
+}
+.avail-layout {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 5rem;
+  align-items: center;
+}
+.avail-photo {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  max-height: 760px;
+}
+.avail-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.avail-times {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: rgba(14, 11, 8, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  border-radius: var(--radius);
+}
+.avail-times span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.9rem 0.5rem;
+}
+.avail-times span + span {
+  border-left: 1px solid rgba(201, 169, 110, 0.25);
+}
+.avail-times small {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.avail-times strong {
+  font-family: "EB Garamond", serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--cream);
+}
+.avail-intro {
+  color: var(--text-muted);
+  max-width: 52ch;
+  margin-bottom: 2rem;
+}
+.avail-panel #calendar-container {
+  margin-bottom: 1.25rem;
+}
+.avail-panel .avail-dates {
+  grid-template-columns: 1fr 1fr 0.7fr;
+}
+.avail-guests select {
+  cursor: pointer;
+}
+.calendar-day.past {
+  color: rgba(245, 240, 232, 0.18);
+}
+.avail-modal-btns {
+  flex-direction: column;
+  align-items: stretch;
+}
+.avail-modal-btns a {
+  justify-content: center;
+}
+@media (max-width: 1024px) {
+  .avail-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .avail-photo {
+    aspect-ratio: 4 / 3;
+  }
+  .avail-photo img {
+    object-position: center 30%;
+  }
+}
+@media (max-width: 768px) {
+  .section-availability {
+    padding: 5rem 0;
+  }
+  .avail-panel .avail-dates {
+    grid-template-columns: 1fr 1fr;
+  }
+  .avail-guests {
+    grid-column: span 2;
+  }
+}
+.avail-panel .calendar-day {
+  aspect-ratio: auto;
+  height: 2.6rem;
 }

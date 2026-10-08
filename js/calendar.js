@@ -1,4 +1,4 @@
-/* calendar.js — Availability calendar with date-range selection (i18n-aware) */
+/* calendar.js — Date-range calendar that hands the stay off to Airbnb / Booking / WhatsApp */
 
 const CALENDAR_STRINGS = {
   el: {
@@ -15,9 +15,11 @@ const CALENDAR_STRINGS = {
     invalidDatesMsg: 'Η ημερομηνία αναχώρησης πρέπει να είναι μετά την άφιξη.',
     unavailableTitle: 'Μη Διαθέσιμο',
     unavailableMsg: 'Δυστυχώς το chalet δεν είναι διαθέσιμο για τις επιλεγμένες ημερομηνίες. Επικοινωνήστε μαζί μας για εναλλακτικές ή επιλέξτε άλλες ημερομηνίες.',
-    availableTitle: 'Διαθέσιμο!',
-    availableMsg: (n, ci, co) => `Το chalet είναι διαθέσιμο για ${n} νύχτ${n === 1 ? 'α' : 'ες'} (${ci} → ${co}). Επικοινωνήστε μαζί μας για να ολοκληρώσετε την κράτηση.`,
-    bookAirbnb: 'Κράτηση Airbnb →',
+    handoffTitle: 'Οι ημερομηνίες σας',
+    handoffMsg: (n, ci, co, g) => `${n} νύχτ${n === 1 ? 'α' : 'ες'} · ${ci} → ${co} · ${g} επισκέπτ${g === 1 ? 'ης' : 'ες'}. Δείτε τιμή και διαθεσιμότητα:`,
+    whatsappText: (ci, co, g) => `Γεια σας! Ενδιαφέρομαι για το Dream Chalet από ${ci} έως ${co} για ${g} άτομα. Είναι διαθέσιμο;`,
+    bookAirbnb: 'Airbnb',
+    bookBooking: 'Booking.com',
     close: 'Κλείσιμο',
   },
   en: {
@@ -34,9 +36,11 @@ const CALENDAR_STRINGS = {
     invalidDatesMsg: 'Check-out must be after check-in.',
     unavailableTitle: 'Not Available',
     unavailableMsg: 'Sorry, the chalet is not available for the selected dates. Contact us for alternatives or pick different dates.',
-    availableTitle: 'Available!',
-    availableMsg: (n, ci, co) => `The chalet is available for ${n} night${n === 1 ? '' : 's'} (${ci} → ${co}). Contact us to complete your booking.`,
-    bookAirbnb: 'Book on Airbnb →',
+    handoffTitle: 'Your dates',
+    handoffMsg: (n, ci, co, g) => `${n} night${n === 1 ? '' : 's'} · ${ci} → ${co} · ${g} guest${g === 1 ? '' : 's'}. See price and availability:`,
+    whatsappText: (ci, co, g) => `Hello! I'm interested in Dream Chalet from ${ci} to ${co} for ${g} guests. Is it available?`,
+    bookAirbnb: 'Airbnb',
+    bookBooking: 'Booking.com',
     close: 'Close',
   },
 };
@@ -51,13 +55,9 @@ function initCalendar() {
   const container = document.getElementById('calendar-container');
   if (!container) return;
 
-  /* Sample booked dates — replace with real iCal sync once client provides URLs */
-  const BOOKED = new Set([
-    '2026-04-20', '2026-04-21', '2026-04-22',
-    '2026-05-01', '2026-05-02', '2026-05-03', '2026-05-04',
-    '2026-05-15', '2026-05-16', '2026-05-17', '2026-05-18', '2026-05-19',
-    '2026-06-10', '2026-06-11', '2026-06-12',
-  ]);
+  /* Booked nights. Empty until the Airbnb/Booking iCal feeds are connected —
+     we never show made-up availability. Fill with 'YYYY-MM-DD' strings. */
+  const BOOKED = new Set([]);
 
   let viewDate = new Date();
   viewDate.setDate(1);
@@ -213,11 +213,12 @@ function initCalendar() {
     }
 
     const nights = Math.round((end - new Date(ci + 'T12:00:00')) / 86400000);
+    const guests = parseInt(document.getElementById('guests')?.value || '2', 10);
 
     if (conflict) {
       showAvailabilityModal('no', t.unavailableTitle, t.unavailableMsg);
     } else {
-      showAvailabilityModal('ok', t.availableTitle, t.availableMsg(nights, ci, co), true);
+      showAvailabilityModal('ok', t.handoffTitle, t.handoffMsg(nights, ci, co, guests), { ci, co, guests });
     }
   });
 
@@ -230,8 +231,17 @@ function initCalendar() {
 }
 
 /* ── Availability popup modal ─────────────────────────────── */
-function showAvailabilityModal(type, title, message, showBook = false) {
+function showAvailabilityModal(type, title, message, stay = null) {
   const t = CALENDAR_STRINGS[_calLang()];
+  const cfg = typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG : null;
+  const airbnb  = cfg ? cfg.airbnbUrl  : 'https://www.airbnb.gr/rooms/1019294882973971198';
+  const booking = cfg ? cfg.bookingUrl : 'https://www.booking.com/hotel/gr/dream-chalet-trikala.html';
+  const wa      = cfg ? cfg.whatsappUrl : 'https://wa.me/306976908838';
+  const links = stay ? {
+    airbnb:  `${airbnb}?check_in=${stay.ci}&check_out=${stay.co}&adults=${stay.guests}`,
+    booking: `${booking}?checkin=${stay.ci}&checkout=${stay.co}&group_adults=${stay.guests}&no_rooms=1`,
+    wa:      `${wa}?text=${encodeURIComponent(t.whatsappText(stay.ci, stay.co, stay.guests))}`,
+  } : null;
   const iconMap = { ok: 'fa-check', no: 'fa-xmark', warn: 'fa-triangle-exclamation' };
   const clsMap  = { ok: 'avail-ok', no: 'avail-no', warn: 'avail-warn' };
 
@@ -246,13 +256,16 @@ function showAvailabilityModal(type, title, message, showBook = false) {
       </div>
       <h3>${title}</h3>
       <p>${message}</p>
-      ${showBook ? `
+      ${links ? `
       <div class="avail-modal-btns">
-        <a href="${typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.whatsappUrl : 'https://wa.me/306976908838'}" target="_blank" rel="noopener" class="btn-avail-contact">
-          <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg> WhatsApp
+        <a href="${links.airbnb}" target="_blank" rel="noopener" class="btn-avail-book" data-track="airbnb">
+          <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg> ${t.bookAirbnb}
         </a>
-        <a href="${typeof SITE_CONFIG !== 'undefined' ? SITE_CONFIG.airbnbUrl : 'https://www.airbnb.gr/rooms/1019294882973971198'}" target="_blank" rel="noopener" class="btn-avail-book">
-          ${t.bookAirbnb}
+        <a href="${links.booking}" target="_blank" rel="noopener" class="btn-avail-book" data-track="booking">
+          <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg> ${t.bookBooking}
+        </a>
+        <a href="${links.wa}" target="_blank" rel="noopener" class="btn-avail-contact" data-track="whatsapp">
+          <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-whatsapp"></use></svg> WhatsApp
         </a>
       </div>` : ''}
       <button class="avail-modal-close">${t.close}</button>

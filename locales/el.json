@@ -126,30 +126,6 @@
     "bookingCount": "14 κριτικές",
     "bookingWord": "Εξαιρετικό"
   },
-  "pricing": {
-    "label": "Τιμές",
-    "heading": "Διαθεσιμότητα & Τιμές",
-    "intro": "Δύο εποχιακές τιμές για να ταιριάζουν στη διαμονή σας. Όλες οι παροχές περιλαμβάνονται.",
-    "from": "από",
-    "price": "150",
-    "perNight": "/ νύχτα",
-    "popular": "Most Popular",
-    "lowSeason": "Χαμηλή Περίοδος",
-    "lowSeasonRange": "Οκτ – Μάι",
-    "highSeason": "Υψηλή Περίοδος",
-    "highSeasonRange": "Ιουν – Σεπ • Εορτές",
-    "guests": "Έως 6 επισκέπτες",
-    "minStay": "Ελάχ. παραμονή: 2 νύχτες",
-    "minStay3": "Ελάχ. παραμονή: 3 νύχτες",
-    "flexCheckin": "Ευέλικτο Check-in",
-    "lateCheckout": "Late Check-out",
-    "checkin": "Check-in: 15:00",
-    "checkout": "Check-out: 11:00",
-    "checkinLabel": "Ημερομηνία Άφιξης",
-    "checkoutLabel": "Ημερομηνία Αναχώρησης",
-    "checkAvailability": "Έλεγχος Διαθεσιμότητας",
-    "calendar": "Ημερολόγιο Διαθεσιμότητας"
-  },
   "contact": {
     "label": "Επικοινωνία",
     "heading": "Επικοινωνήστε Μαζί μας",
@@ -169,11 +145,22 @@
     "tagline": "Πολυτελές εξοχικό σπίτι στα Τρίκαλα, στην καρδιά της ελληνικής φύσης.",
     "contactTitle": "Επικοινωνία",
     "mapLink": "Τοποθεσία",
-    "pricingLink": "Τιμές",
     "bookAirbnb": "Κράτηση στο Airbnb",
-    "bookBooking": "Κράτηση στο Booking"
+    "bookBooking": "Κράτηση στο Booking",
+    "availabilityLink": "Διαθεσιμότητα"
   },
   "sticky": {
     "book": "Κράτηση"
+  },
+  "availability": {
+    "label": "Διαθεσιμότητα",
+    "heading": "Διαλέξτε τις μέρες σας",
+    "intro": "Επιλέξτε άφιξη και αναχώρηση στο ημερολόγιο και συνεχίστε στο Airbnb, στο Booking.com ή στείλτε μας μήνυμα — οι ημερομηνίες σας περνούν αυτόματα.",
+    "checkinLabel": "Check-in",
+    "checkoutLabel": "Check-out",
+    "arrival": "Άφιξη",
+    "departure": "Αναχώρηση",
+    "guests": "Επισκέπτες",
+    "cta": "Συνέχεια στην κράτηση"
   }
 }

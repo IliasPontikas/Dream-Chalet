@@ -126,30 +126,6 @@
     "bookingCount": "14 reviews",
     "bookingWord": "Exceptional"
   },
-  "pricing": {
-    "label": "Pricing",
-    "heading": "Availability & Pricing",
-    "intro": "Two seasonal rates to match your stay. All amenities are included.",
-    "from": "from",
-    "price": "150",
-    "perNight": "/ night",
-    "popular": "Most Popular",
-    "lowSeason": "Low Season",
-    "lowSeasonRange": "Oct – May",
-    "highSeason": "High Season",
-    "highSeasonRange": "Jun – Sep • Holidays",
-    "guests": "Up to 6 guests",
-    "minStay": "Min. stay: 2 nights",
-    "minStay3": "Min. stay: 3 nights",
-    "flexCheckin": "Flexible Check-in",
-    "lateCheckout": "Late Check-out",
-    "checkin": "Check-in: 3:00 PM",
-    "checkout": "Check-out: 11:00 AM",
-    "checkinLabel": "Check-in Date",
-    "checkoutLabel": "Check-out Date",
-    "checkAvailability": "Check Availability",
-    "calendar": "Availability Calendar"
-  },
   "contact": {
     "label": "Contact",
     "heading": "Get in Touch",
@@ -169,11 +145,22 @@
     "tagline": "Luxury vacation home in Trikala, in the heart of Greek nature.",
     "contactTitle": "Contact",
     "mapLink": "Location",
-    "pricingLink": "Pricing",
     "bookAirbnb": "Book on Airbnb",
-    "bookBooking": "Book on Booking"
+    "bookBooking": "Book on Booking",
+    "availabilityLink": "Availability"
   },
   "sticky": {
     "book": "Book"
+  },
+  "availability": {
+    "label": "Availability",
+    "heading": "Choose your dates",
+    "intro": "Pick your arrival and departure on the calendar, then continue on Airbnb, Booking.com or message us — your dates are carried over automatically.",
+    "checkinLabel": "Check-in",
+    "checkoutLabel": "Check-out",
+    "arrival": "Arrival",
+    "departure": "Departure",
+    "guests": "Guests",
+    "cta": "Continue to booking"
   }
 }

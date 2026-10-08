@@ -11,8 +11,8 @@ const SITE_CONFIG = Object.freeze({
   instagramUrl: 'https://www.instagram.com/dream_chalet_trikala/',
 
   /* Derived contact links */
-  get whatsappUrl() { return `https://wa.me/${this.phone}`; },
-  get viberUrl()    { return `viber://chat?number=${this.phone}`; },
+  get whatsappUrl() { return `https://wa.me/${this.phone.replace('+', '')}`; },
+  get viberUrl()    { return `viber://chat?number=${encodeURIComponent(this.phone)}`; },
   get telUrl()      { return `tel:${this.phone}`; },
 
   /* Property location (WGS84) */
