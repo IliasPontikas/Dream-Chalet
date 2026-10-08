@@ -43,7 +43,7 @@
   --footer-ink: 243, 239, 233;
   --card-bg: rgba(255, 255, 255, 0.04);
   --footer-veil: rgba(5, 5, 5, 0.84);
-  --reviews-veil: rgba(10, 10, 10, 0.72);
+  --reviews-veil: rgba(10, 10, 10, 0.6);
 
   /* Layered shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -86,7 +86,7 @@
   --footer-ink: 33, 26, 20;
   --card-bg: rgba(255, 255, 255, 0.35);
   --footer-veil: rgba(216, 200, 177, 0.78);
-  --reviews-veil: rgba(228, 214, 195, 0.66);
+  --reviews-veil: rgba(228, 214, 195, 0.55);
   --shadow-lg: 0 20px 60px rgba(60, 40, 20, 0.16);
 }
 html,
@@ -734,6 +734,8 @@ select,
   border: 6px solid var(--bg);
   box-shadow: var(--shadow-lg);
   z-index: 2;
+  transform: rotate(4deg);
+  transform-origin: 70% 90%;
 }
 .about-text p + p {
   margin-top: -0.75rem;
@@ -3268,9 +3270,9 @@ main > .site-footer {
   mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
 }
 .reviews-sticky-wrapper::before {
-  inset: -40px;
-  background: url('../images/photos/living-sofa-960.avif') center / cover no-repeat;
-  filter: blur(14px) saturate(1.1);
+  inset: -12px;
+  background: url('../images/photos/living-sofa-1920.avif') center / cover no-repeat;
+  filter: blur(3px) saturate(1.05);
 }
 .reviews-sticky-wrapper::after {
   background: var(--reviews-veil);

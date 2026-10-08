@@ -68,4 +68,31 @@ function initScrollVideo() {
 
   video.addEventListener('loadedmetadata', startScrub);
   if (video.readyState >= 1) startScrub();
+
+  /* Phones (iOS especially) don't load a video until it has been played
+     once. Prime it with a muted play/pause as the section approaches —
+     and again on the first touch, for browsers that need a gesture. */
+  video.muted = true;
+  video.setAttribute('muted', '');
+  video.playsInline = true;
+  let primed = false;
+  function prime() {
+    if (primed) return;
+    primed = true;
+    const p = video.play();
+    if (p && p.then) {
+      p.then(() => { video.pause(); startScrub(); }).catch(() => { primed = false; });
+    } else {
+      video.pause();
+    }
+  }
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { prime(); }
+    }, { rootMargin: '600px 0px' });
+    io.observe(section);
+  } else {
+    prime();
+  }
+  window.addEventListener('touchstart', prime, { once: true, passive: true });
 }

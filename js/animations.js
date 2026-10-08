@@ -215,6 +215,18 @@ function initSectionEntrances() {
           ease: 'power3.inOut',
           scrollTrigger: { trigger: imgWrap, start: 'top 75%' },
         });
+        /* Front photo: swings in to its tilt, then floats against the scroll */
+        if (accent) {
+          gsap.fromTo(accent,
+            { opacity: 0, y: 80, rotate: 14, scale: 0.92 },
+            { opacity: 1, y: 0, rotate: 4, scale: 1, duration: 1.4, ease: 'power3.out',
+              scrollTrigger: { trigger: imgWrap, start: 'top 65%' } });
+          gsap.to(accent, {
+            yPercent: -18,
+            ease: 'none',
+            scrollTrigger: { trigger: imgWrap, start: 'top bottom', end: 'bottom top', scrub: 1.2 },
+          });
+        }
       })
       /* Phones: scroll-linked — the photo opens from a framed window to
          full width while it settles from a slow zoom; the small photo
@@ -230,9 +242,9 @@ function initSectionEntrances() {
           .fromTo(img, { scale: 1.25 }, { scale: 1, ease: 'power2.out' }, 0);
         if (accent) {
           gsap.fromTo(accent,
-            { y: 90, opacity: 0, rotate: 3 },
+            { y: 110, opacity: 0, rotate: 14 },
             {
-              y: 0, opacity: 1, rotate: 0, ease: 'power2.out',
+              y: -10, opacity: 1, rotate: 4, ease: 'power2.out',
               scrollTrigger: { trigger: imgWrap, start: 'top 70%', end: 'bottom 85%', scrub: 1.2 },
             });
         }
