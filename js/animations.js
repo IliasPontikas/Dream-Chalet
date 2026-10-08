@@ -17,6 +17,7 @@ function initAnimations() {
     document.querySelectorAll('.hero-title .char').forEach((el) => {
       el.style.opacity = '1';
       el.style.transform = 'none';
+      el.style.filter = 'none';
     });
 
     /* Stats: snap counters straight to their target value */
@@ -143,14 +144,15 @@ function initHero() {
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
   if (eyebrow) tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' });
+  /* Letter by letter: each one rises, sharpens and fades in */
   tl.to(chars, {
     opacity: 1,
     y: 0,
-    rotateX: 0,
-    duration: 1,
-    stagger: 0.05,
-    ease: 'expo.out',
-  }, eyebrow ? '-=0.4' : 0)
+    filter: 'blur(0px)',
+    duration: 1.4,
+    stagger: 0.14,
+    ease: 'power3.out',
+  }, eyebrow ? '-=0.4' : 0.15)
     .to(subtitle, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '-=0.6')
     .to(ctas, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.5');
 
@@ -228,7 +230,7 @@ function initSectionEntrances() {
           .fromTo(img, { scale: 1.25 }, { scale: 1, ease: 'power2.out' }, 0);
         if (accent) {
           gsap.fromTo(accent,
-            { y: 90, opacity: 0, rotate: -3 },
+            { y: 90, opacity: 0, rotate: 3 },
             {
               y: 0, opacity: 1, rotate: 0, ease: 'power2.out',
               scrollTrigger: { trigger: imgWrap, start: 'top 70%', end: 'bottom 85%', scrub: 1.2 },

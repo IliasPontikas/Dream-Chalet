@@ -42,6 +42,8 @@
   --footer-bg: #050505;
   --footer-ink: 243, 239, 233;
   --card-bg: rgba(255, 255, 255, 0.04);
+  --footer-veil: rgba(5, 5, 5, 0.84);
+  --reviews-veil: rgba(10, 10, 10, 0.72);
 
   /* Layered shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -83,6 +85,8 @@
   --footer-bg: #d8c8b1;
   --footer-ink: 33, 26, 20;
   --card-bg: rgba(255, 255, 255, 0.35);
+  --footer-veil: rgba(216, 200, 177, 0.78);
+  --reviews-veil: rgba(228, 214, 195, 0.66);
   --shadow-lg: 0 20px 60px rgba(60, 40, 20, 0.16);
 }
 html,
@@ -520,10 +524,14 @@ select,
 .hero-title .char {
   display: inline-block;
   opacity: 0;
-  transform: translateY(40px) rotateX(-30deg);
-  transform-origin: bottom center;
+  transform: translateY(0.35em);
+  filter: blur(10px);
+  will-change: transform, opacity, filter;
 }
 /* Fallback when animations can't run: show everything in its final state */
+.no-anim .hero-title .char {
+  filter: none !important;
+}
 .no-anim .hero-title .char,
 .no-anim .hero-subtitle,
 .no-anim .hero-ctas,
@@ -712,11 +720,11 @@ select,
 }
 .about-media {
   position: relative;
-  padding: 0 0 3rem 3rem;
+  padding: 0 3rem 3rem 0;
 }
 .about-image-accent {
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
   width: 34%;
   height: auto;
@@ -737,7 +745,9 @@ select,
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  aspect-ratio: 4/3;
+  aspect-ratio: 4/5;
+  max-height: 78vh;
+  margin-left: auto;
   clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
 }
 .about-image-wrap img {
@@ -1349,7 +1359,7 @@ html.show--consent .sticky-book { bottom: 9rem; }
     gap: 3rem;
   }
   .about-image-wrap {
-    aspect-ratio: 16/9;
+    aspect-ratio: 4/5;
   }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -3227,7 +3237,43 @@ main > section.section-about {
   );
 }
 main > .site-footer {
-  background: linear-gradient(to bottom, var(--base) 0, var(--footer-bg) var(--fade));
+  background:
+    linear-gradient(to bottom, var(--base) 0, rgba(0, 0, 0, 0) var(--fade)),
+    linear-gradient(var(--footer-veil), var(--footer-veil)),
+    url('../images/photos/living-wide-1920.avif') center 40% / cover no-repeat,
+    var(--footer-bg);
+}
+@media (max-width: 768px) {
+  main > .site-footer {
+    background:
+      linear-gradient(to bottom, var(--base) 0, rgba(0, 0, 0, 0) var(--fade)),
+      linear-gradient(var(--footer-veil), var(--footer-veil)),
+      url('../images/photos/living-wide-portrait.avif') center / cover no-repeat,
+      var(--footer-bg);
+  }
+}
+/* Reviews: soft blurred photo behind the card deck, edges fade out */
+.reviews-sticky-wrapper {
+  position: sticky;
+  isolation: isolate;
+}
+.reviews-sticky-wrapper::before,
+.reviews-sticky-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
+}
+.reviews-sticky-wrapper::before {
+  inset: -40px;
+  background: url('../images/photos/living-sofa-960.avif') center / cover no-repeat;
+  filter: blur(14px) saturate(1.1);
+}
+.reviews-sticky-wrapper::after {
+  background: var(--reviews-veil);
 }
 /* Hero video melts into the page below it */
 .section-hero::after {
@@ -3339,9 +3385,11 @@ a.stat-item:hover {
   .about-image-wrap {
     border-radius: 0;
     aspect-ratio: 4 / 5;
+    max-height: none;
   }
   .about-image-accent {
-    left: 1.25rem;
+    left: auto;
+    right: 1.25rem;
     bottom: 0;
     width: 40%;
   }
