@@ -87,7 +87,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
-  cursor: none;
   overflow-x: hidden;
 }
 p {
@@ -112,7 +111,7 @@ a {
   text-decoration: none;
 }
 button {
-  cursor: none;
+  cursor: pointer;
   background: none;
   border: none;
   font-family: inherit;
@@ -224,47 +223,7 @@ em, i, .accent-italic {
 .preloader-ring-arc {
   transition: stroke-dashoffset 0.12s linear;
 }
-.cursor-dot,
-.cursor-ring,
-.cursor-label {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 8999;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-}
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--gold);
-}
-.cursor-ring {
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(201, 169, 110, 0.6);
-  transition:
-    width 0.2s,
-    height 0.2s,
-    opacity 0.2s;
-}
-.cursor-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--gold);
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  margin-top: 24px;
-}
 @media (hover: none) {
-  .cursor-dot,
-  .cursor-ring,
-  .cursor-label {
-    display: none;
-  }
   body {
     cursor: auto;
   }

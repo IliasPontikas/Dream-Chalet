@@ -1,7 +1,7 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v37';
+const CACHE = 'dream-chalet-v38';
 
 const ASSETS = [
   '/',
@@ -10,7 +10,6 @@ const ASSETS = [
   '/js/config.js',
   '/js/main.js',
   '/js/animations.js',
-  '/js/cursor.js',
   '/js/scroll-video.js',
   '/js/gallery.js',
   '/js/reviews.js',

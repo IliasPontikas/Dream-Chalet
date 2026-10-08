@@ -92,7 +92,7 @@
 
     /* Skip preloader entirely on repeat visits within this tab session.
        NOTE: main.js is itself a deferred script, so when this runs the
-       *other* deferred modules (animations.js, cursor.js, gallery.js…)
+       *other* deferred modules (animations.js, gallery.js…)
        may not have been parsed yet — initAnimations, initCursor etc.
        are still undefined. DOMContentLoaded fires only after every
        defer script has executed, so we wait for it. */
@@ -170,7 +170,6 @@
   /* ── After preloader: kick off all modules ─────────────── */
   function onReady() {
     if (typeof initAnimations === 'function') initAnimations();
-    if (typeof initCursor === 'function') initCursor();
     if (typeof initScrollVideo === 'function') initScrollVideo();
     if (typeof initGallery === 'function') initGallery();
     if (typeof initReviews === 'function') initReviews();
