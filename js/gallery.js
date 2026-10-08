@@ -396,39 +396,144 @@ function initBento() {
     x0 = null;
   });
 
-  /* ── "All photos": full-screen grid ─────────────────────── */
+  /* ── "All photos": justified rows, grouped by room ──────────
+     Each photo keeps its real shape; rows share one height and fill
+     the width. Clips play while visible, tiles reveal on scroll. */
   if (sheet && sheetList && allBtn) {
-    items.forEach((el) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'ggo-item' + (el.dataset.kind === 'vid' ? ' is-video' : '');
-      const src = el.dataset.kind === 'vid'
-        ? el.querySelector('video')?.getAttribute('poster')
-        : el.querySelector('img')?.getAttribute('src');
-      const img = document.createElement('img');
-      img.src = src || '';
-      img.alt = '';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      b.setAttribute('aria-label', altOf(el));
-      b.appendChild(img);
-      b.addEventListener('click', () => open(items, el));
-      sheetList.appendChild(b);
+    const ORDER = ['living', 'rooms', 'bath', 'details'];
+    const labelFor = (cat) => tabs.find((t) => t.dataset.filter === cat)?.textContent.trim() || cat;
+    const ordered = [];
+    const chipsEl = document.getElementById('gallery-grid-chips');
+    const groups = [];
+
+    ORDER.forEach((cat) => {
+      const groupItems = items.filter((el) => el.dataset.cat === cat);
+      if (!groupItems.length) return;
+
+      const group = document.createElement('section');
+      group.className = 'ggo-group';
+      group.id = `ggo-${cat}`;
+      group.innerHTML = `
+        <header class="ggo-group-head">
+          <h4 class="ggo-group-title"></h4>
+          <span class="ggo-group-count">${String(groupItems.length).padStart(2, '0')}</span>
+        </header>
+        <div class="ggo-bento"></div>`;
+      const bento = group.querySelector('.ggo-bento');
+
+      groupItems.forEach((el, i) => {
+        ordered.push(el);
+        const media = el.querySelector('img, video');
+        const ratio = (+media?.getAttribute('width') || 4) / (+media?.getAttribute('height') || 3);
+
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'ggo-tile';
+        /* Justified rows: width grows with the photo's aspect ratio, so every
+           row has one height and fills the full width */
+        b.style.setProperty('--r', ratio.toFixed(3));
+        b.style.setProperty('--d', `${(i % 4) * 70}ms`);
+        b.setAttribute('aria-label', altOf(el));
+
+        if (el.dataset.kind === 'vid') {
+          const v = document.createElement('video');
+          v.src = el.dataset.full;
+          v.poster = media.getAttribute('poster') || '';
+          v.muted = true; v.loop = true; v.playsInline = true;
+          v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+          v.preload = 'none';
+          b.classList.add('is-video');
+          b.appendChild(v);
+        } else {
+          const img = document.createElement('img');
+          img.src = media.getAttribute('src');
+          img.alt = '';
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          b.appendChild(img);
+        }
+        const cap = document.createElement('span');
+        cap.className = 'ggo-cap';
+        b.appendChild(cap);
+        b.addEventListener('click', () => open(ordered, el));
+        b._source = el;
+        bento.appendChild(b);
+      });
+
+      sheetList.appendChild(group);
+      groups.push({ cat, group });
+
+      if (chipsEl) {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'ggo-chip';
+        chip.dataset.cat = cat;
+        chip.addEventListener('click', () => {
+          const head = sheet.querySelector('.ggo-head');
+          sheet.scrollTo({ top: group.offsetTop - (head?.offsetHeight || 0) - 8, behavior: reduce ? 'auto' : 'smooth' });
+        });
+        chipsEl.appendChild(chip);
+      }
     });
 
+    /* Text follows the current language */
+    const refreshLabels = () => {
+      groups.forEach(({ cat, group }) => {
+        group.querySelector('.ggo-group-title').textContent = labelFor(cat);
+      });
+      chipsEl?.querySelectorAll('.ggo-chip').forEach((c) => { c.textContent = labelFor(c.dataset.cat); });
+      sheetList.querySelectorAll('.ggo-tile').forEach((t) => {
+        t.querySelector('.ggo-cap').textContent = altOf(t._source);
+        t.setAttribute('aria-label', altOf(t._source));
+      });
+    };
+    refreshLabels();
+    document.addEventListener('lang:change', refreshLabels);
+
+    /* Reveal tiles + play clips while they are on screen (inside the overlay) */
+    const tiles = Array.from(sheetList.querySelectorAll('.ggo-tile'));
+    let io = null;
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (isIntersecting) target.classList.add('in');
+          const v = target.querySelector('video');
+          if (v) {
+            if (isIntersecting && !reduce) { v.preload = 'auto'; v.play().catch(() => {}); }
+            else v.pause();
+          }
+        });
+      }, { root: sheet, threshold: 0.15 });
+    } else {
+      tiles.forEach((t) => t.classList.add('in'));
+    }
+
+    /* Highlight the chip of the room you're looking at */
+    const syncChips = () => {
+      if (!chipsEl) return;
+      const head = sheet.querySelector('.ggo-head');
+      const y = sheet.scrollTop + (head?.offsetHeight || 0) + 40;
+      let current = groups[0]?.cat;
+      groups.forEach(({ cat, group }) => { if (group.offsetTop <= y) current = cat; });
+      chipsEl.querySelectorAll('.ggo-chip').forEach((c) => c.classList.toggle('active', c.dataset.cat === current));
+    };
+    sheet.addEventListener('scroll', syncChips, { passive: true });
+
     const openSheet = () => {
+      refreshLabels();
       sheet.classList.add('open');
       sheet.setAttribute('aria-hidden', 'false');
       sheet.scrollTop = 0;
       lockScroll();
       sheetClose?.focus();
-      if (!reduce && typeof gsap !== 'undefined') {
-        gsap.fromTo(sheetList.children, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: 'power2.out' });
-      }
+      if (reduce || !io) tiles.forEach((t) => t.classList.add('in'));
+      else tiles.forEach((t) => io.observe(t));
+      syncChips();
     };
     const closeSheet = () => {
       sheet.classList.remove('open');
       sheet.setAttribute('aria-hidden', 'true');
+      if (io) tiles.forEach((t) => { io.unobserve(t); t.querySelector('video')?.pause(); });
       unlockScroll();
       allBtn.focus();
     };
