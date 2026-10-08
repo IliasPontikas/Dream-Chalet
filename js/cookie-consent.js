@@ -106,4 +106,9 @@ function initCookieConsent() {
       }
     },
   });
+
+  /* Footer link lets visitors change their choice at any time (GDPR) */
+  document.getElementById('cookie-settings')?.addEventListener('click', () => {
+    if (typeof CookieConsent !== 'undefined') CookieConsent.showPreferences();
+  });
 }

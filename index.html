@@ -52,14 +52,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=36">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=37">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=36">
+  <link rel="stylesheet" href="css/style.css?v=37">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -671,60 +671,40 @@
     <!-- Footer -->
     <footer id="footer" class="site-footer" role="contentinfo">
       <div class="container">
-        <div class="footer-inner">
-          <div class="footer-section footer-brand">
-            <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="footer-logo">
-            <p class="footer-tagline" data-i18n="footer.tagline">Πολυτελές εξοχικό σπίτι στα Τρίκαλα, στην καρδιά της ελληνικής φύσης.</p>
-            <div class="footer-links">
-              <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-instagram"></use></svg>
-              </a>
-              <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg>
-              </a>
-              <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg>
-              </a>
-            </div>
+        <div class="footer-top">
+          <div class="footer-brand">
+            <img src="images/logo-removebg2.png" alt="Dream Chalet Trikala" class="footer-logo" width="372" height="245" loading="lazy">
+            <p class="footer-tagline" data-i18n="footer.tagline">Ένα σπίτι με ψυχή στη Ράξα, δέκα λεπτά από τα Τρίκαλα.</p>
+            <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" class="footer-book" data-track="booking" data-i18n="nav.book">Κράτηση</a>
           </div>
 
-          <div class="footer-section">
-            <h4 class="footer-title" data-i18n="footer.quickLinks">Quick Links</h4>
-            <div class="footer-quick-links">
-              <a href="#about" data-i18n="nav.about">Πληροφορίες</a>
-              <a href="#gallery" data-i18n="nav.gallery">Γκαλερί</a>
-              <a href="#amenities" data-i18n="nav.amenities">Παροχές</a>
-              <a href="#attractions" data-i18n="footer.mapLink">Τοποθεσία</a>
-              <a href="#availability" data-i18n="footer.availabilityLink">Διαθεσιμότητα</a>
-              <a href="#contact" data-i18n="nav.contact">Επικοινωνία</a>
-            </div>
-          </div>
+          <nav class="footer-col" aria-label="Footer">
+            <h4 class="footer-title" data-i18n="footer.explore">Εξερευνήστε</h4>
+            <a href="#about" data-i18n="nav.about">Η Κατοικία</a>
+            <a href="#gallery" data-i18n="nav.gallery">Γκαλερί</a>
+            <a href="#amenities" data-i18n="nav.amenities">Παροχές</a>
+            <a href="#attractions" data-i18n="nav.area">Περιοχή</a>
+            <a href="#reviews" data-i18n="nav.reviews">Κριτικές</a>
+            <a href="#availability" data-i18n="nav.availability">Διαθεσιμότητα</a>
+          </nav>
 
-          <div class="footer-section">
+          <div class="footer-col">
             <h4 class="footer-title" data-i18n="footer.contactTitle">Επικοινωνία</h4>
-            <div class="footer-contact-info">
-              <div class="footer-contact-item">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-location-dot"></use></svg>
-                <a href="https://maps.google.com/?q=39.60386403048851,21.74715078198729" target="_blank" rel="noopener">Raxa, Trikala 42100</a>
-              </div>
-              <div class="footer-contact-item">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-phone"></use></svg>
-                <a href="tel:+306976908838">+30 697 690 8838</a>
-              </div>
-              <div class="footer-contact-item">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg>
-                <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" data-i18n="footer.bookAirbnb">Κράτηση στο Airbnb</a>
-              </div>
-              <div class="footer-contact-item">
-                <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg>
-                <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" data-i18n="footer.bookBooking">Κράτηση στο Booking</a>
-              </div>
+            <a href="tel:+306976908838">+30 697 690 8838</a>
+            <a href="https://wa.me/306976908838" target="_blank" rel="noopener" data-track="whatsapp">WhatsApp</a>
+            <a href="https://maps.google.com/?q=39.60386403048851,21.74715078198729" target="_blank" rel="noopener" data-i18n="contact.address">Ράξα, Τρίκαλα 42100</a>
+            <div class="footer-social">
+              <a href="https://www.instagram.com/dream_chalet_trikala/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-instagram"></use></svg></a>
+              <a href="https://www.airbnb.gr/rooms/1019294882973971198" target="_blank" rel="noopener" aria-label="Airbnb"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-airbnb"></use></svg></a>
+              <a href="https://www.booking.com/hotel/gr/dream-chalet-trikala.html" target="_blank" rel="noopener" aria-label="Booking.com"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-bed"></use></svg></a>
             </div>
           </div>
         </div>
 
         <div class="footer-bottom">
-          <p class="footer-copy" data-i18n="footer.copyright">© 2026 Dream Chalet Trikala. Με επιφύλαξη παντός δικαιώματος.</p>
+          <p class="footer-ama"><span data-i18n="footer.amaLabel">ΑΜΑ (Αρ. Μητρώου Ακινήτου)</span>: <strong>00002345010</strong></p>
+          <p class="footer-copy">© <span id="footer-year">2026</span> Dream Chalet Trikala · <span data-i18n="footer.rights">Με επιφύλαξη παντός δικαιώματος.</span></p>
+          <button type="button" class="footer-cookies" id="cookie-settings" data-i18n="footer.cookies">Ρυθμίσεις cookies</button>
         </div>
       </div>
     </footer>
@@ -768,22 +748,22 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=36"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=37"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=36" defer></script>
-  <script src="js/main.js?v=36" defer></script>
-  <script src="js/animations.js?v=36" defer></script>
-  <script src="js/cursor.js?v=36" defer></script>
-  <script src="js/scroll-video.js?v=36" defer></script>
-  <script src="js/gallery.js?v=36" defer></script>
-  <script src="js/reviews.js?v=36" defer></script>
-  <script src="js/map.js?v=36" defer></script>
-  <script src="js/calendar.js?v=36" defer></script>
-  <script src="js/weather.js?v=36" defer></script>
-  <script src="js/i18n.js?v=36" defer></script>
-  <script src="js/cookie-consent.js?v=36" defer></script>
+  <script src="js/config.js?v=37" defer></script>
+  <script src="js/main.js?v=37" defer></script>
+  <script src="js/animations.js?v=37" defer></script>
+  <script src="js/cursor.js?v=37" defer></script>
+  <script src="js/scroll-video.js?v=37" defer></script>
+  <script src="js/gallery.js?v=37" defer></script>
+  <script src="js/reviews.js?v=37" defer></script>
+  <script src="js/map.js?v=37" defer></script>
+  <script src="js/calendar.js?v=37" defer></script>
+  <script src="js/weather.js?v=37" defer></script>
+  <script src="js/i18n.js?v=37" defer></script>
+  <script src="js/cookie-consent.js?v=37" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=36" defer></script> -->
+  <!-- <script src="js/analytics.js?v=37" defer></script> -->
 </body>
 </html>

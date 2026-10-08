@@ -14,6 +14,10 @@
     window.scrollTo(0, 0);
   }
 
+  /* ── Footer year stays current ── */
+  const yearEl = document.getElementById('footer-year');
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
   /* ── Hero video: portrait cut on tall screens, landscape otherwise ── */
   (function pickHeroVideo() {
     const v = document.getElementById('hero-video');

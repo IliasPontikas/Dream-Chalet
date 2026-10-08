@@ -139,14 +139,12 @@
     "guestsValue": "Έως 6 · κατοικίδια ευπρόσδεκτα"
   },
   "footer": {
-    "copyright": "© 2026 Dream Chalet Trikala. Με επιφύλαξη παντός δικαιώματος.",
-    "quickLinks": "Quick Links",
-    "tagline": "Πολυτελές εξοχικό σπίτι στα Τρίκαλα, στην καρδιά της ελληνικής φύσης.",
+    "tagline": "Ένα σπίτι με ψυχή στη Ράξα, δέκα λεπτά από τα Τρίκαλα.",
+    "explore": "Εξερευνήστε",
     "contactTitle": "Επικοινωνία",
-    "mapLink": "Τοποθεσία",
-    "bookAirbnb": "Κράτηση στο Airbnb",
-    "bookBooking": "Κράτηση στο Booking",
-    "availabilityLink": "Διαθεσιμότητα"
+    "amaLabel": "ΑΜΑ (Αρ. Μητρώου Ακινήτου)",
+    "rights": "Με επιφύλαξη παντός δικαιώματος.",
+    "cookies": "Ρυθμίσεις cookies"
   },
   "sticky": {
     "book": "Κράτηση"

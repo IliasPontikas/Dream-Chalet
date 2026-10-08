@@ -139,14 +139,12 @@
     "guestsValue": "Up to 6 · pets welcome"
   },
   "footer": {
-    "copyright": "© 2026 Dream Chalet Trikala. All rights reserved.",
-    "quickLinks": "Quick Links",
-    "tagline": "Luxury vacation home in Trikala, in the heart of Greek nature.",
+    "tagline": "A house with soul in Raxa, ten minutes from Trikala.",
+    "explore": "Explore",
     "contactTitle": "Contact",
-    "mapLink": "Location",
-    "bookAirbnb": "Book on Airbnb",
-    "bookBooking": "Book on Booking",
-    "availabilityLink": "Availability"
+    "amaLabel": "Property Registry No. (AMA)",
+    "rights": "All rights reserved.",
+    "cookies": "Cookie settings"
   },
   "sticky": {
     "book": "Book"
