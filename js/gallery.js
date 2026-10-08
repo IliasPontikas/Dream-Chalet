@@ -141,7 +141,8 @@ function initGallery() {
 
   function openOverlay(idx) {
     overlayIndex = idx;
-    const src = slides[idx].querySelector('img')?.src || '';
+    const img0 = slides[idx].querySelector('img');
+    const src = img0?.dataset.full || img0?.src || '';
     const alt = slides[idx].querySelector('img')?.alt || '';
     overlayImg.src = src;
     overlayImg.alt = alt;
@@ -166,7 +167,7 @@ function initGallery() {
     gsap.to(overlayImg, {
       opacity: 0, x: dir * -40, duration: 0.18,
       onComplete() {
-        overlayImg.src = img.src;
+        overlayImg.src = img.dataset.full || img.src;
         overlayImg.alt = img.alt;
         gsap.fromTo(overlayImg,
           { opacity: 0, x: dir * 40 },

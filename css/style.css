@@ -1410,11 +1410,11 @@ select,
   transform: scale(1.04);
   transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-/* Per-attraction placeholders — swap in proper photos when available */
-.attraction-card.attr-meteora     .attraction-bg { background-image: url('../images/exterior4.avif'); }
-.attraction-card.attr-elati       .attraction-bg { background-image: url('../images/exterior5.avif'); }
-.attraction-card.attr-pertouli    .attraction-bg { background-image: url('../images/exterior6.avif'); }
-.attraction-card.attr-palaiokarya .attraction-bg { background-image: url('../images/exterior2.avif'); }
+/* Per-attraction tones (no stock photos — only the chalet's own media is used) */
+.attraction-card.attr-meteora     .attraction-bg { background-image: radial-gradient(120% 90% at 20% 0%, #3a2e22 0%, #14100c 70%); }
+.attraction-card.attr-elati       .attraction-bg { background-image: radial-gradient(120% 90% at 80% 0%, #1e3a2f 0%, #0f1612 70%); }
+.attraction-card.attr-pertouli    .attraction-bg { background-image: radial-gradient(120% 90% at 20% 100%, #26323a 0%, #0f1215 70%); }
+.attraction-card.attr-palaiokarya .attraction-bg { background-image: radial-gradient(120% 90% at 80% 100%, #1d3433 0%, #0e1514 70%); }
 
 .attraction-card::before,
 .attraction-card::after {
@@ -2296,7 +2296,7 @@ select,
   font-weight: 500;
 }
 .site-footer {
-  background: var(--bg2) url('../images/exterior3.avif') center/cover no-repeat;
+  background: var(--bg2) url('../images/photos/living-above-960.avif') center/cover no-repeat;
   padding: 4rem 0 0;
   position: relative;
 }

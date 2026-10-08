@@ -14,6 +14,23 @@
     window.scrollTo(0, 0);
   }
 
+  /* ── Hero video: portrait cut on tall screens, landscape otherwise ── */
+  (function pickHeroVideo() {
+    const v = document.getElementById('hero-video');
+    if (!v) return;
+    const mq = window.matchMedia('(max-aspect-ratio: 1/1)');
+    const apply = () => {
+      const k = mq.matches ? 'portrait' : 'landscape';
+      const src = v.dataset['src' + k[0].toUpperCase() + k.slice(1)];
+      if (!src || v.currentSrc.endsWith(src)) return;
+      v.poster = v.dataset['poster' + k[0].toUpperCase() + k.slice(1)];
+      v.src = src;
+      v.play?.().catch(() => {});
+    };
+    apply();
+    mq.addEventListener?.('change', apply);
+  })();
+
   /* ── Register GSAP plugins ─────────────────────────────── */
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Flip, Draggable);
   if (typeof InertiaPlugin !== 'undefined') gsap.registerPlugin(InertiaPlugin);
