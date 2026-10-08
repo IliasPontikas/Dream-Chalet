@@ -46,13 +46,15 @@ function initNav() {
   const mobileLinks = mobileMenu?.querySelectorAll('.mobile-nav-link, .mobile-menu-cta');
   if (!navbar) return;
 
-  /* Transparent → solid on scroll */
-  ScrollTrigger.create({
-    start: 'top -60',
-    onUpdate(self) {
-      navbar.classList.toggle('scrolled', self.progress > 0);
-    },
-  });
+  /* Transparent while the hero video is behind it; solid once past the hero */
+  const hero = document.getElementById('hero');
+  const syncSolid = () => {
+    const limit = hero ? hero.offsetTop + hero.offsetHeight - navbar.offsetHeight : 60;
+    navbar.classList.toggle('scrolled', window.scrollY > limit);
+  };
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: syncSolid });
+  window.addEventListener('resize', syncSolid);
+  syncSolid();
 
   /* Hide navbar on scroll down, reveal on scroll up */
   let lastY = window.scrollY;
