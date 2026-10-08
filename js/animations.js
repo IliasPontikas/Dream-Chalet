@@ -218,7 +218,7 @@ function initSectionEntrances() {
       stagger: 0.05,
       duration: 0.6,
       ease: 'power3.out',
-      scrollTrigger: { trigger: '.amenities-list', start: 'top 80%' },
+      scrollTrigger: { trigger: '.amenities-grid', start: 'top 80%' },
     });
   }
 

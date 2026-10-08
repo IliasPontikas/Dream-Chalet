@@ -52,14 +52,14 @@
   <link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
 
   <!-- Cookie Consent CSS -->
-  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=40">
+  <link rel="stylesheet" href="vendor/cookieconsent/cookieconsent.css?v=41">
 
   <!-- LCP: preload hero poster so it shows immediately while video loads -->
   <link rel="preload" href="videos/hero-landscape-poster.avif" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="videos/hero-portrait-poster.avif" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)">
 
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/style.css?v=40">
+  <link rel="stylesheet" href="css/style.css?v=41">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -314,7 +314,7 @@
       <div class="container gallery-header">
         <div>
           <span class="section-label" data-i18n="gallery.label">Γκαλερί</span>
-          <h2 class="section-heading" data-i18n="gallery.heading">Κάθε γωνία, μια ιστορία</h2>
+          <h2 class="section-heading" data-i18n="gallery.heading">Κάθε Γωνία, Μια Ιστορία</h2>
         </div>
         <div class="gallery-tabs" role="tablist" aria-label="Gallery filter">
           <button type="button" class="gallery-tab active" role="tab" aria-selected="true" data-filter="all" data-i18n="gallery.tabs.all">Όλα</button>
@@ -322,6 +322,47 @@
           <button type="button" class="gallery-tab" role="tab" aria-selected="false" data-filter="rooms" data-i18n="gallery.tabs.rooms">Υπνοδωμάτια</button>
           <button type="button" class="gallery-tab" role="tab" aria-selected="false" data-filter="details" data-i18n="gallery.tabs.details">Λεπτομέρειες</button>
         </div>
+      </div>
+
+      <div class="coverflow-stage">
+        <div class="coverflow-container" data-cursor="drag">
+          <div class="coverflow-track" id="coverflow-track">
+          <div class="gallery-slide" data-index="0"><img src="images/photos/living-wide-960.avif" data-full="images/photos/living-wide-1920.avif" alt="Living room with chandelier and loft" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="1"><img src="images/photos/living-chandelier-960.avif" data-full="images/photos/living-chandelier-1920.avif" alt="Double-height living room with stone chimney" loading="lazy" decoding="async" width="1280" height="1920"></div>
+          <div class="gallery-slide" data-index="2"><img src="images/photos/living-fireplace-960.avif" data-full="images/photos/living-fireplace-1920.avif" alt="Fireplace corner with leather sofas" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="3"><img src="images/photos/living-sofa-960.avif" data-full="images/photos/living-sofa-1920.avif" alt="Red sofa beside the fireplace" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="4"><img src="images/photos/living-above-960.avif" data-full="images/photos/living-above-1920.avif" alt="Living room seen from the loft" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="5"><img src="images/photos/bedroom-rose-960.avif" data-full="images/photos/bedroom-rose-1920.avif" alt="Rose bedroom with vanity" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="6"><img src="images/photos/bedroom-rose-2-960.avif" data-full="images/photos/bedroom-rose-2-1920.avif" alt="Rose bedroom with Tiffany lamp" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="7"><img src="images/photos/bedroom-loft-960.avif" data-full="images/photos/bedroom-loft-1920.avif" alt="Loft bedroom with white iron bed" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="8"><img src="images/photos/bedroom-loft-2-960.avif" data-full="images/photos/bedroom-loft-2-1920.avif" alt="Loft bedroom detail" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="9"><img src="images/photos/bedroom-amber-960.avif" data-full="images/photos/bedroom-amber-1920.avif" alt="Amber bedroom with canopy bed" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="10"><img src="images/photos/bedroom-amber-2-960.avif" data-full="images/photos/bedroom-amber-2-1920.avif" alt="Amber bedroom" loading="lazy" decoding="async" width="1920" height="1280"></div>
+          <div class="gallery-slide" data-index="11"><img src="images/photos/bathroom-960.avif" data-full="images/photos/bathroom-1920.avif" alt="Bathroom with stained-glass skylight" loading="lazy" decoding="async" width="1280" height="1920"></div>
+          <div class="gallery-slide" data-index="12"><img src="images/photos/detail-tiles-960.avif" data-full="images/photos/detail-tiles-1920.avif" alt="Mosaic floor and antique details" loading="lazy" decoding="async" width="1440" height="1920"></div>
+          <div class="gallery-slide" data-index="13"><img src="images/photos/detail-clock-960.avif" data-full="images/photos/detail-clock-1920.avif" alt="Station clock on the stone wall" loading="lazy" decoding="async" width="1440" height="1920"></div>
+          <div class="gallery-slide" data-index="14"><img src="images/photos/detail-lamps-960.avif" data-full="images/photos/detail-lamps-1920.avif" alt="Antique lamps and mirror" loading="lazy" decoding="async" width="1440" height="1920"></div>
+          </div>
+        </div>
+
+        <div class="coverflow-controls">
+          <button class="coverflow-btn coverflow-prev" id="coverflow-prev" aria-label="Previous image" type="button">
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-left"></use></svg>
+          </button>
+          <button class="coverflow-btn coverflow-next" id="coverflow-next" aria-label="Next image" type="button">
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-right"></use></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="coverflow-dots" id="coverflow-dots" role="tablist" aria-label="Gallery pagination"></div>
+
+      <!-- Gallery Overlay for Flip Expansion -->
+      <div class="gallery-overlay" id="gallery-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="gallery-close" id="gallery-close" aria-label="Close gallery">×</button>
+        <img id="gallery-overlay-img" src="" alt="" decoding="async">
+        <button class="gallery-arrow gallery-prev" id="gallery-prev" aria-label="Previous">←</button>
+        <button class="gallery-arrow gallery-next" id="gallery-next" aria-label="Next">→</button>
       </div>
 
       <div class="container">
@@ -407,29 +448,43 @@
       </div>
     </section>
 
-    <!-- Amenities -->
+    <!-- Amenities Marquee -->
     <section id="amenities" class="section-amenities tone-light" role="region" aria-label="Amenities">
-      <div class="container amenities-layout">
-        <div class="amenities-intro">
-          <span class="section-label" data-i18n="amenities.label">Παροχές</span>
-          <h2 class="section-heading" data-i18n="amenities.heading">Όλα όσα χρειάζεστε</h2>
-          <p data-i18n="amenities.intro">Ό,τι χρειάζεται μια οικογένεια ή μια παρέα για να νιώσει σαν στο σπίτι της — και ο σκύλος σας μαζί.</p>
-          <img src="images/photos/living-sofa-960.avif" alt="Κόκκινος καναπές δίπλα στο τζάκι" loading="lazy" decoding="async" width="960" height="640">
+      <div class="container">
+        <span class="section-label" data-i18n="amenities.label">Παροχές</span>
+        <h2 class="section-heading" data-i18n="amenities.heading">Όλα Όσα Χρειάζεστε</h2>
+        <div class="amenities-grid">
+          <div class="marquee-row">
+            <div class="marquee-track marquee-left">
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-washer"></use></svg><span data-i18n="amenities.washer">Πλυντήριο</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></div>
+              <!-- duplicate for seamless loop -->
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρη Κουζίνα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-washer"></use></svg><span data-i18n="amenities.washer">Πλυντήριο</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></div>
+            </div>
+          </div>
+          <div class="marquee-row">
+            <div class="marquee-track marquee-right">
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Κήπος</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
+              <!-- duplicate -->
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν Parking</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη Βεράντα</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Κήπος</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></div>
+              <div class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος χωρίς Κάπνισμα</span></div>
+            </div>
+          </div>
         </div>
-        <ul class="amenities-list">
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-wifi"></use></svg><span data-i18n="amenities.wifi">WiFi</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-fire"></use></svg><span data-i18n="amenities.fireplace">Τζάκι</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-kitchen-set"></use></svg><span data-i18n="amenities.kitchen">Πλήρως εξοπλισμένη κουζίνα</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-washer"></use></svg><span data-i18n="amenities.washer">Πλυντήριο ρούχων</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-snowflake"></use></svg><span data-i18n="amenities.ac">Κλιματισμός</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-tv"></use></svg><span data-i18n="amenities.tv">Τηλεόραση</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-paw"></use></svg><span data-i18n="amenities.pets">Κατοικίδια ευπρόσδεκτα</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-leaf"></use></svg><span data-i18n="amenities.garden">Μεγάλος περιφραγμένος κήπος</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-sun"></use></svg><span data-i18n="amenities.terrace">Ηλιόλουστη βεράντα</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-square-parking"></use></svg><span data-i18n="amenities.parking">Δωρεάν parking στην ιδιοκτησία</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#dc-towel"></use></svg><span data-i18n="amenities.linens">Λευκά είδη & πετσέτες</span></li>
-            <li class="amenity-item"><svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-ban-smoking"></use></svg><span data-i18n="amenities.nonsmoking">Χώρος για μη καπνιστές</span></li>
-        </ul>
       </div>
     </section>
 
@@ -744,21 +799,21 @@
   <script src="vendor/gsap/Draggable.min.js"></script>
   <script src="vendor/lenis/lenis.min.js"></script>
   <script src="vendor/maplibre/maplibre-gl.js" defer></script>
-  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=40"></script>
+  <script src="vendor/cookieconsent/cookieconsent.umd.js?v=41"></script>
 
   <!-- Project JS (defer for performance) -->
-  <script src="js/config.js?v=40" defer></script>
-  <script src="js/main.js?v=40" defer></script>
-  <script src="js/animations.js?v=40" defer></script>
-  <script src="js/scroll-video.js?v=40" defer></script>
-  <script src="js/gallery.js?v=40" defer></script>
-  <script src="js/reviews.js?v=40" defer></script>
-  <script src="js/map.js?v=40" defer></script>
-  <script src="js/calendar.js?v=40" defer></script>
-  <script src="js/weather.js?v=40" defer></script>
-  <script src="js/i18n.js?v=40" defer></script>
-  <script src="js/cookie-consent.js?v=40" defer></script>
+  <script src="js/config.js?v=41" defer></script>
+  <script src="js/main.js?v=41" defer></script>
+  <script src="js/animations.js?v=41" defer></script>
+  <script src="js/scroll-video.js?v=41" defer></script>
+  <script src="js/gallery.js?v=41" defer></script>
+  <script src="js/reviews.js?v=41" defer></script>
+  <script src="js/map.js?v=41" defer></script>
+  <script src="js/calendar.js?v=41" defer></script>
+  <script src="js/weather.js?v=41" defer></script>
+  <script src="js/i18n.js?v=41" defer></script>
+  <script src="js/cookie-consent.js?v=41" defer></script>
   <!-- analytics.js: add real GA4 ID in js/analytics.js then uncomment -->
-  <!-- <script src="js/analytics.js?v=40" defer></script> -->
+  <!-- <script src="js/analytics.js?v=41" defer></script> -->
 </body>
 </html>
