@@ -1,74 +1,71 @@
-/* scroll-video.js — Smooth scroll-scrubbed video with throttled seeks + lerp */
+/* scroll-video.js — Vertical walkthrough scrubbed by scroll, with captions per room */
 
 function initScrollVideo() {
   'use strict';
 
-  const section  = document.getElementById('scroll-video');
-  const video    = document.getElementById('scroll-vid');
-  const overlay1 = section?.querySelector('.scroll-overlay-1');
-  const overlay2 = section?.querySelector('.scroll-overlay-2');
+  const section = document.getElementById('scroll-video');
+  const video   = document.getElementById('scroll-vid');
+  const bar     = document.getElementById('walk-bar');
   if (!section || !video) return;
+
+  const steps  = Array.from(section.querySelectorAll('.walk-step'));
+  const starts = steps.map((s) => parseFloat(s.dataset.start) || 0);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setStep(p) {
+    let idx = 0;
+    starts.forEach((st, i) => { if (p >= st) idx = i; });
+    steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+    if (bar) bar.style.transform = `scaleY(${p})`;
+  }
+
+  /* Reduced motion: just loop the video, captions follow playback */
+  if (reduce) {
+    video.loop = true;
+    video.play().catch(() => {});
+    video.addEventListener('timeupdate', () => {
+      if (video.duration) setStep(video.currentTime / video.duration);
+    });
+    return;
+  }
 
   let targetTime  = 0;
   let currentTime = 0;
   let lastSeek    = 0;
-  let rafId       = null;
+  let ticking     = false;
 
-  /* Smooth lerp with rate-limited seek (16 fps) */
+  /* Lerp toward the scroll position, rate-limit seeks so decoding keeps up */
   function tick() {
     const diff = targetTime - currentTime;
     if (Math.abs(diff) > 0.001) {
-      currentTime += diff * 0.1;          /* lerp 10% per frame */
+      currentTime += diff * 0.12;
       const now = performance.now();
-      if (now - lastSeek > 60) {          /* throttle to ~16 fps seeks */
-        try {
-          if (video.fastSeek) video.fastSeek(currentTime);
-          else video.currentTime = currentTime;
-        } catch (e) {}
+      if (now - lastSeek > 40) {
+        try { video.currentTime = currentTime; } catch (e) {}
         lastSeek = now;
       }
     }
-    rafId = requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
   }
 
-  function setupScrub() {
-    if (!video.duration) return;
-    video.preload = 'auto';
+  function startScrub() {
+    if (ticking || !video.duration) return;
+    ticking = true;
     video.pause();
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: false,
-      pin: '.scroll-video-inner',
-      anticipatePin: 1,
-      onUpdate(self) {
-        const p = self.progress;
-        targetTime = p * video.duration;
-        if (overlay1) {
-          const inP  = gsap.utils.clamp(0, 1, (p - 0.15) / 0.2);
-          const outP = gsap.utils.clamp(0, 1, (0.45 - p) / 0.1);
-          overlay1.style.opacity = Math.min(inP, outP);
-        }
-        if (overlay2) {
-          const inP  = gsap.utils.clamp(0, 1, (p - 0.6) / 0.2);
-          const outP = gsap.utils.clamp(0, 1, (0.88 - p) / 0.1);
-          overlay2.style.opacity = Math.min(inP, outP);
-        }
-      },
-    });
-
     tick();
   }
 
-  video.addEventListener('loadedmetadata', setupScrub);
-  if (video.readyState >= 1) setupScrub();
-
-  video.addEventListener('error', () => {
-    if (rafId) cancelAnimationFrame(rafId);
-    video.style.display = 'none';
-    const inner = section.querySelector('.scroll-video-inner');
-    if (inner) inner.style.background = `url('${video.poster}') center/cover no-repeat`;
+  /* Captions always follow scroll; the video joins in once it has loaded */
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: 'bottom bottom',
+    onUpdate(self) {
+      setStep(self.progress);
+      if (video.duration) targetTime = self.progress * (video.duration - 0.05);
+    },
   });
+
+  video.addEventListener('loadedmetadata', startScrub);
+  if (video.readyState >= 1) startScrub();
 }

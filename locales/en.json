@@ -50,8 +50,29 @@
     }
   },
   "scrollVideo": {
-    "text1": "Paradise Awaits You",
-    "text2": "An Escape Worth It"
+    "label": "Walkthrough",
+    "steps": {
+      "0": {
+        "title": "Welcome",
+        "text": "A pink house among the green — or in the snow, if you come in winter."
+      },
+      "1": {
+        "title": "The wooden staircase",
+        "text": "Leading up to the loft and the upstairs bedrooms."
+      },
+      "2": {
+        "title": "The stone fireplace",
+        "text": "The heart of the house on cold evenings."
+      },
+      "3": {
+        "title": "The living room",
+        "text": "Double height, a chandelier and leather sofas for the whole group."
+      },
+      "4": {
+        "title": "Every room, a surprise",
+        "text": "Antiques, colour and details you won’t find anywhere else."
+      }
+    }
   },
   "amenities": {
     "label": "Amenities",
