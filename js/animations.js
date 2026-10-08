@@ -28,7 +28,6 @@ function initAnimations() {
     initNav();
     initScrollProgress();
     initStickyBookBtn();
-    initThemeToggle();
     return;
   }
 
@@ -38,7 +37,6 @@ function initAnimations() {
   initStats();
   initScrollProgress();
   initStickyBookBtn();
-  initThemeToggle();
   initAttractionsTilt();
 }
 
@@ -341,32 +339,6 @@ function initStickyBookBtn() {
       panel.classList.remove('open');
       btn.setAttribute('aria-expanded', 'false');
     }
-  });
-}
-
-/* ── Theme Toggle ────────────────────────────────────────── */
-function initThemeToggle() {
-  const toggle = document.getElementById('theme-toggle');
-  if (!toggle) return;
-
-  const saved = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const isDark = saved ? saved === 'dark' : prefersDark;
-
-  const themeMeta = document.querySelector('meta[name="theme-color"]');
-
-  function applyTheme(dark) {
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-    toggle.classList.toggle('dark', dark);
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
-    if (themeMeta) themeMeta.setAttribute('content', dark ? '#0e0b08' : '#faf8f5');
-  }
-
-  applyTheme(isDark);
-
-  toggle.addEventListener('click', () => {
-    const currentDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    applyTheme(!currentDark);
   });
 }
 

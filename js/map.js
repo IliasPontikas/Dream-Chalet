@@ -48,10 +48,7 @@ function initMap() {
   const mapEl = document.getElementById('map');
   if (!mapEl) return;
 
-  const getStyle = () =>
-    document.documentElement.getAttribute('data-theme') === 'light'
-      ? 'https://tiles.openfreemap.org/styles/liberty'
-      : 'https://tiles.openfreemap.org/styles/dark';
+  const getStyle = () => 'https://tiles.openfreemap.org/styles/dark';
 
   const center = (typeof SITE_CONFIG !== 'undefined'
     ? [SITE_CONFIG.coords.lng, SITE_CONFIG.coords.lat]
@@ -126,7 +123,7 @@ function initMap() {
         closeButton: true,
         maxWidth: '240px',
       }).setHTML(`
-        <strong style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#c9a96e;">${title}</strong>
+        <strong style="font-family:'EB Garamond',serif;font-size:1.1rem;color:#c9a96e;">${title}</strong>
         <p style="margin:0.4rem 0 0;font-size:0.85rem;color:#9e9690;">${desc}</p>
       `);
 
@@ -145,17 +142,6 @@ function initMap() {
   document.addEventListener('lang:change', () => {
     updateToggleText();
     if (map.loaded()) addMarkers();
-  });
-
-  /* Re-style map when theme toggles — use 'idle' because 'load' only fires once */
-  new MutationObserver(() => {
-    markers.forEach((m) => m.remove());
-    markers = [];
-    map.setStyle(getStyle());
-    map.once('idle', addMarkers);
-  }).observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-theme'],
   });
 
   /* flyTo when attraction cards are clicked */
