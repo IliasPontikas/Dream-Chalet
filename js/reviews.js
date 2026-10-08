@@ -1,44 +1,45 @@
-/* reviews.js — Stacking card deck animation with CSS sticky (no GSAP pin) */
+/* reviews.js — Clamp long reviews with a "Read more" toggle */
 
 function initReviews() {
   'use strict';
 
-  const section = document.getElementById('reviews');
-  const stack   = document.getElementById('reviews-stack');
-  if (!section || !stack) return;
+  const grid = document.getElementById('reviews-grid');
+  if (!grid) return;
 
-  const cards = Array.from(stack.querySelectorAll('.review-card'));
-  if (!cards.length) return;
+  const cards = Array.from(grid.querySelectorAll('.review-card'));
 
-  const rotations = [-2.5, 1.8, -1.2, 2.2, -1.8, 0.9];
-  const yOffsets  = [0, -6, -12, -18, -24, -28];
+  /* Only show the toggle when the text is actually cut off */
+  function syncButtons() {
+    cards.forEach((card) => {
+      const body = card.querySelector('.review-body');
+      const btn  = card.querySelector('.review-more');
+      if (!body || !btn || card.classList.contains('expanded')) return;
+      btn.hidden = body.scrollHeight <= body.clientHeight + 2;
+    });
+  }
 
-  /* Section height = viewport + scroll space for all cards */
-  const scrollLen = cards.length * 450;
-  section.style.height = `calc(100vh + ${scrollLen}px)`;
-
-  /* Cards start below viewport */
-  gsap.set(cards, { y: '100vh', rotation: 0, transformOrigin: 'center bottom' });
-  cards.forEach((card, i) => { card.style.zIndex = i + 1; });
-
-  /* Scrub-driven timeline tied to section scroll — no GSAP pin needed */
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: true,
-    },
+  cards.forEach((card) => {
+    const btn = card.querySelector('.review-more');
+    btn?.addEventListener('click', () => {
+      const open = card.classList.toggle('expanded');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    });
   });
 
-  cards.forEach((card, i) => {
-    const rot  = rotations[i % rotations.length];
-    const yOff = yOffsets[i] || 0;
+  syncButtons();
+  window.addEventListener('resize', syncButtons);
+  document.fonts?.ready.then(syncButtons);
 
-    tl.to(card, { y: yOff, rotation: rot, duration: 1, ease: 'power2.out' }, i * 0.9);
-
-    if (i > 0) {
-      tl.to(cards[i - 1], { scale: 0.95, duration: 0.5, ease: 'power2.inOut' }, i * 0.9);
-    }
-  });
+  /* Gentle staggered entrance */
+  if (typeof gsap !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    gsap.from(cards, {
+      y: 30,
+      opacity: 0,
+      duration: 0.7,
+      stagger: 0.08,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: grid, start: 'top 85%' },
+    });
+  }
 }
