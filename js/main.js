@@ -80,7 +80,8 @@
         const target = document.querySelector(a.getAttribute('href'));
         if (!target) return;
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -80, duration: 1.4 });
+        /* The hero (logo link) goes to the very top; sections sit under the header */
+        lenis.scrollTo(target.id === 'hero' ? 0 : target, { offset: target.id === 'hero' ? 0 : -80, duration: 1.4 });
       });
     });
   }

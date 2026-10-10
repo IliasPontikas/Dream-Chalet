@@ -4152,3 +4152,15 @@ a.stat-item:hover {
     margin: 6px 1.25rem 0;
   }
 }
+
+/* Map: "use two fingers" hint in the site's style */
+.maplibregl-cooperative-gesture-screen {
+  background: rgba(10, 10, 10, 0.55);
+  color: #f5f0e8;
+  font-family: "Manrope", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  border-radius: inherit;
+}

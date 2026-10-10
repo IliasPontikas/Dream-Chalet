@@ -83,6 +83,18 @@ function initMap() {
     pitch: 0,
     bearing: 0,
     attributionControl: false,
+    /* Page scroll passes over the map: one finger scrolls the page,
+       two fingers move/zoom the map (Ctrl/⌘ + wheel on desktop) */
+    cooperativeGestures: true,
+    locale: _mapLang() === 'en' ? {
+      'CooperativeGesturesHandler.MobileHelpText': 'Use two fingers to move or zoom the map',
+      'CooperativeGesturesHandler.WindowsHelpText': 'Use Ctrl + scroll to zoom the map',
+      'CooperativeGesturesHandler.MacHelpText': 'Use ⌘ + scroll to zoom the map',
+    } : {
+      'CooperativeGesturesHandler.MobileHelpText': 'Χρησιμοποιήστε δύο δάχτυλα για μετακίνηση ή ζουμ',
+      'CooperativeGesturesHandler.WindowsHelpText': 'Ctrl + κύλιση για ζουμ στον χάρτη',
+      'CooperativeGesturesHandler.MacHelpText': '⌘ + κύλιση για ζουμ στον χάρτη',
+    },
   });
 
   map.addControl(new maplibregl.NavigationControl(), 'top-right');
