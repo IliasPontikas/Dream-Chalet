@@ -1,7 +1,7 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v67';
+const CACHE = 'dream-chalet-v68';
 
 const ASSETS = [
   '/',
@@ -105,7 +105,7 @@ self.addEventListener('fetch', (e) => {
         return response;
       })
       .catch(() =>
-        caches.match(e.request).then(
+        caches.match(e.request, { ignoreSearch: true }).then(
           (c) => c
               || caches.match('/index.html').then((idx) => idx
               || new Response('Offline — please reconnect', {
