@@ -4,8 +4,8 @@
   "description": "Dream Chalet Trikala — ένα σπίτι με ψυχή, δέκα λεπτά από τα Τρίκαλα",
   "lang": "el",
   "dir": "ltr",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "./",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
@@ -38,7 +38,7 @@
       "name": "Book Now",
       "short_name": "Book",
       "description": "Reserve your stay",
-      "url": "/#availability",
+      "url": "./#availability",
       "icons": [
         {
           "src": "images/icons/icon-192.png",
@@ -51,7 +51,7 @@
       "name": "Gallery",
       "short_name": "Gallery",
       "description": "View photos",
-      "url": "/#gallery",
+      "url": "./#gallery",
       "icons": [
         {
           "src": "images/icons/icon-192.png",
@@ -61,5 +61,5 @@
       ]
     }
   ],
-  "id": "/"
+  "id": "./"
 }

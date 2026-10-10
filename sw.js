@@ -1,36 +1,36 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v68';
+const CACHE = 'dream-chalet-v69';
 
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/js/config.js',
-  '/js/theme.js',
-  '/js/main.js',
-  '/js/animations.js',
-  '/js/scroll-video.js',
-  '/js/gallery.js',
-  '/js/reviews.js',
-  '/js/map.js',
-  '/js/calendar.js',
-  '/js/weather.js',
-  '/js/i18n.js',
-  '/js/cookie-consent.js',
-  '/locales/el.json',
-  '/locales/en.json',
-  '/images/logo-removebg2.png',
-  '/images/icons.svg',
-  '/vendor/cookieconsent/cookieconsent.css',
-  '/vendor/cookieconsent/cookieconsent.umd.js',
-  '/vendor/gsap/gsap.min.js',
-  '/vendor/gsap/ScrollTrigger.min.js',
-  '/vendor/gsap/ScrollToPlugin.min.js',
-  '/vendor/gsap/Flip.min.js',
-  '/vendor/gsap/Draggable.min.js',
-  '/vendor/lenis/lenis.min.js',
+  './',
+  './index.html',
+  './css/style.css',
+  './js/config.js',
+  './js/theme.js',
+  './js/main.js',
+  './js/animations.js',
+  './js/scroll-video.js',
+  './js/gallery.js',
+  './js/reviews.js',
+  './js/map.js',
+  './js/calendar.js',
+  './js/weather.js',
+  './js/i18n.js',
+  './js/cookie-consent.js',
+  './locales/el.json',
+  './locales/en.json',
+  './images/logo-removebg2.png',
+  './images/icons.svg',
+  './vendor/cookieconsent/cookieconsent.css',
+  './vendor/cookieconsent/cookieconsent.umd.js',
+  './vendor/gsap/gsap.min.js',
+  './vendor/gsap/ScrollTrigger.min.js',
+  './vendor/gsap/ScrollToPlugin.min.js',
+  './vendor/gsap/Flip.min.js',
+  './vendor/gsap/Draggable.min.js',
+  './vendor/lenis/lenis.min.js',
 ];
 
 self.addEventListener('install', (e) => {
@@ -107,7 +107,7 @@ self.addEventListener('fetch', (e) => {
       .catch(() =>
         caches.match(e.request, { ignoreSearch: true }).then(
           (c) => c
-              || caches.match('/index.html').then((idx) => idx
+              || caches.match('./index.html').then((idx) => idx
               || new Response('Offline — please reconnect', {
                    status: 504,
                    statusText: 'Gateway Timeout',

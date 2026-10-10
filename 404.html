@@ -2,6 +2,15 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8">
+  <script>
+    /* GitHub Pages serves this page for any missing URL. Work out the site's
+       base folder (root or /<repo>/) so assets and the Home link resolve. */
+    (function () {
+      var seg = location.pathname.split('/')[1] || '';
+      var onProjectPath = location.hostname.endsWith('github.io') && seg && seg.indexOf('.') === -1 && seg.toLowerCase() !== location.hostname.split('.')[0];
+      document.write('<base href="' + (onProjectPath ? '/' + seg + '/' : '/') + '">');
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#0a0a0a">
@@ -10,16 +19,16 @@
   <link rel="canonical" href="https://dreamchalet-trikala.gr/">
 
 
-  <link rel="icon" href="/favicon.ico" sizes="48x48">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 
   <style>
-    @font-face { font-family: 'EB Garamond'; font-display: swap; font-weight: 400 800; src: url('/fonts/eb-garamond-greek-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0370-03FF; }
-    @font-face { font-family: 'EB Garamond'; font-display: swap; font-weight: 400 800; src: url('/fonts/eb-garamond-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F; }
-    @font-face { font-family: 'EB Garamond'; font-style: italic; font-display: swap; font-weight: 400 800; src: url('/fonts/eb-garamond-latin-wght-italic.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F; }
-    @font-face { font-family: 'Manrope'; font-display: swap; font-weight: 200 800; src: url('/fonts/manrope-greek-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0370-03FF; }
-    @font-face { font-family: 'Manrope'; font-display: swap; font-weight: 200 800; src: url('/fonts/manrope-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: 'EB Garamond'; font-display: swap; font-weight: 400 800; src: url('fonts/eb-garamond-greek-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0370-03FF; }
+    @font-face { font-family: 'EB Garamond'; font-display: swap; font-weight: 400 800; src: url('fonts/eb-garamond-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: 'EB Garamond'; font-style: italic; font-display: swap; font-weight: 400 800; src: url('fonts/eb-garamond-latin-wght-italic.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F; }
+    @font-face { font-family: 'Manrope'; font-display: swap; font-weight: 200 800; src: url('fonts/manrope-greek-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0370-03FF; }
+    @font-face { font-family: 'Manrope'; font-display: swap; font-weight: 200 800; src: url('fonts/manrope-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+2000-206F; }
     :root {
       --bg: #0a0a0a;
       --gold: #c9a96e;
@@ -117,7 +126,7 @@
     <div class="code">404</div>
     <h1>Αυτή η σελίδα έχει χαθεί στο δάσος.</h1>
     <p>This page took a wrong turn somewhere near Pertouli. Let's get you back to the chalet.</p>
-    <a class="cta" href="/">
+    <a class="cta" href="./">
       <span>Return Home</span>
       <svg class="arrow" viewBox="0 0 320 512" aria-hidden="true" fill="currentColor">
         <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
