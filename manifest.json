@@ -8,27 +8,36 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#c9a96e",
+  "theme_color": "#0a0a0a",
   "orientation": "portrait-primary",
-  "categories": ["travel", "lifestyle"],
+  "categories": [
+    "travel",
+    "lifestyle"
+  ],
   "icons": [
     {
-      "src": "images/logo-removebg2.png",
+      "src": "images/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "images/logo-removebg2.png",
+      "src": "images/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "images/logo-removebg2.png",
+      "src": "images/icons/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
   "shortcuts": [
@@ -36,15 +45,27 @@
       "name": "Book Now",
       "short_name": "Book",
       "description": "Reserve your stay",
-      "url": "/#pricing",
-      "icons": [{ "src": "images/logo-removebg2.png", "sizes": "192x192" }]
+      "url": "/#availability",
+      "icons": [
+        {
+          "src": "images/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Gallery",
       "short_name": "Gallery",
       "description": "View photos",
       "url": "/#gallery",
-      "icons": [{ "src": "images/logo-removebg2.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "images/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
