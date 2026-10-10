@@ -4087,3 +4087,68 @@ a.stat-item:hover {
     font-size: 1.75rem;
   }
 }
+
+/* ══ Phones: places swipe sideways, full width; clock photo full width ══ */
+.area-dots {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .attractions-list {
+    flex-direction: row;
+    gap: 0;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .attractions-list::-webkit-scrollbar {
+    display: none;
+  }
+  .attraction-card,
+  .attraction-card:first-child {
+    flex: 0 0 100%;
+    width: 100%;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .attraction-card:hover,
+  .attraction-card.active {
+    transform: none;
+    box-shadow: none;
+  }
+  .area-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0 0.5rem;
+  }
+  .area-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--border-strong);
+    transition: width 0.35s ease, background 0.35s ease;
+  }
+  .area-dot.active {
+    width: 22px;
+    background: var(--gold);
+  }
+}
+@media (max-width: 768px) {
+  .avail-photo {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+  .avail-photo img {
+    border-radius: 0;
+  }
+  .avail-times {
+    margin: 6px 1.25rem 0;
+  }
+}

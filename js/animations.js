@@ -28,6 +28,7 @@ function initAnimations() {
     initNav();
     initScrollProgress();
     initStickyBookBtn();
+    initAreaCarousel();
     return;
   }
 
@@ -37,6 +38,7 @@ function initAnimations() {
   initStats();
   initScrollProgress();
   initStickyBookBtn();
+  initAreaCarousel();
 }
 
 /* ── Navigation ──────────────────────────────────────────── */
@@ -411,4 +413,21 @@ function initStickyBookBtn() {
       btn.setAttribute('aria-expanded', 'false');
     }
   });
+}
+
+/* ── Area (phones): places as a full-width swipe carousel with dots ── */
+function initAreaCarousel() {
+  const list = document.querySelector('.attractions-list');
+  const dotsEl = document.getElementById('area-dots');
+  if (!list || !dotsEl) return;
+  const cards = Array.from(list.querySelectorAll('.attraction-card'));
+  dotsEl.innerHTML = cards.map(() => '<span class="area-dot"></span>').join('');
+  const dots = Array.from(dotsEl.children);
+  const sync = () => {
+    const i = Math.round(list.scrollLeft / (list.clientWidth || 1));
+    dots.forEach((d, k) => d.classList.toggle('active', k === i));
+  };
+  let raf = 0;
+  list.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+  sync();
 }
