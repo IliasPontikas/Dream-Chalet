@@ -282,15 +282,29 @@ html.is-loading body {
   mix-blend-mode: screen;
   animation: preloaderSheen 1.8s ease-in-out 0.55s 1 both;
 }
-.preloader-ring {
+/* Progress: a thin gold line under the logo, filling left to right */
+.preloader-line {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 92px);
+  width: 160px;
+  height: 1px;
+  transform: translateX(-50%);
+  background: rgba(201, 169, 110, 0.18);
+  overflow: hidden;
+  animation: preloaderFade 1s ease 0.4s both;
+}
+.preloader-line-fill {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
+  background: linear-gradient(90deg, rgba(201, 169, 110, 0.4), #e2c48e);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.15s linear;
 }
-.preloader-ring-arc {
-  transition: stroke-dashoffset 0.12s linear;
+@keyframes preloaderFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes preloaderIn {
   from { opacity: 0; transform: scale(0.94); }
@@ -302,12 +316,14 @@ html.is-loading body {
 }
 @media (max-width: 600px) {
   .preloader-logo-wrap { width: 270px; height: 270px; }
+  .preloader-line { top: calc(50% + 74px); width: 130px; }
   .preloader-logo-img,
   .preloader-sheen { width: 175px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .preloader-logo-img,
-  .preloader-sheen { animation: none; }
+  .preloader-sheen,
+  .preloader-line { animation: none; }
 }
 @media (hover: none) {
   body {
