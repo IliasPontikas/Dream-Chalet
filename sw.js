@@ -1,7 +1,7 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v57';
+const CACHE = 'dream-chalet-v58';
 
 const ASSETS = [
   '/',

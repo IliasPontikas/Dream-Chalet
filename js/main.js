@@ -124,9 +124,9 @@
     tick();
 
     const interval = setInterval(() => {
-      target += Math.random() * 7;
+      target += Math.random() * 9;
       if (target > 90) target = 90;
-    }, 140);
+    }, 115);
 
     let finished = false;
     const finish = () => {
@@ -162,7 +162,7 @@
           if (navLogo) navLogo.style.opacity = '';
           done();
         } });
-        tl.to([ring, sheen], { autoAlpha: 0, duration: 0.5, ease: 'power1.out' }, 0);
+        tl.to([ring, sheen], { autoAlpha: 0, duration: 0.4, ease: 'power1.out' }, 0);
 
         if (logo && navLogo && from && to && to.width > 0) {
           logo.style.animation = 'none';          /* hand transforms over to GSAP */
@@ -171,13 +171,13 @@
           const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
           tl.to(logo, {
             x: dx, y: dy, scale: to.width / from.width,
-            duration: 1.6, ease: 'power3.inOut',
-          }, 0.3)
-            .to(preloader, { backgroundColor: 'rgba(10, 10, 10, 0)', duration: 1.4, ease: 'power2.inOut' }, 0.55);
+            duration: 1.3, ease: 'power3.inOut',
+          }, 0.2)
+            .to(preloader, { backgroundColor: 'rgba(10, 10, 10, 0)', duration: 1.1, ease: 'power2.inOut' }, 0.4);
         } else {
           tl.to(preloader, { autoAlpha: 0, duration: 0.7, ease: 'power2.inOut' }, 0.1);
         }
-      }, 600);
+      }, 450);
     };
 
     /* Lift the curtain once the page has loaded AND the hero video has a
@@ -195,10 +195,10 @@
       v.addEventListener('error', res, { once: true });
     });
     Promise.all([pageLoaded, heroReady]).then(() => {
-      const wait = Math.max(0, 3200 - (performance.now() - started));
+      const wait = Math.max(0, 2300 - (performance.now() - started));
       setTimeout(finish, wait);
     });
-    setTimeout(finish, 4500);
+    setTimeout(finish, 3500);
   }
 
   /* ── After preloader: kick off all modules ─────────────── */
