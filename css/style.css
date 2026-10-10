@@ -3949,33 +3949,115 @@ a.stat-item:hover {
   color: var(--gold);
 }
 
-/* Area: place photos (Wikimedia Commons, free licences) */
-.attraction-photo {
-  flex: 0 0 auto;
-  width: 112px;
-  height: 112px;
+/* ══ Area: large photo cards + sticky map ═════════════════════ */
+.attractions-list {
+  gap: 1.5rem;
+}
+.attraction-card,
+.attraction-card:first-child {
+  display: block;
+  padding: 0;
   margin: 0;
-  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--card-bg);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease, border-color 0.3s ease;
+}
+.attraction-card:hover,
+.attraction-card.active {
+  background: var(--card-bg);
+  transform: translateY(-4px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.22);
+  border-color: rgba(201, 169, 110, 0.45);
+}
+.attraction-photo {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--bg3);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
 }
 .attraction-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(1.02);
+  transition: transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .attraction-card:hover .attraction-photo img,
 .attraction-card.active .attraction-photo img {
-  transform: scale(1.08);
+  transform: scale(1.1);
+}
+.attraction-photo.no-photo {
+  aspect-ratio: 16 / 6;
+  background: linear-gradient(135deg, #1d1915 0%, #3a2e22 60%, #6b5233 100%);
+}
+.attraction-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 8, 8, 0.78) 0%, rgba(8, 8, 8, 0.15) 45%, rgba(8, 8, 8, 0) 70%);
+  pointer-events: none;
+}
+.attraction-photo .attraction-num {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  z-index: 1;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #fff;
+  background: rgba(10, 10, 10, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.attraction-cap {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1rem;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.attraction-cap .attraction-title {
+  font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+  line-height: 1.05;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
+}
+.attraction-cap .attraction-distance {
+  flex: 0 0 auto;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  color: #f3dcb3;
+  background: rgba(10, 10, 10, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.attraction-card .attraction-body {
+  padding: 1.15rem 1.35rem 1.25rem;
+}
+.attraction-card .attraction-desc {
+  margin-bottom: 0.9rem;
+}
+.attraction-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
 }
 .photo-credit {
-  margin-top: 0.55rem;
   font-size: 0.62rem;
   letter-spacing: 0.02em;
   color: var(--text-muted);
-  opacity: 0.8;
+  opacity: 0.85;
 }
 .photo-credit a {
   text-decoration: underline;
@@ -3985,10 +4067,23 @@ a.stat-item:hover {
 .photo-credit a:hover {
   color: var(--gold);
 }
+/* Desktop: map stays beside the cards while you scroll through them */
+@media (min-width: 1025px) {
+  .area-layout {
+    align-items: start;
+  }
+  .area-map {
+    position: sticky;
+    top: calc(var(--nav-h) + 1.5rem);
+    height: calc(100vh - var(--nav-h) - 3rem);
+    min-height: 480px;
+  }
+}
 @media (max-width: 768px) {
   .attraction-photo {
-    width: 84px;
-    height: 84px;
-    border-radius: 10px;
+    aspect-ratio: 4 / 3;
+  }
+  .attraction-cap .attraction-title {
+    font-size: 1.75rem;
   }
 }
