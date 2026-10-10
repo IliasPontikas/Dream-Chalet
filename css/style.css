@@ -229,10 +229,15 @@ em, i, .accent-italic {
 .skip-link:focus {
   top: 1rem;
 }
+/* ══ Preloader: always black, logo with a light sweep ═════════ */
+html.is-loading,
+html.is-loading body {
+  background: #0a0a0a;
+}
 .preloader {
   position: fixed;
   inset: 0;
-  background: var(--bg);
+  background: #0a0a0a;
   z-index: 9000;
   display: flex;
   align-items: center;
@@ -245,16 +250,37 @@ em, i, .accent-italic {
 }
 .preloader-logo-wrap {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 340px;
+  height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.preloader-logo-img {
-  width: 150px;
+.preloader-logo-img,
+.preloader-sheen {
+  width: 220px;
   height: auto;
-  filter: drop-shadow(0 6px 24px rgba(201,169,110,0.22));
+  aspect-ratio: 372 / 245;
+}
+.preloader-logo-img {
+  position: relative;
+  filter: drop-shadow(0 6px 24px rgba(201, 169, 110, 0.22));
+  animation: preloaderIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+/* A soft reflection sweeps once across the rose-gold logo (masked to its shape) */
+.preloader-sheen {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: linear-gradient(105deg, rgba(255, 236, 214, 0) 38%, rgba(255, 240, 222, 0.9) 50%, rgba(255, 236, 214, 0) 62%);
+  background-size: 300% 100%;
+  background-position: 120% 0;
+  -webkit-mask: url('../images/logo-removebg2.png') center / contain no-repeat;
+  mask: url('../images/logo-removebg2.png') center / contain no-repeat;
+  mix-blend-mode: screen;
+  animation: preloaderSheen 1.5s ease-in-out 0.45s 1 both;
 }
 .preloader-ring {
   position: absolute;
@@ -265,6 +291,23 @@ em, i, .accent-italic {
 }
 .preloader-ring-arc {
   transition: stroke-dashoffset 0.12s linear;
+}
+@keyframes preloaderIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes preloaderSheen {
+  from { background-position: 120% 0; }
+  to   { background-position: -20% 0; }
+}
+@media (max-width: 600px) {
+  .preloader-logo-wrap { width: 270px; height: 270px; }
+  .preloader-logo-img,
+  .preloader-sheen { width: 175px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader-logo-img,
+  .preloader-sheen { animation: none; }
 }
 @media (hover: none) {
   body {

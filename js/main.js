@@ -40,6 +40,7 @@
     document.documentElement.classList.add('no-anim');
     const pre = document.getElementById('preloader');
     if (pre) pre.style.display = 'none';
+    document.documentElement.classList.remove('is-loading');
     return;
   }
 
@@ -139,32 +140,65 @@
         cancelAnimationFrame(rafId);
         if (ringArc) ringArc.style.strokeDashoffset = '0';
 
-        if (prefersReduced) {
+        const done = () => {
           preloader.style.display = 'none';
+          document.documentElement.classList.remove('is-loading');
           onReady();
-          return;
-        }
+        };
 
-        gsap.to(preloader, {
-          yPercent: -100,
-          duration: 0.7,
-          ease: 'power3.inOut',
-          delay: 0.1,
-          onComplete: () => {
-            preloader.style.display = 'none';
-            onReady();
-          },
-        });
+        if (prefersReduced) { done(); return; }
+
+        /* Signature exit: the logo glides up into its place in the header
+           while the black fades away to reveal the hero video */
+        const logo     = preloader.querySelector('.preloader-logo-img');
+        const sheen    = preloader.querySelector('.preloader-sheen');
+        const ring     = preloader.querySelector('.preloader-ring');
+        const navLogo  = document.querySelector('.navbar .logo-img');
+        const from     = logo?.getBoundingClientRect();
+        const to       = navLogo?.getBoundingClientRect();
+
+        document.documentElement.classList.remove('is-loading');
+        const tl = gsap.timeline({ onComplete: () => {
+          if (navLogo) navLogo.style.opacity = '';
+          done();
+        } });
+        tl.to([ring, sheen], { autoAlpha: 0, duration: 0.35, ease: 'power1.out' }, 0);
+
+        if (logo && navLogo && from && to && to.width > 0) {
+          logo.style.animation = 'none';          /* hand transforms over to GSAP */
+          navLogo.style.opacity = '0';             /* the flying logo stands in for it */
+          const dx = (to.left + to.width / 2) - (from.left + from.width / 2);
+          const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
+          tl.to(logo, {
+            x: dx, y: dy, scale: to.width / from.width,
+            duration: 1.05, ease: 'power3.inOut',
+          }, 0.15)
+            .to(preloader, { backgroundColor: 'rgba(10, 10, 10, 0)', duration: 0.9, ease: 'power2.inOut' }, 0.3);
+        } else {
+          tl.to(preloader, { autoAlpha: 0, duration: 0.7, ease: 'power2.inOut' }, 0.1);
+        }
       }, 350);
     };
 
-    if (document.readyState === 'complete') {
-      setTimeout(finish, 300);
-    } else {
-      window.addEventListener('load', () => setTimeout(finish, 150));
-      /* Don't wait forever for slow third-party resources */
-      setTimeout(finish, 2500);
-    }
+    /* Lift the curtain once the page has loaded AND the hero video has a
+       frame to show (so it opens onto moving footage), but never before the
+       logo's light sweep has played and never later than ~3s */
+    const started = performance.now();
+    const pageLoaded = new Promise((res) => {
+      if (document.readyState === 'complete') res();
+      else window.addEventListener('load', res, { once: true });
+    });
+    const heroReady = new Promise((res) => {
+      const v = document.getElementById('hero-video');
+      if (!v || v.readyState >= 2) return res();
+      v.addEventListener('loadeddata', res, { once: true });
+      v.addEventListener('error', res, { once: true });
+    });
+    Promise.all([pageLoaded, heroReady]).then(() => {
+      const wait = Math.max(0, 1700 - (performance.now() - started));
+      setTimeout(finish, wait);
+    });
+    setTimeout(finish, 3000);
   }
 
   /* ── After preloader: kick off all modules ─────────────── */
