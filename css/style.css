@@ -4164,3 +4164,34 @@ a.stat-item:hover {
   text-align: center;
   border-radius: inherit;
 }
+
+/* ══ Desktop: keep big media clear of the header ══════════════
+   The header slides back in when scrolling up; size the sticky
+   walkthrough and the cover-flow stage to the space below it. */
+@media (min-width: 769px) {
+  .walk-sticky {
+    padding-top: var(--nav-h);
+    box-sizing: border-box;
+  }
+  .walk-grid {
+    gap: 3.5rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .walk-frame {
+    height: calc(100vh - var(--nav-h) - 2rem);
+    aspect-ratio: 3 / 4;          /* wider than the 9:16 clip → bigger on screen */
+    border-radius: 20px;
+  }
+}
+@media (min-width: 1025px) {
+  .coverflow-container {
+    height: calc(100vh - var(--nav-h) - 1.5rem);
+    min-height: 560px;
+  }
+  .gallery-slide {
+    height: min(calc(100vh - var(--nav-h) - 5rem), 820px);
+  }
+  .section-gallery {
+    scroll-margin-top: var(--nav-h);
+  }
+}
