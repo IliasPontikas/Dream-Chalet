@@ -88,7 +88,7 @@
   /* ── Preloader ─────────────────────────────────────────── */
   function initPreloader() {
     const preloader = document.getElementById('preloader');
-    const lineFill  = preloader?.querySelector('.preloader-line-fill');
+    const ringArc   = preloader?.querySelector('.preloader-ring-arc');
     if (!preloader) return;
 
     /* Skip preloader entirely on repeat visits within this tab session.
@@ -108,13 +108,17 @@
     }
     sessionStorage.setItem('dc:visited', '1');
 
+    const circumference = 2 * Math.PI * 122; /* r=122, matches SVG */
+
     let target    = 0;
     let displayed = 0;
     let rafId     = 0;
 
     const tick = () => {
       displayed += (target - displayed) * 0.07;
-      if (lineFill) lineFill.style.transform = `scaleX(${displayed / 100})`;
+      if (ringArc) {
+        ringArc.style.strokeDashoffset = circumference * (1 - displayed / 100);
+      }
       rafId = requestAnimationFrame(tick);
     };
     tick();
@@ -131,10 +135,10 @@
       clearInterval(interval);
       target = 100;
 
-      /* Let the line visually complete before the exit */
+      /* Let the ring visually complete before sliding away */
       setTimeout(() => {
         cancelAnimationFrame(rafId);
-        if (lineFill) lineFill.style.transform = 'scaleX(1)';
+        if (ringArc) ringArc.style.strokeDashoffset = '0';
 
         const done = () => {
           preloader.style.display = 'none';
@@ -148,7 +152,7 @@
            while the black fades away to reveal the hero video */
         const logo     = preloader.querySelector('.preloader-logo-img');
         const sheen    = preloader.querySelector('.preloader-sheen');
-        const ring     = preloader.querySelector('.preloader-line');
+        const ring     = preloader.querySelector('.preloader-ring');
         const navLogo  = document.querySelector('.navbar .logo-img');
         const from     = logo?.getBoundingClientRect();
         const to       = navLogo?.getBoundingClientRect();
