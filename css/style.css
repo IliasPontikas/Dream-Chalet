@@ -4195,3 +4195,20 @@ a.stat-item:hover {
     scroll-margin-top: var(--nav-h);
   }
 }
+
+/* ══ Phones: keep the walkthrough video and gallery photos clear of the header ══ */
+@media (max-width: 768px) {
+  .walk-frame {
+    top: var(--nav-h);
+    height: auto;
+    bottom: 0;
+  }
+  .section-gallery .bento-item {
+    max-height: calc(100vh - var(--nav-h) - 6rem);
+    max-height: calc(100svh - var(--nav-h) - 6rem);
+  }
+  .section-gallery,
+  .section-scroll-video {
+    scroll-margin-top: var(--nav-h);
+  }
+}
