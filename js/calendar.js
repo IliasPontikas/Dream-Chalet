@@ -2,7 +2,7 @@
 
 const CALENDAR_STRINGS = {
   el: {
-    days: ['Κυ', 'Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα'],
+    days: ['Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα', 'Κυ'],
     months: [
       'Ιανουάριος','Φεβρουάριος','Μάρτιος','Απρίλιος','Μάιος','Ιούνιος',
       'Ιούλιος','Αύγουστος','Σεπτέμβριος','Οκτώβριος','Νοέμβριος','Δεκέμβριος',
@@ -23,7 +23,7 @@ const CALENDAR_STRINGS = {
     close: 'Κλείσιμο',
   },
   en: {
-    days: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    days: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
     months: [
       'January','February','March','April','May','June',
       'July','August','September','October','November','December',
@@ -107,7 +107,7 @@ function initCalendar() {
 
   function renderMonth(y, m) {
     const t = CALENDAR_STRINGS[_calLang()];
-    const firstDay    = new Date(y, m, 1).getDay();
+    const firstDay    = (new Date(y, m, 1).getDay() + 6) % 7;   /* weeks start on Monday */
     const daysInMonth = new Date(y, m + 1, 0).getDate();
     const ciKey = checkIn  ? keyFromDate(checkIn)  : null;
     const coKey = checkOut ? keyFromDate(checkOut) : null;
