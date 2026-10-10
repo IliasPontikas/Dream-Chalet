@@ -3948,3 +3948,47 @@ a.stat-item:hover {
   height: 0.95rem;
   color: var(--gold);
 }
+
+/* Area: place photos (Wikimedia Commons, free licences) */
+.attraction-photo {
+  flex: 0 0 auto;
+  width: 112px;
+  height: 112px;
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg3);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+}
+.attraction-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.attraction-card:hover .attraction-photo img,
+.attraction-card.active .attraction-photo img {
+  transform: scale(1.08);
+}
+.photo-credit {
+  margin-top: 0.55rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+.photo-credit a {
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 2px;
+}
+.photo-credit a:hover {
+  color: var(--gold);
+}
+@media (max-width: 768px) {
+  .attraction-photo {
+    width: 84px;
+    height: 84px;
+    border-radius: 10px;
+  }
+}
