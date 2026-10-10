@@ -42,7 +42,7 @@
   --footer-bg: #050505;
   --footer-ink: 243, 239, 233;
   --card-bg: rgba(255, 255, 255, 0.04);
-  --footer-veil: rgba(5, 5, 5, 0.9);
+  --footer-veil: rgba(5, 5, 5, 0.84);
   --reviews-veil: rgba(10, 10, 10, 0.6);
 
   /* Layered shadows */
@@ -83,9 +83,9 @@
   --menu-bg: rgba(238, 228, 214, 0.98);
   --menu-tint: rgba(238, 228, 214, 0.36);
   --footer-bg: #d8c8b1;
-  --footer-ink: 33, 26, 20;
+  --footer-ink: 20, 14, 10;
   --card-bg: rgba(255, 255, 255, 0.35);
-  --footer-veil: rgba(226, 212, 192, 0.9);
+  --footer-veil: rgba(216, 200, 177, 0.78);
   --reviews-veil: rgba(228, 214, 195, 0.55);
   --shadow-lg: 0 20px 60px rgba(60, 40, 20, 0.16);
 }
@@ -3816,18 +3816,34 @@ a.stat-item:hover {
   }
 }
 
-/* Footer: stronger contrast over the photo + credit line */
-.footer-col a,
-.footer-tagline {
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+/* Footer: bold, fully opaque text with a soft halo that lifts it off the photo */
+.site-footer {
+  --footer-halo: 0 1px 10px rgba(0, 0, 0, 0.55), 0 0 2px rgba(0, 0, 0, 0.4);
 }
-[data-theme="light"] .footer-col a,
-[data-theme="light"] .footer-tagline {
-  text-shadow: none;
+[data-theme="light"] .site-footer {
+  --footer-halo: 0 0 12px rgba(238, 228, 214, 0.95), 0 0 3px rgba(238, 228, 214, 0.9);
+}
+.site-footer,
+.footer-col a,
+.footer-tagline,
+.footer-bottom,
+.footer-cookies,
+.footer-credit {
+  color: rgb(var(--footer-ink));
+  text-shadow: var(--footer-halo);
+}
+.footer-col a,
+.footer-bottom,
+.footer-cookies {
+  font-weight: 600;
+}
+.footer-tagline {
+  font-weight: 500;
 }
 .footer-title {
   color: var(--gold);
   font-weight: 800;
+  text-shadow: var(--footer-halo);
 }
 .footer-credit {
   width: 100%;
@@ -3836,8 +3852,8 @@ a.stat-item:hover {
   border-top: 1px solid rgba(var(--footer-ink), 0.12);
   text-align: center;
   font-size: 0.78rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
-  color: rgba(var(--footer-ink), 0.78);
 }
 .footer-credit strong {
   font-weight: 700;
