@@ -50,7 +50,7 @@ function initMap() {
 
   const getStyle = () =>
     document.documentElement.getAttribute('data-theme') === 'light'
-      ? 'https://tiles.openfreemap.org/styles/positron'
+      ? 'https://tiles.openfreemap.org/styles/liberty'
       : 'https://tiles.openfreemap.org/styles/dark';
 
   const center = (typeof SITE_CONFIG !== 'undefined'

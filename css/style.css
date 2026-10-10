@@ -265,7 +265,7 @@ html.is-loading body {
 .preloader-logo-img {
   position: relative;
   filter: drop-shadow(0 6px 24px rgba(201, 169, 110, 0.22));
-  animation: preloaderIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: preloaderIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 /* A soft reflection sweeps once across the rose-gold logo (masked to its shape) */
 .preloader-sheen {
@@ -280,7 +280,7 @@ html.is-loading body {
   -webkit-mask: url('../images/logo-removebg2.png') center / contain no-repeat;
   mask: url('../images/logo-removebg2.png') center / contain no-repeat;
   mix-blend-mode: screen;
-  animation: preloaderSheen 1.8s ease-in-out 0.55s 1 both;
+  animation: preloaderSheen 1.5s ease-in-out 0.4s 1 both;
 }
 .preloader-ring {
   position: absolute;
@@ -2107,7 +2107,7 @@ html.show--consent .sticky-book { bottom: 9rem; }
   overflow: hidden;
   width: 100%;
   position: relative;
-  padding: 12px 0;
+  padding: 16px 0;
 }
 .marquee-row::before,
 .marquee-row::after {
@@ -3799,5 +3799,19 @@ a.stat-item:hover {
   .ggo-bento::after {
     content: "";
     flex: 150 1 0;
+  }
+}
+
+/* Reviews (desktop): bring the card deck higher in the viewport */
+@media (min-width: 769px) {
+  .reviews-sticky-wrapper {
+    padding: 5.5rem 0 2rem;
+  }
+  .reviews-header {
+    margin-bottom: 1.75rem;
+  }
+  .reviews-stack-container {
+    justify-content: flex-start;
+    padding-top: 1rem;
   }
 }

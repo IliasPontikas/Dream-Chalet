@@ -124,9 +124,9 @@
     tick();
 
     const interval = setInterval(() => {
-      target += Math.random() * 9;
+      target += Math.random() * 10;
       if (target > 90) target = 90;
-    }, 115);
+    }, 100);
 
     let finished = false;
     const finish = () => {
@@ -171,13 +171,13 @@
           const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
           tl.to(logo, {
             x: dx, y: dy, scale: to.width / from.width,
-            duration: 1.3, ease: 'power3.inOut',
-          }, 0.2)
-            .to(preloader, { backgroundColor: 'rgba(10, 10, 10, 0)', duration: 1.1, ease: 'power2.inOut' }, 0.4);
+            duration: 1.1, ease: 'power3.inOut',
+          }, 0.15)
+            .to(preloader, { backgroundColor: 'rgba(10, 10, 10, 0)', duration: 0.95, ease: 'power2.inOut' }, 0.3);
         } else {
           tl.to(preloader, { autoAlpha: 0, duration: 0.7, ease: 'power2.inOut' }, 0.1);
         }
-      }, 450);
+      }, 350);
     };
 
     /* Lift the curtain once the page has loaded AND the hero video has a
@@ -195,10 +195,10 @@
       v.addEventListener('error', res, { once: true });
     });
     Promise.all([pageLoaded, heroReady]).then(() => {
-      const wait = Math.max(0, 2300 - (performance.now() - started));
+      const wait = Math.max(0, 1800 - (performance.now() - started));
       setTimeout(finish, wait);
     });
-    setTimeout(finish, 3500);
+    setTimeout(finish, 3000);
   }
 
   /* ── After preloader: kick off all modules ─────────────── */

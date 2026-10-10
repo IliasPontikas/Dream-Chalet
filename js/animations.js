@@ -281,13 +281,14 @@ function initSectionEntrances() {
   /* Amenities stagger */
   const amenities = gsap.utils.toArray('.amenity-item');
   if (amenities.length) {
+    /* Fade only — a vertical offset would be clipped by the marquee rows */
     gsap.from(amenities, {
       opacity: 0,
-      y: 20,
       stagger: 0.05,
       duration: 0.6,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.amenities-grid', start: 'top 80%' },
+      ease: 'power2.out',
+      clearProps: 'opacity',
+      scrollTrigger: { trigger: '.amenities-grid', start: 'top 85%', once: true },
     });
   }
 
