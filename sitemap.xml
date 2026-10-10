@@ -3,41 +3,41 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://dreamchalet-trikala.gr/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://dreamchalet.gr/</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="el" href="https://dreamchalet-trikala.gr/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://dreamchalet-trikala.gr/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="el" href="https://dreamchalet.gr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dreamchalet.gr/?lang=en"/>
 <image:image>
-      <image:loc>https://dreamchalet-trikala.gr/images/og-share.jpg</image:loc>
+      <image:loc>https://dreamchalet.gr/images/og-share.jpg</image:loc>
       <image:title>Dream Chalet Trikala</image:title>
       <image:caption>Σπίτι με χαρακτήρα στη Ράξα, Τρίκαλα</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://dreamchalet-trikala.gr/images/photos/living-wide-1920.avif</image:loc>
+      <image:loc>https://dreamchalet.gr/images/photos/living-wide-1920.avif</image:loc>
       <image:title>Dream Chalet — Living room</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://dreamchalet-trikala.gr/images/photos/living-fireplace-1920.avif</image:loc>
+      <image:loc>https://dreamchalet.gr/images/photos/living-fireplace-1920.avif</image:loc>
       <image:title>Dream Chalet — Fireplace</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://dreamchalet-trikala.gr/images/photos/bedroom-rose-1920.avif</image:loc>
+      <image:loc>https://dreamchalet.gr/images/photos/bedroom-rose-1920.avif</image:loc>
       <image:title>Dream Chalet — Rose bedroom</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://dreamchalet-trikala.gr/images/photos/bedroom-amber-1920.avif</image:loc>
+      <image:loc>https://dreamchalet.gr/images/photos/bedroom-amber-1920.avif</image:loc>
       <image:title>Dream Chalet — Canopy bedroom</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://dreamchalet-trikala.gr/images/photos/bathroom-1920.avif</image:loc>
+      <image:loc>https://dreamchalet.gr/images/photos/bathroom-1920.avif</image:loc>
       <image:title>Dream Chalet — Bathroom</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://dreamchalet-trikala.gr/privacy.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <loc>https://dreamchalet.gr/privacy.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

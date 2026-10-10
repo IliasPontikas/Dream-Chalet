@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dreamchalet.gr/sitemap.xml
