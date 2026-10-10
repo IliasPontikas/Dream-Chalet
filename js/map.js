@@ -13,10 +13,10 @@ const MAP_STRINGS = {
       pertouli:    'Περτούλι',
     },
     descs: {
-      meteora:     'UNESCO World Heritage Site • ~22 km',
-      elati:       'Ορεινό χωριό • ~30 km',
-      palaiokarya: 'Καταρράκτες & Γέφυρα 1517 • ~35 km',
-      pertouli:    'Χιονοδρομικό κέντρο • ~54 km',
+      meteora:     'UNESCO World Heritage Site • ~30 λεπτά με αυτοκίνητο',
+      elati:       'Ορεινό χωριό • ~40 λεπτά με αυτοκίνητο',
+      palaiokarya: 'Καταρράκτες & Γέφυρα 1517 • ~35 λεπτά με αυτοκίνητο',
+      pertouli:    'Χιονοδρομικό κέντρο • ~1 ώρα με αυτοκίνητο',
     },
   },
   en: {
@@ -31,10 +31,10 @@ const MAP_STRINGS = {
       pertouli:    'Pertouli',
     },
     descs: {
-      meteora:     'UNESCO World Heritage Site • ~22 km',
-      elati:       'Mountain village • ~30 km',
-      palaiokarya: 'Waterfalls & 1517 bridge • ~35 km',
-      pertouli:    'Ski resort • ~54 km',
+      meteora:     'UNESCO World Heritage Site • ~30 min by car',
+      elati:       'Mountain village • ~40 min by car',
+      palaiokarya: 'Waterfalls & 1517 bridge • ~35 min by car',
+      pertouli:    'Ski resort • ~1 hour by car',
     },
   },
 };

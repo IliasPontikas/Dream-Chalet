@@ -95,22 +95,22 @@
     "label": "The Area",
     "heading": "In the heart of Thessaly",
     "meteora": {
-      "distance": "~22 km",
+      "distance": "~30 min",
       "title": "Meteora",
       "desc": "14th-century monasteries atop 400m rock pillars. UNESCO World Heritage Site with breathtaking views."
     },
     "elati": {
-      "distance": "~30 km",
+      "distance": "~40 min",
       "title": "Elati",
       "desc": "The largest mountain village. Hiking, forests, snow, and traditional architecture await."
     },
     "pertouli": {
-      "distance": "~54 km",
+      "distance": "~1 hour",
       "title": "Pertouli",
       "desc": "A village in the clouds with a ski resort. Azure forests and outdoor activities for all."
     },
     "palaiokarya": {
-      "distance": "~35 km",
+      "distance": "~35 min",
       "title": "Palaiokarya Waterfalls",
       "desc": "Spectacular waterfalls, a 1517 stone bridge, and a 200-year-old traditional watermill."
     },
