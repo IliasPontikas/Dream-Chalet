@@ -126,7 +126,7 @@ function initMap() {
   mapEl.appendChild(toggle);
 
   const locations = [
-    { id: 'chalet',      coords: [21.74715078198729,   39.60386403048851],   emoji: '🏡', isMain: true },
+    { id: 'chalet',      coords: [21.74715078198729,   39.60386403048851],   emoji: '🏡', isMain: true, gmaps: 'https://maps.app.goo.gl/bZhBAc3cMwijPPTFA' },
     { id: 'meteora',     coords: [21.63065515278235,   39.72279696985126],   emoji: '⛪',  gmaps: 'https://maps.app.goo.gl/Z9ApEdYgCb9W95Cm6' },
     { id: 'elati',       coords: [21.535341361331444,  39.50317742958358],   emoji: '🏔️', gmaps: 'https://maps.app.goo.gl/TuWsUt32V9KnysraA' },
     { id: 'palaiokarya', coords: [21.527416210816465,  39.431308047515344],  emoji: '💧', gmaps: 'https://maps.app.goo.gl/tJ2DyL4YLRNNviEr6' },
