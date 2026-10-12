@@ -50,7 +50,7 @@
       },
       "1": {
         "title": "The living room",
-        "text": "Double height, a chandelier, the stone fireplace and leather sofas."
+        "text": "Α chandelier, the stone fireplace and leather sofas."
       },
       "2": {
         "title": "The wooden staircase",
@@ -107,14 +107,14 @@
     "pertouli": {
       "distance": "~1 hour",
       "title": "Pertouli",
-      "desc": "A village in the clouds with a ski resort. Azure forests and outdoor activities for all."
+      "desc": "Mountain village with a ski resort. Lush green forests and a variety of activities."
     },
     "palaiokarya": {
       "distance": "~35 min",
       "title": "Palaiokarya Waterfalls",
-      "desc": "Spectacular waterfalls, a 1517 stone bridge, and a 200-year-old traditional watermill."
+      "desc": "Impressive waterfalls and a stone bridge from 1517."
     },
-    "intro": "Meteora, mountain villages and waterfalls — all within a day trip. Tap a place to see it on the map.",
+    "intro": "Meteora, mountain villages and waterfalls — Everything is within easy reach. Tap a place to see it on the map.",
     "directions": "Directions"
   },
   "reviews": {
