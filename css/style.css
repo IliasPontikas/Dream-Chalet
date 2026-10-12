@@ -1603,7 +1603,7 @@ html.show--consent .sticky-book { bottom: 9rem; }
   position: fixed;
   inset: 0;
   background: rgba(10, 10, 10, 0.96);
-  z-index: 6000;
+  z-index: 9000;
   display: flex;
   align-items: center;
   justify-content: center;

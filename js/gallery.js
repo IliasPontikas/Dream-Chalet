@@ -1,6 +1,12 @@
 /* gallery.js — Cover flow on desktop, bento grid on tablets/phones (CSS decides which is visible) */
 
 function initGallery() {
+  /* Full-screen views live at the top of the page, so nothing in the
+     gallery section (or the header) can sit on top of them */
+  ['gallery-overlay', 'gallery-grid', 'lightbox'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.parentNode !== document.body) document.body.appendChild(el);
+  });
   initRoomTags();
   initCoverflow();
   initBento();
