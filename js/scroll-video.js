@@ -1,4 +1,18 @@
-/* scroll-video.js — Vertical walkthrough scrubbed by scroll, with captions per room */
+/* scroll-video.js — Walkthrough scrubbed by scroll, with captions per room.
+   Computers scrub the <video>. Phones and tablets draw still frames on a
+   canvas instead: mobile browsers (iOS especially) often stop painting a
+   seeked video after a reload or when it has been off-screen, leaving the
+   first or last scene frozen. */
+
+/* Decide early (this runs while the page parses) so phones never download
+   the video file and computers start buffering it straight away */
+const WALK_USE_FRAMES = window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+(function () {
+  const v = document.getElementById('scroll-vid');
+  if (!v || WALK_USE_FRAMES) return;
+  v.preload = 'auto';
+  v.load();
+})();
 
 function initScrollVideo() {
   'use strict';
@@ -21,7 +35,9 @@ function initScrollVideo() {
 
   /* Reduced motion: just loop the video, captions follow playback */
   if (reduce) {
+    video.preload = 'auto';
     video.loop = true;
+    video.muted = true;
     video.play().catch(() => {});
     video.addEventListener('timeupdate', () => {
       if (video.duration) setStep(video.currentTime / video.duration);
@@ -29,117 +45,180 @@ function initScrollVideo() {
     return;
   }
 
-  let targetTime  = 0;
-  let currentTime = 0;
-  let lastSet     = 0;     /* the time we last asked the video to show */
-  let seekStart   = 0;
-  let ticking     = false;
+  if (WALK_USE_FRAMES && video.dataset.frames) initFrames();
+  else initVideo();
 
-  /* One seek at a time: a new seek cancels the one still decoding, so
-     seeking every frame on a phone left the picture frozen on an old
-     frame (the first or the last scene) for the whole scroll. */
-  function seekTo(t) {
-    lastSet = t;
-    seekStart = performance.now();
-    try { video.currentTime = t; } catch (e) {}
-  }
+  /* ── Phones / tablets: image sequence on a canvas ─────────── */
+  function initFrames() {
+    const count   = parseInt(video.dataset.frameCount, 10) || 1;
+    const pattern = video.dataset.frames;
+    const src     = (i) => pattern.replace('###', String(i + 1).padStart(3, '0'));
+    const frames  = new Array(count);   /* decoded Image per index, once loaded */
 
-  /* Jump straight to the frame that matches the scroll position */
-  function forceSeek() {
-    currentTime = targetTime;
-    seekTo(targetTime);
-  }
+    const canvas = document.createElement('canvas');
+    canvas.className = 'walk-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    canvas.style.backgroundImage = `url("${video.getAttribute('poster')}")`;
+    video.replaceWith(canvas);
+    const ctx = canvas.getContext('2d');
 
-  function tick() {
-    currentTime += (targetTime - currentTime) * 0.12;
-    const busy = video.seeking && performance.now() - seekStart < 1200;
-    if (!busy && video.readyState >= 1) {
-      /* If the browser reset or unloaded the video while we were away
-         (it then shows frame 0), resync to the scroll position */
-      if (Math.abs(video.currentTime - lastSet) > 0.25) forceSeek();
-      else if (Math.abs(currentTime - lastSet) > 0.02) seekTo(Math.max(0, currentTime));
+    let target = 0;      /* frame index the scroll asks for */
+    let current = 0;     /* eased frame index */
+    let drawn = -1;      /* index currently on the canvas */
+
+    function size() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.round(canvas.clientWidth * dpr);
+      const h = Math.round(canvas.clientHeight * dpr);
+      if (w && h && (canvas.width !== w || canvas.height !== h)) {
+        canvas.width = w;
+        canvas.height = h;
+        drawn = -1;
+      }
     }
-    requestAnimationFrame(tick);
-  }
 
-  function startScrub() {
-    if (!video.duration) return;
-    if (!video.paused) video.pause();
-    if (ticking) return;
-    ticking = true;
+    /* Nearest frame that has loaded (coarse frames arrive first) */
+    function nearest(i) {
+      if (frames[i]) return i;
+      for (let d = 1; d < count; d++) {
+        if (i - d >= 0 && frames[i - d]) return i - d;
+        if (i + d < count && frames[i + d]) return i + d;
+      }
+      return -1;
+    }
+
+    function draw(i) {
+      const img = frames[i];
+      const cw = canvas.width, ch = canvas.height;
+      if (!img || !cw || !ch) return;
+      /* object-fit: cover */
+      const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+      const w = img.naturalWidth * s, h = img.naturalHeight * s;
+      ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+      drawn = i;
+      canvas.style.backgroundImage = 'none';
+    }
+
+    function tick() {
+      current += (target - current) * 0.2;
+      if (Math.abs(target - current) < 0.01) current = target;
+      const i = nearest(Math.round(current));
+      if (i >= 0 && i !== drawn) draw(i);
+      requestAnimationFrame(tick);
+    }
+
+    /* Load order: every 16th frame, then fill the gaps (8, 4, 2, 1), so
+       scrubbing works early and gets smoother as the rest arrives */
+    const order = [];
+    const seen = new Set();
+    [16, 8, 4, 2, 1].forEach((step) => {
+      for (let i = 0; i < count; i += step) if (!seen.has(i)) { seen.add(i); order.push(i); }
+    });
+    if (!seen.has(count - 1)) order.splice(1, 0, count - 1);
+
+    let started = false;
+    function load() {
+      if (started) return;
+      started = true;
+      let next = 0;
+      const pump = () => {
+        if (next >= order.length) return;
+        const i = order[next++];
+        const img = new Image();
+        img.decoding = 'async';
+        const ok = () => { frames[i] = img; pump(); };
+        img.onload = () => (img.decode ? img.decode().then(ok, ok) : ok());
+        img.onerror = pump;
+        img.src = src(i);
+      };
+      for (let k = 0; k < 6; k++) pump();
+    }
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) { load(); io.disconnect(); }
+      }, { rootMargin: '1500px 0px' });
+      io.observe(section);
+    }
+    /* Otherwise start once the rest of the page has settled */
+    const later = () => setTimeout(load, 2500);
+    if (document.readyState === 'complete') later();
+    else window.addEventListener('load', later, { once: true });
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate(self) {
+        setStep(self.progress);
+        target = self.progress * (count - 1);
+      },
+      onRefresh(self) {
+        size();
+        target = current = self.progress * (count - 1);
+        setStep(self.progress);
+      },
+    });
+    window.addEventListener('resize', size);
+    size();
     tick();
   }
 
-  /* Phones (iOS especially) don't decode a video until it has been
-     played once, and may drop it again after a reload or a long scroll
-     away. Prime it with a muted play/pause whenever it isn't ready —
-     on approach, on entering, and on any tap (for browsers that need
-     a gesture, e.g. iOS Low Power Mode). */
-  video.muted = true;
-  video.setAttribute('muted', '');
-  video.playsInline = true;
-  let primed = false;
-  let priming = false;
-  let lastTry = 0;
-  function prime() {
-    if (priming || (primed && video.readyState >= 2)) return;
-    priming = true;
-    lastTry = performance.now();
-    if (video.readyState === 0 && video.networkState === 3) video.load(); /* NETWORK_NO_SOURCE */
-    const done = (ok) => {
-      priming = false;
-      primed = ok;
-      if (ok) { video.pause(); startScrub(); forceSeek(); }
-    };
-    let p;
-    try { p = video.play(); } catch (e) { done(false); return; }
-    if (p && p.then) p.then(() => done(true), () => done(false));
-    else done(true);
+  /* ── Computers: scrub the <video> ─────────────────────────── */
+  function initVideo() {
+    let targetTime  = 0;
+    let currentTime = 0;
+    let lastSet     = 0;     /* the time we last asked the video to show */
+    let seekStart   = 0;
+    let ticking     = false;
+
+    /* One seek at a time: a new seek cancels the one still decoding */
+    function seekTo(t) {
+      lastSet = t;
+      seekStart = performance.now();
+      try { video.currentTime = t; } catch (e) {}
+    }
+
+    function forceSeek() {
+      currentTime = targetTime;
+      seekTo(targetTime);
+    }
+
+    function tick() {
+      currentTime += (targetTime - currentTime) * 0.12;
+      const busy = video.seeking && performance.now() - seekStart < 1200;
+      if (!busy && video.readyState >= 1) {
+        /* If the browser reset the video while we were away, resync */
+        if (Math.abs(video.currentTime - lastSet) > 0.25) forceSeek();
+        else if (Math.abs(currentTime - lastSet) > 0.02) seekTo(Math.max(0, currentTime));
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function startScrub() {
+      if (!video.duration) return;
+      if (!video.paused) video.pause();
+      if (ticking) return;
+      ticking = true;
+      tick();
+    }
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate(self) {
+        setStep(self.progress);
+        if (video.duration) targetTime = self.progress * (video.duration - 0.05);
+      },
+    });
+
+    video.muted = true;
+    video.addEventListener('loadedmetadata', startScrub);
+    video.addEventListener('loadeddata', forceSeek);
+    if (video.readyState >= 1) startScrub();
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && video.readyState >= 1) forceSeek();
+    });
   }
-  video.addEventListener('emptied', () => { primed = false; });
-
-  /* Captions always follow scroll; the video joins in once it has loaded */
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top bottom',
-    end: 'bottom top',
-    onToggle(self) {
-      if (!self.isActive) return;
-      prime();
-      if (video.readyState >= 1) forceSeek();
-    },
-  });
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top top',
-    end: 'bottom bottom',
-    onUpdate(self) {
-      setStep(self.progress);
-      if (video.duration) targetTime = self.progress * (video.duration - 0.05);
-      /* Still not decoding? try again (at most once a second) */
-      if (video.readyState < 2 && performance.now() - lastTry > 1000) prime();
-    },
-  });
-
-  video.addEventListener('loadedmetadata', startScrub);
-  video.addEventListener('loadeddata', forceSeek);
-  if (video.readyState >= 1) startScrub();
-
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) prime();
-    }, { rootMargin: '600px 0px' });
-    io.observe(section);
-  } else {
-    prime();
-  }
-  ['touchend', 'click'].forEach((ev) =>
-    window.addEventListener(ev, () => { if (video.readyState < 2) { primed = false; prime(); } }, { passive: true })
-  );
-
-  /* Back/forward cache or returning to the tab: show the right frame again */
-  window.addEventListener('pageshow', (e) => { if (e.persisted) { primed = false; prime(); forceSeek(); } });
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible' && video.readyState >= 1) forceSeek();
-  });
 }

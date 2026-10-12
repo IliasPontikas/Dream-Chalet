@@ -1989,6 +1989,12 @@ html.show--consent .sticky-book { bottom: 9rem; }
   height: 100%;
   object-fit: cover;
 }
+.walk-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #111111 center / cover no-repeat;
+}
 .walk-text {
   position: relative;
   padding-left: 2rem;
