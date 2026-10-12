@@ -1,7 +1,8 @@
-name: Sync booking calendar
+name: Sync calendar & weather
 
 # Pulls the Airbnb / Booking.com iCal feeds every 3 hours and updates
 # data/booked.json, which the availability calendar on the site reads.
+# Also refreshes data/weather.json (5-day forecast from MET Norway).
 # Set the feed links as repository secrets: AIRBNB_ICAL_URL, BOOKING_ICAL_URL
 
 on:
@@ -29,14 +30,18 @@ jobs:
           AIRBNB_ICAL_URL: ${{ secrets.AIRBNB_ICAL_URL }}
           BOOKING_ICAL_URL: ${{ secrets.BOOKING_ICAL_URL }}
         run: python scripts/sync_ical.py
+      - name: Fetch weather
+        continue-on-error: true
+        run: python scripts/sync_weather.py
       - name: Commit if changed
         run: |
-          if git diff --quiet -- data/booked.json; then
+          for f in data/booked.json data/weather.json; do [ -f "$f" ] && git add "$f"; done
+          if git diff --cached --quiet; then
             echo "No changes"
             exit 0
           fi
           git config user.name  "calendar-sync"
           git config user.email "calendar-sync@users.noreply.github.com"
-          git add data/booked.json
-          git commit -m "Update booked dates"
+          git commit -m "Update booked dates / weather"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
           git push

@@ -147,6 +147,14 @@
           onReady();
         };
 
+        /* Start the hero film from its first scene (the saloon) as the
+           curtain lifts, instead of mid-way through it */
+        const heroVid = document.getElementById('hero-video');
+        if (heroVid) {
+          try { heroVid.currentTime = 0; } catch (e) {}
+          heroVid.play?.().catch(() => {});
+        }
+
         if (prefersReduced) { done(); return; }
 
         /* Signature exit: the logo glides up into its place in the header

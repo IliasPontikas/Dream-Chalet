@@ -1,7 +1,7 @@
 
 /* sw.js — Service Worker: network-first for fresh updates, cache as offline fallback */
 
-const CACHE = 'dream-chalet-v72';
+const CACHE = 'dream-chalet-v73';
 
 const ASSETS = [
   './',
@@ -56,7 +56,6 @@ const IMMUTABLE_HOSTS = new Set([
 
 /* Hosts that should NEVER be cached (live data) */
 const NO_CACHE_HOSTS = new Set([
-  'api.open-meteo.com',
   'tiles.openfreemap.org',
 ]);
 
