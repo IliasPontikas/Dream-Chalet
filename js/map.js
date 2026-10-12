@@ -8,7 +8,7 @@ const MAP_STRINGS = {
     titles: {
       chalet:      'Dream Chalet',
       meteora:     'Μετέωρα',
-      elati:       'Ελάτι',
+      elati:       'Ελάτη',
       palaiokarya: 'Καταρράκτες Παλαιοκαριάς',
       pertouli:    'Περτούλι',
     },
