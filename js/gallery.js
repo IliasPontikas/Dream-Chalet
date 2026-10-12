@@ -309,12 +309,125 @@ function initBento() {
     if (!counter) return;
     const n = visible().length;
     counter.textContent = n ? `${Math.min(current() + 1, n)} / ${n}` : '';
+    const i = current();
+    const prev = track.parentNode.querySelector('.bento-arrow-prev');
+    const next = track.parentNode.querySelector('.bento-arrow-next');
+    if (prev) prev.disabled = i <= 0;
+    if (next) next.disabled = i >= n - 1;
   }
   let raf = 0;
   track.addEventListener('scroll', () => {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(updateCounter);
   }, { passive: true });
+
+  /* ── Slider: one photo per swipe / drag / arrow / wheel ─────
+     Native scroll-snap felt sticky on phones, and with a mouse there
+     was no way to move at all. The finger (or mouse) now drags the
+     strip directly and it settles on the next photo on release. */
+  const fine = window.matchMedia('(pointer: fine)').matches;
+  const wrap = document.createElement('div');
+  wrap.className = 'bento-wrap';
+  track.parentNode.insertBefore(wrap, track);
+  wrap.appendChild(track);
+  const mkArrow = (dir) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = `bento-arrow bento-arrow-${dir}`;
+    b.setAttribute('aria-label', dir === 'prev' ? 'Previous photo' : 'Next photo');
+    b.innerHTML = `<svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-${dir === 'prev' ? 'left' : 'right'}"></use></svg>`;
+    wrap.appendChild(b);
+    return b;
+  };
+  const arrowPrev = mkArrow('prev');
+  const arrowNext = mkArrow('next');
+
+  let tween = null;
+  function goTo(i, instant) {
+    const n = visible().length;
+    const w = track.clientWidth || 1;
+    i = Math.max(0, Math.min(n - 1, i));
+    tween?.kill?.();
+    if (instant || reduce || typeof gsap === 'undefined') { track.scrollLeft = i * w; updateCounter(); return; }
+    tween = gsap.to(track, { scrollLeft: i * w, duration: 0.5, ease: 'power3.out', onUpdate: updateCounter });
+  }
+  arrowPrev.addEventListener('click', () => goTo(current() - 1));
+  arrowNext.addEventListener('click', () => goTo(current() + 1));
+  track.tabIndex = 0;
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current() - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current() + 1); }
+  });
+
+  /* Drag with finger or mouse; vertical page scrolling stays native
+     (touch-action: pan-y), so only sideways moves reach us */
+  let drag = null;
+  let suppressClick = false;
+  track.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    tween?.kill?.();
+    drag = { id: e.pointerId, x: e.clientX, y: e.clientY, left: track.scrollLeft, start: current(), t: performance.now(), moved: false };
+  });
+  track.addEventListener('pointermove', (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 6) return;
+      if (Math.abs(e.clientY - drag.y) > Math.abs(dx)) { drag = null; return; }
+      drag.moved = true;
+      track.setPointerCapture?.(e.pointerId);
+      track.classList.add('is-dragging');
+    }
+    drag.lastX = e.clientX;
+    drag.vx = (e.clientX - (drag.px ?? drag.x)) / Math.max(1, e.timeStamp - (drag.pt ?? e.timeStamp - 16));
+    drag.px = e.clientX;
+    drag.pt = e.timeStamp;
+    track.scrollLeft = drag.left - dx;
+    updateCounter();
+  });
+  const endDrag = (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag;
+    drag = null;
+    track.classList.remove('is-dragging');
+    if (!d.moved) return;
+    suppressClick = true;
+    setTimeout(() => { suppressClick = false; }, 50);
+    const dx = (e.type === 'pointercancel' ? d.lastX ?? d.x : e.clientX) - d.x;
+    const w = track.clientWidth || 1;
+    const fast = Math.abs(d.vx || 0) > 0.3 && Math.sign(d.vx) === Math.sign(dx);   /* a flick (px/ms) */
+    let i = d.start;
+    if (Math.abs(dx) > w * 0.18 || (fast && Math.abs(dx) > 20)) i += dx < 0 ? 1 : -1;
+    goTo(i);
+  };
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+  /* A drag shouldn't also open the photo */
+  track.addEventListener('click', (e) => { if (suppressClick) { e.stopPropagation(); e.preventDefault(); } }, true);
+  track.addEventListener('dragstart', (e) => e.preventDefault());
+
+  /* Trackpad sideways swipe / shift+wheel: one photo per gesture.
+     Stopped here so the page's smooth scroller doesn't swallow it. */
+  let wheelLock = 0;
+  track.addEventListener('wheel', (e) => {
+    const dx = e.shiftKey ? e.deltaY : e.deltaX;
+    if (Math.abs(dx) <= Math.abs(e.shiftKey ? 0 : e.deltaY) || Math.abs(dx) < 4) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const now = performance.now();
+    if (now < wheelLock) return;
+    wheelLock = now + 450;
+    goTo(current() + (dx > 0 ? 1 : -1));
+  }, { passive: false });
+
+  /* Stay on the same photo when the window is resized */
+  let lastW = track.clientWidth || 1;
+  window.addEventListener('resize', () => {
+    const idx = Math.round(track.scrollLeft / lastW);
+    lastW = track.clientWidth || 1;
+    goTo(idx, true);
+  });
+  if (!fine) wrap.classList.add('is-touch');
 
   /* ── Room tabs ──────────────────────────────────────────── */
   function applyFilter(filter) {

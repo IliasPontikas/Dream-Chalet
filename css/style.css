@@ -3401,11 +3401,60 @@ a.stat-item:hover {
     gap: 0;
     width: 100vw;
     margin-left: calc(50% - 50vw);
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;           /* moved by gallery.js: drag, arrows, wheel */
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
     scrollbar-width: none;
+  }
+  .section-gallery .bento:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+  .section-gallery .bento-item img,
+  .section-gallery .bento-item video {
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  .bento-wrap {
+    position: relative;
+  }
+  .bento-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 46px;
+    height: 46px;
+    margin-top: -23px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 169, 110, 0.45);
+    background: rgba(12, 10, 8, 0.45);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    color: #f5efe6;
+    cursor: pointer;
+    transition: background 0.25s ease, opacity 0.25s ease;
+  }
+  .bento-arrow:hover {
+    background: rgba(12, 10, 8, 0.7);
+  }
+  .bento-arrow[disabled] {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .bento-arrow-prev { left: 0.75rem; }
+  .bento-arrow-next { right: 0.75rem; }
+  .bento-wrap.is-touch .bento-arrow {
+    width: 38px;
+    height: 38px;
+    margin-top: -19px;
+    font-size: 0.8rem;
+  }
+  @media (pointer: fine) {
+    .section-gallery .bento { cursor: grab; }
+    .section-gallery .bento.is-dragging { cursor: grabbing; }
   }
   .section-gallery .bento::-webkit-scrollbar {
     display: none;
@@ -3417,8 +3466,6 @@ a.stat-item:hover {
     aspect-ratio: 4 / 5;
     max-height: 78vh;
     border-radius: 0;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
   }
   .section-gallery .bento-item[hidden] {
     display: none;
