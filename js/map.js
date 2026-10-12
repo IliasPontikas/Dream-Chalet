@@ -3,6 +3,7 @@
 const MAP_STRINGS = {
   el: {
     showAll:    'Δείτε όλα τα αξιοθέατα',
+    openGmaps:  'Άνοιγμα στο Google Maps',
     centerHome: 'Κεντράρισμα στο chalet',
     chaletDesc: 'Η κατοικία σας — Ραχούλα, Τρίκαλα',
     titles: {
@@ -21,6 +22,7 @@ const MAP_STRINGS = {
   },
   en: {
     showAll:    'Show all attractions',
+    openGmaps:  'Open in Google Maps',
     centerHome: 'Center on chalet',
     chaletDesc: 'Your home — Rachoula, Trikala',
     titles: {
@@ -125,10 +127,10 @@ function initMap() {
 
   const locations = [
     { id: 'chalet',      coords: [21.74715078198729,   39.60386403048851],   emoji: '🏡', isMain: true },
-    { id: 'meteora',     coords: [21.63065515278235,   39.72279696985126],   emoji: '⛪' },
-    { id: 'elati',       coords: [21.535341361331444,  39.50317742958358],   emoji: '🏔️' },
-    { id: 'palaiokarya', coords: [21.527416210816465,  39.431308047515344],  emoji: '💧' },
-    { id: 'pertouli',    coords: [21.465859934678086,  39.54109910736869],   emoji: '🎿' },
+    { id: 'meteora',     coords: [21.63065515278235,   39.72279696985126],   emoji: '⛪',  gmaps: 'https://maps.app.goo.gl/Z9ApEdYgCb9W95Cm6' },
+    { id: 'elati',       coords: [21.535341361331444,  39.50317742958358],   emoji: '🏔️', gmaps: 'https://maps.app.goo.gl/TuWsUt32V9KnysraA' },
+    { id: 'palaiokarya', coords: [21.527416210816465,  39.431308047515344],  emoji: '💧', gmaps: 'https://maps.app.goo.gl/tJ2DyL4YLRNNviEr6' },
+    { id: 'pertouli',    coords: [21.465859934678086,  39.54109910736869],   emoji: '🎿', gmaps: 'https://maps.app.goo.gl/KKk7iq6tWskwNZZn8' },
   ];
 
   let markers = [];
@@ -154,6 +156,7 @@ function initMap() {
       }).setHTML(`
         <strong style="font-family:'EB Garamond',serif;font-size:1.1rem;color:#c9a96e;">${title}</strong>
         <p style="margin:0.4rem 0 0;font-size:0.85rem;color:#9e9690;">${desc}</p>
+        ${loc.gmaps ? `<a class="map-popup-link" href="${loc.gmaps}" target="_blank" rel="noopener">${t.openGmaps} ↗</a>` : ''}
       `);
 
       const marker = new maplibregl.Marker({ element: el })

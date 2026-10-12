@@ -66,7 +66,7 @@
       },
       "5": {
         "title": "The bathroom",
-        "text": "A stained-glass skylight and mosaic."
+        "text": "A stained-glass skylight and mosaic tiles."
       }
     }
   },
@@ -129,6 +129,8 @@
     "also": "Also:",
     "addressLabel": "Address",
     "address": "Raxa, Trikala 42100",
+    "hostLabel": "Host",
+    "hostName": "Konstantinos Karkavilas",
     "timingsLabel": "Check-in / Check-out",
     "guestsLabel": "Guests",
     "guestsValue": "Up to 6 · pets welcome"
