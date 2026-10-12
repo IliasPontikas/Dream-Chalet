@@ -1,8 +1,28 @@
 /* gallery.js — Cover flow on desktop, bento grid on tablets/phones (CSS decides which is visible) */
 
 function initGallery() {
+  initRoomTags();
   initCoverflow();
   initBento();
+}
+
+/* "Υπνοδωμάτιο 1 / 2 / 3" on bedroom photos (data-room), in the current language */
+const ROOM_WORD = { el: 'Υπνοδωμάτιο', en: 'Bedroom' };
+function roomLabel(el) {
+  const n = el?.dataset.room;
+  return n ? `${ROOM_WORD[document.documentElement.lang === 'en' ? 'en' : 'el']} ${n}` : '';
+}
+function initRoomTags() {
+  const els = Array.from(document.querySelectorAll('.gallery-slide[data-room], .bento-item[data-room]'));
+  els.forEach((el) => {
+    const tag = document.createElement('span');
+    tag.className = 'room-tag';
+    tag.setAttribute('aria-hidden', 'true');
+    el.appendChild(tag);
+  });
+  const update = () => els.forEach((el) => { el.querySelector('.room-tag').textContent = roomLabel(el); });
+  update();
+  document.addEventListener('lang:change', update);
 }
 
 /* Desktop: 3D cover flow + fullscreen overlay */
@@ -257,9 +277,11 @@ function initBento() {
   const altOf = (el) => {
     const m = el.querySelector('img, video');
     if (!m) return '';
-    return document.documentElement.lang === 'en'
+    const alt = document.documentElement.lang === 'en'
       ? (m.dataset.altEn || m.alt || m.getAttribute('aria-label') || '')
       : (m.alt || m.getAttribute('aria-label') || '');
+    const room = roomLabel(el);
+    return room ? `${room} · ${alt}` : alt;
   };
   const visible = () => items.filter((i) => !i.hidden);
 
