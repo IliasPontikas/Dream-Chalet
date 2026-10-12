@@ -4214,9 +4214,11 @@ a.stat-item:hover {
   }
 }
 @media (max-width: 768px) {
+  /* Edge to edge by cancelling the container's side padding (100vw made
+     narrow phones a few pixels wider than the screen) */
   .avail-photo {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
   .avail-photo img {
     border-radius: 0;
@@ -4224,6 +4226,20 @@ a.stat-item:hover {
   .avail-times {
     margin: 6px 1.25rem 0;
   }
+}
+@media (max-width: 480px) {
+  .avail-photo {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+  }
+}
+
+/* Date fields have a built-in minimum width; let the grids shrink them
+   so narrow phones (360px) don't get a page wider than the screen */
+.avail-layout > *,
+.avail-dates > *,
+.date-input {
+  min-width: 0;
 }
 
 /* Map: "use two fingers" hint in the site's style */

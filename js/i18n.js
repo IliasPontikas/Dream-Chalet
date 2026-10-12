@@ -4,7 +4,10 @@ function initI18n() {
   'use strict';
 
   const btns = document.querySelectorAll('[data-lang-btn]');
-  let currentLang = localStorage.getItem('lang') || 'el';
+  /* ?lang=en|el (the address search engines list for each language)
+     wins over the visitor's saved choice */
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  let currentLang = (urlLang === 'en' || urlLang === 'el') ? urlLang : (localStorage.getItem('lang') || 'el');
   let translations = {};
 
   /* Resolve dotted path like "nav.about" to nested string in JSON */
@@ -62,6 +65,12 @@ function initI18n() {
       if (!dict) return;
       currentLang = newLang;
       localStorage.setItem('lang', newLang);
+      /* Drop ?lang= from the address so a reload keeps the new choice */
+      if (urlLang) {
+        const u = new URL(location.href);
+        u.searchParams.delete('lang');
+        history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+      }
       applyTranslations();
       if (typeof gtag === 'function') {
         gtag('event', 'language_switch', { to: newLang });

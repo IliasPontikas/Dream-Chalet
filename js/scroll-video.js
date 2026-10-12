@@ -10,8 +10,10 @@ const WALK_USE_FRAMES = window.matchMedia('(max-width: 768px), (pointer: coarse)
 (function () {
   const v = document.getElementById('scroll-vid');
   if (!v || WALK_USE_FRAMES) return;
-  v.preload = 'auto';
-  v.load();
+  /* After the page (hero film, photos) has loaded, so it doesn't compete */
+  const start = () => { v.preload = 'auto'; v.load(); };
+  if (document.readyState === 'complete') start();
+  else window.addEventListener('load', start, { once: true });
 })();
 
 function initScrollVideo() {
@@ -140,10 +142,7 @@ function initScrollVideo() {
       }, { rootMargin: '1500px 0px' });
       io.observe(section);
     }
-    /* Otherwise start once the rest of the page has settled */
-    const later = () => setTimeout(load, 2500);
-    if (document.readyState === 'complete') later();
-    else window.addEventListener('load', later, { once: true });
+    else load();
 
     ScrollTrigger.create({
       trigger: section,

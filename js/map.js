@@ -40,7 +40,19 @@ const MAP_STRINGS = {
     },
   },
 };
-const _mapLang = () => (document.documentElement.lang === 'en' ? 'en' : 'el');
+const _mapLang = () => {
+  /* The map can start before the translations are applied, so also look at
+     the address (?lang=) and the visitor's saved choice */
+  const q = new URLSearchParams(location.search).get('lang');
+  let saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  if (document.documentElement.lang === 'en' || q === 'en' || (!q && saved === 'en')) return 'en';
+  return 'el';
+};
+const MAP_GESTURE_TEXT = {
+  en: { mobile: 'Use two fingers to move or zoom the map', win: 'Use Ctrl + scroll to zoom the map', mac: 'Use ⌘ + scroll to zoom the map' },
+  el: { mobile: 'Χρησιμοποιήστε δύο δάχτυλα για μετακίνηση ή ζουμ', win: 'Ctrl + κύλιση για ζουμ στον χάρτη', mac: '⌘ + κύλιση για ζουμ στον χάρτη' },
+};
 
 function initMap() {
   'use strict';
@@ -88,14 +100,10 @@ function initMap() {
     /* Page scroll passes over the map: one finger scrolls the page,
        two fingers move/zoom the map (Ctrl/⌘ + wheel on desktop) */
     cooperativeGestures: true,
-    locale: _mapLang() === 'en' ? {
-      'CooperativeGesturesHandler.MobileHelpText': 'Use two fingers to move or zoom the map',
-      'CooperativeGesturesHandler.WindowsHelpText': 'Use Ctrl + scroll to zoom the map',
-      'CooperativeGesturesHandler.MacHelpText': 'Use ⌘ + scroll to zoom the map',
-    } : {
-      'CooperativeGesturesHandler.MobileHelpText': 'Χρησιμοποιήστε δύο δάχτυλα για μετακίνηση ή ζουμ',
-      'CooperativeGesturesHandler.WindowsHelpText': 'Ctrl + κύλιση για ζουμ στον χάρτη',
-      'CooperativeGesturesHandler.MacHelpText': '⌘ + κύλιση για ζουμ στον χάρτη',
+    locale: {
+      'CooperativeGesturesHandler.MobileHelpText': MAP_GESTURE_TEXT[_mapLang()].mobile,
+      'CooperativeGesturesHandler.WindowsHelpText': MAP_GESTURE_TEXT[_mapLang()].win,
+      'CooperativeGesturesHandler.MacHelpText': MAP_GESTURE_TEXT[_mapLang()].mac,
     },
   });
 
@@ -176,6 +184,11 @@ function initMap() {
   /* Re-render markers + toggle text when language changes */
   document.addEventListener('lang:change', () => {
     updateToggleText();
+    /* The two-finger hint is built once by the map; update its text */
+    const g = MAP_GESTURE_TEXT[_mapLang()];
+    const mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+    mapEl.querySelectorAll('.maplibregl-mobile-message').forEach((el) => { el.textContent = g.mobile; });
+    mapEl.querySelectorAll('.maplibregl-desktop-message').forEach((el) => { el.textContent = mac ? g.mac : g.win; });
     if (map.loaded()) addMarkers();
   });
 
