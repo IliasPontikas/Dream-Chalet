@@ -111,7 +111,7 @@ function initCoverflow() {
 
   /* ── Keyboard nav ────────────────────────────────────── */
   document.addEventListener('keydown', (e) => {
-    if (overlay.classList.contains('open')) return;
+    if (overlay.classList.contains('open') || document.getElementById('lightbox')?.classList.contains('open')) return;
     if (e.key === 'ArrowLeft')  goTo(current - 1, -1);
     if (e.key === 'ArrowRight') goTo(current + 1,  1);
   });
@@ -165,6 +165,13 @@ function initCoverflow() {
   /* ── Fullscreen overlay ──────────────────────────────── */
   let overlayIndex = 0;
 
+  /* Fetch the photos either side, so "next" shows at once instead of
+     the old photo lingering while the new one downloads (which made
+     people click again and skip one) */
+  const fullSrc = (i) => { const im = slides[(i + total) % total].querySelector('img'); return im?.dataset.full || im?.src || ''; };
+  const warm = (i) => { const im = new Image(); im.decoding = 'async'; im.src = fullSrc(i); };
+  const preloadAround = (i) => { warm(i + 1); warm(i - 1); };
+
   function openOverlay(idx) {
     overlayIndex = idx;
     const img0 = slides[idx].querySelector('img');
@@ -172,6 +179,7 @@ function initCoverflow() {
     const alt = slides[idx].querySelector('img')?.alt || '';
     overlayImg.src = src;
     overlayImg.alt = alt;
+    preloadAround(idx);
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -188,17 +196,25 @@ function initCoverflow() {
 
   function overlayNav(dir) {
     overlayIndex = ((overlayIndex + dir + total) % total);
-    const img = slides[overlayIndex].querySelector('img');
+    const idx = overlayIndex;
+    const img = slides[idx].querySelector('img');
     if (!img) return;
+    preloadAround(idx);
+    gsap.killTweensOf(overlayImg);
     gsap.to(overlayImg, {
       opacity: 0, x: dir * -40, duration: 0.18,
       onComplete() {
         overlayImg.src = img.dataset.full || img.src;
         overlayImg.alt = img.alt;
-        gsap.fromTo(overlayImg,
-          { opacity: 0, x: dir * 40 },
-          { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' }
-        );
+        /* Fade in once the photo is actually ready */
+        const show = () => {
+          if (idx !== overlayIndex) return;
+          gsap.fromTo(overlayImg,
+            { opacity: 0, x: dir * 40 },
+            { opacity: 1, x: 0, duration: 0.25, ease: 'power2.out' }
+          );
+        };
+        (overlayImg.decode ? overlayImg.decode() : Promise.resolve()).then(show, show);
       },
     });
   }
@@ -309,11 +325,6 @@ function initBento() {
     if (!counter) return;
     const n = visible().length;
     counter.textContent = n ? `${Math.min(current() + 1, n)} / ${n}` : '';
-    const i = current();
-    const prev = track.parentNode.querySelector('.bento-arrow-prev');
-    const next = track.parentNode.querySelector('.bento-arrow-next');
-    if (prev) prev.disabled = i <= 0;
-    if (next) next.disabled = i >= n - 1;
   }
   let raf = 0;
   track.addEventListener('scroll', () => {
@@ -321,27 +332,10 @@ function initBento() {
     raf = requestAnimationFrame(updateCounter);
   }, { passive: true });
 
-  /* ── Slider: one photo per swipe / drag / arrow / wheel ─────
+  /* ── Slider: one photo per swipe / drag / key / wheel ───────
      Native scroll-snap felt sticky on phones, and with a mouse there
      was no way to move at all. The finger (or mouse) now drags the
      strip directly and it settles on the next photo on release. */
-  const fine = window.matchMedia('(pointer: fine)').matches;
-  const wrap = document.createElement('div');
-  wrap.className = 'bento-wrap';
-  track.parentNode.insertBefore(wrap, track);
-  wrap.appendChild(track);
-  const mkArrow = (dir) => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = `bento-arrow bento-arrow-${dir}`;
-    b.setAttribute('aria-label', dir === 'prev' ? 'Previous photo' : 'Next photo');
-    b.innerHTML = `<svg class="icon" aria-hidden="true"><use href="images/icons.svg#fa-chevron-${dir === 'prev' ? 'left' : 'right'}"></use></svg>`;
-    wrap.appendChild(b);
-    return b;
-  };
-  const arrowPrev = mkArrow('prev');
-  const arrowNext = mkArrow('next');
-
   let tween = null;
   function goTo(i, instant) {
     const n = visible().length;
@@ -351,8 +345,6 @@ function initBento() {
     if (instant || reduce || typeof gsap === 'undefined') { track.scrollLeft = i * w; updateCounter(); return; }
     tween = gsap.to(track, { scrollLeft: i * w, duration: 0.5, ease: 'power3.out', onUpdate: updateCounter });
   }
-  arrowPrev.addEventListener('click', () => goTo(current() - 1));
-  arrowNext.addEventListener('click', () => goTo(current() + 1));
   track.tabIndex = 0;
   track.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current() - 1); }
@@ -395,9 +387,9 @@ function initBento() {
     setTimeout(() => { suppressClick = false; }, 50);
     const dx = (e.type === 'pointercancel' ? d.lastX ?? d.x : e.clientX) - d.x;
     const w = track.clientWidth || 1;
-    const fast = Math.abs(d.vx || 0) > 0.3 && Math.sign(d.vx) === Math.sign(dx);   /* a flick (px/ms) */
+    const fast = Math.abs(d.vx || 0) > 0.2 && Math.sign(d.vx) === Math.sign(dx);   /* a flick (px/ms) */
     let i = d.start;
-    if (Math.abs(dx) > w * 0.18 || (fast && Math.abs(dx) > 20)) i += dx < 0 ? 1 : -1;
+    if (Math.abs(dx) > w * 0.15 || (fast && Math.abs(dx) > 20)) i += dx < 0 ? 1 : -1;
     goTo(i);
   };
   track.addEventListener('pointerup', endDrag);
@@ -427,7 +419,6 @@ function initBento() {
     lastW = track.clientWidth || 1;
     goTo(idx, true);
   });
-  if (!fine) wrap.classList.add('is-touch');
 
   /* ── Room tabs ──────────────────────────────────────────── */
   function applyFilter(filter) {
@@ -475,14 +466,29 @@ function initBento() {
       node.autoplay = true;
     } else {
       node = document.createElement('img');
-      node.src = el.dataset.full;
       node.decoding = 'async';
+      /* Show the slider's photo (already loaded) at once, then the sharp one */
+      const thumb = el.querySelector('img');
+      const full = el.dataset.full;
+      if (thumb?.complete && thumb.naturalWidth) {
+        node.src = thumb.currentSrc || thumb.src;
+        const hi = new Image();
+        hi.onload = () => { if (node.isConnected) node.src = full; };
+        hi.src = full;
+      } else {
+        node.src = full;
+      }
     }
     node.alt = altOf(el);
     media.appendChild(node);
     if (node.play) node.play().catch(() => {});
     caption.textContent = altOf(el);
     count.textContent = `${index + 1} / ${list.length}`;
+    /* Fetch the photos either side so the next tap shows at once */
+    [index + 1, index - 1].forEach((j) => {
+      const n = list[(j + list.length) % list.length];
+      if (n && n.dataset.kind !== 'vid') { const im = new Image(); im.decoding = 'async'; im.src = n.dataset.full; }
+    });
     if (!reduce && typeof gsap !== 'undefined') {
       gsap.fromTo(node, { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' });
     }
