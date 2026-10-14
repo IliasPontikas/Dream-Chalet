@@ -19,7 +19,7 @@ URL = f"https://api.met.no/weatherapi/locationforecast/2.0/complete?lat={LAT}&lo
 UA = "DreamChaletTrikala/1.0 (+https://github.com/IliasPontikas/Dream-Chalet)"
 TZ = ZoneInfo("Europe/Athens")
 OUT = Path(__file__).resolve().parent.parent / "data" / "weather.json"
-DAYS = 5
+DAYS = 9  # stored; the page shows 5 from today, so a file a day old still fills the strip
 
 
 def fetch():
