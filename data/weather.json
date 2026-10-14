@@ -3,14 +3,14 @@
   "days": [
     {
       "date": "2026-10-14",
-      "max": 18,
+      "max": 13,
       "min": 10,
-      "symbol": "partlycloudy"
+      "symbol": "clearsky"
     },
     {
       "date": "2026-10-15",
       "max": 21,
-      "min": 9,
+      "min": 8,
       "symbol": "fair"
     },
     {
