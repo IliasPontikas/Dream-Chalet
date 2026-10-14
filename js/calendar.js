@@ -55,25 +55,9 @@ function initCalendar() {
   const container = document.getElementById('calendar-container');
   if (!container) return;
 
-  /* Booked nights come from data/booked.json, which a GitHub Action keeps
-     in sync with the Airbnb / Booking.com calendars (iCal) every 3 hours.
-     Each range's `end` is the check-out day, so that night stays free. */
+  /* No booked dates are shown: guests pick their dates here and confirm
+     availability on Airbnb / Booking.com or by message. */
   const BOOKED = new Set();
-  fetch('data/booked.json', { cache: 'no-cache' })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((data) => {
-      if (!data || !Array.isArray(data.ranges)) return;
-      data.ranges.forEach(({ start, end }) => {
-        const d = new Date(start + 'T12:00:00');
-        const stop = new Date(end + 'T12:00:00');
-        while (d < stop) {
-          BOOKED.add(keyFromDate(d));
-          d.setDate(d.getDate() + 1);
-        }
-      });
-      renderMonth(viewDate.getFullYear(), viewDate.getMonth());
-    })
-    .catch(() => {});
 
   let viewDate = new Date();
   viewDate.setDate(1);

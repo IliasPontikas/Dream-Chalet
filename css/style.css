@@ -3659,42 +3659,6 @@ a.stat-item:hover {
   .wx-temp strong { font-size: 1.05rem; }
 }
 
-/* Calendar: booked nights + legend */
-.calendar-day.booked {
-  background: repeating-linear-gradient(-45deg, rgba(201, 169, 110, 0.10) 0 4px, transparent 4px 8px);
-  color: var(--text-muted);
-  opacity: 0.7;
-  text-decoration: line-through;
-  cursor: not-allowed;
-}
-.cal-legend {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-  margin: -0.5rem 0 1.25rem;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-.cal-legend li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-.cal-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
-  border: 1px solid var(--border-strong);
-}
-.cal-dot.is-booked {
-  background: repeating-linear-gradient(-45deg, rgba(201, 169, 110, 0.35) 0 2px, transparent 2px 4px);
-}
-.cal-dot.is-picked {
-  background: rgba(201, 169, 110, 0.35);
-  border-color: var(--gold);
-}
-
 /* ══ All photos: editorial bento grouped by room ══════════════ */
 .ggo-head {
   position: sticky;
