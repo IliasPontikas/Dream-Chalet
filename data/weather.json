@@ -5,11 +5,11 @@
       "date": "2026-10-16",
       "max": 18,
       "min": 7,
-      "symbol": "clearsky"
+      "symbol": "fair"
     },
     {
       "date": "2026-10-17",
-      "max": 17,
+      "max": 16,
       "min": 6,
       "symbol": "clearsky"
     },
@@ -21,7 +21,7 @@
     },
     {
       "date": "2026-10-19",
-      "max": 22,
+      "max": 21,
       "min": 9,
       "symbol": "clearsky"
     },
@@ -35,25 +35,25 @@
       "date": "2026-10-21",
       "max": 19,
       "min": 9,
-      "symbol": "fair"
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-10-22",
-      "max": 17,
-      "min": 14,
-      "symbol": "lightrain"
-    },
-    {
-      "date": "2026-10-23",
       "max": 18,
       "min": 14,
       "symbol": "cloudy"
     },
     {
+      "date": "2026-10-23",
+      "max": 18,
+      "min": 15,
+      "symbol": "lightrain"
+    },
+    {
       "date": "2026-10-24",
-      "max": 19,
-      "min": 12,
-      "symbol": "cloudy"
+      "max": 16,
+      "min": 13,
+      "symbol": "rain"
     }
   ]
 }
