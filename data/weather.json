@@ -33,27 +33,27 @@
     },
     {
       "date": "2026-10-22",
-      "max": 21,
+      "max": 22,
       "min": 12,
-      "symbol": "clearsky"
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-10-23",
       "max": 21,
-      "min": 14,
-      "symbol": "partlycloudy"
+      "min": 12,
+      "symbol": "lightrainshowers"
     },
     {
       "date": "2026-10-24",
-      "max": 19,
-      "min": 11,
-      "symbol": "partlycloudy"
+      "max": 20,
+      "min": 12,
+      "symbol": "lightrain"
     },
     {
       "date": "2026-10-25",
-      "max": 19,
-      "min": 10,
-      "symbol": "fair"
+      "max": 21,
+      "min": 11,
+      "symbol": "clearsky"
     }
   ]
 }
