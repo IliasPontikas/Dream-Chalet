@@ -3,9 +3,9 @@
   "days": [
     {
       "date": "2026-10-16",
-      "max": 18,
+      "max": 12,
       "min": 7,
-      "symbol": "rainshowers"
+      "symbol": "heavyrain"
     },
     {
       "date": "2026-10-17",
