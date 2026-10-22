@@ -3,13 +3,13 @@
   "days": [
     {
       "date": "2026-10-22",
-      "max": 22,
+      "max": 18,
       "min": 12,
-      "symbol": "lightrainshowers"
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-10-23",
-      "max": 22,
+      "max": 23,
       "min": 12,
       "symbol": "partlycloudy"
     },
@@ -22,7 +22,7 @@
     {
       "date": "2026-10-25",
       "max": 18,
-      "min": 12,
+      "min": 11,
       "symbol": "cloudy"
     },
     {
