@@ -2,12 +2,6 @@
   "source": "MET Norway",
   "days": [
     {
-      "date": "2026-10-26",
-      "max": 14,
-      "min": 11,
-      "symbol": "partlycloudy"
-    },
-    {
       "date": "2026-10-27",
       "max": 17,
       "min": 8,
@@ -21,39 +15,45 @@
     },
     {
       "date": "2026-10-29",
-      "max": 20,
+      "max": 19,
       "min": 8,
       "symbol": "fair"
     },
     {
       "date": "2026-10-30",
       "max": 18,
-      "min": 10,
+      "min": 11,
       "symbol": "cloudy"
     },
     {
       "date": "2026-10-31",
       "max": 16,
       "min": 11,
-      "symbol": "partlycloudy"
+      "symbol": "cloudy"
     },
     {
       "date": "2026-11-01",
-      "max": 12,
-      "min": 9,
-      "symbol": "heavyrain"
+      "max": 15,
+      "min": 8,
+      "symbol": "rain"
     },
     {
       "date": "2026-11-02",
-      "max": 15,
-      "min": 8,
+      "max": 17,
+      "min": 7,
       "symbol": "fair"
     },
     {
       "date": "2026-11-03",
       "max": 17,
-      "min": 7,
+      "min": 6,
       "symbol": "clearsky"
+    },
+    {
+      "date": "2026-11-04",
+      "max": 14,
+      "min": 4,
+      "symbol": "partlycloudy"
     }
   ]
 }
