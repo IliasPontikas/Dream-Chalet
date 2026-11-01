@@ -3,9 +3,9 @@
   "days": [
     {
       "date": "2026-11-01",
-      "max": 15,
-      "min": 11,
-      "symbol": "heavyrain"
+      "max": 13,
+      "min": 12,
+      "symbol": "lightrain"
     },
     {
       "date": "2026-11-02",
@@ -16,14 +16,14 @@
     {
       "date": "2026-11-03",
       "max": 16,
-      "min": 8,
+      "min": 9,
       "symbol": "rainshowers"
     },
     {
       "date": "2026-11-04",
       "max": 19,
       "min": 8,
-      "symbol": "fair"
+      "symbol": "clearsky"
     },
     {
       "date": "2026-11-05",
