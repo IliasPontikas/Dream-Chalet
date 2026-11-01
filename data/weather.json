@@ -3,9 +3,9 @@
   "days": [
     {
       "date": "2026-11-01",
-      "max": 16,
+      "max": 15,
       "min": 11,
-      "symbol": "lightrainshowers"
+      "symbol": "heavyrain"
     },
     {
       "date": "2026-11-02",
@@ -21,21 +21,21 @@
     },
     {
       "date": "2026-11-04",
-      "max": 18,
-      "min": 7,
+      "max": 19,
+      "min": 8,
       "symbol": "fair"
     },
     {
       "date": "2026-11-05",
-      "max": 15,
+      "max": 13,
       "min": 11,
-      "symbol": "cloudy"
+      "symbol": "lightrain"
     },
     {
       "date": "2026-11-06",
       "max": 15,
-      "min": 6,
-      "symbol": "cloudy"
+      "min": 7,
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-07",
@@ -45,15 +45,15 @@
     },
     {
       "date": "2026-11-08",
-      "max": 15,
-      "min": 6,
-      "symbol": "partlycloudy"
+      "max": 14,
+      "min": 4,
+      "symbol": "clearsky"
     },
     {
       "date": "2026-11-09",
       "max": 13,
-      "min": 5,
-      "symbol": "cloudy"
+      "min": 4,
+      "symbol": "heavyrainshowers"
     }
   ]
 }
