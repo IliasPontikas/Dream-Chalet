@@ -9,7 +9,7 @@
     },
     {
       "date": "2026-11-07",
-      "max": 14,
+      "max": 15,
       "min": 5,
       "symbol": "partlycloudy"
     },
@@ -17,7 +17,7 @@
       "date": "2026-11-08",
       "max": 13,
       "min": 9,
-      "symbol": "lightrain"
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-09",
