@@ -4,56 +4,56 @@
     {
       "date": "2026-11-07",
       "max": 15,
-      "min": 6,
+      "min": 7,
       "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-08",
-      "max": 13,
-      "min": 9,
-      "symbol": "cloudy"
+      "max": 14,
+      "min": 8,
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-09",
       "max": 10,
       "min": 8,
-      "symbol": "lightrain"
+      "symbol": "rain"
     },
     {
       "date": "2026-11-10",
-      "max": 14,
-      "min": 7,
+      "max": 16,
+      "min": 8,
       "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-11",
-      "max": 14,
-      "min": 7,
-      "symbol": "rainshowers"
+      "max": 18,
+      "min": 11,
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-12",
-      "max": 19,
-      "min": 10,
+      "max": 21,
+      "min": 11,
       "symbol": "fair"
     },
     {
       "date": "2026-11-13",
-      "max": 20,
-      "min": 11,
+      "max": 19,
+      "min": 10,
       "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-14",
-      "max": 19,
+      "max": 20,
       "min": 12,
-      "symbol": "cloudy"
+      "symbol": "partlycloudy"
     },
     {
       "date": "2026-11-15",
-      "max": 18,
-      "min": 11,
-      "symbol": "partlycloudy"
+      "max": 21,
+      "min": 12,
+      "symbol": "fair"
     }
   ]
 }
